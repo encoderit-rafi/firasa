@@ -43,8 +43,8 @@ export default function Logo({ ...props }: Props) {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(20 20) rotate(90) scale(20)"
         >
-          <stop stop-color="#CF7B0C" />
-          <stop offset="1" stop-color="#F7CF5C" />
+          <stop stopColor="#CF7B0C" />
+          <stop offset="1" stopColor="#F7CF5C" />
         </radialGradient>
         <image
           id="image0_61935_924"
