@@ -40,12 +40,6 @@ const data = [
     B: 90,
     fullMark: 150,
   },
-  {
-    subject: "History",
-    A: 65,
-    B: 85,
-    fullMark: 150,
-  },
 ];
 
 // #endregion
@@ -62,7 +56,13 @@ export default function SimpleRadarChart() {
           bottom: 0,
         }}
       >
-        <PolarGrid />
+        <defs>
+          <linearGradient id="radarGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#FF77D7" stopOpacity={1} />
+            <stop offset="100%" stopColor="#FA6C12" stopOpacity={1} />
+          </linearGradient>
+        </defs>
+        <PolarGrid gridType="circle" strokeOpacity={0.3} />
         <PolarAngleAxis
           dataKey="subject"
           tick={{ fill: "white", fontSize: 10 }}
@@ -71,8 +71,7 @@ export default function SimpleRadarChart() {
         <Radar
           name="Mike"
           dataKey="A"
-          stroke="#8884d8"
-          fill="#8884d8"
+          fill="url(#radarGradient)"
           fillOpacity={0.6}
         />
       </RadarChart>
