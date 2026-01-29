@@ -207,7 +207,7 @@ export default function Home() {
                     key={index}
                   >
                     <Card className="border-none size-82.75 shadow-none bg-[url('https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-no-repeat p-0 overflow-hidden">
-                      <CardContent className="size-full backdrop-blur-[2px] bg-black/40 p-0">
+                      <CardContent className="size-full backdrop-blur-[2px] bg-black/40 p-0 flex flex-col">
                         <CardHeader className="flex items-center gap-2 justify-end p-3">
                           <Button variant={"icon"} size={"icon-lg"}>
                             <CameraPlus />
@@ -217,7 +217,7 @@ export default function Home() {
                           </Button>
                         </CardHeader>
                         <div className=" flex flex-col items-center gap-3">
-                          <Avatar className="size-20 bg-gradient p-1">
+                          <Avatar className="size-15 bg-gradient p-0.5">
                             <AvatarImage
                               src="https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                               alt="@shadcn"
@@ -226,17 +226,19 @@ export default function Home() {
                           </Avatar>
                           <div className="flex flex-col items-center">
                             <span className="title-medium-emphasized bg-gradient bg-clip-text text-transparent">
-                              Barack Obama
+                              Visionary pathfinder
                             </span>
                             <span className="body-small-primary text-white">
                               Steve Jobs
                             </span>
                           </div>
                         </div>
-                        <Separator className="h-1 to-white/30 mt-2.5" />
-                        <div className="w-full h-50">
+                        <Separator className="h-1 to-white/30 mt-3" />
+                        {/* 
+                        <div className="w-full">
                           <SimpleRadarChart />
-                        </div>
+                        </div> */}
+                        <SimpleRadarChart />
                       </CardContent>
                     </Card>
                   </CarouselItem>
