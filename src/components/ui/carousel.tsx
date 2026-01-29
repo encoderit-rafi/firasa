@@ -28,6 +28,7 @@ type CarouselContextProps = {
   scrollNext: () => void;
   canScrollPrev: boolean;
   canScrollNext: boolean;
+  scrollProgress: number;
 } & CarouselProps;
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null);
@@ -60,6 +61,13 @@ function Carousel({
   );
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
   const [canScrollNext, setCanScrollNext] = React.useState(false);
+  const [scrollProgress, setScrollProgress] = React.useState(0);
+
+  const onScroll = React.useCallback((api: CarouselApi) => {
+    if (!api) return;
+    const progress = Math.max(0, Math.min(1, api.scrollProgress()));
+    setScrollProgress(progress * 100);
+  }, []);
 
   const onSelect = React.useCallback((api: CarouselApi) => {
     if (!api) return;
@@ -96,13 +104,18 @@ function Carousel({
   React.useEffect(() => {
     if (!api) return;
     onSelect(api);
+    onScroll(api);
     api.on("reInit", onSelect);
     api.on("select", onSelect);
+    api.on("scroll", () => onScroll(api));
+    api.on("reInit", () => onScroll(api));
 
     return () => {
       api?.off("select", onSelect);
+      api?.off("scroll", () => onScroll(api));
+      api?.off("reInit", () => onScroll(api));
     };
-  }, [api, onSelect]);
+  }, [api, onSelect, onScroll]);
 
   return (
     <CarouselContext.Provider
@@ -116,6 +129,7 @@ function Carousel({
         scrollNext,
         canScrollPrev,
         canScrollNext,
+        scrollProgress,
       }}
     >
       <div
@@ -238,6 +252,31 @@ function CarouselNext({
   );
 }
 
+function CarouselIndicator({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
+  const { scrollProgress } = useCarousel();
+
+  return (
+    <div
+      data-slot="carousel-indicator"
+      className={cn(
+        "bg-secondary relative h-1 w-full overflow-hidden rounded-full",
+        className,
+      )}
+      {...props}
+    >
+      <div
+        className="bg-outline h-full w-full flex-1 transition-all ease-in-out duration-200 rounded-full"
+        style={{
+          transform: `translateX(-${100 - (scrollProgress || 0)}%)`,
+        }}
+      />
+    </div>
+  );
+}
+
 export {
   type CarouselApi,
   Carousel,
@@ -245,4 +284,5 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  CarouselIndicator,
 };

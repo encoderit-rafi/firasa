@@ -28,6 +28,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
+  CarouselIndicator,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
@@ -257,8 +258,11 @@ export default function Home() {
                 ))}
               </CarouselContent>
             </div>
-            <CarouselPrevious />
-            <CarouselNext />
+            <CarouselIndicator className="my-4" />
+            <div className="flex-center gap-2">
+              <CarouselPrevious />
+              <CarouselNext />
+            </div>
           </Carousel>
         </div>
       </section>
