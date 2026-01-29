@@ -1,4 +1,6 @@
 export { ArrowOutward } from "./ArrowOutward";
+export { ArrowForward } from "./ArrowForward";
+export { ArrowDropdown } from "./ArrowDropdown";
 export { VideoCam } from "./VideoCam";
 export { Language } from "./Language";
 export { Model } from "./Model";

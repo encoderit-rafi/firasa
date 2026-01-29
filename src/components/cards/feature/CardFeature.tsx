@@ -1,5 +1,5 @@
 import { Model } from "@/assets/icons";
-import Separator from "@/components/ui/Separator";
+import Separator from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { ComponentProps, ReactNode } from "react";
 export type PropsCardFeature = {
@@ -33,7 +33,7 @@ export default function CardFeature({
             "flex-row-reverse": isReverse,
           })}
         >
-          <h5 className="title-small-emphasized text-error-40">{title}</h5>
+          <h5 className="title-small-emphasized text-error">{title}</h5>
           <Separator
             className={cn("", {
               "rotate-180": isReverse,

@@ -257,20 +257,22 @@ function CarouselIndicator({
   ...props
 }: React.ComponentProps<"div">) {
   const { scrollProgress } = useCarousel();
+  const thumbSize = 30; // 30% width thumb
 
   return (
     <div
       data-slot="carousel-indicator"
       className={cn(
-        "bg-secondary relative h-1 w-full overflow-hidden rounded-full",
+        "bg-secondary/10 relative h-1 w-full overflow-hidden rounded-full",
         className,
       )}
       {...props}
     >
       <div
-        className="bg-outline h-full w-full flex-1 transition-all ease-in-out duration-200 rounded-full"
+        className="bg-outline absolute h-full rounded-full"
         style={{
-          transform: `translateX(-${100 - (scrollProgress || 0)}%)`,
+          width: `${thumbSize}%`,
+          left: `${(scrollProgress / 100) * (100 - thumbSize)}%`,
         }}
       />
     </div>
