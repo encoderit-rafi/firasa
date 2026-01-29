@@ -26,8 +26,8 @@ export function Video({ className, ...props }: Props) {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(13.3333 14.6667) rotate(90) scale(14.6667 13.3333)"
         >
-          <stop stop-color="#CF7B0C" />
-          <stop offset="1" stop-color="#F7CF5C" />
+          <stop stopColor="#CF7B0C" />
+          <stop offset="1" stopColor="#F7CF5C" />
         </radialGradient>
       </defs>
     </svg>

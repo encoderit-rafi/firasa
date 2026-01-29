@@ -169,15 +169,27 @@ export default function Home() {
       <section className="container-sm mx-auto py-24  space-y-6">
         <p className="body-large-primary text-border text-center">Trusted by</p>
         <div className="flex-between gap-6">
-          <img src="/blink.png" alt="Blink logo" className="h-10 w-auto" />
-          <img src="/ai.png" alt="AI logo" className="h-10 w-auto" />
-          <img src="/forbes.png" alt="Forbes logo" className="h-10 w-auto" />
+          <img
+            src="/blink.png"
+            alt="Blink logo"
+            className="h-10 w-auto grayscale"
+          />
+          <img src="/ai.png" alt="AI logo" className="h-10 w-auto grayscale" />
+          <img
+            src="/forbes.png"
+            alt="Forbes logo"
+            className="h-10 w-auto grayscale"
+          />
           <img
             src="/seedtable.png"
             alt="Seedtable logo"
-            className="h-10 w-auto"
+            className="h-10 w-auto grayscale"
           />
-          <img src="/spa.png" alt="SPA logo" className="h-10 w-auto" />
+          <img
+            src="/spa.png"
+            alt="SPA logo"
+            className="h-10 w-auto grayscale"
+          />
         </div>
       </section>
       <section className="py-24 space-y-6 bg-error-container/16">

@@ -26,8 +26,8 @@ export function Guard({ className, ...props }: Props) {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(12 13.3333) rotate(90) scale(13.3333 12)"
         >
-          <stop stop-color="#CF7B0C" />
-          <stop offset="1" stop-color="#F7CF5C" />
+          <stop stopColor="#CF7B0C" />
+          <stop offset="1" stopColor="#F7CF5C" />
         </radialGradient>
       </defs>
     </svg>
