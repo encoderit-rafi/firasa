@@ -68,7 +68,7 @@ export default function Solutions() {
           ))}
         </div>
 
-        <Card className="bg-on-surface p-3 container-sm mx-auto rounded-md m-1">
+        <Card className="bg-on-surface p-3 container-sm  rounded-md mx-1 lg:mx-auto">
           <div className="flex flex-col lg:justify-center lg:flex-row gap-4">
             <AvatarGroup className="">
               <Avatar>

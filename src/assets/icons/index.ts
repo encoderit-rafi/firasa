@@ -11,3 +11,8 @@ export { CameraPlus } from "./CameraPlus";
 export { One } from "./One";
 export { Two } from "./Two";
 export { Three } from "./Three";
+export { Youtube } from "./Youtube";
+export { Linkedin } from "./Linkedin";
+export { X } from "./X";
+export { Instagram } from "./Instagram";
+export { Facebook } from "./Facebook";

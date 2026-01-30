@@ -46,6 +46,8 @@
   --color-inverse-on-surface: var(--custom-neutral-95);
   --color-inverse-primary: var(--primary-80);
 
+  --color-custom-neutral-70: var(--custom-neutral-70);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-roboto: var(--font-roboto);
