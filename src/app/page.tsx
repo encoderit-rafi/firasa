@@ -10,11 +10,10 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import Separator from "@/components/ui/separator";
-import SimpleRadarChart from "@/components/charts/SimpleRadarChart";
 import Navbar from "@/components/ui/navbar";
 import Hero from "@/components/blocks/hero";
 import FeaturedIn from "@/components/blocks/featured-in";
+import Discover from "@/components/blocks/discover";
 import HowItWorks from "@/components/blocks/ how-it-works";
 export default function Home() {
   return (
@@ -22,6 +21,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <FeaturedIn />
+      <Discover />
       <HowItWorks />
     </div>
   );

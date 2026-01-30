@@ -8,3 +8,6 @@ export { Guard } from "./Guard";
 export { Video } from "./Video";
 export { Share } from "./Share";
 export { CameraPlus } from "./CameraPlus";
+export { One } from "./One";
+export { Two } from "./Two";
+export { Three } from "./Three";
