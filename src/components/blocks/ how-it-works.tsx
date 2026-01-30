@@ -9,6 +9,7 @@ import { Section, SectionLabel, SectionTitle } from "../ui/section";
 import Separator from "../ui/separator";
 import { SVGProps } from "react";
 import Image from "next/image";
+import { Button } from "../ui/button";
 const steps: {
   icon: React.FC<SVGProps<SVGSVGElement>>;
   title: string;
@@ -65,6 +66,7 @@ export default function HowItWorks() {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
+        <Button variant="error">Try now</Button>
       </div>
       <div className="">
         <Image src="/selfie.png" alt="selfie" width={544} height={596} />

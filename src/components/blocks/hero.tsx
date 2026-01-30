@@ -23,24 +23,26 @@ const features: PropsCardFeature[] = [
 ];
 export default function Hero() {
   return (
-    <section className="container-sm mx-auto pt-16 space-y-6">
-      <h1 className="text-center display-large-emphasized">
-        Scan your face.
-        <br /> Reveal your personality.
-      </h1>
-      <p className="body-large-primary text-center">
-        Upload or record a 5-second video and let AI analyze your personality in
-        seconds.
-      </p>
-      <div className="flex-center gap-6">
-        <Button>
-          <VideoCam />
-          Upload or record video
-        </Button>
-        <Button variant={"outline"}>
-          <ArrowForward />
-          Discover sample result
-        </Button>
+    <section className="pt-16">
+      <div className="container-sm space-y-6 mx-auto">
+        <h1 className="text-center display-large-emphasized">
+          Scan your face.
+          <br /> Reveal your personality.
+        </h1>
+        <p className="body-large-primary text-center">
+          Upload or record a 5-second video and let AI analyze your personality
+          in seconds.
+        </p>
+        <div className="flex-center gap-6">
+          <Button>
+            <VideoCam />
+            Upload or record video
+          </Button>
+          <Button variant={"outline"}>
+            <ArrowForward />
+            Discover sample result
+          </Button>
+        </div>
       </div>
       <div className="bg-[url('/union.png')] bg-center bg-no-repeat">
         <div className="container-sm mx-auto flex-center">

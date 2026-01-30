@@ -20,6 +20,7 @@ const buttonVariants = cva(
         ghost: "",
         link: "text-primary underline-offset-4 hover:underline",
         icon: "bg-error-container rounded-full",
+        error: "bg-[#EC221F] text-white rounded-full",
       },
       size: {
         default: "px-4 py-2 has-[>svg]:px-4",
