@@ -16,3 +16,5 @@ export { Linkedin } from "./Linkedin";
 export { X } from "./X";
 export { Instagram } from "./Instagram";
 export { Facebook } from "./Facebook";
+export { Check } from "./Check";
+export { Close } from "./Close";
