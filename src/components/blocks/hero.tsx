@@ -25,7 +25,7 @@ export default function Hero() {
   return (
     <section className="pt-16">
       <div className="container-sm space-y-6 mx-auto">
-        <h1 className="text-center display-large-emphasized">
+        <h1>
           Scan your face.
           <br /> Reveal your personality.
         </h1>

@@ -18,3 +18,6 @@ export { Instagram } from "./Instagram";
 export { Facebook } from "./Facebook";
 export { Check } from "./Check";
 export { Close } from "./Close";
+export { FacebookFilled } from "./FacebookFilled";
+export { Google } from "./Google";
+export { Apple } from "./Apple";

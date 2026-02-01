@@ -198,6 +198,9 @@
   body {
     @apply antialiased bg-white font-roboto;
   }
+  h1 {
+    @apply text-center font-medium text-6xl leading-tight tracking-normal text-on-surface;
+  }
   .flex-center {
     @apply flex items-center justify-center;
   }
