@@ -1,3 +1,4 @@
+import { Upload } from "./Upload";
 export { ArrowOutward } from "./ArrowOutward";
 export { ArrowForward } from "./ArrowForward";
 export { ArrowDropdown } from "./ArrowDropdown";
@@ -21,3 +22,4 @@ export { Close } from "./Close";
 export { FacebookFilled } from "./FacebookFilled";
 export { Google } from "./Google";
 export { Apple } from "./Apple";
+export { Upload } from "./Upload";
