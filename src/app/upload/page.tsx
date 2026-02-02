@@ -68,7 +68,7 @@ const steps: {
       "Get your big 5 score and insights into your personality traits. We use advanced machine learning algorithms to analyze your facial movements and provide insights into your personality traits.",
   },
 ];
-export default function UploadVideoPage() {
+export default function UploadPage() {
   return (
     <div>
       <h1>Upload or record video</h1>
