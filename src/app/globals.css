@@ -6,6 +6,8 @@
 @theme {
   --font-roboto: var(--font-roboto);
 
+  --color-warning: var(--warning);
+
   --color-primary: var(--primary-40);
   --color-on-primary: var(--primary-99);
   --color-primary-container: var(--primary-90);
@@ -87,6 +89,8 @@
 }
 
 :root {
+  --warning: #e8b931;
+
   --primary-10: #21005d;
   --primary-20: #381e72;
   --primary-30: #4f378b;
