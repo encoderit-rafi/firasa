@@ -1,3 +1,4 @@
+import { Share } from "@/assets/icons";
 import CircularProgress from "@/components/charts/CircularProgress";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -7,7 +8,7 @@ export default function ScorePage() {
   return (
     <div>
       <h2>Big 5 personality score</h2>
-      <Card className="container-md mx-auto bg-error-container/15 border-none shadow-none">
+      <Card className="relative container-md mx-auto bg-error-container/15 border-none shadow-none">
         <CardContent className="flex-center divide-x divide-error-container">
           <div className="w-1/2 px-2.5 flex-center gap-2">
             <Image
@@ -28,12 +29,33 @@ export default function ScorePage() {
               </p>
             </div>
           </div>
-          <div className="w-1/2 px-2.5 flex-center gap-3">
-            <div className="size-24">
-              <CircularProgress />
+          <div className="w-1/2 px-2.5 flex-between gap-3">
+            <div className="flex flex-col items-center gap-1">
+              <CircularProgress label="moderate" progress={52} />
+              <p className="label-small-primary">Openness</p>
+            </div>
+            <div className="flex flex-col items-center gap-1">
+              <CircularProgress label="moderate" progress={60} />
+              <p className="label-small-primary">Conscientiousness</p>
+            </div>
+            <div className="flex flex-col items-center gap-1">
+              <CircularProgress label="low" progress={41} />
+              <p className="label-small-primary">Extraversion</p>
+            </div>
+            <div className="flex flex-col items-center gap-1">
+              <CircularProgress label="high" progress={70} />
+              <p className="label-small-primary">Agreeableness</p>
+            </div>
+            <div className="flex flex-col items-center gap-1">
+              <CircularProgress label="high" progress={70} />
+              <p className="label-small-primary">Neuroticism</p>
             </div>
           </div>
         </CardContent>
+        <div className="absolute top-0 right-0 bg-error-container flex items-center gap-2 -rotate-90 py-1 px-5 w-fit rounded-b-lg translate-y-12 translate-x-15 ">
+          <Share />
+          <span className="label-small-primary">Share</span>
+        </div>
       </Card>
     </div>
   );
