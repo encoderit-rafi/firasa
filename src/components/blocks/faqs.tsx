@@ -6,10 +6,6 @@ import {
   AccordionTrigger,
 } from "../ui/accordion";
 import { Section, SectionLabel, SectionTitle } from "../ui/section";
-import Separator from "../ui/separator";
-import { SVGProps } from "react";
-import Image from "next/image";
-import { Button } from "../ui/button";
 import { ChevronDownIcon } from "lucide-react";
 const steps: {
   // icon: React.FC<SVGProps<SVGSVGElement>>;

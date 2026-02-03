@@ -6,7 +6,7 @@ import {
   AccordionTrigger,
 } from "../ui/accordion";
 import { Section, SectionLabel, SectionTitle } from "../ui/section";
-import Separator from "../ui/separator";
+import Separator from "@/components/ui/separator";
 import { SVGProps } from "react";
 import Image from "next/image";
 import { Button } from "../ui/button";
