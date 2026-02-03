@@ -7,7 +7,7 @@ import Faqs from "@/components/blocks/faqs";
 import Footer from "@/components/blocks/footer";
 // import Poster from "@/components/blocks/poster";
 import Pricing from "@/components/blocks/pricing";
-import Poster from "@/components/blocks/Poster";
+import Poster from "@/components/blocks/poster";
 export default function Home() {
   return (
     <div className="">
