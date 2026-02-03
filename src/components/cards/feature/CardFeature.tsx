@@ -1,5 +1,4 @@
-import { Model } from "@/assets/icons";
-// import Separator from "@/components/ui/Separator";
+import Separator from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { ComponentProps, ReactNode } from "react";
 export type PropsCardFeature = {
@@ -34,16 +33,19 @@ export default function CardFeature({
           })}
         >
           <h5 className="title-small-emphasized text-error">{title}</h5>
-          {/* <Separator
+          <Separator
             className={cn("", {
               "rotate-180": isReverse,
             })}
-          /> */}
+          />
         </div>
         <p
-          className={cn("body-small-primary text-neutral-80", {
-            "text-right": isReverse,
-          })}
+          className={cn(
+            "body-small-primary text-left text-on-surface-variant",
+            {
+              "text-right": isReverse,
+            },
+          )}
         >
           {description}
         </p>

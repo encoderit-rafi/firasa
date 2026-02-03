@@ -23,30 +23,28 @@ const features: PropsCardFeature[] = [
 ];
 export default function Hero() {
   return (
-    <section className="pt-16 bg-amber-300 w-full">
-      <h1>
-        Scan your face.
-        <br /> Reveal your personality.
-      </h1>
-      {/* <div className="container-sm space-y-6 mx-auto">
-        <p className="body-large-primary text-center">
+    <section className="pt-16">
+      <div className="space-y-6 px-2">
+        <h1>
+          Scan your face.
+          <br /> Reveal your personality.
+        </h1>
+        <p>
           Upload or record a 5-second video and let AI analyze your personality
           in seconds.
         </p>
-        <div className="flex-center gap-6">
-          <Button>
+        <div className="flex items-center justify-center gap-2 lg:flex-row flex-col lg:gap-6">
+          <Button className="w-61.25">
             <VideoCam />
             Upload or record video
           </Button>
-          <Button variant={"outline"}>
+          <Button variant={"outline"} className="w-61.25">
             <ArrowForward />
             Discover sample result
           </Button>
         </div>
-      </div>
-      <div className="bg-[url('/union.png')] bg-center bg-no-repeat">
-        <div className="container-sm mx-auto flex-center">
-          <div className="relative w-fit ">
+        <div className="bg-[url('/union.png')] bg-center bg-no-repeat overflow-x-hidden">
+          <div className="relative w-fit mx-auto">
             <CardFeature
               data={features[0]}
               className={"absolute top-50 -left-20"}
@@ -69,7 +67,7 @@ export default function Hero() {
             />
           </div>
         </div>
-      </div> */}
+      </div>
     </section>
   );
 }
