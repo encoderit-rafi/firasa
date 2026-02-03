@@ -33,7 +33,7 @@ export default function Hero() {
           Upload or record a 5-second video and let AI analyze your personality
           in seconds.
         </p>
-        <div className="flex items-center justify-center gap-2 lg:flex-row flex-col lg:gap-6">
+        <div className="flex items-center justify-center gap-2 md:flex-row flex-col md:gap-6">
           <Button className="w-61.25">
             <VideoCam />
             Upload or record video

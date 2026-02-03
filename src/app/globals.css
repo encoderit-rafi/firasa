@@ -207,10 +207,16 @@
     @apply font-medium text-3xl leading-tight tracking-normal mx-auto text-center md:text-6xl text-on-surface;
   }
   h2 {
-    @apply text-center font-medium text-6xl leading-tight tracking-normal text-on-surface;
+    @apply text-center font-medium text-4xl leading-tight tracking-normal  text-on-surface;
   }
   p {
     @apply text-center font-normal text-base leading-6 tracking-wide text-on-surface;
+  }
+  .section {
+    @apply py-24 space-y-6;
+  }
+  .section-label {
+    @apply text-center text-error font-bold text-sm leading-5 tracking-tight;
   }
   .flex-center {
     @apply flex items-center justify-center;

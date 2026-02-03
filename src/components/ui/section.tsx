@@ -5,7 +5,7 @@ type SectionTitleProps = ComponentProps<"h2">;
 type SectionLabelProps = ComponentProps<"span">;
 function Section({ children, className, ...props }: SectionProps) {
   return (
-    <section {...props} className={cn("py-24", className)}>
+    <section {...props} className={cn("py-24 space-y-6", className)}>
       {children}
     </section>
   );

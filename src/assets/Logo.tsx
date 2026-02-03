@@ -59,7 +59,7 @@ function LogoIcon({ ...props }: Props) {
 }
 
 function LogoText() {
-  return <span className="headline-medium-emphasized">Firase</span>;
+  return <span className="headline-medium-emphasized">Firasa</span>;
 }
 function Logo() {
   return (
