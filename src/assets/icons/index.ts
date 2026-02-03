@@ -24,3 +24,4 @@ export { Google } from "./Google";
 export { Apple } from "./Apple";
 export { Upload } from "./Upload";
 export { Quote } from "./Quote";
+export { Triangle } from "./Triangle";
