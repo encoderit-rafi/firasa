@@ -1,0 +1,21 @@
+import { cn } from "@/lib/utils";
+import { ComponentProps } from "react";
+
+type Props = ComponentProps<"svg"> & {
+  className?: string;
+};
+export function Menu({ className, ...props }: Props) {
+  return (
+    <svg
+      width="18"
+      height="12"
+      viewBox="0 0 18 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("", className)}
+      {...props}
+    >
+      <path d="M0 12V10H18V12H0ZM0 7V5H18V7H0ZM0 2V0H18V2H0Z" fill="#1D1B20" />
+    </svg>
+  );
+}

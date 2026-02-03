@@ -23,12 +23,12 @@ const features: PropsCardFeature[] = [
 ];
 export default function Hero() {
   return (
-    <section className="pt-16">
-      <div className="container-sm space-y-6 mx-auto">
-        <h1>
-          Scan your face.
-          <br /> Reveal your personality.
-        </h1>
+    <section className="pt-16 bg-amber-300 w-full">
+      <h1>
+        Scan your face.
+        <br /> Reveal your personality.
+      </h1>
+      {/* <div className="container-sm space-y-6 mx-auto">
         <p className="body-large-primary text-center">
           Upload or record a 5-second video and let AI analyze your personality
           in seconds.
@@ -69,7 +69,7 @@ export default function Hero() {
             />
           </div>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }

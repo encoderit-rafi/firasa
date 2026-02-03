@@ -10,15 +10,15 @@ import Pricing from "@/components/blocks/pricing";
 import Poster from "@/components/blocks/poster";
 export default function Home() {
   return (
-    <div className="">
-      <Hero />
-      <FeaturedIn />
-      <Discover />
-      <HowItWorks />
-      <Solutions />
-      <Pricing />
-      <Faqs />
-      <Poster />
-    </div>
+    <Hero />
+    // <div className="bg-amber-500">
+    //   <FeaturedIn />
+    //   <Discover />
+    //   <HowItWorks />
+    //   <Solutions />
+    //   <Pricing />
+    //   <Faqs />
+    //   <Poster />
+    // </div>
   );
 }
