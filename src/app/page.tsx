@@ -5,8 +5,9 @@ import HowItWorks from "@/components/blocks/ how-it-works";
 import Solutions from "@/components/blocks/solutions";
 import Faqs from "@/components/blocks/faqs";
 import Footer from "@/components/blocks/footer";
-import Poster from "@/components/blocks/poster";
+// import Poster from "@/components/blocks/poster";
 import Pricing from "@/components/blocks/pricing";
+import Poster from "@/components/blocks/Poster";
 export default function Home() {
   return (
     <div className="">

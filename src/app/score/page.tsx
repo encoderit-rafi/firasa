@@ -19,7 +19,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import Separator from "@/components/ui/separator";
+// import Separator from "@/components/ui/separator";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChevronDownIcon } from "lucide-react";
 import Image from "next/image";
@@ -257,7 +257,7 @@ export default function ScorePage() {
                           </span>
                         </div>
                       </div>
-                      <Separator className="h-1 to-white/30 mt-3" />
+                      {/* <Separator className="h-1 to-white/30 mt-3" /> */}
 
                       <SimpleRadarChart />
                     </CardContent>

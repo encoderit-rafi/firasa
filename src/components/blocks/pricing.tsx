@@ -116,8 +116,8 @@ export default function Pricing() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {invoices.map((invoice) => (
-                <TableRow key={invoice.paymentMethod} className="">
+              {invoices.map((invoice, index) => (
+                <TableRow key={index} className="">
                   <TableCell>{invoice.paymentMethod}</TableCell>
                   <TableCell className="text-center">
                     {invoice.totalAmount}
@@ -149,56 +149,6 @@ export default function Pricing() {
               </TableRow>
             </TableFooter>
           </Table>
-          {/* <Table>
-            <TableHeader>
-              <TableRow>
-                 <TableHead className="bg-red-50 rounded-tl-lg"></TableHead> 
-                <TableHead className="text-center bg-red-50 rounded-tr-lg py-4">
-                  <p className="text-center headline-small-emphasized">Pro</p>
-                  <p className="text-center text-outline title-small-emphasized">
-                    Made for sharing.
-                    <br />
-                    Built for self-growth.
-                  </p>
-                  <p className="text-transparent bg-clip-text bg-gradient display-large-emphasized">
-                    $79
-                  </p>
-                  <TabsList>
-                    <TabsTrigger value="overview">Overview</TabsTrigger>
-                    <TabsTrigger value="analytics">Analytics</TabsTrigger>
-                  </TabsList>
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {invoices.map((invoice) => (
-                <TableRow key={invoice.paymentMethod} className="">
-                  <TableCell className="bg-red-50">
-                    {invoice.paymentMethod}
-                  </TableCell>
-
-                  <TableCell className="text-center bg-red-50">
-                    <TabsContent value="overview">
-                      {invoice.totalAmount}
-                    </TabsContent>
-                    <TabsContent value="analytics">
-                      {invoice.totalAmount}aa
-                    </TabsContent>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-            <TableFooter className="border-none bg-transparent">
-              <TableRow>
-                <TableCell
-                  colSpan={2}
-                  className={"text-center bg-red-50 rounded-b-lg"}
-                >
-                  <Button variant="black">Unlock pro report</Button>
-                </TableCell>
-              </TableRow>
-            </TableFooter>
-          </Table> */}
         </Tabs>
       </div>
     </Section>
