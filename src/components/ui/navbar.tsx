@@ -1,4 +1,4 @@
-import Logo from "@/assets/Logo";
+import { Logo } from "@/assets/Logo";
 import React, { ReactNode } from "react";
 import { Button } from "./button";
 import {
@@ -36,10 +36,7 @@ export default function Navbar() {
     <div className="border-b border-secondary/10">
       <header className="container-lg px-3 md:px-6 xl:px-12 py-3 flex-between">
         <div className="flex-center gap-12">
-          <div className="flex-center gap-3">
-            <Logo />
-            <span className="headline-medium-emphasized">Firase</span>
-          </div>
+          <Logo />
           <nav>
             <ul className="flex-center gap-12">
               {nav_items.map((item) => (

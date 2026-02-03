@@ -1,11 +1,11 @@
 import { ComponentProps } from "react";
 
 type Props = ComponentProps<"svg">;
-export default function Logo({ ...props }: Props) {
+function LogoIcon({ ...props }: Props) {
   return (
     <svg
-      width="40"
-      height="40"
+      width="36"
+      height="36"
       viewBox="0 0 40 40"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -57,3 +57,16 @@ export default function Logo({ ...props }: Props) {
     </svg>
   );
 }
+
+function LogoText() {
+  return <span className="headline-medium-emphasized">Firase</span>;
+}
+function Logo() {
+  return (
+    <div className="flex-center gap-3">
+      <LogoIcon />
+      <LogoText />
+    </div>
+  );
+}
+export { Logo, LogoIcon, LogoText };
