@@ -14,11 +14,9 @@ export default function Home() {
       <Hero />
       <FeaturedIn />
       <Discover />
+      <HowItWorks />
     </>
     // <div className="bg-amber-500">
-    //   <FeaturedIn />
-    //   <Discover />
-    //   <HowItWorks />
     //   <Solutions />
     //   <Pricing />
     //   <Faqs />

@@ -7,6 +7,7 @@
   --font-roboto: var(--font-roboto);
 
   --color-warning: var(--warning);
+  --color-danger: var(--danger);
 
   --color-primary: var(--primary-40);
   --color-on-primary: var(--primary-99);
@@ -90,6 +91,7 @@
 
 :root {
   --warning: #e8b931;
+  --danger: #ec221f;
 
   --primary-10: #21005d;
   --primary-20: #381e72;
@@ -209,11 +211,14 @@
   h2 {
     @apply text-center font-medium text-4xl leading-tight tracking-normal  text-on-surface;
   }
+  h3 {
+    @apply text-center font-medium text-xl leading-8 tracking-normal text-on-surface;
+  }
   p {
     @apply text-center font-normal text-base leading-6 tracking-wide text-on-surface;
   }
   .section {
-    @apply py-24 space-y-6;
+    @apply py-8 lg:py-24 space-y-6;
   }
   .section-label {
     @apply text-center text-error font-bold text-sm leading-5 tracking-tight;

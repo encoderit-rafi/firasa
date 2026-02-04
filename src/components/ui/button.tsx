@@ -22,11 +22,12 @@ const buttonVariants = cva(
         ghost: "hover:shadow-none hover:underline",
         link: "text-primary underline-offset-4 hover:underline",
         icon: "bg-error-container rounded-full",
-        error: "bg-[#EC221F] text-white rounded-full",
+        error: "text-white title-medium-primary rounded-full bg-danger",
         black: "bg-on-surface text-white label-large-primary rounded-full",
       },
       size: {
         default: "px-4 py-2 has-[>svg]:px-4",
+        error: "py-4 px-6 has-[>svg]:px-4",
         sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
         md: "p-6 has-[>svg]:px-4",
 

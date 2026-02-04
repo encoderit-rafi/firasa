@@ -2,7 +2,7 @@ import React from "react";
 
 export default function FeaturedIn() {
   return (
-    <section className="section overflow-x-hidden space-y-8 lg:space-y-16">
+    <section className="section overflow-x-hidden space-y-8 lg:space-y-24">
       <p className="text-outline">Firasa is featured in</p>
       <div className="flex-center gap-24">
         <img

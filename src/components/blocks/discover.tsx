@@ -1,6 +1,6 @@
 import { ArrowForward, CameraPlus, Share } from "@/assets/icons";
 import { Button } from "../ui/button";
-import { Card, CardContent, CardHeader } from "../ui/card";
+import { Card, CardAvatar, CardContent, CardHeader } from "../ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -9,9 +9,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
-import { Avatar, AvatarImage } from "../ui/avatar";
 import Separator from "../ui/separator";
 import SimpleRadarChart from "../charts/SimpleRadarChart";
+import Image from "next/image";
 
 export default function Discover() {
   return (
@@ -33,30 +33,18 @@ export default function Discover() {
                 <Card className="border-none size-83 shadow-none bg-[url('https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-no-repeat p-0 overflow-hidden">
                   <CardContent className="size-full backdrop-blur-[2px] bg-black/40 p-0 flex flex-col">
                     <CardHeader className="flex items-center gap-2 justify-end p-3">
-                      <Button variant={"icon"} size={"icon-lg"}>
-                        <CameraPlus />
+                      <Button variant={"icon"} className="size-10">
+                        <CameraPlus className="size-5" />
                       </Button>
-                      <Button variant={"icon"} size={"icon-lg"}>
-                        <Share />
+                      <Button variant={"icon"} className="size-10">
+                        <Share className="size-5" />
                       </Button>
                     </CardHeader>
-                    <div className=" flex flex-col items-center gap-3">
-                      <Avatar className="size-15 bg-gradient p-0.5">
-                        <AvatarImage
-                          src="https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                          alt="@shadcn"
-                          className="size-full rounded-full object-cover object-center"
-                        />
-                      </Avatar>
-                      <div className="flex flex-col items-center">
-                        <span className="title-medium-emphasized bg-gradient bg-clip-text text-transparent">
-                          Visionary pathfinder
-                        </span>
-                        <span className="body-small-primary text-white">
-                          Steve Jobs
-                        </span>
-                      </div>
-                    </div>
+                    <CardAvatar
+                      src="https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      name="Steve Jobs"
+                      role="Visionary pathfinder"
+                    />
                     <Separator className="h-1 to-white/30 mt-3" />
 
                     <SimpleRadarChart />
@@ -66,15 +54,15 @@ export default function Discover() {
             ))}
           </CarouselContent>
         </div>
-        <div className="px-2 my-4">
+        <div className="px-2 my-8">
           <CarouselIndicator />
         </div>
         <div className="flex-center gap-2">
           <CarouselPrevious />
           <CarouselNext />
         </div>
-        <div className="flex-center">
-          <Button variant={"outline"} className="mt-6">
+        <div className="flex-center mt-8 lg:mt-16">
+          <Button variant={"outline"} className="max-w-61.75 w-full">
             <ArrowForward />
             Discover sample result
           </Button>

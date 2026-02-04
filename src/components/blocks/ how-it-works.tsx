@@ -36,41 +36,49 @@ const steps: {
 ];
 export default function HowItWorks() {
   return (
-    <Section className="space-y-6 px-3 flex flex-col lg:flex-row items-start gap-10 container-md mx-auto">
-      <div className="w-full lg:w-1/2">
-        <div className="">
-          <SectionLabel>How it works</SectionLabel>
-          <SectionTitle className="mt-6">3 steps, ultra simple.</SectionTitle>
+    <section className="section">
+      <div className="px-4 w-fit mx-auto">
+        <div className="container-md flex flex-col lg:flex-row items-start gap-10">
+          <div className="w-full lg:w-1/2">
+            <span className="section-label">How it works</span>
+            <h2 className="text-left mt-8 mb-16">3 steps, ultra simple.</h2>
+            <Separator />
+            <Accordion
+              type="single"
+              collapsible
+              defaultValue={steps[0].title}
+              className="mt-4 w-full"
+            >
+              {steps.map((step) => (
+                <AccordionItem key={step.title} value={step.title}>
+                  <AccordionTrigger className="">
+                    <step.icon />
+                    {step.title}
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <p className="pl-10 text-left">{step.content}</p>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+              <AccordionItem value="item-1">
+                <AccordionTrigger></AccordionTrigger>
+                <AccordionContent>
+                  <p>
+                    Yes, it is free to use. You can use it as much as you want.
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+            {/* <Button variant="error">Try now</Button> */}
+            <Button variant={"error"} size={"error"}>
+              Try now
+            </Button>
+          </div>
+          <div className="">
+            <Image src="/selfie.png" alt="selfie" width={544} height={596} />
+          </div>
         </div>
-        <Separator className="mt-16 mb-3" />
-        <Accordion type="single" collapsible defaultValue={steps[0].title}>
-          {steps.map((step) => (
-            <AccordionItem key={step.title} value={step.title}>
-              <AccordionTrigger>
-                <div className="flex items-center gap-4 headline-small-emphasized ">
-                  <step.icon />
-                  {step.title}
-                </div>
-              </AccordionTrigger>
-              <AccordionContent>
-                <p className="body-large-primary text-on-surface pl-10">
-                  {step.content}
-                </p>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-          <AccordionItem value="item-1">
-            <AccordionTrigger></AccordionTrigger>
-            <AccordionContent>
-              <p>Yes, it is free to use. You can use it as much as you want.</p>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-        <Button variant="error">Try now</Button>
       </div>
-      <div className="">
-        <Image src="/selfie.png" alt="selfie" width={544} height={596} />
-      </div>
-    </Section>
+    </section>
   );
 }
