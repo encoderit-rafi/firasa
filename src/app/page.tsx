@@ -15,9 +15,9 @@ export default function Home() {
       <FeaturedIn />
       <Discover />
       <HowItWorks />
+      <Solutions />
     </>
     // <div className="bg-amber-500">
-    //   <Solutions />
     //   <Pricing />
     //   <Faqs />
     //   <Poster />

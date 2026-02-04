@@ -214,14 +214,23 @@
   h3 {
     @apply text-center font-medium text-xl leading-8 tracking-normal text-on-surface;
   }
+  h6 {
+    @apply text-center font-bold text-sm leading-5 tracking-tight;
+  }
   p {
     @apply text-center font-normal text-base leading-6 tracking-wide text-on-surface;
   }
   .section {
-    @apply py-8 lg:py-24 space-y-6;
+    @apply py-8 lg:py-24;
   }
   .section-label {
-    @apply text-center text-error font-bold text-sm leading-5 tracking-tight;
+    @apply text-error;
+  }
+  .section-title {
+    @apply mt-8 mb-4;
+  }
+  .section-description {
+    @apply mb-8 lg:mb-16;
   }
   .flex-center {
     @apply flex items-center justify-center;

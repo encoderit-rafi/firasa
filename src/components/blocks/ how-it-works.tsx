@@ -40,7 +40,7 @@ export default function HowItWorks() {
       <div className="px-4 w-fit mx-auto">
         <div className="container-md flex flex-col lg:flex-row items-start gap-10">
           <div className="w-full lg:w-1/2">
-            <span className="section-label">How it works</span>
+            <h6 className="section-label text-left">How it works</h6>
             <h2 className="text-left mt-8 mb-16">3 steps, ultra simple.</h2>
             <Separator />
             <Accordion
@@ -51,7 +51,7 @@ export default function HowItWorks() {
             >
               {steps.map((step) => (
                 <AccordionItem key={step.title} value={step.title}>
-                  <AccordionTrigger className="">
+                  <AccordionTrigger>
                     <step.icon />
                     {step.title}
                   </AccordionTrigger>
@@ -74,7 +74,7 @@ export default function HowItWorks() {
               Try now
             </Button>
           </div>
-          <div className="">
+          <div className="flex-center  w-full lg:w-1/2">
             <Image src="/selfie.png" alt="selfie" width={544} height={596} />
           </div>
         </div>

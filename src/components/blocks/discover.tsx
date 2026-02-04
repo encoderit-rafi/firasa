@@ -15,10 +15,12 @@ import Image from "next/image";
 
 export default function Discover() {
   return (
-    <section className="section space-y-6 bg-error-container/16">
-      <h5 className="section-label">Discover</h5>
-      <h2> What if we scanned the famous?</h2>
-      <p>Here are some example of shared AI face personality score.</p>
+    <section className="section bg-error-container/16">
+      <h6 className="section-label">Discover</h6>
+      <h2 className="section-title"> What if we scanned the famous?</h2>
+      <p className="section-description">
+        Here are some example of shared AI face personality score.
+      </p>
 
       <Carousel
         className="max-w-276 mx-auto px-2"
