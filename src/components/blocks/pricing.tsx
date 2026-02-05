@@ -72,7 +72,7 @@ export default function Pricing() {
         ready.
       </p>
       <div className="px-4">
-        <div className="container-md mt-8 lg:mt-16 space-y-6 mx-auto">
+        <div className="container-sm mt-8 lg:mt-16 space-y-6 mx-auto">
           <Tabs defaultValue="overview">
             <Table className="max-md:hidden">
               <TableHeader>

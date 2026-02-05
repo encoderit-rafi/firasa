@@ -245,8 +245,11 @@
   .bg-gradient {
     @apply bg-linear-to-l from-[#FF77D7] to-[#FA6C12];
   }
+  .container-xs {
+    @apply mx-auto max-w-109;
+  }
   .container-sm {
-    @apply mx-auto max-w-186;
+    @apply mx-auto max-w-185.5;
   }
   .container-md {
     @apply mx-auto max-w-280;
@@ -257,7 +260,9 @@
   .gap-lg {
     @apply gap-12;
   }
-
+  .box-black {
+    @apply bg-on-surface rounded-xl;
+  }
   /** PRIMARY **/
 
   /* PRIMARY DISPLAY  */

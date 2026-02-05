@@ -51,37 +51,32 @@ const steps: {
 ];
 export default function Faqs() {
   return (
-    <Section className=" container-md mx-auto">
-      <SectionTitle className="text-center">FAQs</SectionTitle>
-      <Accordion
-        type="single"
-        collapsible
-        defaultValue={steps[0].title}
-        className="container-sm mx-auto "
-      >
-        {steps.map((step) => (
-          <AccordionItem key={step.title} value={step.title}>
-            <AccordionTrigger className="group">
-              <div className="flex items-center justify-between w-full gap-4 headline-small-emphasized ">
-                {/* <step.icon /> */}
-                {step.title}
-                <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
-              </div>
-            </AccordionTrigger>
-            <AccordionContent>
-              <p className="body-large-primary text-on-surface ">
-                {step.content}
-              </p>
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-        <AccordionItem value="item-1">
-          <AccordionTrigger></AccordionTrigger>
-          <AccordionContent>
-            <p>Yes, it is free to use. You can use it as much as you want.</p>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
-    </Section>
+    <section className="section">
+      <h2 className="section-title">FAQs</h2>
+      <div className="container-sm mx-auto mt-8">
+        <Accordion type="single" collapsible defaultValue={steps[0].title}>
+          {steps.map((step) => (
+            <AccordionItem
+              key={step.title}
+              value={step.title}
+              className="border-y border-y-tertiary-container"
+            >
+              <AccordionTrigger className="group py-6">
+                <div className="flex items-center text-base justify-between w-full gap-4 headline-small-emphasized ">
+                  {/* <step.icon /> */}
+                  {step.title}
+                  <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <p className="body-large-primary text-on-surface ">
+                  {step.content}
+                </p>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
+    </section>
   );
 }

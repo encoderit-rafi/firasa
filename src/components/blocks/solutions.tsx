@@ -55,7 +55,7 @@ export default function Solutions() {
             </Card>
           ))}
         </div>
-        <div className="bg-on-surface p-8 w-fit mt-8 lg:mt-16 rounded-xl mx-auto flex flex-col lg:justify-center lg:flex-row gap-6">
+        <div className="box-black p-8 w-fit mt-8 lg:mt-16 mx-auto flex flex-col lg:justify-center lg:flex-row gap-6">
           {/* <div className="flex flex-col lg:justify-center lg:flex-row gap-6">
           </div> */}
           <AvatarGroup>

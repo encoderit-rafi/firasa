@@ -39,19 +39,17 @@ const solutions = [
 ];
 export default function Poster() {
   return (
-    <Section className="bg-error-container/16">
-      <Card className="bg-on-surface relative  min-h-79 container-sm rounded-md mx-1 lg:mx-auto p-0 px-3 overflow-hidden">
+    <section className="section bg-error-container/16 px-4">
+      <div className="box-black flex relative  min-h-79 container-sm mx-auto max-lg:pt-16 px-8 overflow-hidden">
         <Image
           src="/union-2.png"
           alt="Union 2"
           fill
-          // width={514}
-          // height={514}
           className="absolute top-0 right-0 bottom-0 translate-y-1/3"
         />
 
-        <div className=" flex items-center justify-between">
-          <div className="space-y-3 ">
+        <div className="flex-1 flex flex-col lg:flex-row items-center justify-between gap-6">
+          <div className="space-y-6">
             <AvatarGroup className="flex items-center p-1 pr-2 rounded-full bg-on-surface-variant w-fit">
               <Avatar size="sm">
                 <AvatarImage
@@ -78,19 +76,20 @@ export default function Poster() {
                 Trusted by 12,000+ users
               </span>
             </AvatarGroup>
-            <h3 className="display-small-emphasized text-white">
-              Ready to discover your <br />
-              personality?
-            </h3>
-            <p className="text-outline-variant body-large-primary">
-              Free Big 5 score • No credit card
-            </p>
+            <div className="space-y-3">
+              <h2 className="text-left text-white">
+                Ready to discover your personality?
+              </h2>
+              <p className="text-outline-variant text-left">
+                Free Big 5 score • No credit card
+              </p>
+            </div>
             <Button>
               <VideoCam />
               Upload or record video
             </Button>
           </div>
-          <div className="">
+          <div className="h-full">
             <Image
               src="/marge-image.png"
               alt="Poster"
@@ -100,7 +99,7 @@ export default function Poster() {
             />
           </div>
         </div>
-      </Card>
-    </Section>
+      </div>
+    </section>
   );
 }
