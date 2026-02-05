@@ -87,15 +87,13 @@ const footers = [
 
 export default function Footer() {
   return (
-    <Section className="bg-on-surface">
+    <section className="section px-4 bg-on-surface">
       <div className="container-md mx-auto p-0 px-3 pb-7">
         {/* Desktop View */}
-        <footer className="hidden md:grid grid-cols-4 gap-4 border-b border-outline pb-7">
+        <footer className="hidden md:flex items-start justify-between gap-4 border-b border-outline pb-7">
           {footers.map((footer) => (
             <div key={footer.title} className="space-y-8">
-              <h6 className="text-white body-large-emphasized">
-                {footer.title}
-              </h6>
+              <h6 className="text-white text-left">{footer.title}</h6>
               <ul className="space-y-3 text-custom-neutral-70 body-medium-primary">
                 {footer.links.map((link) => (
                   <li key={link.label}>{link.label}</li>
@@ -136,15 +134,15 @@ export default function Footer() {
             ))}
           </Accordion>
         </div>
-        <div className="flex flex-col lg:flex-row items-center justify-between text-custom-neutral-70 py-2 body-medium-primary">
-          <ul className="flex flex-col lg:flex-row items-center gap-6">
+        <div className="flex flex-col md:flex-row md:items-center gap-8 mt-10 justify-between text-custom-neutral-70 py-2 body-medium-primary">
+          <ul className="flex flex-col md:flex-row md:items-center gap-6">
             <li>Terms of service</li>
             <li>Consent & Disclaimer</li>
             <li>Cookie policy</li>
             <li>User rights</li>
             <li>Privacy policy</li>
           </ul>
-          <ul className="flex items-center gap-3">
+          <ul className="flex items-center justify-between  gap-3">
             <li>
               <Youtube className="size-4" />
             </li>
@@ -163,6 +161,6 @@ export default function Footer() {
           </ul>
         </div>
       </div>
-    </Section>
+    </section>
   );
 }

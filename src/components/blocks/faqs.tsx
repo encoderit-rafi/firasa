@@ -51,7 +51,7 @@ const steps: {
 ];
 export default function Faqs() {
   return (
-    <section className="section">
+    <section className="section px-4">
       <h2 className="section-title">FAQs</h2>
       <div className="container-sm mx-auto mt-8">
         <Accordion type="single" collapsible defaultValue={steps[0].title}>
@@ -61,7 +61,7 @@ export default function Faqs() {
               value={step.title}
               className="border-y border-y-tertiary-container"
             >
-              <AccordionTrigger className="group py-6">
+              <AccordionTrigger className="group py-6 data-[state=open]:pb-2">
                 <div className="flex items-center text-base justify-between w-full gap-4 headline-small-emphasized ">
                   {/* <step.icon /> */}
                   {step.title}
@@ -69,9 +69,7 @@ export default function Faqs() {
                 </div>
               </AccordionTrigger>
               <AccordionContent>
-                <p className="body-large-primary text-on-surface ">
-                  {step.content}
-                </p>
+                <p className="text-left">{step.content}</p>
               </AccordionContent>
             </AccordionItem>
           ))}
