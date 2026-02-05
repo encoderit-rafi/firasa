@@ -64,10 +64,17 @@ export default function Navbar() {
             Sign in
           </Link>
           <Translation />
-          <Button>
+          <Link
+            href="/upload"
+            className={cn(
+              buttonVariants({
+                variant: "default",
+              }),
+            )}
+          >
             <VideoCam />
             Upload or record video
-          </Button>
+          </Link>
         </div>
         <Button variant={"ghost"} className="xl:hidden">
           <Menu />

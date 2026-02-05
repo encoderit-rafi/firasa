@@ -1,19 +1,6 @@
 import { VideoCam } from "@/assets/icons";
 import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
-import {
-  Section,
-  SectionDescription,
-  SectionLabel,
-  SectionTitle,
-} from "../ui/section";
 import Image from "next/image";
 const solutions = [
   {

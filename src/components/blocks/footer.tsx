@@ -5,7 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
-import { Section } from "../ui/section";
+
 import { ChevronDown } from "lucide-react";
 
 const footers = [

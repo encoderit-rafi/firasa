@@ -1,8 +1,10 @@
 import React from "react";
-import { Button } from "../ui/button";
+import { Button, buttonVariants } from "../ui/button";
 import { ArrowForward, Guard, Model, Video, VideoCam } from "@/assets/icons";
 import CardFeature, { PropsCardFeature } from "../cards/feature/CardFeature";
 import Image from "next/image";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 const features: PropsCardFeature[] = [
   {
     title: "Big 5 model",
@@ -34,10 +36,17 @@ export default function Hero() {
           in seconds.
         </p>
         <div className="flex items-center justify-center gap-2 md:flex-row flex-col md:gap-6">
-          <Button className="w-61.25">
+          <Link
+            href="/upload"
+            className={cn(
+              buttonVariants({
+                variant: "default",
+              }),
+            )}
+          >
             <VideoCam />
             Upload or record video
-          </Button>
+          </Link>
           <Button variant={"outline"} className="w-61.25">
             <ArrowForward />
             Discover sample result
