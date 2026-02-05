@@ -214,6 +214,9 @@
   h3 {
     @apply text-center font-medium text-xl leading-8 tracking-normal text-on-surface;
   }
+  h4 {
+    @apply text-center font-medium text-base leading-6 tracking-wide text-on-surface;
+  }
   h6 {
     @apply text-center font-bold text-sm leading-5 tracking-tight;
   }

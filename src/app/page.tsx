@@ -16,9 +16,10 @@ export default function Home() {
       <Discover />
       <HowItWorks />
       <Solutions />
+      <Pricing />
     </>
     // <div className="bg-amber-500">
-    //   <Pricing />
+    // <Pricing />
     //   <Faqs />
     //   <Poster />
     // </div>

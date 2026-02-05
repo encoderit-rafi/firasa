@@ -70,37 +70,34 @@ import { Check, Close } from "@/assets/icons";
 
 export default function Pricing() {
   return (
-    <Section className="space-y-6">
-      <div className="text-center">
-        <SectionLabel>Pricing</SectionLabel>
-        <SectionTitle className="mt-6">
-          Start free. Go deeper with pro.{" "}
-        </SectionTitle>
-        <SectionDescription>
-          Get your Big 5 score for free — unlock deeper insights when you’re
-          ready.{" "}
-        </SectionDescription>
-      </div>
-      <div className="container-md space-y-6 mx-auto">
+    <section className="section">
+      <h6 className="section-label">Pricing</h6>
+      <h2 className="section-title">Start free. Go deeper with pro.</h2>
+      <p className="section-description">
+        Get your Big 5 score for free — unlock deeper insights when you’re
+        ready.
+      </p>
+
+      <div className="container-md mt-8 lg:mt-16 space-y-6 mx-auto">
         <Tabs defaultValue="overview">
-          <Table>
+          <Table className="">
             <TableHeader>
               <TableRow>
-                <TableHead className="hidden lg:block"></TableHead>
-                <TableHead className="text-center lg:text-end py-4">
-                  <p className="text-center headline-small-emphasized">Free</p>
-                  <p className="text-center text-outline title-small-emphasized">
+                <TableHead></TableHead>
+                <TableHead className="text-center border rounded-t-lg lg:text-end py-4">
+                  <p className="headline-small-emphasized">Free</p>
+                  <p className="title-small-emphasized text-outline">
                     No sign-up.
                     <br />
                     No credit card.
                   </p>
-                  <p className="text-tertiary-container mt-8 text-center display-large-emphasized">
+                  <p className="mt-8 text-center display-large-emphasized text-error-container">
                     $0
                   </p>
                 </TableHead>
-                <TableHead className="text-center bg-red-50 rounded-t-lg py-4 max-lg:hidden">
-                  <p className="text-center headline-small-emphasized">Pro</p>
-                  <p className="text-center text-outline title-small-emphasized">
+                <TableHead className="text-center  bg-red-50 rounded-t-lg py-4 max-lg:hidden">
+                  <p className="headline-small-emphasized">Pro</p>
+                  <p className="text-outline title-small-emphasized">
                     Made for sharing.
                     <br />
                     Built for self-growth.
@@ -119,15 +116,22 @@ export default function Pricing() {
               {invoices.map((invoice, index) => (
                 <TableRow key={index} className="">
                   <TableCell>{invoice.paymentMethod}</TableCell>
-                  <TableCell className="text-center">
-                    {invoice.totalAmount}
+                  <TableCell className="">
+                    {/* {invoice.totalAmount} */}
+                    <div
+                      className={cn(
+                        "size-6 rounded-full flex items-center justify-center bg-gradient",
+                      )}
+                    >
+                      <Check className="text-white" />
+                    </div>
                   </TableCell>
                   <TableCell className="hidden lg:block text-center bg-red-50">
                     <TabsContent value="overview">
                       {invoice.totalAmount}
                     </TabsContent>
                     <TabsContent value="analytics">
-                      {invoice.totalAmount}aa
+                      {invoice.totalAmount}
                     </TabsContent>
                   </TableCell>
                 </TableRow>
@@ -151,6 +155,6 @@ export default function Pricing() {
           </Table>
         </Tabs>
       </div>
-    </Section>
+    </section>
   );
 }
