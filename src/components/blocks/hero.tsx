@@ -39,6 +39,7 @@ export default function Hero() {
           <Link
             href="/upload"
             className={cn(
+              "w-61.25",
               buttonVariants({
                 variant: "default",
               }),
