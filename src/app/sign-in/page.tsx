@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/input-group";
 import TextSeparator from "@/components/ui/text-separator";
 import { EyeOffIcon } from "lucide-react";
+import Link from "next/link";
 export default function SignInPage() {
   return (
     <section className="section space-y-8 md:space-y-16">
@@ -54,7 +55,12 @@ export default function SignInPage() {
           <div className="flex-center gap-1 md:gap-3 body-large-primary text-outline mt-16">
             <div className="">Forgot Password?</div>
             <div className="w-px h-4 bg-error-container"></div>
-            <div className="">Don’t have account? Sign up</div>
+            <div className="">
+              Don’t have account?{" "}
+              <Link href="/sign-up" className="hover:underline">
+                Sign up
+              </Link>
+            </div>
           </div>
         </div>
       </div>
