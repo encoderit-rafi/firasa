@@ -26,3 +26,6 @@ export { Quote } from "./Quote";
 export { Triangle } from "./Triangle";
 export { Language } from "./Language";
 export { Menu } from "./Menu";
+export { PDF } from "./PDF";
+export { DOCX } from "./DOCX";
+export { JSON } from "./JSON";

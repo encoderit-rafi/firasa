@@ -90,7 +90,7 @@ export default function Footer() {
     <section className="section px-4 bg-on-surface">
       <div className="container-md mx-auto p-0 px-3 pb-7">
         {/* Desktop View */}
-        <footer className="hidden md:flex items-start justify-between gap-4 border-b border-outline pb-7">
+        <footer className="hidden lg:flex items-start justify-between gap-4 border-b border-outline pb-7">
           {footers.map((footer) => (
             <div key={footer.title} className="space-y-8">
               <h6 className="text-white text-left">{footer.title}</h6>
@@ -104,7 +104,7 @@ export default function Footer() {
         </footer>
 
         {/* Mobile View */}
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <Accordion
             type="single"
             collapsible
@@ -134,15 +134,15 @@ export default function Footer() {
             ))}
           </Accordion>
         </div>
-        <div className="flex flex-col md:flex-row md:items-center gap-8 mt-10 justify-between text-custom-neutral-70 py-2 body-medium-primary">
-          <ul className="flex flex-col md:flex-row md:items-center gap-6">
+        <div className="flex flex-col lg:flex-row lg:items-center gap-8 mt-10 justify-between text-custom-neutral-70 py-2 body-medium-primary">
+          <ul className="flex flex-col lg:flex-row lg:items-center gap-6">
             <li>Terms of service</li>
             <li>Consent & Disclaimer</li>
             <li>Cookie policy</li>
             <li>User rights</li>
             <li>Privacy policy</li>
           </ul>
-          <ul className="flex items-center justify-between  gap-3">
+          <ul className="flex items-center justify-between  gap-3 max-w-md">
             <li>
               <Youtube className="size-4" />
             </li>

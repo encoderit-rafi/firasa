@@ -1,4 +1,12 @@
-import { ArrowForward, CameraPlus, Quote, Share } from "@/assets/icons";
+import {
+  ArrowForward,
+  CameraPlus,
+  PDF,
+  DOCX,
+  JSON,
+  Quote,
+  Share,
+} from "@/assets/icons";
 import CircularProgress from "@/components/charts/CircularProgress";
 import SimpleRadarChart from "@/components/charts/SimpleRadarChart";
 import {
@@ -67,58 +75,57 @@ const steps: {
 ];
 export default function ScorePage() {
   return (
-    <div>
-      <h2>Big 5 personality score</h2>
-      <Card className="relative container-md mx-auto bg-error-container/15 border-none shadow-none">
-        <CardContent className="flex-center divide-x divide-error-container">
-          <div className="w-1/2 px-2.5 flex-center gap-2">
-            <Image
-              src="https://images.unsplash.com/photo-1558898479-33c0057a5d12?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="Score"
-              width={90}
-              height={90}
-              className="rounded-md size-24 object-cover object-center"
-            />
-            <div className="flex-col flex gap-2 text-on-surface">
-              <h3 className="headline-small-emphasized">
-                Visionary pathfinder
-              </h3>
-              <p className="body-medium-primary">
-                Your facial cues suggest a natural openness and curiosity, often
-                seen in individuals who enjoy exploring new ideas and connecting
-                with others.
-              </p>
-            </div>
-          </div>
-          <div className="w-1/2 px-2.5 flex-between gap-3">
-            <div className="flex flex-col items-center gap-1">
-              <CircularProgress label="moderate" progress={52} />
-              <p className="label-small-primary">Openness</p>
-            </div>
-            <div className="flex flex-col items-center gap-1">
-              <CircularProgress label="moderate" progress={60} />
-              <p className="label-small-primary">Conscientiousness</p>
-            </div>
-            <div className="flex flex-col items-center gap-1">
-              <CircularProgress label="low" progress={41} />
-              <p className="label-small-primary">Extraversion</p>
-            </div>
-            <div className="flex flex-col items-center gap-1">
-              <CircularProgress label="high" progress={70} />
-              <p className="label-small-primary">Agreeableness</p>
-            </div>
-            <div className="flex flex-col items-center gap-1">
-              <CircularProgress label="high" progress={70} />
-              <p className="label-small-primary">Neuroticism</p>
-            </div>
-          </div>
-        </CardContent>
-        <div className="absolute top-0 right-0 bg-error-container flex items-center gap-2 -rotate-90 py-1 px-5 w-fit rounded-b-lg translate-y-12 translate-x-15 ">
-          <Share />
+    <section className="section px-4 space-y-16">
+      <h2 className="section-title">Big 5 personality score</h2>
+      <div className="relative p-8 flex flex-col lg:flex-row items-center justify-center max-lg:divide-y lg:divide-x divide-error-container py-8 container-md mx-auto bg-error-container/16 rounded-2xl rounded-tr-none border-none shadow-none">
+        <button className="absolute cursor-pointer top-0 left-full bg-error-container flex items-center justify-center gap-2 h-8 w-24 rounded-b-lg -translate-x-8 translate-y-8 -rotate-90">
+          <Share className="size-3" />
           <span className="label-small-primary">Share</span>
+        </button>
+        <div className="flex-1 flex flex-col md:flex-row  shrink-0 max-lg:pb-8 lg:pr-8 flex-center gap-8">
+          <Image
+            src="https://images.unsplash.com/photo-1558898479-33c0057a5d12?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Score"
+            width={90}
+            height={90}
+            className="rounded-md size-72 md:size-24 object-cover object-center"
+          />
+          <div className="flex-col flex gap-2 text-on-surface">
+            <h3 className="text-left headline-small-emphasized">
+              Visionary pathfinder
+            </h3>
+            <p className="text-left body-medium-primary">
+              Your facial cues suggest a natural openness and curiosity, often
+              seen in individuals who enjoy exploring new ideas and connecting
+              with others.
+            </p>
+          </div>
         </div>
-      </Card>
-      <Card className="relative container-md mx-auto bg-error-container/15 border-none shadow-none my-10">
+        <div className="flex-1 shrink-0 w-full max-lg:pt-8 lg:pl-8 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-3">
+          <div className="flex flex-col items-center gap-1">
+            <CircularProgress label="moderate" progress={52} />
+            <p className="label-small-primary">Openness</p>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <CircularProgress label="moderate" progress={60} />
+            <p className="label-small-primary">Conscientiousness</p>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <CircularProgress label="low" progress={41} />
+            <p className="label-small-primary">Extraversion</p>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <CircularProgress label="high" progress={70} />
+            <p className="label-small-primary">Agreeableness</p>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <CircularProgress label="high" progress={70} />
+            <p className="label-small-primary">Neuroticism</p>
+          </div>
+        </div>
+      </div>
+
+      {/* <Card className="relative container-md mx-auto bg-error-container/15 border-none shadow-none my-10">
         <CardContent className="flex-center divide-x divide-error-container">
           <div className="w-1/2 h-96 px-2.5 flex-center gap-2">
             <SimpleRadarChart />
@@ -133,7 +140,6 @@ export default function ScorePage() {
               <AccordionItem key="item-1" value="item-1">
                 <AccordionTrigger className="group">
                   <div className="flex items-center justify-between w-full gap-4 headline-small-emphasized ">
-                    {/* <step.icon /> */}
                     <div className="flex-center gap-2">
                       <span className="body-large-emphasized text-warning">
                         78%
@@ -181,7 +187,6 @@ export default function ScorePage() {
                 <AccordionItem key={step.title} value={step.title}>
                   <AccordionTrigger className="group">
                     <div className="flex items-center justify-between w-full gap-4 headline-small-emphasized ">
-                      {/* <step.icon /> */}
                       {step.title}
                       <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
                     </div>
@@ -193,14 +198,7 @@ export default function ScorePage() {
                   </AccordionContent>
                 </AccordionItem>
               ))}
-              {/* <AccordionItem value="item-1">
-                <AccordionTrigger></AccordionTrigger>
-                <AccordionContent>
-                  <p>
-                    Yes, it is free to use. You can use it as much as you want.
-                  </p>
-                </AccordionContent>
-              </AccordionItem> */}
+             
             </Accordion>
           </div>
         </CardContent>
@@ -208,8 +206,8 @@ export default function ScorePage() {
           <Share />
           <span className="label-small-primary">Share</span>
         </div>
-      </Card>
-      <Card className="relative container-md mx-auto bg-error-container/15 border-none shadow-none">
+      </Card> */}
+      {/* <Card className="relative container-md mx-auto bg-error-container/15 border-none shadow-none">
         <Tabs defaultValue="overview" className="mx-auto">
           <TabsList>
             <TabsTrigger value="overview">Worth sharing</TabsTrigger>
@@ -257,7 +255,6 @@ export default function ScorePage() {
                           </span>
                         </div>
                       </div>
-                      {/* <Separator className="h-1 to-white/30 mt-3" /> */}
 
                       <SimpleRadarChart />
                     </CardContent>
@@ -276,8 +273,8 @@ export default function ScorePage() {
           <Share />
           <span className="label-small-primary">Share</span>
         </div>
-      </Card>
-      <h2>Your unique personality story</h2>
+      </Card> */}
+      {/* <h2>Your unique personality story</h2>
       <Card className="relative container-md mx-auto bg-error-container/15 border-none shadow-none my-10">
         <CardContent className="flex-center divide-x divide-error-container">
           <div className="w-1/2 h-96 px-2.5 flex items-start gap-2">
@@ -301,7 +298,6 @@ export default function ScorePage() {
                 discovery.
               </p>
             </div>
-            {/* <SimpleRadarChart /> */}
           </div>
           <div className="w-1/2 px-2.5">
             <div className="flex items-start gap-4">
@@ -338,7 +334,122 @@ export default function ScorePage() {
           <Share />
           <span className="label-small-primary">Share</span>
         </div>
-      </Card>
-    </div>
+      </Card> */}
+      <h2 className="section-title">Summary & exports</h2>
+      <div className="container-md mx-auto flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div className="size-full  p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container">
+          <div className="flex-1 py-6 flex-center">
+            <PDF />
+          </div>
+          <div className="flex-1 py-6 flex-center">
+            <Button variant={"outline"}>Download full PDF report</Button>
+          </div>
+        </div>
+        <div className="size-full  p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container">
+          <div className="flex-1 py-6 flex-center">
+            <JSON />
+          </div>
+          <div className="flex-1 py-6 flex-center">
+            <Button variant={"outline"}>Export JSON Data</Button>
+          </div>
+        </div>{" "}
+        <div className="size-full  p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container">
+          <div className="flex-1 py-6 flex-center ">
+            <DOCX />
+          </div>
+          <div className="flex-1 py-6 flex-center ">
+            <Button variant={"outline"}>Export to Docx</Button>
+          </div>
+        </div>
+      </div>
+      <h2 className="section-title">Level-up add-ons</h2>
+      <div className="container-md mx-auto flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div className="size-full p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container">
+          <div className="flex-1 py-6 flex-center flex-col">
+            <h4 className="text-outline">Discover Personalities Around You</h4>
+            <p className="display-large-emphasized mt-4 mb-2">
+              $79
+              <span className="title-small-emphasized font-semibold text-outline">
+                /one‑time
+              </span>
+            </p>
+            <div className="p-1 pr-2 rounded-full bg-white border border-error-container flex items-center gap-2">
+              <span className="size-6  bg-error-container rounded-full text-center flex-center">
+                😎
+              </span>
+              <span className="label-small-primary">Up to 7 full reports</span>
+            </div>
+          </div>
+          <div className="flex-1 py-6 flex-center">
+            <Button variant={"outline"}>Buy Now</Button>
+          </div>
+        </div>
+        <div className="size-full opacity-25 pointer-events-none p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container">
+          <div className="flex-1 py-6 flex-center flex-col">
+            <h4 className="text-outline">Partner Personality Match</h4>
+            <p className="display-large-emphasized mt-4 mb-2">
+              $7
+              <span className="title-small-emphasized font-semibold text-outline">
+                /one‑time
+              </span>
+            </p>
+            <div className="p-1 pr-2 rounded-full bg-white border border-error-container flex items-center gap-2">
+              <span className="size-6  bg-error-container rounded-full text-center flex-center">
+                😎
+              </span>
+              <span className="label-small-primary">Coming soon</span>
+            </div>
+          </div>
+          <div className="flex-1 py-6 flex-center">
+            <Button variant={"outline"}>Buy Now</Button>
+          </div>
+        </div>
+        <div className="size-full  p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container">
+          <div className="flex-1 py-6 flex-center flex-col">
+            <h4 className="text-outline">
+              Monthly Discovery <br /> Pass
+            </h4>
+            <p className="display-large-emphasized mt-4 mb-2">
+              $29
+              <span className="title-small-emphasized font-semibold text-outline">
+                /mo
+              </span>
+            </p>
+            <div className="p-1 pr-2 rounded-full bg-white border border-error-container flex items-center gap-2">
+              <span className="size-6  bg-error-container rounded-full text-center flex-center">
+                😎
+              </span>
+              <span className="label-small-primary">Up to 7 full reports</span>
+            </div>
+          </div>
+          <div className="flex-1 py-6 flex-center">
+            <Button variant={"outline"}>Buy Now</Button>
+          </div>
+        </div>
+        <div className="relative size-full border border-error p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container">
+          <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-error text-white rounded-full py-1 px-3 label-small-emphasized">
+            🔥 Popular
+          </span>
+          <div className="flex-1 py-6 flex-center flex-col">
+            <h4 className="text-outline">Discover Personalities Around You</h4>
+            <p className="display-large-emphasized mt-4 mb-2">
+              $79
+              <span className="title-small-emphasized font-semibold text-outline">
+                /one‑time
+              </span>
+            </p>
+            <div className="p-1 pr-2 rounded-full bg-white border border-error-container flex items-center gap-2">
+              <span className="size-6  bg-error-container rounded-full text-center flex-center">
+                😎
+              </span>
+              <span className="label-small-primary">Up to 7 full reports</span>
+            </div>
+          </div>
+          <div className="flex-1 py-6 flex-center">
+            <Button variant={"outline"}>Buy Now</Button>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
