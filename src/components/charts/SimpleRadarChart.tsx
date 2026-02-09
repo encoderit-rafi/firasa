@@ -1,4 +1,5 @@
 "use client";
+import { ComponentProps } from "react";
 import {
   Radar,
   RadarChart,
@@ -43,7 +44,9 @@ const data = [
 ];
 
 // #endregion
-export default function SimpleRadarChart() {
+export default function SimpleRadarChart({
+  ...props
+}: ComponentProps<typeof RadarChart>) {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <RadarChart
@@ -55,6 +58,7 @@ export default function SimpleRadarChart() {
           right: 0,
           bottom: 0,
         }}
+        {...props}
       >
         <defs>
           <linearGradient id="radarGradient" x1="0" y1="0" x2="0" y2="1">
@@ -65,7 +69,7 @@ export default function SimpleRadarChart() {
         <PolarGrid gridType="circle" strokeOpacity={0.3} />
         <PolarAngleAxis
           dataKey="subject"
-          tick={{ fill: "white", fontSize: 10 }}
+          tick={{ fill: "currentColor", fontSize: 10 }}
         />
         {/* <PolarRadiusAxis /> */}
         <Radar

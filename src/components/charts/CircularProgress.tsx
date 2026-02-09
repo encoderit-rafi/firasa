@@ -1,3 +1,5 @@
+import { Badge } from "../ui/badge";
+
 type CircularProgressProps = {
   size?: number;
   strokeWidth?: number;
@@ -84,14 +86,9 @@ const CircularProgress = ({
 
       {/* Label Pill */}
       {label && (
-        <div
-          className="absolute bottom-0 px-2 rounded-full shadow-sm transform "
-          style={{ backgroundColor: activeColor }}
-        >
-          <span className="text-xs capitalize font-bold text-white">
-            {label}
-          </span>
-        </div>
+        <Badge variant={label} className="absolute bottom-0">
+          {label}
+        </Badge>
       )}
     </div>
   );

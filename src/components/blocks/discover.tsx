@@ -49,7 +49,7 @@ export default function Discover() {
                     />
                     <Separator className="h-1 to-white/30 mt-3" />
 
-                    <SimpleRadarChart />
+                    <SimpleRadarChart className="text-white pointer-events-none" />
                   </CardContent>
                 </Card>
               </CarouselItem>

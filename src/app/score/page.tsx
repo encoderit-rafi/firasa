@@ -16,6 +16,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -27,6 +28,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import Icon from "@/components/ui/icon";
 // import Separator from "@/components/ui/separator";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChevronDownIcon } from "lucide-react";
@@ -82,12 +84,12 @@ export default function ScorePage() {
           <Share className="size-3" />
           <span className="label-small-primary">Share</span>
         </button>
-        <div className="flex-1 flex flex-col md:flex-row  shrink-0 max-lg:pb-8 lg:pr-8 flex-center gap-8">
+        <div className="flex-1 w-full flex flex-col md:flex-row  shrink-0 max-lg:pb-8 lg:pr-8 flex-center gap-8">
           <Image
             src="https://images.unsplash.com/photo-1558898479-33c0057a5d12?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="Score"
-            width={90}
-            height={90}
+            width={288}
+            height={288}
             className="rounded-md size-72 md:size-24 object-cover object-center"
           />
           <div className="flex-col flex gap-2 text-on-surface">
@@ -122,6 +124,106 @@ export default function ScorePage() {
             <CircularProgress label="high" progress={70} />
             <p className="label-small-primary">Neuroticism</p>
           </div>
+        </div>
+      </div>
+      <div className="relative p-8 flex flex-col lg:flex-row items-center justify-center max-lg:divide-y lg:divide-x divide-error-container py-8 container-md mx-auto bg-error-container/16 rounded-2xl rounded-tr-none border-none shadow-none">
+        <button className="absolute cursor-pointer top-0 left-full bg-error-container flex items-center justify-center gap-2 h-8 w-24 rounded-b-lg -translate-x-8 translate-y-8 -rotate-90">
+          <Share className="size-3" />
+          <span className="label-small-primary">Share</span>
+        </button>
+        <div className="flex-1 w-full pointer-events-none flex flex-col  shrink-0 max-lg:pb-8 lg:pr-8 flex-center gap-8 lg:gap-16">
+          <div className="h-110.25 w-full">
+            <SimpleRadarChart />
+          </div>
+          <Button variant={"outline"}>
+            <Share className="size-3" />
+            Share
+          </Button>
+        </div>
+        <div className="flex-1 w-full shrink-0 max-lg:pt-8 lg:pl-8">
+          <Accordion type="single" collapsible defaultValue={steps[0].title}>
+            <AccordionItem key="item-1" value="item-1">
+              <AccordionTrigger className="group">
+                <div className="flex items-center justify-between w-full gap-4">
+                  <div className="flex-center gap-2">
+                    <span className="text-warning">78%</span>Openness
+                    <Badge variant={"moderate"}>Modarate</Badge>
+                  </div>
+                  <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="flex items-start gap-2">
+                  <div className="size-4 bg-error-container shrink-0" />
+                  <div className="grow flex flex-col gap-2">
+                    <p className="body-medium-primary text-left">
+                      What this means:
+                    </p>
+                    <div className="flex items-center flex-wrap gap-1">
+                      <Badge>
+                        <Icon>🤝</Icon>
+                        You enjoy new ideas and perspectives
+                      </Badge>
+                      <Badge>
+                        <Icon>🌿</Icon>
+                        You adapt well to change
+                      </Badge>
+                      <Badge>
+                        <Icon>🧠</Icon>
+                        You value personal growth
+                      </Badge>
+                    </div>
+                  </div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem key="item-2" value="item-2">
+              <AccordionTrigger className="group">
+                <div className="flex items-center justify-between w-full gap-4 headline-small-emphasized ">
+                  <div className="flex-center gap-2">
+                    <span className="body-large-emphasized text-warning">
+                      78%
+                    </span>
+                    <span className="body-large-emphasized">Openness</span>
+                    <div className="bg-warning text-black rounded-full label-small-primary px-2 py-1">
+                      Moderate
+                    </div>
+                  </div>
+                  <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="flex items-start gap-4">
+                  <div className="size-4 bg-error-container shrink-0" />
+                  <div className="grow flex flex-col gap-3">
+                    <p className="body-medium-primary">What this means:</p>
+                    <div className="flex flex-wrap gap-3">
+                      <div className="flex gap-3">
+                        <div className="p-1 pr-2 rounded-full bg-white border border-error-container flex items-center gap-2">
+                          <span className="size-6  bg-error-container rounded-full text-center flex-center">
+                            😎
+                          </span>
+                          <span className="label-small-primary">
+                            You enjoy new ideas and perspectives
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex gap-3">
+                        <div className="p-1 pr-2 rounded-full bg-white border border-error-container flex items-center gap-2">
+                          <span className="size-6  bg-error-container rounded-full text-center flex-center">
+                            😎
+                          </span>
+                          <span className="label-small-primary">
+                            You enjoy new ideas and perspectives
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </div>
 
@@ -198,7 +300,6 @@ export default function ScorePage() {
                   </AccordionContent>
                 </AccordionItem>
               ))}
-             
             </Accordion>
           </div>
         </CardContent>

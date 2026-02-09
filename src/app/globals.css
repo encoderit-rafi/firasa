@@ -8,6 +8,7 @@
 
   --color-warning: var(--warning);
   --color-danger: var(--danger);
+  --color-success: var(--success);
 
   --color-primary: var(--primary-40);
   --color-on-primary: var(--primary-99);
@@ -92,6 +93,7 @@
 :root {
   --warning: #e8b931;
   --danger: #ec221f;
+  --success: #22c55e;
 
   --primary-10: #21005d;
   --primary-20: #381e72;

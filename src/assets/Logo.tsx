@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ComponentProps } from "react";
 
 type Props = ComponentProps<"svg">;
@@ -63,10 +64,10 @@ function LogoText() {
 }
 function Logo() {
   return (
-    <div className="flex-center gap-3">
+    <Link href="/" className="flex-center gap-3 cursor-pointer">
       <LogoIcon />
       <LogoText />
-    </div>
+    </Link>
   );
 }
 export { Logo, LogoIcon, LogoText };
