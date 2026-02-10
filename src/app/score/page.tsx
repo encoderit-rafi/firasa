@@ -53,7 +53,7 @@ import { ArrowBigDownDashIcon, ChevronDownIcon } from "lucide-react";
 import Image from "next/image";
 import { ComponentProps, PropsWithChildren } from "react";
 
-const personalities = [
+const personality_scores = [
   {
     title: "Openness",
     score: 78,
@@ -111,10 +111,71 @@ const personalities = [
     level: "low",
   },
 ];
+
+const personality_stories = [
+  {
+    title: "You are:",
+    items: [
+      {
+        icon: "😃",
+        description: "Emotionally Intelligent",
+      },
+      {
+        icon: "🔬",
+        description: "Curious and Observant",
+      },
+      {
+        icon: "😇",
+        description: "Adventurous Spirit",
+      },
+      {
+        icon: "🤝",
+        description: "Warm and Approachable",
+      },
+      {
+        icon: "🌿",
+        description: "Inquisitive Mind",
+      },
+      {
+        icon: "🧠",
+        description: "Deep Connector",
+      },
+      {
+        icon: "🌈",
+        description: "Flexible and Open-Minded",
+      },
+      {
+        icon: "🪄",
+        description: "Inspired by the Unexpected",
+      },
+    ],
+  },
+  {
+    title: "Room for improvement:",
+    items: [
+      {
+        icon: <ArrowOutward />,
+        description: "Explore new inputs",
+      },
+      {
+        icon: <ArrowOutward />,
+        description: "Challenge assumptions",
+      },
+      {
+        icon: <ArrowOutward />,
+        description: "Create without outcome",
+      },
+    ],
+  },
+];
 function ScorePagePersonalityAccordion() {
   return (
-    <Accordion type="single" collapsible defaultValue={personalities[0].title}>
-      {personalities.map((personality, index) => (
+    <Accordion
+      type="single"
+      collapsible
+      defaultValue={personality_scores[0].title}
+    >
+      {personality_scores.map((personality, index) => (
         <AccordionItem key={index} value={personality.title}>
           <AccordionTrigger
             className="group"
@@ -158,28 +219,7 @@ function ScorePagePersonalityAccordion() {
                 </div>
               </div>
             ))}
-            {/* <div className="flex items-start gap-2">
-              <div className="size-4 bg-error-container shrink-0" />
-              <div className="grow flex flex-col gap-2">
-                <p className="body-medium-primary text-left">
-                  What this means:
-                </p>
-                <div className="flex items-center flex-wrap gap-1">
-                  <Badge>
-                    <Icon>🤝</Icon>
-                    You enjoy new ideas and perspectives
-                  </Badge>
-                  <Badge>
-                    <Icon>🌿</Icon>
-                    You adapt well to change
-                  </Badge>
-                  <Badge>
-                    <Icon>🧠</Icon>
-                    You value personal growth
-                  </Badge>
-                </div>
-              </div>
-            </div> */}
+
             <Button variant={"outline"}>
               <Share className="size-3" />
               Share
@@ -187,43 +227,6 @@ function ScorePagePersonalityAccordion() {
           </AccordionContent>
         </AccordionItem>
       ))}
-      {/* <AccordionItem key="item-1" value="item-1">
-        <AccordionTrigger className="group">
-          <div className="flex items-center justify-between w-full gap-4">
-            <div className="flex-center gap-2">
-              <span className="text-warning">78%</span>Openness
-              <Badge variant={"moderate"}>Modarate</Badge>
-            </div>
-            <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
-          </div>
-        </AccordionTrigger>
-        <AccordionContent>
-          <div className="flex items-start gap-2">
-            <div className="size-4 bg-error-container shrink-0" />
-            <div className="grow flex flex-col gap-2">
-              <p className="body-medium-primary text-left">What this means:</p>
-              <div className="flex items-center flex-wrap gap-1">
-                <Badge>
-                  <Icon>🤝</Icon>
-                  You enjoy new ideas and perspectives
-                </Badge>
-                <Badge>
-                  <Icon>🌿</Icon>
-                  You adapt well to change
-                </Badge>
-                <Badge>
-                  <Icon>🧠</Icon>
-                  You value personal growth
-                </Badge>
-              </div>
-            </div>
-          </div>
-          <Button variant={"outline"}>
-            <Share className="size-3" />
-            Share
-          </Button>
-        </AccordionContent>
-      </AccordionItem> */}
     </Accordion>
   );
 }
@@ -439,72 +442,70 @@ export default function ScorePage() {
               <ScorePagePersonalityAccordion />
             </ScorePageContainer>
           </ScorePageCard>
-        </ScorePageSection>
-        {/* 
-        <div className="relative p-8 flex-center flex-col gap-8 container-md mx-auto bg-error-container/16 rounded-2xl">
-          <Tabs defaultValue="overview" className="mx-auto">
-            <TabsList>
-              <TabsTrigger value="overview">Worth sharing</TabsTrigger>
-              <TabsTrigger value="analytics">Strengths</TabsTrigger>
-              <TabsTrigger value="growth">Areas for growth</TabsTrigger>
-            </TabsList>
-          </Tabs>
-          <Carousel
-            className="max-w-276 mx-auto pr-8"
-            opts={{
-              align: "start",
-            }}
-          >
-            <div className="flex flex-col space-y-3">
-              <CarouselContent>
-                {Array.from({ length: 10 }).map((_, index) => (
-                  <CarouselItem className="" key={index}>
-                    <Card className="border-none size-83 shadow-none bg-[url('https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-no-repeat p-0 overflow-hidden">
-                      <CardContent className="size-full backdrop-blur-[2px] bg-black/40 p-0 flex flex-col">
-                        <CardHeader className="flex items-center gap-2 justify-end p-3">
-                          <Button variant={"icon"} className="size-10">
-                            <CameraPlus className="size-5" />
-                          </Button>
-                          <Button variant={"icon"} className="size-10">
-                            <Share className="size-5" />
-                          </Button>
-                        </CardHeader>
-                        <CardAvatar
-                          src="https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                          name="Steve Jobs"
-                          role="Visionary pathfinder"
-                        />
-                        <Separator className="h-1 to-white/30 mt-3" />
+          <ScorePageCard className="flex-center flex-col gap-8 divide-none">
+            <Tabs defaultValue="overview" className="mx-auto">
+              <TabsList>
+                <TabsTrigger value="overview">Worth sharing</TabsTrigger>
+                <TabsTrigger value="analytics">Strengths</TabsTrigger>
+                <TabsTrigger value="growth">Areas for growth</TabsTrigger>
+              </TabsList>
+            </Tabs>
+            <Carousel
+              className="max-w-276 mx-auto pr-8"
+              opts={{
+                align: "start",
+              }}
+            >
+              <div className="flex flex-col space-y-3">
+                <CarouselContent>
+                  {Array.from({ length: 10 }).map((_, index) => (
+                    <CarouselItem className="" key={index}>
+                      <Card className="border-none size-83 shadow-none bg-[url('https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-no-repeat p-0 overflow-hidden">
+                        <CardContent className="size-full backdrop-blur-[2px] bg-black/40 p-0 flex flex-col">
+                          <CardHeader className="flex items-center gap-2 justify-end p-3">
+                            <Button variant={"icon"} className="size-10">
+                              <CameraPlus className="size-5" />
+                            </Button>
+                            <Button variant={"icon"} className="size-10">
+                              <Share className="size-5" />
+                            </Button>
+                          </CardHeader>
+                          <CardAvatar
+                            src="https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            name="Steve Jobs"
+                            role="Visionary pathfinder"
+                          />
+                          <Separator className="h-1 to-white/30 mt-3" />
 
-                        <SimpleRadarChart className="text-white pointer-events-none" />
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </div>
-            <div className="px-2 my-8">
-              <CarouselIndicator />
-            </div>
-            <div className="flex-center gap-2">
-              <CarouselPrevious />
-              <CarouselNext />
-            </div>
-          </Carousel>
-        </div>
-        <h2 className="section-title">Your unique personality story</h2>
-        <div className="relative p-8 flex flex-col lg:flex-row items-center justify-center max-lg:divide-y lg:divide-x divide-error-container py-8 container-md mx-auto bg-error-container/16 rounded-2xl rounded-tr-none border-none shadow-none">
-          <button className="absolute cursor-pointer top-0 left-full bg-error-container flex items-center justify-center gap-2 h-8 w-24 rounded-b-lg -translate-x-8 translate-y-8 -rotate-90">
-            <Share className="size-3" />
-            <span className="label-small-primary">Share</span>
-          </button>
-          <div className="flex-1 w-full flex flex-col md:flex-row  items-start shrink-0 max-lg:pb-8 lg:pr-8 flex-center gap-2">
-            <Quote className="shrink-0 mt-2" />
-            <div className="grow space-y-4">
-              <h2 className="headline-small-emphasized text-left">
-                A heart that listens and eyes that roam, curious, kind, and ever
-                at home.
-              </h2>
+                          <SimpleRadarChart className="text-white pointer-events-none" />
+                        </CardContent>
+                      </Card>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </div>
+              <div className="px-2 my-8">
+                <CarouselIndicator />
+              </div>
+              <div className="flex-center gap-2">
+                <CarouselPrevious />
+                <CarouselNext />
+              </div>
+            </Carousel>
+          </ScorePageCard>
+        </ScorePageSection>
+        <ScorePageSection>
+          <ScorePageTitle>Your unique personality story</ScorePageTitle>
+          <ScorePageCard className="xl:rounded-tr-none">
+            <ScorePageShareButton className="max-xl:hidden" />
+            <ScorePageContainer type="left" className="flex flex-col gap-8">
+              <div className="flex items-start gap-2">
+                <Quote className="shrink-0 mt-2" />
+                <h2 className="headline-small-emphasized text-left">
+                  A heart that listens and eyes that roam, curious, kind, and
+                  ever at home.
+                </h2>
+              </div>
               <p className="body-medium-primary text-left">
                 You are a natural connector, someone who thrives on
                 understanding others and exploring the world around you. Your
@@ -518,53 +519,28 @@ export default function ScorePage() {
                 understood while also satisfying your own desire for growth and
                 discovery.
               </p>
-            </div>
-          </div>
-          <div className="flex-1 shrink-0 w-full max-lg:pt-8 lg:pl-8 flex flex-col gap-6">
-            <div className="flex flex-col gap-2">
-              <span className="label-small-primary text-left">You are:</span>
-              <div className="flex items-center flex-wrap gap-1">
-                <Badge>
-                  <Icon>🤝</Icon>
-                  You enjoy new ideas and perspectives
-                </Badge>
-                <Badge>
-                  <Icon>🌿</Icon>
-                  You adapt well to change
-                </Badge>
-                <Badge>
-                  <Icon>🧠</Icon>
-                  You value personal growth
-                </Badge>
-              </div>
-            </div>
-            <div className="flex flex-col gap-2">
-              <span className="label-small-primary text-left">
-                Room for improvement:
-              </span>
-              <div className="flex items-center flex-wrap gap-1">
-                <Badge>
-                  <Icon>
-                    <ArrowOutward />
-                  </Icon>
-                  You enjoy new ideas and perspectives
-                </Badge>
-                <Badge>
-                  <Icon>
-                    <ArrowOutward />
-                  </Icon>
-                  You adapt well to change
-                </Badge>
-                <Badge>
-                  <Icon>
-                    <ArrowOutward />
-                  </Icon>
-                  You value personal growth
-                </Badge>
-              </div>
-            </div>
-          </div>
-        </div>
+            </ScorePageContainer>
+            <ScorePageContainer type="right" className="flex flex-col gap-8">
+              {personality_stories.map((story, index) => (
+                <div key={index} className="flex flex-col gap-2">
+                  <span className="label-small-primary text-left">
+                    {story.title}
+                  </span>
+                  <div className="flex items-center flex-wrap gap-1">
+                    {story.items.map((item, index) => (
+                      <Badge key={index}>
+                        <Icon>{item.icon}</Icon>
+                        {item.description}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </ScorePageContainer>
+          </ScorePageCard>
+        </ScorePageSection>
+        {/* 
+        
         <h2 className="section-title">Relationship & empathy</h2>
         <div className="relative p-8 flex flex-col lg:flex-row items-center justify-center max-lg:divide-y lg:divide-x divide-error-container py-8 container-md mx-auto bg-error-container/16 rounded-2xl rounded-tr-none border-none shadow-none">
           <button className="absolute cursor-pointer top-0 left-full bg-error-container flex items-center justify-center gap-2 h-8 w-24 rounded-b-lg -translate-x-8 translate-y-8 -rotate-90">
