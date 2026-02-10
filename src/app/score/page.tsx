@@ -262,6 +262,20 @@ const personality_stories = [
     ],
   },
 ];
+const export_items = [
+  {
+    icon: <PDF />,
+    title: "Download full PDF report",
+  },
+  {
+    icon: <JSON />,
+    title: "Export JSON Data",
+  },
+  {
+    icon: <DOCX />,
+    title: "Export to Docx",
+  },
+];
 const items = [
   "Relationship & empathy",
   "Focus & execution style",
@@ -767,48 +781,23 @@ export default function ScorePage() {
             </Carousel>
           </ScorePageCard>
         </ScorePageSection>
-
+        <ScorePageSection>
+          <ScorePageTitle>Summary & exports</ScorePageTitle>
+          <ScorePageCard className="flex flex-col lg:flex-row items-center justify-between gap-6 bg-transparent divide-none">
+            {export_items.map((item, index) => (
+              <div className="size-full  p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container">
+                <div className="flex-1 py-6 flex-center">{item.icon}</div>
+                <div className="flex-1 py-6 flex-center">
+                  <Button variant={"outline"}>{item.title}</Button>
+                </div>
+              </div>
+            ))}
+          </ScorePageCard>
+        </ScorePageSection>
         {/* 
         
 
-        <div className="relative p-8 flex-center flex-col gap-8 container-md mx-auto bg-error-container/16 rounded-2xl">
-          <Carousel
-            className="max-w-276 mx-auto pr-8"
-            opts={{
-              align: "start",
-            }}
-          >
-            <div className="flex flex-col space-y-3">
-              <CarouselContent>
-                {Array.from({ length: 10 }).map((_, index) => (
-                  <CarouselItem className="" key={index}>
-                    <Card className="border-none size-83 shadow-none bg-[url('https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-no-repeat p-0 overflow-hidden">
-                      <CardContent className="size-full  bg-linear-to-t from-black/80 to-transparent p-0 flex flex-col items-center justify-between">
-                        <CardHeader className="text-white title-medium-emphasized w-full text-center bg-linear-to-r from-error to-transparent px-3 py-1">
-                          Keanu Reeves
-                        </CardHeader>
-                        <div className="pb-3">
-                          <CircularProgress
-                            label="high"
-                            progress={52}
-                            className="text-white"
-                          />
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </div>
-            <div className="px-2 my-8">
-              <CarouselIndicator />
-            </div>
-            <div className="flex-center gap-2">
-              <CarouselPrevious />
-              <CarouselNext />
-            </div>
-          </Carousel>
-        </div>
+
         <h2 className="section-title">Summary & exports</h2>
         <div className="container-md mx-auto flex flex-col lg:flex-row items-center justify-between gap-6">
           <div className="size-full  p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container">
