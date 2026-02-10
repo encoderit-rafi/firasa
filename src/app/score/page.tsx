@@ -356,97 +356,10 @@ export default function ScorePage() {
           </div>
         </div>
       </div>
-      {/* <Card className="relative container-md mx-auto bg-error-container/15 border-none shadow-none my-10">
-        <CardContent className="flex-center divide-x divide-error-container">
-          <div className="w-1/2 h-96 px-2.5 flex-center gap-2">
-            <SimpleRadarChart />
-          </div>
-          <div className="w-1/2 px-2.5">
-            <Accordion
-              type="single"
-              collapsible
-              defaultValue={steps[0].title}
-              className="container-sm mx-auto "
-            >
-              <AccordionItem key="item-1" value="item-1">
-                <AccordionTrigger className="group">
-                  <div className="flex items-center justify-between w-full gap-4 headline-small-emphasized ">
-                    <div className="flex-center gap-2">
-                      <span className="body-large-emphasized text-warning">
-                        78%
-                      </span>
-                      <span className="body-large-emphasized">Openness</span>
-                      <div className="bg-warning rounded-full label-small-primary px-2 py-1">
-                        Moderate
-                      </div>
-                    </div>
-                    <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent>
-                  <div className="flex items-start gap-4">
-                    <div className="size-4 bg-error-container shrink-0" />
-                    <div className="grow flex flex-col gap-3">
-                      <p className="body-medium-primary">What this means:</p>
-                      <div className="flex flex-wrap gap-3">
-                        <div className="flex gap-3">
-                          <div className="p-1 pr-2 rounded-full bg-white border border-error-container flex items-center gap-2">
-                            <span className="size-6  bg-error-container rounded-full text-center flex-center">
-                              😎
-                            </span>
-                            <span className="label-small-primary">
-                              You enjoy new ideas and perspectives
-                            </span>
-                          </div>
-                        </div>
-                        <div className="flex gap-3">
-                          <div className="p-1 pr-2 rounded-full bg-white border border-error-container flex items-center gap-2">
-                            <span className="size-6  bg-error-container rounded-full text-center flex-center">
-                              😎
-                            </span>
-                            <span className="label-small-primary">
-                              You enjoy new ideas and perspectives
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-              {steps.map((step) => (
-                <AccordionItem key={step.title} value={step.title}>
-                  <AccordionTrigger className="group">
-                    <div className="flex items-center justify-between w-full gap-4 headline-small-emphasized ">
-                      {step.title}
-                      <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <p className="body-large-primary text-on-surface ">
-                      {step.content}
-                    </p>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </CardContent>
-        <div className="absolute top-0 right-0 bg-error-container flex items-center gap-2 -rotate-90 py-1 px-5 w-fit rounded-b-lg translate-y-12 translate-x-15 ">
-          <Share />
-          <span className="label-small-primary">Share</span>
-        </div>
-      </Card> */}
-      {/* <Card className="relative container-md mx-auto bg-error-container/15 border-none shadow-none">
-        <Tabs defaultValue="overview" className="mx-auto">
-          <TabsList>
-            <TabsTrigger value="overview">Worth sharing</TabsTrigger>
-            <TabsTrigger value="analytics">Strengths</TabsTrigger>
-            <TabsTrigger value="analytics">Areas for growth</TabsTrigger>
-          </TabsList>
-        </Tabs>
+      <h2 className="section-title">Personalities you might relate to</h2>
+      <div className="relative p-8 flex-center flex-col gap-8 container-md mx-auto bg-error-container/16 rounded-2xl">
         <Carousel
-          className="w-full container-md"
+          className="max-w-276 mx-auto pr-8"
           opts={{
             align: "start",
           }}
@@ -454,117 +367,42 @@ export default function ScorePage() {
           <div className="flex flex-col space-y-3">
             <CarouselContent>
               {Array.from({ length: 10 }).map((_, index) => (
-                <CarouselItem
-                  className="md:basis-1/2 lg:basis-1/3 "
-                  key={index}
-                >
-                  <Card className="border-none size-82.75 shadow-none bg-[url('https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-no-repeat p-0 overflow-hidden">
-                    <CardContent className="size-full backdrop-blur-[2px] bg-black/40 p-0 flex flex-col">
-                      <CardHeader className="flex items-center gap-2 justify-end p-3">
-                        <Button variant={"icon"} size={"icon-lg"}>
-                          <CameraPlus />
-                        </Button>
-                        <Button variant={"icon"} size={"icon-lg"}>
-                          <Share />
-                        </Button>
+                <CarouselItem className="" key={index}>
+                  <Card className="border-none size-83 shadow-none bg-[url('https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-no-repeat p-0 overflow-hidden">
+                    <CardContent className="size-full backdrop-blur-[1px] bg-black/40 p-0 flex flex-col items-center justify-between">
+                      <CardHeader className="text-white title-medium-emphasized w-full text-center bg-linear-to-r from-error to-transparent px-3 py-1">
+                        Keanu Reeves
                       </CardHeader>
-                      <div className=" flex flex-col items-center gap-3">
-                        <Avatar className="size-15 bg-gradient p-0.5">
-                          <AvatarImage
-                            src="https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="@shadcn"
-                            className="size-full rounded-full object-cover object-center"
-                          />
-                        </Avatar>
-                        <div className="flex flex-col items-center">
-                          <span className="title-medium-emphasized bg-gradient bg-clip-text text-transparent">
-                            Visionary pathfinder
-                          </span>
-                          <span className="body-small-primary text-white">
-                            Steve Jobs
-                          </span>
-                        </div>
+                      {/* <CardAvatar
+                        src="https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        name="Steve Jobs"
+                        role="Visionary pathfinder"
+                      /> */}
+                      {/* <Separator className="h-1 to-white/30 mt-3" /> */}
+                      <div className="pb-3">
+                        <CircularProgress
+                          label="high"
+                          progress={52}
+                          className="text-white"
+                        />
                       </div>
 
-                      <SimpleRadarChart />
+                      {/* <SimpleRadarChart className="text-white pointer-events-none" /> */}
                     </CardContent>
                   </Card>
                 </CarouselItem>
               ))}
             </CarouselContent>
           </div>
-          <CarouselIndicator className="my-4" />
+          <div className="px-2 my-8">
+            <CarouselIndicator />
+          </div>
           <div className="flex-center gap-2">
             <CarouselPrevious />
             <CarouselNext />
           </div>
         </Carousel>
-        <div className="absolute top-0 right-0 bg-error-container flex items-center gap-2 -rotate-90 py-1 px-5 w-fit rounded-b-lg translate-y-12 translate-x-15 ">
-          <Share />
-          <span className="label-small-primary">Share</span>
-        </div>
-      </Card> */}
-      {/* <h2>Your unique personality story</h2>
-      <Card className="relative container-md mx-auto bg-error-container/15 border-none shadow-none my-10">
-        <CardContent className="flex-center divide-x divide-error-container">
-          <div className="w-1/2 h-96 px-2.5 flex items-start gap-2">
-            <Quote className="shrink-0" />
-            <div className="grow space-y-4">
-              <h2 className="headline-small-emphasized text-left">
-                A heart that listens and eyes that roam, curious, kind, and ever
-                at home.
-              </h2>
-              <p className="body-medium-primary">
-                You are a natural connector, someone who thrives on
-                understanding others and exploring the world around you. Your
-                curiosity drives you to seek out new experiences and
-                perspectives, while your kindness makes you a valued friend and
-                confidant.
-              </p>
-              <p className="body-medium-primary">
-                This blend of empathy and inquisitiveness allows you to navigate
-                social situations with ease, making people feel seen and
-                understood while also satisfying your own desire for growth and
-                discovery.
-              </p>
-            </div>
-          </div>
-          <div className="w-1/2 px-2.5">
-            <div className="flex items-start gap-4">
-              <div className="size-4 bg-error-container shrink-0" />
-              <div className="grow flex flex-col gap-3">
-                <p className="body-medium-primary">What this means:</p>
-                <div className="flex flex-wrap gap-3">
-                  <div className="flex gap-3">
-                    <div className="p-1 pr-2 rounded-full bg-white border border-error-container flex items-center gap-2">
-                      <span className="size-6  bg-error-container rounded-full text-center flex-center">
-                        😎
-                      </span>
-                      <span className="label-small-primary">
-                        You enjoy new ideas and perspectives
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex gap-3">
-                    <div className="p-1 pr-2 rounded-full bg-white border border-error-container flex items-center gap-2">
-                      <span className="size-6  bg-error-container rounded-full text-center flex-center">
-                        😎
-                      </span>
-                      <span className="label-small-primary">
-                        You enjoy new ideas and perspectives
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-        <div className="absolute top-0 right-0 bg-error-container flex items-center gap-2 -rotate-90 py-1 px-5 w-fit rounded-b-lg translate-y-12 translate-x-15 ">
-          <Share />
-          <span className="label-small-primary">Share</span>
-        </div>
-      </Card> */}
+      </div>
       <h2 className="section-title">Summary & exports</h2>
       <div className="container-md mx-auto flex flex-col lg:flex-row items-center justify-between gap-6">
         <div className="size-full  p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container">

@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { Badge } from "../ui/badge";
 
 type CircularProgressProps = {
@@ -6,6 +7,7 @@ type CircularProgressProps = {
   progress?: number;
   label?: "moderate" | "high" | "low";
   gradient?: string;
+  className?: string;
 };
 const labelColors = {
   low: "#EF4444", // red
@@ -18,6 +20,7 @@ const CircularProgress = ({
   strokeWidth = 12,
   progress = 50,
   label = "moderate",
+  className,
 }: CircularProgressProps) => {
   const activeColor = labelColors[label];
   const bgColor = "rgba(22, 163, 74, 0.05)";
@@ -79,7 +82,9 @@ const CircularProgress = ({
 
       {/* Text Overlay (Percentage) - Fixed position (no rotation) */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <span className="font-bold text-[#1F2937] tracking-tighter">
+        <span
+          className={cn("font-bold text-[#1F2937] tracking-tighter", className)}
+        >
           {progress}%
         </span>
       </div>
