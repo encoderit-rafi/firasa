@@ -6,6 +6,7 @@ import {
   JSON,
   Quote,
   Share,
+  ArrowOutward,
 } from "@/assets/icons";
 import CircularProgress from "@/components/charts/CircularProgress";
 import SimpleRadarChart from "@/components/charts/SimpleRadarChart";
@@ -283,7 +284,78 @@ export default function ScorePage() {
           </div>
         </Carousel>
       </div>
-
+      <h2 className="section-title">Your unique personality story</h2>
+      <div className="relative p-8 flex flex-col lg:flex-row items-center justify-center max-lg:divide-y lg:divide-x divide-error-container py-8 container-md mx-auto bg-error-container/16 rounded-2xl rounded-tr-none border-none shadow-none">
+        <button className="absolute cursor-pointer top-0 left-full bg-error-container flex items-center justify-center gap-2 h-8 w-24 rounded-b-lg -translate-x-8 translate-y-8 -rotate-90">
+          <Share className="size-3" />
+          <span className="label-small-primary">Share</span>
+        </button>
+        <div className="flex-1 w-full flex flex-col md:flex-row  items-start shrink-0 max-lg:pb-8 lg:pr-8 flex-center gap-2">
+          <Quote className="shrink-0 mt-2" />
+          <div className="grow space-y-4">
+            <h2 className="headline-small-emphasized text-left">
+              A heart that listens and eyes that roam, curious, kind, and ever
+              at home.
+            </h2>
+            <p className="body-medium-primary text-left">
+              You are a natural connector, someone who thrives on understanding
+              others and exploring the world around you. Your curiosity drives
+              you to seek out new experiences and perspectives, while your
+              kindness makes you a valued friend and confidant.
+            </p>
+            <p className="body-medium-primary text-left">
+              This blend of empathy and inquisitiveness allows you to navigate
+              social situations with ease, making people feel seen and
+              understood while also satisfying your own desire for growth and
+              discovery.
+            </p>
+          </div>
+        </div>
+        <div className="flex-1 shrink-0 w-full max-lg:pt-8 lg:pl-8 flex flex-col gap-6">
+          <div className="flex flex-col gap-2">
+            <span className="label-small-primary text-left">You are:</span>
+            <div className="flex items-center flex-wrap gap-1">
+              <Badge>
+                <Icon>🤝</Icon>
+                You enjoy new ideas and perspectives
+              </Badge>
+              <Badge>
+                <Icon>🌿</Icon>
+                You adapt well to change
+              </Badge>
+              <Badge>
+                <Icon>🧠</Icon>
+                You value personal growth
+              </Badge>
+            </div>
+          </div>
+          <div className="flex flex-col gap-2">
+            <span className="label-small-primary text-left">
+              Room for improvement:
+            </span>
+            <div className="flex items-center flex-wrap gap-1">
+              <Badge>
+                <Icon>
+                  <ArrowOutward />
+                </Icon>
+                You enjoy new ideas and perspectives
+              </Badge>
+              <Badge>
+                <Icon>
+                  <ArrowOutward />
+                </Icon>
+                You adapt well to change
+              </Badge>
+              <Badge>
+                <Icon>
+                  <ArrowOutward />
+                </Icon>
+                You value personal growth
+              </Badge>
+            </div>
+          </div>
+        </div>
+      </div>
       {/* <Card className="relative container-md mx-auto bg-error-container/15 border-none shadow-none my-10">
         <CardContent className="flex-center divide-x divide-error-container">
           <div className="w-1/2 h-96 px-2.5 flex-center gap-2">
