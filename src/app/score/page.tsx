@@ -663,7 +663,7 @@ export default function ScorePage() {
                   </p>
                 </div>
                 <ScorePageNotchCard title="Score breakdown">
-                  <div className="flex-center gap-6">
+                  <div className="flex flex-col lg:flex-row lg:justify-center items-center gap-6">
                     {relationship_scores.map((score, index) => (
                       <ScorePageProgress
                         key={index}
@@ -675,7 +675,7 @@ export default function ScorePage() {
                   </div>
                 </ScorePageNotchCard>
                 <ScorePageNotchCard title="Score breakdown">
-                  <div className="flex-center gap-1">
+                  <div className="flex-center flex-wrap gap-1">
                     {relationship_items.map((score, index) => (
                       <Badge key={index}>
                         <Icon>{score.icon}</Icon>
@@ -726,88 +726,51 @@ export default function ScorePage() {
             </ScorePageCard>
           </ScorePageSection>
         ))}
-        {/* <ScorePageSection>
-          <ScorePageTitle>Relationship & empathy</ScorePageTitle>
-          <ScorePageCard className="xl:rounded-tr-none">
-            <ScorePageShareButton className="max-xl:hidden" />
-            <ScorePageContainer
-              type="left"
-              className="flex flex-col  items-center gap-8"
+        <ScorePageSection>
+          <ScorePageTitle>Personalities you might relate to</ScorePageTitle>
+          <ScorePageCard>
+            <Carousel
+              className="max-w-276 mx-auto pr-8"
+              opts={{
+                align: "start",
+              }}
             >
-              <div>
-                <h2 className="display-large-emphasized flex items-center text-transparent bg-gradient bg-clip-text text-center flex-center gap-2">
-                  <div className="size-6 bg-gradient clip-triangle" />
-                  72%
-                </h2>
-                <p className="body-large-emphasized max-w-52 text-center mx-auto">
-                  Ahead of your age group in empathy index
-                </p>
+              <div className="flex flex-col space-y-3">
+                <CarouselContent>
+                  {Array.from({ length: 10 }).map((_, index) => (
+                    <CarouselItem className="" key={index}>
+                      <Card className="border-none size-83 shadow-none bg-[url('https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-no-repeat p-0 overflow-hidden">
+                        <CardContent className="size-full  bg-linear-to-t from-black/80 to-transparent p-0 flex flex-col items-center justify-between">
+                          <CardHeader className="text-white title-medium-emphasized w-full text-center bg-linear-to-r from-error to-transparent px-3 py-1">
+                            Keanu Reeves
+                          </CardHeader>
+                          <div className="pb-3">
+                            <CircularProgress
+                              label="high"
+                              progress={52}
+                              className="text-white"
+                            />
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
               </div>
-              <ScorePageNotchCard title="Score breakdown">
-                <div className="flex-center gap-6">
-                  {relationship_scores.map((score, index) => (
-                    <ScorePageProgress
-                      key={index}
-                      label={score.level as "low" | "moderate" | "high"}
-                      progress={score.score}
-                      title={score.title}
-                    />
-                  ))}
-                </div>
-              </ScorePageNotchCard>
-              <ScorePageNotchCard title="Score breakdown">
-                <div className="flex-center gap-1">
-                  {relationship_items.map((score, index) => (
-                    <Badge key={index}>
-                      <Icon>{score.icon}</Icon>
-                      {score.title}
-                    </Badge>
-                  ))}
-                </div>
-              </ScorePageNotchCard>
-              <Button variant="outline">
-                <Share className="size-3" />
-                Share
-              </Button>
-            </ScorePageContainer>
-            <ScorePageContainer type="right">
-              <Accordion
-                type="single"
-                collapsible
-                defaultValue={relationship_results[0].title}
-              >
-                {relationship_results.map((result, index) => (
-                  <AccordionItem key={index} value={result.title}>
-                    <AccordionTrigger className="group">
-                      <div className="flex items-center justify-between w-full gap-4">
-                        <div className="flex-center gap-2">{result.title}</div>
-                        <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="space-y-6">
-                      <div className="flex items-start gap-2">
-                        <div className="size-4 bg-error-container shrink-0 mt-2" />
-                        <div className="grow flex flex-col gap-2">
-                          <p className="body-medium-primary text-left">
-                            {result.description}
-                          </p>
-                        </div>
-                      </div>
-                      <Button variant={"outline"}>
-                        <Share className="size-3" />
-                        Share
-                      </Button>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </ScorePageContainer>
+              <div className="px-2 my-8">
+                <CarouselIndicator />
+              </div>
+              <div className="flex-center gap-2">
+                <CarouselPrevious />
+                <CarouselNext />
+              </div>
+            </Carousel>
           </ScorePageCard>
-        </ScorePageSection> */}
+        </ScorePageSection>
 
         {/* 
         
-        <h2 className="section-title">Personalities you might relate to</h2>
+
         <div className="relative p-8 flex-center flex-col gap-8 container-md mx-auto bg-error-container/16 rounded-2xl">
           <Carousel
             className="max-w-276 mx-auto pr-8"
