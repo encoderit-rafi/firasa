@@ -7,6 +7,7 @@ import {
   Quote,
   Share,
   ArrowOutward,
+  ArrowDropdown,
 } from "@/assets/icons";
 import CircularProgress from "@/components/charts/CircularProgress";
 import SimpleRadarChart from "@/components/charts/SimpleRadarChart";
@@ -356,6 +357,104 @@ export default function ScorePage() {
           </div>
         </div>
       </div>
+      <h2 className="section-title">Relationship & empathy</h2>
+      <div className="relative p-8 flex flex-col lg:flex-row items-center justify-center max-lg:divide-y lg:divide-x divide-error-container py-8 container-md mx-auto bg-error-container/16 rounded-2xl rounded-tr-none border-none shadow-none">
+        <button className="absolute cursor-pointer top-0 left-full bg-error-container flex items-center justify-center gap-2 h-8 w-24 rounded-b-lg -translate-x-8 translate-y-8 -rotate-90">
+          <Share className="size-3" />
+          <span className="label-small-primary">Share</span>
+        </button>
+        <div className="flex-1 w-full pointer-events-none flex flex-col  shrink-0 max-lg:pb-8 lg:pr-8 flex-center gap-8 lg:gap-16">
+          <div className="w-full  flex items-center justify-center flex-col">
+            <h2 className="display-large-emphasized flex items-center text-transparent bg-gradient bg-clip-text text-center flex-center gap-2">
+              <div className="size-6 bg-gradient clip-triangle" />
+              72%
+            </h2>
+            <p className="body-large-emphasized max-w-52 text-center">
+              Ahead of your age group in empathy index
+            </p>
+            <div className="border-t border-t-error-container  w-full">
+              <div className="label-small-primary rounded-b-2xl w-fit bg-error-container px-3 py-1 mx-auto">
+                Score breakdown
+              </div>
+              <div className="flex-1 shrink-0 w-full max-lg:pt-8 lg:pl-8 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-3 my-8">
+                <div className="flex flex-col items-center gap-1">
+                  <CircularProgress label="moderate" progress={60} />
+                  <p className="label-small-primary">Conscientiousness</p>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <CircularProgress label="low" progress={41} />
+                  <p className="label-small-primary">Extraversion</p>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <CircularProgress label="high" progress={70} />
+                  <p className="label-small-primary">Agreeableness</p>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <CircularProgress label="high" progress={70} />
+                  <p className="label-small-primary">Neuroticism</p>
+                </div>
+              </div>
+            </div>
+            <div className="border-t border-t-error-container  w-full">
+              <div className="label-small-primary rounded-b-2xl w-fit bg-error-container px-3 py-1 mx-auto">
+                Suitable for a relationship with
+              </div>
+              <div className="flex items-center flex-wrap gap-1 my-8">
+                <Badge>
+                  <Icon>
+                    <ArrowOutward />
+                  </Icon>
+                  You enjoy new ideas and perspectives
+                </Badge>
+                <Badge>
+                  <Icon>
+                    <ArrowOutward />
+                  </Icon>
+                  You adapt well to change
+                </Badge>
+                <Badge>
+                  <Icon>
+                    <ArrowOutward />
+                  </Icon>
+                  You value personal growth
+                </Badge>
+              </div>
+            </div>
+          </div>
+          <Button variant={"outline"}>
+            <Share className="size-3" />
+            Share
+          </Button>
+        </div>
+        <div className="flex-1 w-full shrink-0 max-lg:pt-8 lg:pl-8">
+          <Accordion type="single" collapsible defaultValue={steps[0].title}>
+            <AccordionItem key="item-1" value="item-1">
+              <AccordionTrigger className="group">
+                <div className="flex items-center justify-between w-full gap-4">
+                  <div className="flex-center gap-2">Snapshot insight</div>
+                  <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="space-y-6">
+                <div className="flex items-start gap-2">
+                  <div className="size-4 bg-error-container shrink-0" />
+                  <div className="grow flex flex-col gap-2">
+                    <p className="body-medium-primary text-left">
+                      You tend to show up as emotionally present and steady,
+                      making others feel comfortable and understood in
+                      conversation.
+                    </p>
+                  </div>
+                </div>
+                <Button variant={"outline"}>
+                  <Share className="size-3" />
+                  Share
+                </Button>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      </div>
       <h2 className="section-title">Personalities you might relate to</h2>
       <div className="relative p-8 flex-center flex-col gap-8 container-md mx-auto bg-error-container/16 rounded-2xl">
         <Carousel
@@ -369,7 +468,7 @@ export default function ScorePage() {
               {Array.from({ length: 10 }).map((_, index) => (
                 <CarouselItem className="" key={index}>
                   <Card className="border-none size-83 shadow-none bg-[url('https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-no-repeat p-0 overflow-hidden">
-                    <CardContent className="size-full backdrop-blur-[1px] bg-black/40 p-0 flex flex-col items-center justify-between">
+                    <CardContent className="size-full  bg-linear-to-t from-black/80 to-transparent p-0 flex flex-col items-center justify-between">
                       <CardHeader className="text-white title-medium-emphasized w-full text-center bg-linear-to-r from-error to-transparent px-3 py-1">
                         Keanu Reeves
                       </CardHeader>

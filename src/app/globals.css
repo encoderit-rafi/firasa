@@ -265,6 +265,8 @@
   .box-black {
     @apply bg-on-surface rounded-xl;
   }
+  /* add this to your global CSS */
+
   /** PRIMARY **/
 
   /* PRIMARY DISPLAY  */
@@ -407,4 +409,7 @@
   .body-small-emphasized {
     @apply font-medium text-xs leading-4 tracking-normal;
   }
+}
+.clip-triangle {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
