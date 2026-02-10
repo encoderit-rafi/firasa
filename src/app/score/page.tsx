@@ -284,6 +284,48 @@ const items = [
   "Openness to experience",
   "Learning & growth",
 ];
+const level_up_items = [
+  {
+    title: "Discover Personalities Around You",
+    price: 79,
+    time: "one‑time",
+    type: "regular",
+    badge: {
+      icon: "🗒",
+      description: "Up to 7 full reports",
+    },
+  },
+  {
+    title: "Partner Personality Match",
+    price: 7,
+    time: "one‑time",
+    type: "disabled",
+    badge: {
+      icon: "🤝",
+      description: "Coming soon",
+    },
+  },
+  {
+    title: "Monthly Discovery Pass",
+    price: 29,
+    time: "mo",
+    type: "regular",
+    badge: {
+      icon: "📊",
+      description: "Up to 7 full reports",
+    },
+  },
+  {
+    title: "Discover Personalities Around You",
+    price: 79,
+    time: "one‑time",
+    type: "popular",
+    badge: {
+      icon: "🗃",
+      description: "Up to 7 full reports",
+    },
+  },
+];
 function ScorePagePersonalityAccordion() {
   return (
     <Accordion
@@ -794,135 +836,45 @@ export default function ScorePage() {
             ))}
           </ScorePageCard>
         </ScorePageSection>
-        {/* 
-        
-
-
-        <h2 className="section-title">Summary & exports</h2>
-        <div className="container-md mx-auto flex flex-col lg:flex-row items-center justify-between gap-6">
-          <div className="size-full  p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container">
-            <div className="flex-1 py-6 flex-center">
-              <PDF />
-            </div>
-            <div className="flex-1 py-6 flex-center">
-              <Button variant={"outline"}>Download full PDF report</Button>
-            </div>
-          </div>
-          <div className="size-full  p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container">
-            <div className="flex-1 py-6 flex-center">
-              <JSON />
-            </div>
-            <div className="flex-1 py-6 flex-center">
-              <Button variant={"outline"}>Export JSON Data</Button>
-            </div>
-          </div>{" "}
-          <div className="size-full  p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container">
-            <div className="flex-1 py-6 flex-center ">
-              <DOCX />
-            </div>
-            <div className="flex-1 py-6 flex-center ">
-              <Button variant={"outline"}>Export to Docx</Button>
-            </div>
-          </div>
-        </div>
-        <h2 className="section-title">Level-up add-ons</h2>
-        <div className="container-md mx-auto flex flex-col lg:flex-row items-center justify-between gap-6">
-          <div className="size-full p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container">
-            <div className="flex-1 py-6 flex-center flex-col">
-              <h4 className="text-outline">
-                Discover Personalities Around You
-              </h4>
-              <p className="display-large-emphasized mt-4 mb-2">
-                $79
-                <span className="title-small-emphasized font-semibold text-outline">
-                  /one‑time
-                </span>
-              </p>
-              <div className="p-1 pr-2 rounded-full bg-white border border-error-container flex items-center gap-2">
-                <span className="size-6  bg-error-container rounded-full text-center flex-center">
-                  😎
-                </span>
-                <span className="label-small-primary">
-                  Up to 7 full reports
-                </span>
+        <ScorePageSection>
+          <ScorePageTitle>Level-up add-ons</ScorePageTitle>
+          <ScorePageCard className="flex flex-col lg:flex-row items-center justify-between gap-6 bg-transparent divide-none">
+            {level_up_items.map((item) => (
+              <div
+                key={item.title}
+                className={cn(
+                  "size-full p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container relative",
+                  {
+                    "opacity-25": item.type == "disabled",
+                    "border border-error": item.type == "popular",
+                  },
+                )}
+              >
+                {item.type == "popular" && (
+                  <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-error text-white rounded-full py-1 px-3 label-small-emphasized">
+                    🔥 Popular
+                  </span>
+                )}
+                <div className="flex-1 py-6 flex-center flex-col">
+                  <h4 className="text-outline">{item.title}</h4>
+                  <p className="display-large-emphasized mt-4 mb-2">
+                    ${item.price}
+                    <span className="title-small-emphasized font-semibold text-outline">
+                      /{item.time}
+                    </span>
+                  </p>
+                  <Badge variant={"text"}>
+                    <Icon>{item.badge.icon}</Icon>
+                    {item.badge.description}
+                  </Badge>
+                </div>
+                <div className="flex-1 py-6 flex-center">
+                  <Button variant={"outline"}>Buy Now</Button>
+                </div>
               </div>
-            </div>
-            <div className="flex-1 py-6 flex-center">
-              <Button variant={"outline"}>Buy Now</Button>
-            </div>
-          </div>
-          <div className="size-full opacity-25 pointer-events-none p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container">
-            <div className="flex-1 py-6 flex-center flex-col">
-              <h4 className="text-outline">Partner Personality Match</h4>
-              <p className="display-large-emphasized mt-4 mb-2">
-                $7
-                <span className="title-small-emphasized font-semibold text-outline">
-                  /one‑time
-                </span>
-              </p>
-              <div className="p-1 pr-2 rounded-full bg-white border border-error-container flex items-center gap-2">
-                <span className="size-6  bg-error-container rounded-full text-center flex-center">
-                  😎
-                </span>
-                <span className="label-small-primary">Coming soon</span>
-              </div>
-            </div>
-            <div className="flex-1 py-6 flex-center">
-              <Button variant={"outline"}>Buy Now</Button>
-            </div>
-          </div>
-          <div className="size-full  p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container">
-            <div className="flex-1 py-6 flex-center flex-col">
-              <h4 className="text-outline">
-                Monthly Discovery <br /> Pass
-              </h4>
-              <p className="display-large-emphasized mt-4 mb-2">
-                $29
-                <span className="title-small-emphasized font-semibold text-outline">
-                  /mo
-                </span>
-              </p>
-              <div className="p-1 pr-2 rounded-full bg-white border border-error-container flex items-center gap-2">
-                <span className="size-6  bg-error-container rounded-full text-center flex-center">
-                  😎
-                </span>
-                <span className="label-small-primary">
-                  Up to 7 full reports
-                </span>
-              </div>
-            </div>
-            <div className="flex-1 py-6 flex-center">
-              <Button variant={"outline"}>Buy Now</Button>
-            </div>
-          </div>
-          <div className="relative size-full border border-error p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container">
-            <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-error text-white rounded-full py-1 px-3 label-small-emphasized">
-              🔥 Popular
-            </span>
-            <div className="flex-1 py-6 flex-center flex-col">
-              <h4 className="text-outline">
-                Discover Personalities Around You
-              </h4>
-              <p className="display-large-emphasized mt-4 mb-2">
-                $79
-                <span className="title-small-emphasized font-semibold text-outline">
-                  /one‑time
-                </span>
-              </p>
-              <div className="p-1 pr-2 rounded-full bg-white border border-error-container flex items-center gap-2">
-                <span className="size-6  bg-error-container rounded-full text-center flex-center">
-                  😎
-                </span>
-                <span className="label-small-primary">
-                  Up to 7 full reports
-                </span>
-              </div>
-            </div>
-            <div className="flex-1 py-6 flex-center">
-              <Button variant={"outline"}>Buy Now</Button>
-            </div>
-          </div>
-        </div> */}
+            ))}
+          </ScorePageCard>
+        </ScorePageSection>
       </div>
     </div>
   );
