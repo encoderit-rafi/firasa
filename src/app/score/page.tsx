@@ -52,7 +52,101 @@ import { cn } from "@/lib/utils";
 import { ArrowBigDownDashIcon, ChevronDownIcon } from "lucide-react";
 import Image from "next/image";
 import { ComponentProps, PropsWithChildren } from "react";
-
+const main_scores = [
+  {
+    title: "Openness",
+    score: 78,
+    level: "moderate",
+  },
+  {
+    title: "Conscientiousness",
+    score: 64,
+    level: "moderate",
+  },
+  {
+    title: "Extraversion",
+    score: 71,
+    level: "moderate",
+  },
+  {
+    title: "Agreeableness",
+    score: 82,
+    level: "high",
+  },
+  {
+    title: "Neuroticism",
+    score: 41,
+    level: "low",
+  },
+];
+const relationship_scores = [
+  {
+    title: "Trust Signaling",
+    score: 89,
+    level: "high",
+  },
+  {
+    title: "Social Openness",
+    score: 81,
+    level: "high",
+  },
+  {
+    title: "Empathy Index",
+    score: 57,
+    level: "moderate",
+  },
+  {
+    title: "Conflict Avoidance",
+    score: 25,
+    level: "low",
+  },
+];
+const relationship_items = [
+  {
+    icon: "🧘",
+    title: "Calm Listener",
+  },
+  {
+    icon: "💬",
+    title: "Thoughtful Communicator",
+  },
+  {
+    icon: "🛡️",
+    title: "Emotionally Secure Partner",
+  },
+];
+const relationship_results = [
+  {
+    title: "Snapshot insight",
+    description:
+      "You tend to show up as emotionally present and steady, making others feel comfortable and understood in conversation.",
+  },
+  {
+    title: "Behavioral patterns observed",
+    description:
+      "You tend to show up as emotionally present and steady, making others feel comfortable and understood in conversation.",
+  },
+  {
+    title: "How others likely experience you",
+    description:
+      "You tend to show up as emotionally present and steady, making others feel comfortable and understood in conversation.",
+  },
+  {
+    title: "Strength & trade-offs",
+    description:
+      "You tend to show up as emotionally present and steady, making others feel comfortable and understood in conversation.",
+  },
+  {
+    title: "Growth Lever",
+    description:
+      "You tend to show up as emotionally present and steady, making others feel comfortable and understood in conversation.",
+  },
+  {
+    title: "Coach recommendation",
+    description:
+      "You tend to show up as emotionally present and steady, making others feel comfortable and understood in conversation.",
+  },
+];
 const personality_scores = [
   {
     title: "Openness",
@@ -168,6 +262,14 @@ const personality_stories = [
     ],
   },
 ];
+const items = [
+  "Relationship & empathy",
+  "Focus & execution style",
+  "Ideation & creative energy",
+  "Pressure response & recovery",
+  "Openness to experience",
+  "Learning & growth",
+];
 function ScorePagePersonalityAccordion() {
   return (
     <Accordion
@@ -193,7 +295,10 @@ function ScorePagePersonalityAccordion() {
                   {personality.score}%
                 </span>
                 {personality.title}
-                <Badge variant={personality.level} className="capitalize">
+                <Badge
+                  variant={personality.level as "moderate" | "high" | "low"}
+                  className="capitalize"
+                >
                   {personality.level}
                 </Badge>
               </div>
@@ -249,6 +354,23 @@ function ScorePageCard({
   return (
     <div {...props} className={cn("card-with-divider container-md", className)}>
       {children}
+    </div>
+  );
+}
+function ScorePageNotchCard({
+  title,
+  className,
+  children,
+  ...props
+}: { title: string } & ComponentProps<"div"> & PropsWithChildren) {
+  return (
+    <div className="border-t border-t-error-container  w-full">
+      <div className="label-small-primary rounded-b-xl w-fit bg-error-container px-3 py-1 mx-auto">
+        {title}
+      </div>
+      <div {...props} className={cn("flex-1 shrink-0 w-full pt-8", className)}>
+        {children}
+      </div>
     </div>
   );
 }
@@ -399,31 +521,14 @@ export default function ScorePage() {
               type="right"
               className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-3"
             >
-              <ScorePageProgress
-                label="moderate"
-                progress={52}
-                title="Openness"
-              />
-              <ScorePageProgress
-                label="high"
-                progress={60}
-                title="Conscientiousness"
-              />
-              <ScorePageProgress
-                label="low"
-                progress={41}
-                title="Extraversion"
-              />
-              <ScorePageProgress
-                label="high"
-                progress={60}
-                title="Agreeableness"
-              />
-              <ScorePageProgress
-                label="high"
-                progress={60}
-                title="Neuroticism"
-              />
+              {main_scores.map((score, index) => (
+                <ScorePageProgress
+                  key={index}
+                  label={score.level as "low" | "moderate" | "high"}
+                  progress={score.score}
+                  title={score.title}
+                />
+              ))}
             </ScorePageContainer>
           </ScorePageCard>
           <ScorePageCard className="xl:rounded-tr-none">
@@ -539,106 +644,169 @@ export default function ScorePage() {
             </ScorePageContainer>
           </ScorePageCard>
         </ScorePageSection>
+        {items.map((item) => (
+          <ScorePageSection key={item}>
+            <ScorePageTitle>{item}</ScorePageTitle>
+            <ScorePageCard className="xl:rounded-tr-none">
+              <ScorePageShareButton className="max-xl:hidden" />
+              <ScorePageContainer
+                type="left"
+                className="flex flex-col  items-center gap-8"
+              >
+                <div>
+                  <h2 className="display-large-emphasized flex items-center text-transparent bg-gradient bg-clip-text text-center flex-center gap-2">
+                    <div className="size-6 bg-gradient clip-triangle" />
+                    72%
+                  </h2>
+                  <p className="body-large-emphasized max-w-52 text-center mx-auto">
+                    Ahead of your age group in empathy index
+                  </p>
+                </div>
+                <ScorePageNotchCard title="Score breakdown">
+                  <div className="flex-center gap-6">
+                    {relationship_scores.map((score, index) => (
+                      <ScorePageProgress
+                        key={index}
+                        label={score.level as "low" | "moderate" | "high"}
+                        progress={score.score}
+                        title={score.title}
+                      />
+                    ))}
+                  </div>
+                </ScorePageNotchCard>
+                <ScorePageNotchCard title="Score breakdown">
+                  <div className="flex-center gap-1">
+                    {relationship_items.map((score, index) => (
+                      <Badge key={index}>
+                        <Icon>{score.icon}</Icon>
+                        {score.title}
+                      </Badge>
+                    ))}
+                  </div>
+                </ScorePageNotchCard>
+                <Button variant="outline">
+                  <Share className="size-3" />
+                  Share
+                </Button>
+              </ScorePageContainer>
+              <ScorePageContainer type="right">
+                <Accordion
+                  type="single"
+                  collapsible
+                  defaultValue={relationship_results[0].title}
+                >
+                  {relationship_results.map((result, index) => (
+                    <AccordionItem key={index} value={result.title}>
+                      <AccordionTrigger className="group">
+                        <div className="flex items-center justify-between w-full gap-4">
+                          <div className="flex-center gap-2">
+                            {result.title}
+                          </div>
+                          <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="space-y-6">
+                        <div className="flex items-start gap-2">
+                          <div className="size-4 bg-error-container shrink-0 mt-2" />
+                          <div className="grow flex flex-col gap-2">
+                            <p className="body-medium-primary text-left">
+                              {result.description}
+                            </p>
+                          </div>
+                        </div>
+                        <Button variant={"outline"}>
+                          <Share className="size-3" />
+                          Share
+                        </Button>
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </ScorePageContainer>
+            </ScorePageCard>
+          </ScorePageSection>
+        ))}
+        {/* <ScorePageSection>
+          <ScorePageTitle>Relationship & empathy</ScorePageTitle>
+          <ScorePageCard className="xl:rounded-tr-none">
+            <ScorePageShareButton className="max-xl:hidden" />
+            <ScorePageContainer
+              type="left"
+              className="flex flex-col  items-center gap-8"
+            >
+              <div>
+                <h2 className="display-large-emphasized flex items-center text-transparent bg-gradient bg-clip-text text-center flex-center gap-2">
+                  <div className="size-6 bg-gradient clip-triangle" />
+                  72%
+                </h2>
+                <p className="body-large-emphasized max-w-52 text-center mx-auto">
+                  Ahead of your age group in empathy index
+                </p>
+              </div>
+              <ScorePageNotchCard title="Score breakdown">
+                <div className="flex-center gap-6">
+                  {relationship_scores.map((score, index) => (
+                    <ScorePageProgress
+                      key={index}
+                      label={score.level as "low" | "moderate" | "high"}
+                      progress={score.score}
+                      title={score.title}
+                    />
+                  ))}
+                </div>
+              </ScorePageNotchCard>
+              <ScorePageNotchCard title="Score breakdown">
+                <div className="flex-center gap-1">
+                  {relationship_items.map((score, index) => (
+                    <Badge key={index}>
+                      <Icon>{score.icon}</Icon>
+                      {score.title}
+                    </Badge>
+                  ))}
+                </div>
+              </ScorePageNotchCard>
+              <Button variant="outline">
+                <Share className="size-3" />
+                Share
+              </Button>
+            </ScorePageContainer>
+            <ScorePageContainer type="right">
+              <Accordion
+                type="single"
+                collapsible
+                defaultValue={relationship_results[0].title}
+              >
+                {relationship_results.map((result, index) => (
+                  <AccordionItem key={index} value={result.title}>
+                    <AccordionTrigger className="group">
+                      <div className="flex items-center justify-between w-full gap-4">
+                        <div className="flex-center gap-2">{result.title}</div>
+                        <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="space-y-6">
+                      <div className="flex items-start gap-2">
+                        <div className="size-4 bg-error-container shrink-0 mt-2" />
+                        <div className="grow flex flex-col gap-2">
+                          <p className="body-medium-primary text-left">
+                            {result.description}
+                          </p>
+                        </div>
+                      </div>
+                      <Button variant={"outline"}>
+                        <Share className="size-3" />
+                        Share
+                      </Button>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </ScorePageContainer>
+          </ScorePageCard>
+        </ScorePageSection> */}
+
         {/* 
         
-        <h2 className="section-title">Relationship & empathy</h2>
-        <div className="relative p-8 flex flex-col lg:flex-row items-center justify-center max-lg:divide-y lg:divide-x divide-error-container py-8 container-md mx-auto bg-error-container/16 rounded-2xl rounded-tr-none border-none shadow-none">
-          <button className="absolute cursor-pointer top-0 left-full bg-error-container flex items-center justify-center gap-2 h-8 w-24 rounded-b-lg -translate-x-8 translate-y-8 -rotate-90">
-            <Share className="size-3" />
-            <span className="label-small-primary">Share</span>
-          </button>
-          <div className="flex-1 w-full pointer-events-none flex flex-col  shrink-0 max-lg:pb-8 lg:pr-8 flex-center gap-8 lg:gap-16">
-            <div className="w-full  flex items-center justify-center flex-col">
-              <h2 className="display-large-emphasized flex items-center text-transparent bg-gradient bg-clip-text text-center flex-center gap-2">
-                <div className="size-6 bg-gradient clip-triangle" />
-                72%
-              </h2>
-              <p className="body-large-emphasized max-w-52 text-center">
-                Ahead of your age group in empathy index
-              </p>
-              <div className="border-t border-t-error-container  w-full">
-                <div className="label-small-primary rounded-b-2xl w-fit bg-error-container px-3 py-1 mx-auto">
-                  Score breakdown
-                </div>
-                <div className="flex-1 shrink-0 w-full max-lg:pt-8 lg:pl-8 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-3 my-8">
-                  <div className="flex flex-col items-center gap-1">
-                    <CircularProgress label="moderate" progress={60} />
-                    <p className="label-small-primary">Conscientiousness</p>
-                  </div>
-                  <div className="flex flex-col items-center gap-1">
-                    <CircularProgress label="low" progress={41} />
-                    <p className="label-small-primary">Extraversion</p>
-                  </div>
-                  <div className="flex flex-col items-center gap-1">
-                    <CircularProgress label="high" progress={70} />
-                    <p className="label-small-primary">Agreeableness</p>
-                  </div>
-                  <div className="flex flex-col items-center gap-1">
-                    <CircularProgress label="high" progress={70} />
-                    <p className="label-small-primary">Neuroticism</p>
-                  </div>
-                </div>
-              </div>
-              <div className="border-t border-t-error-container  w-full">
-                <div className="label-small-primary rounded-b-2xl w-fit bg-error-container px-3 py-1 mx-auto">
-                  Suitable for a relationship with
-                </div>
-                <div className="flex items-center flex-wrap gap-1 my-8">
-                  <Badge>
-                    <Icon>
-                      <ArrowOutward />
-                    </Icon>
-                    You enjoy new ideas and perspectives
-                  </Badge>
-                  <Badge>
-                    <Icon>
-                      <ArrowOutward />
-                    </Icon>
-                    You adapt well to change
-                  </Badge>
-                  <Badge>
-                    <Icon>
-                      <ArrowOutward />
-                    </Icon>
-                    You value personal growth
-                  </Badge>
-                </div>
-              </div>
-            </div>
-            <Button variant={"outline"}>
-              <Share className="size-3" />
-              Share
-            </Button>
-          </div>
-          <div className="flex-1 w-full shrink-0 max-lg:pt-8 lg:pl-8">
-            <Accordion type="single" collapsible defaultValue={steps[0].title}>
-              <AccordionItem key="item-1" value="item-1">
-                <AccordionTrigger className="group">
-                  <div className="flex items-center justify-between w-full gap-4">
-                    <div className="flex-center gap-2">Snapshot insight</div>
-                    <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="space-y-6">
-                  <div className="flex items-start gap-2">
-                    <div className="size-4 bg-error-container shrink-0" />
-                    <div className="grow flex flex-col gap-2">
-                      <p className="body-medium-primary text-left">
-                        You tend to show up as emotionally present and steady,
-                        making others feel comfortable and understood in
-                        conversation.
-                      </p>
-                    </div>
-                  </div>
-                  <Button variant={"outline"}>
-                    <Share className="size-3" />
-                    Share
-                  </Button>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </div>
-        </div>
         <h2 className="section-title">Personalities you might relate to</h2>
         <div className="relative p-8 flex-center flex-col gap-8 container-md mx-auto bg-error-container/16 rounded-2xl">
           <Carousel
