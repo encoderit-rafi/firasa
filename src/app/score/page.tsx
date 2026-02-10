@@ -51,6 +51,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { ArrowBigDownDashIcon, ChevronDownIcon } from "lucide-react";
 import Image from "next/image";
+import { ComponentProps, PropsWithChildren } from "react";
 const steps: {
   // icon: React.FC<SVGProps<SVGSVGElement>>;
   title: string;
@@ -93,6 +94,272 @@ const steps: {
       "Get your big 5 score and insights into your personality traits. We use advanced machine learning algorithms to analyze your facial movements and provide insights into your personality traits.",
   },
 ];
+const personalities = [
+  {
+    title: "Openness",
+    score: 78,
+    level: "moderate",
+    descriptions: [
+      {
+        title: "What this means:",
+        items: [
+          {
+            icon: "🤝",
+            description: "You enjoy new ideas and perspectives",
+          },
+          {
+            icon: "🌿",
+            description: "You adapt well to change",
+          },
+          {
+            icon: "🧠",
+            description: "You value personal growth",
+          },
+        ],
+      },
+      {
+        title: "How to increase:",
+        items: [
+          {
+            icon: "🌍",
+            description: "Explore new inputs",
+          },
+          {
+            icon: "🔍",
+            description: "Challenge assumptions",
+          },
+          {
+            icon: "✏️",
+            description: "Create without outcome",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Conscientiousness",
+    score: 64,
+    level: "moderate",
+  },
+  {
+    title: "Agreeableness",
+    score: 81,
+    level: "high",
+  },
+  {
+    title: "Neuroticism",
+    score: 41,
+    level: "low",
+  },
+];
+function ScorePagePersonalityAccordion() {
+  return (
+    <Accordion type="single" collapsible defaultValue={personalities[0].title}>
+      {personalities.map((personality, index) => (
+        <AccordionItem key={index} value={personality.title}>
+          <AccordionTrigger
+            className="group"
+            disabled={!personality.descriptions}
+          >
+            <div className="flex items-center justify-between w-full gap-4">
+              <div className="flex-center gap-2">
+                <span
+                  className={cn({
+                    "text-warning": personality.level === "moderate",
+                    "text-error": personality.level === "low",
+                    "text-success": personality.level === "high",
+                  })}
+                >
+                  {personality.score}%
+                </span>
+                {personality.title}
+                <Badge variant={personality.level} className="capitalize">
+                  {personality.level}
+                </Badge>
+              </div>
+              <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+            </div>
+          </AccordionTrigger>
+          <AccordionContent className="space-y-10">
+            {personality.descriptions?.map((description, index) => (
+              <div key={index} className="flex items-start gap-2">
+                <div className="size-4 bg-error-container shrink-0" />
+                <div className="grow flex flex-col gap-2">
+                  <p className="body-medium-primary text-left">
+                    {description.title}
+                  </p>
+                  <div className="flex items-center flex-wrap gap-1">
+                    {description.items.map((item, index) => (
+                      <Badge key={index}>
+                        <Icon>{item.icon}</Icon>
+                        {item.description}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+            {/* <div className="flex items-start gap-2">
+              <div className="size-4 bg-error-container shrink-0" />
+              <div className="grow flex flex-col gap-2">
+                <p className="body-medium-primary text-left">
+                  What this means:
+                </p>
+                <div className="flex items-center flex-wrap gap-1">
+                  <Badge>
+                    <Icon>🤝</Icon>
+                    You enjoy new ideas and perspectives
+                  </Badge>
+                  <Badge>
+                    <Icon>🌿</Icon>
+                    You adapt well to change
+                  </Badge>
+                  <Badge>
+                    <Icon>🧠</Icon>
+                    You value personal growth
+                  </Badge>
+                </div>
+              </div>
+            </div> */}
+            <Button variant={"outline"}>
+              <Share className="size-3" />
+              Share
+            </Button>
+          </AccordionContent>
+        </AccordionItem>
+      ))}
+      {/* <AccordionItem key="item-1" value="item-1">
+        <AccordionTrigger className="group">
+          <div className="flex items-center justify-between w-full gap-4">
+            <div className="flex-center gap-2">
+              <span className="text-warning">78%</span>Openness
+              <Badge variant={"moderate"}>Modarate</Badge>
+            </div>
+            <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+          </div>
+        </AccordionTrigger>
+        <AccordionContent>
+          <div className="flex items-start gap-2">
+            <div className="size-4 bg-error-container shrink-0" />
+            <div className="grow flex flex-col gap-2">
+              <p className="body-medium-primary text-left">What this means:</p>
+              <div className="flex items-center flex-wrap gap-1">
+                <Badge>
+                  <Icon>🤝</Icon>
+                  You enjoy new ideas and perspectives
+                </Badge>
+                <Badge>
+                  <Icon>🌿</Icon>
+                  You adapt well to change
+                </Badge>
+                <Badge>
+                  <Icon>🧠</Icon>
+                  You value personal growth
+                </Badge>
+              </div>
+            </div>
+          </div>
+          <Button variant={"outline"}>
+            <Share className="size-3" />
+            Share
+          </Button>
+        </AccordionContent>
+      </AccordionItem> */}
+    </Accordion>
+  );
+}
+function ScorePageSection({
+  className,
+  children,
+  ...props
+}: ComponentProps<"section"> & PropsWithChildren) {
+  return (
+    <section {...props} className={cn("space-y-8", className)}>
+      {children}
+    </section>
+  );
+}
+function ScorePageCard({
+  className,
+  children,
+  ...props
+}: ComponentProps<"div"> & PropsWithChildren) {
+  return (
+    <div {...props} className={cn("card-with-divider container-md", className)}>
+      {children}
+    </div>
+  );
+}
+function ScorePageContainer({
+  type = "left",
+  className,
+  children,
+  ...props
+}: { type: "left" | "right" } & ComponentProps<"div"> & PropsWithChildren) {
+  return (
+    <div
+      {...props}
+      className={cn(
+        "flex-1 w-full lg:w-1/2 shrink-0",
+        {
+          "max-lg:pb-8 lg:pr-8": type === "left",
+          "max-lg:pt-8 lg:pl-8": type === "right",
+        },
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+function ScorePageTitle({
+  className,
+  children,
+  ...props
+}: ComponentProps<"h2"> & PropsWithChildren) {
+  return (
+    <h2
+      {...props}
+      className={cn("display-large-emphasized text-center", className)}
+    >
+      {children}
+    </h2>
+  );
+}
+function ScorePageShareButton({
+  className,
+  children,
+  ...props
+}: ComponentProps<"button"> & PropsWithChildren) {
+  return (
+    <button
+      {...props}
+      className={cn(
+        "absolute cursor-pointer top-0 left-full bg-error-container flex items-center justify-center gap-2 h-8 w-24 rounded-b-lg -translate-x-8 translate-y-8 -rotate-90",
+        className,
+      )}
+    >
+      <Share className="size-3" />
+      <span className="label-small-primary">Share</span>
+    </button>
+  );
+}
+function ScorePageProgress({
+  label,
+  progress,
+  title,
+}: {
+  label: "low" | "moderate" | "high";
+  progress: number;
+  title: string;
+}) {
+  return (
+    <div className="flex flex-col items-center gap-1">
+      <CircularProgress label={label} progress={progress} />
+      <p className="label-small-primary">{title}</p>
+    </div>
+  );
+}
 export default function ScorePage() {
   return (
     <div className="">
@@ -139,55 +406,82 @@ export default function ScorePage() {
           </TabsList>
         </Tabs>
       </div>
-      <section className="section px-4 space-y-16">
-        <h2 className="section-title">Big 5 personality score</h2>
-        <div className="relative p-8 flex flex-col lg:flex-row items-center justify-center max-lg:divide-y lg:divide-x divide-error-container py-8 container-md mx-auto bg-error-container/16 rounded-2xl rounded-tr-none border-none shadow-none">
-          <button className="absolute cursor-pointer top-0 left-full bg-error-container flex items-center justify-center gap-2 h-8 w-24 rounded-b-lg -translate-x-8 translate-y-8 -rotate-90">
-            <Share className="size-3" />
-            <span className="label-small-primary">Share</span>
-          </button>
-          <div className="flex-1 w-full flex flex-col md:flex-row  shrink-0 max-lg:pb-8 lg:pr-8 flex-center gap-8">
-            <Image
-              src="https://images.unsplash.com/photo-1558898479-33c0057a5d12?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="Score"
-              width={288}
-              height={288}
-              className="rounded-md size-72 md:size-24 object-cover object-center"
-            />
-            <div className="flex-col flex gap-2 text-on-surface">
-              <h3 className="text-left headline-small-emphasized">
-                Visionary pathfinder
-              </h3>
-              <p className="text-left body-medium-primary">
-                Your facial cues suggest a natural openness and curiosity, often
-                seen in individuals who enjoy exploring new ideas and connecting
-                with others.
-              </p>
-            </div>
-          </div>
-          <div className="flex-1 shrink-0 w-full max-lg:pt-8 lg:pl-8 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-3">
-            <div className="flex flex-col items-center gap-1">
-              <CircularProgress label="moderate" progress={52} />
-              <p className="label-small-primary">Openness</p>
-            </div>
-            <div className="flex flex-col items-center gap-1">
-              <CircularProgress label="moderate" progress={60} />
-              <p className="label-small-primary">Conscientiousness</p>
-            </div>
-            <div className="flex flex-col items-center gap-1">
-              <CircularProgress label="low" progress={41} />
-              <p className="label-small-primary">Extraversion</p>
-            </div>
-            <div className="flex flex-col items-center gap-1">
-              <CircularProgress label="high" progress={70} />
-              <p className="label-small-primary">Agreeableness</p>
-            </div>
-            <div className="flex flex-col items-center gap-1">
-              <CircularProgress label="high" progress={70} />
-              <p className="label-small-primary">Neuroticism</p>
-            </div>
-          </div>
-        </div>
+      <div className="section lg:py-16 px-4 space-y-16">
+        <ScorePageSection>
+          <ScorePageTitle>Big 5 personality score</ScorePageTitle>
+          <ScorePageCard className="xl:rounded-tr-none">
+            <ScorePageShareButton className="max-xl:hidden" />
+            <ScorePageContainer
+              type="left"
+              className="flex-center flex-col md:flex-row gap-8"
+            >
+              <Image
+                src="https://images.unsplash.com/photo-1558898479-33c0057a5d12?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Score"
+                width={288}
+                height={288}
+                className="rounded-md size-72 md:size-24 object-cover object-center"
+              />
+              <div className="flex-col flex gap-2 text-on-surface">
+                <h3 className="text-left headline-small-emphasized">
+                  Visionary pathfinder
+                </h3>
+                <p className="text-left body-medium-primary">
+                  Your facial cues suggest a natural openness and curiosity,
+                  often seen in individuals who enjoy exploring new ideas and
+                  connecting with others.
+                </p>
+              </div>
+            </ScorePageContainer>
+            <ScorePageContainer
+              type="right"
+              className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-3"
+            >
+              <ScorePageProgress
+                label="moderate"
+                progress={52}
+                title="Openness"
+              />
+              <ScorePageProgress
+                label="high"
+                progress={60}
+                title="Conscientiousness"
+              />
+              <ScorePageProgress
+                label="low"
+                progress={41}
+                title="Extraversion"
+              />
+              <ScorePageProgress
+                label="high"
+                progress={60}
+                title="Agreeableness"
+              />
+              <ScorePageProgress
+                label="high"
+                progress={60}
+                title="Neuroticism"
+              />
+            </ScorePageContainer>
+          </ScorePageCard>
+          <ScorePageCard className="xl:rounded-tr-none">
+            <ScorePageShareButton className="max-xl:hidden" />
+            <ScorePageContainer
+              type="left"
+              className="h-110.25 flex flex-col items-center"
+            >
+              <SimpleRadarChart />
+              <Button variant={"outline"}>
+                <Share className="size-3" />
+                Share
+              </Button>
+            </ScorePageContainer>
+            <ScorePageContainer type="right">
+              <ScorePagePersonalityAccordion />
+            </ScorePageContainer>
+          </ScorePageCard>
+        </ScorePageSection>
+        {/* 
         <div className="relative p-8 flex flex-col lg:flex-row items-center justify-center max-lg:divide-y lg:divide-x divide-error-container py-8 container-md mx-auto bg-error-container/16 rounded-2xl rounded-tr-none border-none shadow-none">
           <button className="absolute cursor-pointer top-0 left-full bg-error-container flex items-center justify-center gap-2 h-8 w-24 rounded-b-lg -translate-x-8 translate-y-8 -rotate-90">
             <Share className="size-3" />
@@ -527,12 +821,6 @@ export default function ScorePage() {
                         <CardHeader className="text-white title-medium-emphasized w-full text-center bg-linear-to-r from-error to-transparent px-3 py-1">
                           Keanu Reeves
                         </CardHeader>
-                        {/* <CardAvatar
-                        src="https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                        name="Steve Jobs"
-                        role="Visionary pathfinder"
-                      /> */}
-                        {/* <Separator className="h-1 to-white/30 mt-3" /> */}
                         <div className="pb-3">
                           <CircularProgress
                             label="high"
@@ -540,8 +828,6 @@ export default function ScorePage() {
                             className="text-white"
                           />
                         </div>
-
-                        {/* <SimpleRadarChart className="text-white pointer-events-none" /> */}
                       </CardContent>
                     </Card>
                   </CarouselItem>
@@ -681,8 +967,8 @@ export default function ScorePage() {
               <Button variant={"outline"}>Buy Now</Button>
             </div>
           </div>
-        </div>
-      </section>
+        </div> */}
+      </div>
     </div>
   );
 }

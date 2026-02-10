@@ -204,15 +204,15 @@
 }
 
 @layer base {
-  body {
-    @apply antialiased bg-white font-roboto;
+  * body {
+    @apply antialiased bg-white font-roboto text-on-surface;
   }
   h1 {
     @apply font-medium text-3xl leading-tight tracking-normal mx-auto text-center md:text-6xl text-on-surface;
   }
-  h2 {
+  /* h2 {
     @apply text-center font-medium text-4xl leading-tight tracking-normal  text-on-surface;
-  }
+  } */
   h3 {
     @apply text-center font-medium text-xl leading-8 tracking-normal text-on-surface;
   }
@@ -264,6 +264,9 @@
   }
   .box-black {
     @apply bg-on-surface rounded-xl;
+  }
+  .card-with-divider {
+    @apply relative p-8 flex flex-col lg:flex-row items-center justify-center max-lg:divide-y lg:divide-x divide-error-container py-8 mx-auto bg-error-container/16 rounded-2xl border-none shadow-none;
   }
   /* add this to your global CSS */
 
@@ -343,7 +346,7 @@
   /* EMPHASIZED DISPLAY */
 
   .display-large-emphasized {
-    @apply font-medium text-6xl leading-tight tracking-normal;
+    @apply font-medium text-4xl lg:text-6xl leading-tight tracking-normal;
   }
 
   .display-medium-emphasized {
