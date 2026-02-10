@@ -24,8 +24,8 @@ export const Triangle = ({ className, ...props }: Props) => {
           y2="8"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FF77D7" />
-          <stop offset="1" stop-color="#FA6C12" />
+          <stop stopColor="#FF77D7" />
+          <stop offset="1" stopColor="#FA6C12" />
         </linearGradient>
       </defs>
     </svg>
