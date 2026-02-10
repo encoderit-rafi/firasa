@@ -603,7 +603,7 @@ export default function ScorePage() {
               <ScorePagePersonalityAccordion />
             </ScorePageContainer>
           </ScorePageCard>
-          <ScorePageCard className="flex-center flex-col gap-8 divide-none">
+          <ScorePageCard className="flex-center flex-col gap-8 divide-none ">
             <Tabs defaultValue="overview" className="mx-auto">
               <TabsList>
                 <TabsTrigger value="overview">Worth sharing</TabsTrigger>

@@ -232,7 +232,7 @@
     @apply text-error;
   }
   .section-title {
-    @apply mt-8 mb-4;
+    @apply mt-8 mb-4 font-medium text-4xl leading-tight tracking-normal text-on-surface text-center;
   }
   .section-description {
     @apply mb-8 lg:mb-16;

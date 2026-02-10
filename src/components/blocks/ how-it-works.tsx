@@ -40,7 +40,7 @@ export default function HowItWorks() {
         <div className="container-md flex flex-col lg:flex-row items-start gap-10">
           <div className="w-full lg:w-1/2">
             <h6 className="section-label text-left">How it works</h6>
-            <h2 className="text-left mt-8 mb-16">3 steps, ultra simple.</h2>
+            <h2 className="text-left section-title">3 steps, ultra simple.</h2>
             <Separator />
             <Accordion
               type="single"
