@@ -34,6 +34,7 @@ export const useVideoUpload = () => {
   const mediaStreamRef = useRef<MediaStream | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   const stopRecording = useCallback(() => {
     if (
@@ -122,6 +123,7 @@ export const useVideoUpload = () => {
 
         setStatus("uploading");
         setProgress(0);
+        abortControllerRef.current = new AbortController();
 
         // 1. Init Upload
         const initInfo = {
@@ -134,7 +136,9 @@ export const useVideoUpload = () => {
           video_duration: finalDuration || 1, // Fallback to 1 to avoid API error
         };
 
-        const initRes = await api.post("/videos/uploads/init", initInfo);
+        const initRes = await api.post("/videos/uploads/init", initInfo, {
+          signal: abortControllerRef.current.signal,
+        });
         const newUploadId = initRes.data.data.upload_id;
         setUploadId(newUploadId);
 
@@ -151,6 +155,7 @@ export const useVideoUpload = () => {
           formData.append("chunk", chunk);
 
           await api.post("/videos/uploads/chunk", formData, {
+            signal: abortControllerRef.current.signal,
             headers: {
               "Content-Type": "multipart/form-data",
             },
@@ -168,19 +173,31 @@ export const useVideoUpload = () => {
         }
 
         // 3. Complete Upload
-        const completeRes = await api.post("/videos/uploads/complete", {
-          upload_id: newUploadId,
-        });
+        const completeRes = await api.post(
+          "/videos/uploads/complete",
+          {
+            upload_id: newUploadId,
+          },
+          {
+            signal: abortControllerRef.current.signal,
+          },
+        );
         const newVideoId = completeRes.data.data.video_id;
         setVideoId(newVideoId);
         setStatus("completed");
         toast.success("Upload complete!");
         return newVideoId;
-      } catch (err) {
+      } catch (err: any) {
+        if (err.name === "CanceledError" || err.name === "AbortError") {
+          console.log("Upload canceled");
+          return null;
+        }
         console.error("Upload failed", err);
         setStatus("error");
         toast.error("Upload failed");
         return null;
+      } finally {
+        abortControllerRef.current = null;
       }
     },
     [duration],
@@ -244,6 +261,18 @@ export const useVideoUpload = () => {
     }
   }, []);
 
+  const cancelUpload = useCallback(() => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    setStatus("idle");
+    setProgress(0);
+    setUploadId(null);
+    setVideoId(null);
+    setDuration(0);
+    chunksRef.current = [];
+  }, []);
+
   return {
     status,
     progress,
@@ -255,6 +284,7 @@ export const useVideoUpload = () => {
     stopRecording,
     uploadFile,
     startAnalysis,
+    cancelUpload,
     recordedBlob:
       chunksRef.current.length > 0
         ? new Blob(chunksRef.current, { type: "video/webm" })

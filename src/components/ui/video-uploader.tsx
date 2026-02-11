@@ -20,6 +20,7 @@ export default function VideoUploader() {
     stopRecording,
     uploadFile,
     startAnalysis,
+    cancelUpload,
     recordedBlob,
   } = useVideoUpload();
 
@@ -73,6 +74,11 @@ export default function VideoUploader() {
     setSelectedFile(null);
     setPreviewUrl(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const handleCancelUpload = () => {
+    cancelUpload();
+    handleRemoveFile();
   };
 
   useEffect(() => {
@@ -131,7 +137,11 @@ export default function VideoUploader() {
                   </p>
                 </div>
                 <div className="">
-                  <Button variant="ghost" size={"icon"} onClick={stopRecording}>
+                  <Button
+                    variant="ghost"
+                    size={"icon"}
+                    onClick={handleCancelUpload}
+                  >
                     <XIcon />
                   </Button>
                 </div>
