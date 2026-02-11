@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AlertCircleIcon, XIcon, Loader2 } from "lucide-react";
 
 import { Button } from "./button";
-import { Guard, Upload, VideoCam } from "@/assets/icons";
+import { Guard, LoadingIcon, Upload, VideoCam, X } from "@/assets/icons";
 import TextSeparator from "./text-separator";
 import { useVideoUpload } from "@/hooks/use-video-upload";
 import { cn } from "@/lib/utils";
@@ -121,25 +121,34 @@ export default function VideoUploader() {
             </div>
           ) : status === "uploading" ? (
             <div className="flex flex-col items-center justify-center w-full p-4 gap-6 text-center">
-              <div className="flex flex-col items-center gap-2">
-                <p className="title-medium-primary truncate max-w-xs">
-                  {selectedFile?.name || "Recorded Video"}
-                </p>
-                <p className="body-small-primary">
-                  {formatBytes(selectedFile?.size || recordedBlob?.size || 0)}
-                </p>
+              <div className="flex items-center justify-between w-full ">
+                <div className="flex-1">
+                  <p className="body-large-emphasized text-left">
+                    {selectedFile?.name}
+                  </p>
+                  <p className="body-small-primary  text-left">
+                    {formatBytes(selectedFile?.size || recordedBlob?.size || 0)}
+                  </p>
+                </div>
+                <div className="">
+                  <Button variant="ghost" size={"icon"} onClick={stopRecording}>
+                    <XIcon />
+                  </Button>
+                </div>
               </div>
 
-              <div className="w-full max-w-sm space-y-2">
-                <div className="flex justify-between items-center px-1">
-                  <span className="text-sm font-medium">Uploading...</span>
-                  <span className="text-xs font-mono">{progress}%</span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
+              <div className="w-full  space-y-6">
+                <div className="w-full bg-error-container rounded-full h-0.5 overflow-hidden">
                   <div
-                    className="bg-primary h-full rounded-full transition-all duration-300 ease-out"
+                    className="bg-error h-full rounded-full transition-all duration-300 ease-out"
                     style={{ width: `${progress}%` }}
                   />
+                </div>
+                <div className="flex-center gap-2 rounded-full bg-on-surface/10 px-6 py-4 mx-auto w-fit">
+                  <LoadingIcon />
+                  <span className="title-medium-primary text-on-surface/50">
+                    Uploading... ({progress}%)
+                  </span>
                 </div>
               </div>
             </div>
