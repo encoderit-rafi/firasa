@@ -1,6 +1,4 @@
 "use client";
-// import { Apple, FacebookFilled, Google } from "@/assets/icons";
-// import OAuth from "@/components/blocks/oauth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -8,10 +6,8 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
-// import TextSeparator from "@/components/ui/text-separator";
 import { EyeOffIcon } from "lucide-react";
-// import Link from "next/link";
-import { z } from "zod";
+
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -21,21 +17,21 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Activity } from "react";
-const SignInSchema = z.object({
-  email: z.email("Email is invalid"),
-  password: z.string().min(1, "Password is required"),
-});
-type SignInSchema = z.infer<typeof SignInSchema>;
+import { SignInSchema, SignInType } from "../_types";
+import { useMutationSignIn } from "../_api";
+import { toast } from "sonner";
 export default function FormSignIn() {
-  const { control, handleSubmit } = useForm<SignInSchema>({
+  const { control, handleSubmit } = useForm<SignInType>({
     defaultValues: {
       email: "",
       password: "",
     },
     resolver: zodResolver(SignInSchema),
   });
-  const onSubmit = (data: SignInSchema) => {
-    console.log(data);
+  const { mutate: signIn, isPending } = useMutationSignIn();
+  const onSubmit = (data: SignInType) => {
+    // toast.success("Sign In Data", { description: JSON.stringify(data) });
+    signIn(data);
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -83,7 +79,7 @@ export default function FormSignIn() {
             </Field>
           )}
         />
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full" loading={isPending}>
           Sign In
         </Button>
       </FieldGroup>

@@ -3,6 +3,8 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/blocks/footer";
+import { Toaster } from "@/components/ui/sonner";
+import QueryProvider from "@/providers/query-provider";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -21,9 +23,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.variable}`}>
-        <Navbar />
-        {children}
-        <Footer />
+        <QueryProvider>
+          <Navbar />
+          {children}
+          <Footer />
+          <Toaster richColors position="top-right" />
+        </QueryProvider>
       </body>
     </html>
   );
