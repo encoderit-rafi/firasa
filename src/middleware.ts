@@ -38,15 +38,11 @@ export default async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    "/pregnancy-overview/:path*",
-    "/checklists/:path*",
-    "/profile/:path*",
-    "/articles/:path*",
-    "/weekly-question/:path*",
     "/change-password/:path*",
     "/sign-in",
     "/sign-up",
     "/forgot-password",
+    "/verify-otp",
     "/",
   ],
 };
