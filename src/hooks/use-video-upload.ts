@@ -35,6 +35,19 @@ export const useVideoUpload = () => {
   const chunksRef = useRef<Blob[]>([]);
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  const stopRecording = useCallback(() => {
+    if (
+      mediaRecorderRef.current &&
+      mediaRecorderRef.current.state !== "inactive"
+    ) {
+      mediaRecorderRef.current.stop();
+    }
+    if (mediaStreamRef.current) {
+      mediaStreamRef.current.getTracks().forEach((track) => track.stop());
+    }
+    if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
+  }, []);
+
   const startRecording = useCallback(async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -62,7 +75,12 @@ export const useVideoUpload = () => {
 
       const startTime = Date.now();
       timerIntervalRef.current = setInterval(() => {
-        setDuration(Math.floor((Date.now() - startTime) / 1000));
+        const d = Math.floor((Date.now() - startTime) / 1000);
+        setDuration(d);
+        if (d >= 60) {
+          stopRecording();
+          toast.info("Recording reached 60 seconds limit");
+        }
       }, 1000);
 
       return stream;
@@ -71,24 +89,37 @@ export const useVideoUpload = () => {
       toast.error("Could not access camera/microphone");
       return null;
     }
-  }, []);
+  }, [stopRecording]);
 
-  const stopRecording = useCallback(() => {
-    if (
-      mediaRecorderRef.current &&
-      mediaRecorderRef.current.state !== "inactive"
-    ) {
-      mediaRecorderRef.current.stop();
-    }
-    if (mediaStreamRef.current) {
-      mediaStreamRef.current.getTracks().forEach((track) => track.stop());
-    }
-    if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
-  }, []);
+  const getVideoDuration = (file: File): Promise<number> => {
+    return new Promise((resolve) => {
+      const video = document.createElement("video");
+      video.preload = "metadata";
+      video.onloadedmetadata = () => {
+        window.URL.revokeObjectURL(video.src);
+        resolve(Math.round(video.duration));
+      };
+      video.onerror = () => {
+        resolve(0);
+      };
+      video.src = URL.createObjectURL(file);
+    });
+  };
 
   const uploadFile = useCallback(
     async (file: File, uploadType: "file" | "record") => {
       try {
+        let finalDuration = duration;
+        if (uploadType === "file" && finalDuration === 0) {
+          finalDuration = await getVideoDuration(file);
+        }
+
+        if (finalDuration > 60) {
+          toast.error("Video duration must not exceed 60 seconds.");
+          setStatus("idle");
+          return null;
+        }
+
         setStatus("uploading");
         setProgress(0);
 
@@ -100,7 +131,7 @@ export const useVideoUpload = () => {
           file_name: file.name,
           file_size: file.size,
           total_chunks: Math.ceil(file.size / CHUNK_SIZE),
-          video_duration: duration || 0,
+          video_duration: finalDuration || 1, // Fallback to 1 to avoid API error
         };
 
         const initRes = await api.post("/videos/uploads/init", initInfo);
@@ -120,6 +151,9 @@ export const useVideoUpload = () => {
           formData.append("chunk", chunk);
 
           await api.post("/videos/uploads/chunk", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
             onUploadProgress: (progressEvent: AxiosProgressEvent) => {
               if (progressEvent.total) {
                 const chunkProgress =

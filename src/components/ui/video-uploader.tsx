@@ -36,6 +36,15 @@ export default function VideoUploader() {
     );
   };
 
+  const formatBytes = (bytes: number, decimals = 2) => {
+    if (bytes === 0) return "0 Bytes";
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -110,6 +119,30 @@ export default function VideoUploader() {
                 Stop Recording
               </Button>
             </div>
+          ) : status === "uploading" ? (
+            <div className="flex flex-col items-center justify-center w-full p-4 gap-6 text-center">
+              <div className="flex flex-col items-center gap-2">
+                <p className="title-medium-primary truncate max-w-xs">
+                  {selectedFile?.name || "Recorded Video"}
+                </p>
+                <p className="body-small-primary">
+                  {formatBytes(selectedFile?.size || recordedBlob?.size || 0)}
+                </p>
+              </div>
+
+              <div className="w-full max-w-sm space-y-2">
+                <div className="flex justify-between items-center px-1">
+                  <span className="text-sm font-medium">Uploading...</span>
+                  <span className="text-xs font-mono">{progress}%</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
+                  <div
+                    className="bg-primary h-full rounded-full transition-all duration-300 ease-out"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+              </div>
+            </div>
           ) : previewUrl ? (
             <div className="absolute inset-0">
               <video
@@ -163,19 +196,15 @@ export default function VideoUploader() {
         </div>
       </div>
 
-      {(status === "uploading" ||
-        status === "completed" ||
-        status === "analyzing") && (
+      {(status === "completed" || status === "analyzing") && (
         <div className="bg-white p-4 rounded-xl border border-outline-variant shadow-sm flex flex-col gap-3">
           <div className="flex justify-between items-center">
             <span className="text-sm font-medium">
-              {status === "uploading"
-                ? "Uploading video..."
-                : status === "completed" && !videoId
-                  ? "Upload complete"
-                  : status === "analyzing"
-                    ? "AI Analysis in progress..."
-                    : "Ready for analysis"}
+              {status === "completed" && !videoId
+                ? "Upload complete"
+                : status === "analyzing"
+                  ? "AI Analysis in progress..."
+                  : "Ready for analysis"}
             </span>
             <span className="text-xs text-muted-foreground">{progress}%</span>
           </div>
@@ -210,7 +239,7 @@ export default function VideoUploader() {
       )}
 
       {status === "idle" && (selectedFile || recordedBlob) && (
-        <Button onClick={handleStartUpload} className="w-full" size="lg">
+        <Button onClick={handleStartUpload} className="w-full">
           Upload and Continue
         </Button>
       )}
