@@ -23,12 +23,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.variable}`}>
+
         <QueryProvider>
           <Navbar />
           {children}
           <Footer />
           <Toaster richColors position="top-right" />
         </QueryProvider>
+
       </body>
     </html>
   );

@@ -6,6 +6,7 @@ import { ArrowOutward, Menu, VideoCam } from "@/assets/icons";
 import Translation from "./translation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import SignOut from "./SignOut";
 export type NavItemType = {
   label: ReactNode;
   href: string;
@@ -53,16 +54,7 @@ export default function Navbar() {
           <NavList item={nav_items} />
         </div>
         <div className="hidden xl:flex flex-center gap-2">
-          <Link
-            href="/sign-in"
-            className={cn(
-              buttonVariants({
-                variant: "ghost",
-              }),
-            )}
-          >
-            Sign in
-          </Link>
+          <SignOut />
           <Translation />
           <Link
             href="/upload"

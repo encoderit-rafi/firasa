@@ -1,16 +1,17 @@
-// import { getToken } from "next-auth/jwt";
+import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
 export default async function middleware(req: NextRequest) {
   const isProduction = process.env.NODE_ENV === "production";
 
-  //   const token = await getToken({
-  //     req,
-  //     secret: process.env.NEXTAUTH_SECRET,
-  //     cookieName: isProduction
-  //       ? "__Secure-authjs.session-token"
-  //       : "authjs.session-token",
-  //   });
+  const token = await getToken({
+    req: req,
+    secret: process.env.NEXTAUTH_SECRET,
+    cookieName:
+      process.env.NODE_ENV === "production"
+        ? "__Secure-authjs.session-token"
+        : "authjs.session-token",
+  });
 
   const { pathname } = req.nextUrl;
 
@@ -19,34 +20,25 @@ export default async function middleware(req: NextRequest) {
     pathname === "/sign-in" ||
     pathname === "/sign-up" ||
     pathname === "/forgot-password" ||
-    pathname === "/";
+    pathname === "/verify-otp";
 
   // If user is authenticated and trying to access auth pages, redirect away
-  //   if (token && isAuthPage) {
-  //     return NextResponse.redirect(new URL("/pregnancy-overview", req.url));
-  //   }
+  if (token && isAuthPage) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
 
   // If user is not authenticated and on protected route, redirect to login
-  //   if (!token && !isAuthPage) {
-  //     const loginUrl = new URL("/login", req.url);
-  //     loginUrl.searchParams.set("callbackUrl", pathname);
-  //     return NextResponse.redirect(loginUrl);
-  //   }
+  if (!token && !isAuthPage) {
+    const loginUrl = new URL("/sign-in", req.url);
+    loginUrl.searchParams.set("callbackUrl", pathname);
+    return NextResponse.redirect(loginUrl);
+  }
 
   return NextResponse.next();
 }
 
 export const config = {
   matcher: [
-    "/pregnancy-overview/:path*",
-    "/checklists/:path*",
-    "/profile/:path*",
-    "/articles/:path*",
-    "/weekly-question/:path*",
-    "/change-password/:path*",
-    "/sign-in",
-    "/sign-up",
-    "/forgot-password",
-    "/",
+    "/((?!api|_next/static|_next/image|favicon.ico|.*\\.).*)",
   ],
 };

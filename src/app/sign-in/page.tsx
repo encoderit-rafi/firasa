@@ -3,8 +3,6 @@ import OAuth from "@/components/blocks/oauth";
 import TextSeparator from "@/components/ui/text-separator";
 import Link from "next/link";
 import FormSignIn from "./_components/form-sign-in";
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
 
 export default function SignInPage() {
   return (

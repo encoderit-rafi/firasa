@@ -1,3 +1,4 @@
+// authOptions.ts
 import CredentialsProvider from "next-auth/providers/credentials";
 import type { NextAuthOptions, User } from "next-auth";
 
@@ -6,14 +7,28 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        token: { label: "token", type: "token" },
+        access_token: {},
+        refresh_token: {},
+        user_name: {},
+        user_email: {},
+        user_avatar: {},
+        user_role: {},
       },
       async authorize(credentials): Promise<User | null> {
-        const accessToken = credentials?.token;
-        if (accessToken) {
+        const accessToken = credentials?.access_token;
+        const refreshToken = credentials?.refresh_token;
+
+        if (accessToken && refreshToken) {
           return {
-            token: accessToken,
-            id: accessToken,
+            id: credentials?.user_email || accessToken,
+            name: credentials?.user_name || null,
+            email: credentials?.user_email || null,
+            avatar: credentials?.user_avatar || "",
+            role: credentials?.user_role || "",
+            token: {
+              access_token: accessToken,
+              refresh_token: refreshToken,
+            },
           };
         }
         return null;
@@ -27,8 +42,12 @@ export const authOptions: NextAuthOptions = {
     },
 
     async jwt({ token, user }) {
-      if (user?.token) {
+      if (user) {
         token.token = user.token;
+        token.role = user.role;
+        token.avatar = user.avatar;
+        token.name = user.name;
+        token.email = user.email;
       }
       return token;
     },
@@ -37,15 +56,22 @@ export const authOptions: NextAuthOptions = {
       return {
         ...session,
         token: token.token,
+        user: {
+          ...session.user,
+          name: token.name,
+          email: token.email,
+          role: token.role,
+          avatar: token.avatar,
+        },
       };
     },
   },
   session: {
     strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // Set session expiration time (30 days in seconds)
-    updateAge: 24 * 60 * 60, // Refresh session every 24 hours
+    maxAge: 3 * 24 * 60 * 60,
+    updateAge: 24 * 60 * 60,
   },
- cookies: {
+  cookies: {
     sessionToken: {
       name:
         process.env.NODE_ENV === "production"
@@ -53,12 +79,11 @@ export const authOptions: NextAuthOptions = {
           : "authjs.session-token",
       options: {
         httpOnly: true,
-        sameSite: "lax", // Keep 'lax' for better compatibility
+        sameSite: "lax",
         path: "/",
         secure: process.env.NODE_ENV === "production",
       },
     },
-    // Important: Also configure the CSRF token cookie
     csrfToken: {
       name:
         process.env.NODE_ENV === "production"
@@ -72,8 +97,8 @@ export const authOptions: NextAuthOptions = {
       },
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,// Make sure this is set!
+  secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: "/login",
+    signIn: "/sign-in",
   },
 };
