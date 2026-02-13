@@ -29,3 +29,4 @@ export { Menu } from "./Menu";
 export { PDF } from "./PDF";
 export { DOCX } from "./DOCX";
 export { JSON } from "./JSON";
+export { LoadingIcon } from "./LoadingIcon";
