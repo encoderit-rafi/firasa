@@ -30,7 +30,6 @@ export default async function middleware(req: NextRequest) {
   // If user is not authenticated and on protected route, redirect to login
   if (!token && !isAuthPage) {
     const loginUrl = new URL("/sign-in", req.url);
-    loginUrl.searchParams.set("callbackUrl", pathname);
     return NextResponse.redirect(loginUrl);
   }
 

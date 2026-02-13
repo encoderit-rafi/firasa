@@ -16,7 +16,7 @@ export const useMutationSignUp = () => {
         },
         onSuccess: (res) => {
             toast.success(res?.data?.message || "Account created successfully!");
-            window.localStorage.setItem("verify_email", res?.data?.email);
+            window.localStorage.setItem("verify_email", res.data.data.email);
             router.push("/verify-otp");
         },
         onError: (error) => {
