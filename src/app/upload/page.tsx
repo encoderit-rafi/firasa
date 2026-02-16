@@ -31,43 +31,43 @@ const steps: {
   title: string;
   content: string;
 }[] = [
-  {
-    // icon: One,
-    title: "What does Firasa actually do?",
-    content:
-      "Just look at the camera. Small movements matter. Photos don’t capture personality. Motion does.",
-  },
-  {
-    // icon: Two,
-    title: "How long does the analysis take?",
-    content:
-      "AI analyzes your facial movements to identify patterns and insights. We use advanced machine learning algorithms to analyze your facial movements and provide insights into your personality traits.",
-  },
-  {
-    // icon: Three,
-    title: "Do I have to smile or pose in a special way?",
-    content:
-      "Get your big 5 score and insights into your personality traits. We use advanced machine learning algorithms to analyze your facial movements and provide insights into your personality traits.",
-  },
-  {
-    // icon: Three,
-    title: "What happens to my video after analysis?",
-    content:
-      "Get your big 5 score and insights into your personality traits. We use advanced machine learning algorithms to analyze your facial movements and provide insights into your personality traits.",
-  },
-  {
-    // icon: Three,
-    title: "Can I re-analyze myself later?",
-    content:
-      "Get your big 5 score and insights into your personality traits. We use advanced machine learning algorithms to analyze your facial movements and provide insights into your personality traits.",
-  },
-  {
-    // icon: Three,
-    title: "I’m skeptical; can I get a refund?",
-    content:
-      "Get your big 5 score and insights into your personality traits. We use advanced machine learning algorithms to analyze your facial movements and provide insights into your personality traits.",
-  },
-];
+    {
+      // icon: One,
+      title: "What does Firasa actually do?",
+      content:
+        "Just look at the camera. Small movements matter. Photos don’t capture personality. Motion does.",
+    },
+    {
+      // icon: Two,
+      title: "How long does the analysis take?",
+      content:
+        "AI analyzes your facial movements to identify patterns and insights. We use advanced machine learning algorithms to analyze your facial movements and provide insights into your personality traits.",
+    },
+    {
+      // icon: Three,
+      title: "Do I have to smile or pose in a special way?",
+      content:
+        "Get your big 5 score and insights into your personality traits. We use advanced machine learning algorithms to analyze your facial movements and provide insights into your personality traits.",
+    },
+    {
+      // icon: Three,
+      title: "What happens to my video after analysis?",
+      content:
+        "Get your big 5 score and insights into your personality traits. We use advanced machine learning algorithms to analyze your facial movements and provide insights into your personality traits.",
+    },
+    {
+      // icon: Three,
+      title: "Can I re-analyze myself later?",
+      content:
+        "Get your big 5 score and insights into your personality traits. We use advanced machine learning algorithms to analyze your facial movements and provide insights into your personality traits.",
+    },
+    {
+      // icon: Three,
+      title: "I’m skeptical; can I get a refund?",
+      content:
+        "Get your big 5 score and insights into your personality traits. We use advanced machine learning algorithms to analyze your facial movements and provide insights into your personality traits.",
+    },
+  ];
 export default function UploadPage() {
   return (
     <section className="section space-y-8 md:space-y-16 px-4">

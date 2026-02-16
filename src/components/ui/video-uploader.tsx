@@ -8,6 +8,7 @@ import { Guard, LoadingIcon, Upload, VideoCam, X } from "@/assets/icons";
 import TextSeparator from "./text-separator";
 import { useVideoUpload } from "@/hooks/use-video-upload";
 import { cn } from "@/lib/utils";
+import { Recording } from "./video/Recording";
 
 export default function VideoUploader() {
   const {
@@ -17,25 +18,23 @@ export default function VideoUploader() {
     videoId,
     analysisLogs,
     startRecording,
-    stopRecording,
+    recordingStatusUpdate,
     uploadFile,
+    stopRecording,
+    recordingStatusIdle,
     startAnalysis,
     cancelUpload,
     recordedBlob,
   } = useVideoUpload();
+
+  console.log("status initial:", status);
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const videoPreviewRef = useRef<HTMLVideoElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const formatTime = (s: number) => {
-    return (
-      String(Math.floor(s / 60)).padStart(2, "0") +
-      ":" +
-      String(s % 60).padStart(2, "0")
-    );
-  };
+  console.log("preview initial:", previewUrl);
 
   const formatBytes = (bytes: number, decimals = 2) => {
     if (bytes === 0) return "0 Bytes";
@@ -66,7 +65,8 @@ export default function VideoUploader() {
     }
 
     if (fileToUpload) {
-      await uploadFile(fileToUpload, type);
+      console.log("fileToUpload", fileToUpload);
+      // await uploadFile(fileToUpload, type);
     }
   };
 
@@ -111,34 +111,17 @@ export default function VideoUploader() {
         <div
           className={cn(
             "relative py-12 flex min-h-64 flex-col items-center justify-center overflow-hidden rounded-xl border border-dashed p-4 transition-colors",
-            status === "recording"
-              ? "bg-black"
-              : "bg-custom-error-95 border-error",
+            "bg-custom-error-95 border-error",
           )}
         >
           {status === "recording" ? (
-            <div className="w-full h-full relative flex flex-col items-center">
-              <video
-                ref={videoPreviewRef}
-                autoPlay
-                muted
-                playsInline
-                className="w-full h-full object-cover rounded-lg"
-              />
-              <div className="absolute top-4 left-4 flex items-center gap-2">
-                <div className="size-3 bg-red-500 rounded-full animate-pulse" />
-                <span className="text-white font-mono">
-                  {formatTime(duration)}
-                </span>
-              </div>
-              <Button
-                variant="destructive"
-                className="mt-4"
-                onClick={stopRecording}
-              >
-                Stop Recording
-              </Button>
-            </div>
+            <Recording
+              videoPreviewRef={videoPreviewRef}
+              startRecording={startRecording}
+              stopRecording={stopRecording}
+              recordingStatusIdle={recordingStatusIdle}
+              duration={duration}
+            />
           ) : status === "uploading" ||
             status === "uploaded" ||
             status === "analyzing" ? (
@@ -204,7 +187,7 @@ export default function VideoUploader() {
                 <Button
                   variant="outline"
                   className="w-56.25"
-                  onClick={() => startRecording()}
+                  onClick={() => recordingStatusUpdate()}
                 >
                   <VideoCam />
                   Record with camera

@@ -75,14 +75,14 @@ export const useVideoUpload = () => {
       };
 
       recorder.start();
-      setStatus("recording");
+
       setDuration(0);
 
       const startTime = Date.now();
       timerIntervalRef.current = setInterval(() => {
         const d = Math.floor((Date.now() - startTime) / 1000);
         setDuration(d);
-        if (d >= 60) {
+        if (d >= 65) {
           stopRecording();
           toast.info("Recording reached 60 seconds limit");
         }
@@ -95,6 +95,13 @@ export const useVideoUpload = () => {
       return null;
     }
   }, [stopRecording]);
+
+  const recordingStatusUpdate = () => {
+    setStatus("recording");
+  }
+  const recordingStatusIdle = () => {
+    setStatus("idle");
+  }
 
   const getVideoDuration = (file: File): Promise<number> => {
     return new Promise((resolve) => {
@@ -290,6 +297,8 @@ export const useVideoUpload = () => {
     videoId,
     analysisLogs,
     startRecording,
+    recordingStatusUpdate,
+    recordingStatusIdle,
     stopRecording,
     uploadFile,
     startAnalysis,

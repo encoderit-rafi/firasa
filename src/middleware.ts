@@ -1,8 +1,10 @@
 import { getToken } from "next-auth/jwt";
+import { getSession } from "next-auth/react";
 import { NextRequest, NextResponse } from "next/server";
 
 export default async function middleware(req: NextRequest) {
   const isProduction = process.env.NODE_ENV === "production";
+
 
   const token = await getToken({
     req: req,
