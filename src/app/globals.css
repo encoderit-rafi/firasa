@@ -160,6 +160,7 @@
   --custom-neutral-variant-30: #49454f;
   --custom-neutral-variant-40: #605d66;
   --custom-neutral-variant-50: #79747e;
+  /** border color **/
   --custom-neutral-variant-60: #938f99;
   --custom-neutral-variant-70: #aea9b4;
   --custom-neutral-variant-80: #cac4d0;
@@ -451,6 +452,20 @@
     display: none;
   }
 }
+
+@keyframes countdownFade {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  70% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+
+  100% {
+    opacity: 0;
     transform: scale(1.2);
   }
 }
