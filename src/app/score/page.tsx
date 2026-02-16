@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ArrowForward,
   CameraPlus,
@@ -57,6 +59,9 @@ import {
   ScorePageSection,
   ScorePageSectionTitle,
 } from "./_components/score-page-section";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import { useQueryGetVideoReport } from "./_api";
 const main_scores = [
   {
     title: "Openness",
@@ -1277,6 +1282,21 @@ const main_tabs = [
   },
 ];
 export default function ScorePage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const analysisId = searchParams.get("analysis_id");
+
+  useEffect(() => {
+    if (!analysisId) {
+      router.replace("/upload");
+    }
+  }, [analysisId, router]);
+
+  const { data: reportData, isLoading } = useQueryGetVideoReport(analysisId);
+  console.log("👉 ~ ScorePage ~ reportData:", reportData);
+
+  if (!analysisId) return null;
+
   return (
     <div className="">
       <div className="sticky top-0 z-10 bg-background">

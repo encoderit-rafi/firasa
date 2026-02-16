@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { api } from "@/axios";
 import { toast } from "sonner";
 import { AxiosProgressEvent } from "axios";
@@ -24,6 +25,7 @@ export type AnalysisLog = {
 };
 
 export const useVideoUpload = () => {
+  const router = useRouter();
   const [status, setStatus] = useState<UploadStatus>("idle");
   const [progress, setProgress] = useState(0);
   const [uploadId, setUploadId] = useState<string | null>(null);
@@ -242,11 +244,10 @@ export const useVideoUpload = () => {
           if (part.startsWith("data:")) {
             try {
               const data = JSON.parse(part.replace("data:", "").trim());
-              setAnalysisLogs((prev) => [...prev, data]);
               setProgress(data.progress || 0);
               if (data.stage === "complete") {
-                console.log("👉 ~ complete ~ data:", data);
                 setStatus("completed");
+                router.push(`/score?analysis_id=${data.analysis_id}`);
               }
             } catch (e) {
               console.error("Error parsing SSE data", e);
