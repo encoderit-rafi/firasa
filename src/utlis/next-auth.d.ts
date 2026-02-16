@@ -10,6 +10,7 @@ declare module "next-auth" {
         };
         role?: string;
         avatar?: string;
+        accessTokenExpires?: number
     }
 
     interface Session extends DefaultSession {
@@ -25,6 +26,7 @@ declare module "next-auth" {
             role?: string;
             avatar?: string;
         };
+        error?: string;
     }
 }
 
@@ -36,5 +38,7 @@ declare module "next-auth/jwt" {
         };
         role?: string;
         avatar?: string;
+        accessTokenExpires?: number;
+        error?: string;
     }
 }

@@ -21,6 +21,7 @@ export const useMutationSignIn = () => {
         const result = await signIn("credentials", {
           access_token: token.access_token,
           refresh_token: token.refresh_token,
+          expires_in: String(token.expires_in),
           user_name: user?.name,
           user_email: user?.email,
           user_avatar: user?.avatar_url,
