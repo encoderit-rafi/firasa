@@ -51,7 +51,12 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { ArrowBigDownDashIcon, ChevronDownIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { ComponentProps, PropsWithChildren } from "react";
+import {
+  ScorePageSection,
+  ScorePageSectionTitle,
+} from "./_components/score-page-section";
 const main_scores = [
   {
     title: "Openness",
@@ -391,17 +396,17 @@ function ScorePagePersonalityAccordion() {
     </Accordion>
   );
 }
-function ScorePageSection({
-  className,
-  children,
-  ...props
-}: ComponentProps<"section"> & PropsWithChildren) {
-  return (
-    <section {...props} className={cn("space-y-8", className)}>
-      {children}
-    </section>
-  );
-}
+// function ScorePageSection({
+//   className,
+//   children,
+//   ...props
+// }: ComponentProps<"section"> & PropsWithChildren) {
+//   return (
+//     <section {...props} className={cn("space-y-8", className)}>
+//       {children}
+//     </section>
+//   );
+// }
 function ScorePageCard({
   className,
   children,
@@ -452,20 +457,20 @@ function ScorePageContainer({
     </div>
   );
 }
-function ScorePageTitle({
-  className,
-  children,
-  ...props
-}: ComponentProps<"h2"> & PropsWithChildren) {
-  return (
-    <h2
-      {...props}
-      className={cn("display-large-emphasized text-center", className)}
-    >
-      {children}
-    </h2>
-  );
-}
+// function ScorePageSectionTitle({
+//   className,
+//   children,
+//   ...props
+// }: ComponentProps<"h2"> & PropsWithChildren) {
+//   return (
+//     <h2
+//       {...props}
+//       className={cn("display-large-emphasized text-center", className)}
+//     >
+//       {children}
+//     </h2>
+//   );
+// }
 function ScorePageShareButton({
   className,
   children,
@@ -500,55 +505,132 @@ function ScorePageProgress({
     </div>
   );
 }
+const main_tabs = [
+  {
+    id: "score",
+    label: "Big 5 scores",
+    title: "Big 5 personality score",
+    is_visible: true,
+  },
+  {
+    id: "story",
+    label: "Unique story",
+    title: "Your unique personality story",
+    is_visible: true,
+  },
+  {
+    id: "relationship",
+    label: "Relationship & empathy",
+    title: "Relationship & empathy",
+    is_visible: true,
+  },
+  {
+    id: "focus",
+    label: "Focus & execution style",
+    title: "Focus & execution style",
+    is_visible: true,
+  },
+  {
+    id: "ideation",
+    label: "Ideation & creative energy",
+    title: "Ideation & creative energy",
+    is_visible: true,
+  },
+  {
+    id: "pressure",
+    label: "Pressure response & recovery",
+    title: "Pressure response & recovery",
+    is_visible: true,
+  },
+  {
+    id: "openness",
+    label: "Openness to experience",
+    title: "Openness to experience",
+    is_visible: true,
+  },
+  {
+    id: "learning",
+    label: "Learning & growth",
+    title: "Learning & growth",
+    is_visible: true,
+  },
+  {
+    id: "similarity",
+    label: "Similarity to famous",
+    title: "Personalities you might relate to",
+    is_visible: true,
+  },
+  {
+    id: "exports",
+    label: "Exports",
+    title: "Summary & exports",
+    is_visible: true,
+  },
+  {
+    id: "add-ons",
+    label: "Add-ons",
+    title: "Level-up add-ons",
+    is_visible: true,
+  },
+];
 export default function ScorePage() {
   return (
     <div className="">
-      <div className="border-b border-secondary/10">
-        <div className="container-lg flex items-center gap-4 px-3 xl:px-6 py-3">
-          <Button variant="outline" size={"icon"}>
-            <ArrowForward className="rotate-180" />
-          </Button>
-          <Select defaultValue="video-1" value="video-1">
-            <SelectTrigger
-              className={cn(
-                "w-fit max-w-31 border-none shadow-none",
-                buttonVariants({
-                  variant: "ghost",
-                }),
-              )}
-            >
-              <div className="flex items-center">
-                <SelectValue placeholder="Select a video" />
-              </div>
-            </SelectTrigger>
-            <SelectContent
-              className="border border-outline-variant"
-              position="popper"
-            >
-              <SelectGroup>
-                <SelectLabel>Video</SelectLabel>
-                <SelectItem value="video-1">Video 1</SelectItem>
-                <SelectItem value="video-2">Video 2</SelectItem>
-                <SelectItem value="video-3">Video 3</SelectItem>
-                <SelectItem value="video-4">Video 4</SelectItem>
-                <SelectItem value="video-5">Video 5</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+      <div className="sticky top-0 z-10 bg-background">
+        <div className="border-b border-secondary/10">
+          <div className="container-lg flex items-center gap-4 px-3 xl:px-6 py-3">
+            <Button variant="outline" size={"icon"}>
+              <ArrowForward className="rotate-180" />
+            </Button>
+            <Select defaultValue="video-1" value="video-1">
+              <SelectTrigger
+                className={cn(
+                  "w-fit max-w-31 border-none shadow-none",
+                  buttonVariants({
+                    variant: "ghost",
+                  }),
+                )}
+              >
+                <div className="flex items-center">
+                  <SelectValue placeholder="Select a video" />
+                </div>
+              </SelectTrigger>
+              <SelectContent
+                className="border border-outline-variant"
+                position="popper"
+              >
+                <SelectGroup>
+                  <SelectLabel>Video</SelectLabel>
+                  <SelectItem value="video-1">Video 1</SelectItem>
+                  <SelectItem value="video-2">Video 2</SelectItem>
+                  <SelectItem value="video-3">Video 3</SelectItem>
+                  <SelectItem value="video-4">Video 4</SelectItem>
+                  <SelectItem value="video-5">Video 5</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+        <div className="border-b border-secondary/10 overflow-hidden">
+          <Tabs
+            defaultValue="overview"
+            className="container-lg px-3 xl:px-6 overflow-x-auto no-scrollbar"
+          >
+            <TabsList variant={"line"} className="">
+              {main_tabs.map(({ id, label, is_visible }) => {
+                return (
+                  <TabsTrigger key={id} value={id} disabled={!is_visible}>
+                    <Link href={`#${id}`}>{label}</Link>
+                  </TabsTrigger>
+                );
+              })}
+            </TabsList>
+          </Tabs>
         </div>
       </div>
-      <div className="border-b border-secondary/10">
-        <Tabs defaultValue="overview" className="container-lg px-3 xl:px-6">
-          <TabsList variant={"line"}>
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="analytics">Analytics</TabsTrigger>
-            <TabsTrigger value="growth">Growth</TabsTrigger>
-          </TabsList>
-        </Tabs>
-      </div>
       <div className="section lg:py-16 px-4 space-y-16">
-        <ScorePageSection>
-          <ScorePageTitle>Big 5 personality score</ScorePageTitle>
+        <ScorePageSection id={main_tabs[0].id}>
+          <ScorePageSectionTitle>{main_tabs[0].title}</ScorePageSectionTitle>
           <ScorePageCard className="xl:rounded-tr-none">
             <ScorePageShareButton className="max-xl:hidden" />
             <ScorePageContainer
@@ -655,8 +737,8 @@ export default function ScorePage() {
             </Carousel>
           </ScorePageCard>
         </ScorePageSection>
-        <ScorePageSection>
-          <ScorePageTitle>Your unique personality story</ScorePageTitle>
+        <ScorePageSection id={main_tabs[1].id}>
+          <ScorePageSectionTitle>{main_tabs[1].title}</ScorePageSectionTitle>
           <ScorePageCard className="xl:rounded-tr-none">
             <ScorePageShareButton className="max-xl:hidden" />
             <ScorePageContainer type="left" className="flex flex-col gap-8">
@@ -702,7 +784,7 @@ export default function ScorePage() {
         </ScorePageSection>
         {items.map((item) => (
           <ScorePageSection key={item}>
-            <ScorePageTitle>{item}</ScorePageTitle>
+            <ScorePageSectionTitle>{item}</ScorePageSectionTitle>
             <ScorePageCard className="xl:rounded-tr-none">
               <ScorePageShareButton className="max-xl:hidden" />
               <ScorePageContainer
@@ -783,7 +865,9 @@ export default function ScorePage() {
           </ScorePageSection>
         ))}
         <ScorePageSection>
-          <ScorePageTitle>Personalities you might relate to</ScorePageTitle>
+          <ScorePageSectionTitle>
+            Personalities you might relate to
+          </ScorePageSectionTitle>
           <ScorePageCard>
             <Carousel
               className="max-w-276 mx-auto pr-8"
@@ -824,7 +908,7 @@ export default function ScorePage() {
           </ScorePageCard>
         </ScorePageSection>
         <ScorePageSection>
-          <ScorePageTitle>Summary & exports</ScorePageTitle>
+          <ScorePageSectionTitle>Summary & exports</ScorePageSectionTitle>
           <ScorePageCard className="flex flex-col lg:flex-row items-center justify-between gap-6 bg-transparent divide-none">
             {export_items.map((item, index) => (
               <div className="size-full  p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container">
@@ -837,7 +921,7 @@ export default function ScorePage() {
           </ScorePageCard>
         </ScorePageSection>
         <ScorePageSection>
-          <ScorePageTitle>Level-up add-ons</ScorePageTitle>
+          <ScorePageSectionTitle>Level-up add-ons</ScorePageSectionTitle>
           <ScorePageCard className="flex flex-col lg:flex-row items-center justify-between gap-6 bg-transparent divide-none">
             {level_up_items.map((item) => (
               <div

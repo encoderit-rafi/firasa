@@ -204,6 +204,9 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   * body {
     @apply antialiased bg-white font-roboto text-on-surface;
   }
@@ -415,4 +418,13 @@
 }
 .clip-triangle {
   clippath: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+@utility no-scrollbar {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
