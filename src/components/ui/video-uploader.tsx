@@ -91,6 +91,20 @@ export default function VideoUploader() {
     }
   }, [status, startRecording]);
 
+  useEffect(() => {
+    if (status === "idle") {
+      if (selectedFile || recordedBlob) {
+        handleStartUpload();
+      }
+    }
+  }, [selectedFile, recordedBlob, status]);
+
+  useEffect(() => {
+    if (status === "uploaded" && videoId) {
+      startAnalysis(videoId);
+    }
+  }, [status, videoId, startAnalysis]);
+
   return (
     <div className="flex flex-col gap-4">
       <div className="relative">
@@ -125,7 +139,9 @@ export default function VideoUploader() {
                 Stop Recording
               </Button>
             </div>
-          ) : status === "uploading" ? (
+          ) : status === "uploading" ||
+            status === "uploaded" ||
+            status === "analyzing" ? (
             <div className="flex flex-col items-center justify-center w-full p-4 gap-6 text-center">
               <div className="flex items-center justify-between w-full ">
                 <div className="flex-1">
@@ -157,26 +173,11 @@ export default function VideoUploader() {
                 <div className="flex-center gap-2 rounded-full bg-on-surface/10 px-6 py-4 mx-auto w-fit">
                   <LoadingIcon />
                   <span className="title-medium-primary text-on-surface/50">
-                    Uploading... ({progress}%)
+                    {status === "uploading" ? "Uploading..." : "Analyzing..."} (
+                    {progress}%)
                   </span>
                 </div>
               </div>
-            </div>
-          ) : previewUrl ? (
-            <div className="absolute inset-0">
-              <video
-                controls
-                className="size-full object-contain"
-                src={previewUrl}
-              />
-              <button
-                aria-label="Remove video"
-                className="absolute top-4 right-4 z-50 flex size-8 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white outline-none transition-[color,box-shadow] hover:bg-black/80"
-                onClick={handleRemoveFile}
-                type="button"
-              >
-                <XIcon aria-hidden="true" className="size-4" />
-              </button>
             </div>
           ) : (
             <div className="flex flex-col space-y-6 items-center justify-center px-4 py-3 text-center">
@@ -214,54 +215,6 @@ export default function VideoUploader() {
           )}
         </div>
       </div>
-
-      {(status === "completed" || status === "analyzing") && (
-        <div className="bg-white p-4 rounded-xl border border-outline-variant shadow-sm flex flex-col gap-3">
-          <div className="flex justify-between items-center">
-            <span className="text-sm font-medium">
-              {status === "completed" && !videoId
-                ? "Upload complete"
-                : status === "analyzing"
-                  ? "AI Analysis in progress..."
-                  : "Ready for analysis"}
-            </span>
-            <span className="text-xs text-muted-foreground">{progress}%</span>
-          </div>
-
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div
-              className="bg-primary h-2 rounded-full transition-all duration-300"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-
-          {status === "completed" && videoId && (
-            <Button
-              onClick={() => startAnalysis(videoId)}
-              className="w-full mt-2"
-            >
-              Start AI Analysis
-            </Button>
-          )}
-
-          {analysisLogs.length > 0 && (
-            <div className="mt-4 p-3 bg-muted rounded-lg text-xs font-mono max-h-40 overflow-y-auto">
-              {analysisLogs.map((log, i) => (
-                <div key={i} className="mb-1">
-                  <span className="text-primary">[{log.stage}]</span>{" "}
-                  {log.progress}% — {log.message}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
-
-      {status === "idle" && (selectedFile || recordedBlob) && (
-        <Button onClick={handleStartUpload} className="w-full">
-          Upload and Continue
-        </Button>
-      )}
 
       <p className="mt-2 text-center text-muted-foreground text-xs flex items-center justify-center gap-2">
         <Guard className="size-4" />

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { api } from "@/axios";
 import { toast } from "sonner";
 import { AxiosProgressEvent } from "axios";
@@ -11,6 +12,7 @@ export type UploadStatus =
   | "idle"
   | "recording"
   | "uploading"
+  | "uploaded"
   | "analyzing"
   | "completed"
   | "error";
@@ -184,7 +186,7 @@ export const useVideoUpload = () => {
         );
         const newVideoId = completeRes.data.data.video_id;
         setVideoId(newVideoId);
-        setStatus("completed");
+        setStatus("uploaded");
         toast.success("Upload complete!");
         return newVideoId;
       } catch (err: any) {
@@ -203,36 +205,33 @@ export const useVideoUpload = () => {
     [duration],
   );
 
-  const startAnalysis = useCallback(async (vidId: string) => {
-    if (!vidId) return;
-    setStatus("analyzing");
-    setAnalysisLogs([]);
-    setProgress(0);
+  const { mutate: analyzeVideos, isPending: isAnalyzing } = useMutation({
+    mutationFn: async (vidId: string) => {
+      if (!vidId) return;
+      setStatus("analyzing");
+      setAnalysisLogs([]);
+      setProgress(0);
 
-    const formData = new FormData();
-    formData.append("use_tta", "true");
-    formData.append("method", "face+middle");
-    formData.append("generate_report", "true");
+      const formData = new FormData();
+      formData.append("use_tta", "true");
+      formData.append("method", "face+middle");
+      formData.append("generate_report", "true");
 
-    try {
-      // SSE implementation using Fetch with long response
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/videos/${vidId}/analyze`,
-        {
-          method: "POST",
-          // Pass auth token if needed, usually via headers
-          // headers: { "Authorization": `Bearer ${token}` }
-          body: formData,
-        },
-      );
+      // SSE implementation using Axios with fetch adapter for streaming
+      const response = await api.post(`/videos/${vidId}/analyze`, formData, {
+        responseType: "stream",
+        // @ts-ignore
+        adapter: "fetch",
+      });
 
-      if (!response.body) return;
-      const reader = response.body.getReader();
+      if (!response.data) return;
+      const reader = response.data.getReader();
       const decoder = new TextDecoder();
       let buffer = "";
 
       while (true) {
         const { value, done } = await reader.read();
+        console.log(`👉 ~ useVideoUpload ~ { value, done }:`, { value, done });
         if (done) break;
 
         buffer += decoder.decode(value, { stream: true });
@@ -246,6 +245,7 @@ export const useVideoUpload = () => {
               setAnalysisLogs((prev) => [...prev, data]);
               setProgress(data.progress || 0);
               if (data.stage === "complete") {
+                console.log("👉 ~ complete ~ data:", data);
                 setStatus("completed");
               }
             } catch (e) {
@@ -254,12 +254,20 @@ export const useVideoUpload = () => {
           }
         }
       }
-    } catch (err) {
+    },
+    onError: (err) => {
       console.error("Analysis failed", err);
       setStatus("error");
       toast.error("Analysis failed");
-    }
-  }, []);
+    },
+  });
+
+  const startAnalysis = useCallback(
+    (vidId: string) => {
+      analyzeVideos(vidId);
+    },
+    [analyzeVideos],
+  );
 
   const cancelUpload = useCallback(() => {
     if (abortControllerRef.current) {
