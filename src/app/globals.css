@@ -206,6 +206,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 110px;
   }
   * body {
     @apply antialiased bg-white font-roboto text-on-surface;
