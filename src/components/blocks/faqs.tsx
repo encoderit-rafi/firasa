@@ -58,10 +58,10 @@ export default function Faqs() {
             <AccordionItem
               key={step.title}
               value={step.title}
-              className="border-y border-y-tertiary-container"
+              className="border-y-tertiary-container border-y"
             >
               <AccordionTrigger className="group py-6 data-[state=open]:pb-2">
-                <div className="flex items-center text-base justify-between w-full gap-4 headline-small-emphasized ">
+                <div className="headline-small-emphasized flex w-full items-center justify-between gap-4 text-base">
                   {/* <step.icon /> */}
                   {step.title}
                   <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />

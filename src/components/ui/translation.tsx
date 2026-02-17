@@ -23,12 +23,12 @@ export default function Translation() {
         )}
       >
         <div className="flex items-center">
-          <Language className="text-black mr-2 size-4" />
+          <Language className="mr-2 size-4 text-black" />
           <SelectValue placeholder="Select a fruit" />
         </div>
       </SelectTrigger>
       <SelectContent
-        className="border border-outline-variant"
+        className="border-outline-variant border"
         position="popper"
       >
         <SelectGroup>

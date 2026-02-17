@@ -36,17 +36,17 @@ export default function Solutions() {
         We combine proven personality science with modern AI — no guesswork.
       </p>
       <div className="px-4">
-        <div className="container-md mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-y-16">
+        <div className="container-md mx-auto grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-y-16">
           {solutions.map((solution, index) => (
-            <Card key={index} className="border-none shadow-none w-full">
+            <Card key={index} className="w-full border-none shadow-none">
               <CardContent>
-                <div className="aspect-video bg-secondary/10 rounded-xl"></div>
-                <div className="space-y-6 mt-4 lg:mt-8">
+                <div className="bg-secondary/10 aspect-video rounded-xl"></div>
+                <div className="mt-4 space-y-6 lg:mt-8">
                   <h3 className="text-left">{solution.title}</h3>
                   <p className="text-left">{solution.description}</p>
                   <Button
                     variant={"ghost"}
-                    className="w-fit p-0 hover:shadow-none text-error"
+                    className="text-error w-fit p-0 hover:shadow-none"
                   >
                     Learn more
                   </Button>
@@ -55,7 +55,7 @@ export default function Solutions() {
             </Card>
           ))}
         </div>
-        <div className="box-black p-8 w-fit mt-8 lg:mt-16 mx-auto flex flex-col md:justify-center md:flex-row gap-6">
+        <div className="box-black mx-auto mt-8 flex w-fit flex-col gap-6 p-8 md:flex-row md:justify-center lg:mt-16">
           {/* <div className="flex flex-col lg:justify-center lg:flex-row gap-6">
           </div> */}
           <AvatarGroup>
@@ -80,7 +80,7 @@ export default function Solutions() {
             </Avatar>
           </AvatarGroup>
           <div className="">
-            <h3 className="text-white title-large-emphasized text-left">
+            <h3 className="title-large-emphasized text-left text-white">
               Trusted by 12,000+ users exploring their personality.
             </h3>
             <p className="text-outline title-small-emphasized text-left">

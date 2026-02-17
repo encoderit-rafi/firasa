@@ -23,7 +23,7 @@ export default function Discover() {
       </p>
 
       <Carousel
-        className="max-w-276 mx-auto px-2"
+        className="mx-auto max-w-276 px-2"
         opts={{
           align: "start",
         }}
@@ -32,9 +32,9 @@ export default function Discover() {
           <CarouselContent>
             {Array.from({ length: 10 }).map((_, index) => (
               <CarouselItem className="" key={index}>
-                <Card className="border-none size-83 shadow-none bg-[url('https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-no-repeat p-0 overflow-hidden">
-                  <CardContent className="size-full backdrop-blur-[2px] bg-black/40 p-0 flex flex-col">
-                    <CardHeader className="flex items-center gap-2 justify-end p-3">
+                <Card className="size-83 overflow-hidden border-none bg-[url('https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-no-repeat p-0 shadow-none">
+                  <CardContent className="flex size-full flex-col bg-black/40 p-0 backdrop-blur-[2px]">
+                    <CardHeader className="flex items-center justify-end gap-2 p-3">
                       <Button variant={"icon"} className="size-10">
                         <CameraPlus className="size-5" />
                       </Button>
@@ -47,16 +47,16 @@ export default function Discover() {
                       name="Steve Jobs"
                       role="Visionary pathfinder"
                     />
-                    <Separator className="h-1 to-white/30 mt-3" />
+                    <Separator className="mt-3 h-1 to-white/30" />
 
-                    <SimpleRadarChart className="text-white pointer-events-none" />
+                    <SimpleRadarChart className="pointer-events-none text-white" />
                   </CardContent>
                 </Card>
               </CarouselItem>
             ))}
           </CarouselContent>
         </div>
-        <div className="px-2 my-8">
+        <div className="my-8 px-2">
           <CarouselIndicator />
         </div>
         <div className="flex-center gap-2">
@@ -64,7 +64,7 @@ export default function Discover() {
           <CarouselNext />
         </div>
         <div className="flex-center mt-8 lg:mt-16">
-          <Button variant={"outline"} className="max-w-61.75 w-full">
+          <Button variant={"outline"} className="w-full max-w-61.75">
             <ArrowForward />
             Discover sample result
           </Button>

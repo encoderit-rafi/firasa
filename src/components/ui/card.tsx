@@ -93,13 +93,13 @@ function CardAvatar({
   role: string;
 }) {
   return (
-    <div className=" flex flex-col items-center gap-3">
+    <div className="flex flex-col items-center gap-3">
       <Image
         src={src}
         alt={name}
         width={60}
         height={60}
-        className="size-15 rounded-full object-cover object-center bg-gradient p-0.5"
+        className="bg-gradient size-15 rounded-full object-cover object-center p-0.5"
       />
       <div className="flex flex-col items-center">
         <span className="title-medium-emphasized bg-gradient bg-clip-text text-transparent">

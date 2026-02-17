@@ -27,12 +27,10 @@ export default function VideoUploader() {
     recordedBlob,
   } = useVideoUpload();
 
-
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const videoPreviewRef = useRef<HTMLVideoElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
 
   const formatBytes = (bytes: number, decimals = 2) => {
     if (bytes === 0) return "0 Bytes";
@@ -109,7 +107,7 @@ export default function VideoUploader() {
       <div className="relative">
         <div
           className={cn(
-            "relative py-12 flex min-h-64 flex-col items-center justify-center overflow-hidden rounded-xl border border-dashed p-4 transition-colors",
+            "relative flex min-h-64 flex-col items-center justify-center overflow-hidden rounded-xl border border-dashed p-4 py-12 transition-colors",
             "bg-custom-error-95 border-error",
           )}
         >
@@ -124,13 +122,13 @@ export default function VideoUploader() {
           ) : status === "uploading" ||
             status === "uploaded" ||
             status === "analyzing" ? (
-            <div className="flex flex-col items-center justify-center w-full p-4 gap-6 text-center">
-              <div className="flex items-center justify-between w-full ">
+            <div className="flex w-full flex-col items-center justify-center gap-6 p-4 text-center">
+              <div className="flex w-full items-center justify-between">
                 <div className="flex-1">
                   <p className="body-large-emphasized text-left">
                     {selectedFile?.name}
                   </p>
-                  <p className="body-small-primary  text-left">
+                  <p className="body-small-primary text-left">
                     {formatBytes(selectedFile?.size || recordedBlob?.size || 0)}
                   </p>
                 </div>
@@ -145,14 +143,14 @@ export default function VideoUploader() {
                 </div>
               </div>
 
-              <div className="w-full  space-y-6">
-                <div className="w-full bg-error-container rounded-full h-0.5 overflow-hidden">
+              <div className="w-full space-y-6">
+                <div className="bg-error-container h-0.5 w-full overflow-hidden rounded-full">
                   <div
                     className="bg-error h-full rounded-full transition-all duration-300 ease-out"
                     style={{ width: `${progress}%` }}
                   />
                 </div>
-                <div className="flex-center gap-2 rounded-full bg-on-surface/10 px-6 py-4 mx-auto w-fit">
+                <div className="flex-center bg-on-surface/10 mx-auto w-fit gap-2 rounded-full px-6 py-4">
                   <LoadingIcon />
                   <span className="title-medium-primary text-on-surface/50">
                     {status === "uploading" ? "Uploading..." : "Analyzing..."} (
@@ -162,7 +160,7 @@ export default function VideoUploader() {
               </div>
             </div>
           ) : (
-            <div className="flex flex-col space-y-6 items-center justify-center px-4 py-3 text-center">
+            <div className="flex flex-col items-center justify-center space-y-6 px-4 py-3 text-center">
               <input
                 type="file"
                 accept="video/*"
@@ -198,7 +196,7 @@ export default function VideoUploader() {
         </div>
       </div>
 
-      <p className="mt-2 text-center text-muted-foreground text-xs flex items-center justify-center gap-2">
+      <p className="text-muted-foreground mt-2 flex items-center justify-center gap-2 text-center text-xs">
         <Guard className="size-4" />
         Auto-deleted. Your privacy is our priority.
       </p>

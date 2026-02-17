@@ -30,5 +30,5 @@ api.interceptors.response.use(
       await signOut({ callbackUrl: "/sign-in" });
     }
     return Promise.reject(error);
-  }
+  },
 );

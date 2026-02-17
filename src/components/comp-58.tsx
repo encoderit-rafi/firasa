@@ -25,12 +25,12 @@ export default function Component() {
       />
       <p
         aria-live="polite"
-        className="mt-2 text-muted-foreground text-xs"
+        className="text-muted-foreground mt-2 text-xs"
         role="region"
       >
         Built with{" "}
         <a
-          className="underline hover:text-foreground"
+          className="hover:text-foreground underline"
           href="https://github.com/guilhermerodz/input-otp"
           rel="noreferrer noopener nofollow"
           target="_blank"
@@ -46,8 +46,8 @@ function Slot(props: SlotProps) {
   return (
     <div
       className={cn(
-        "flex size-9 items-center justify-center rounded-md border border-input bg-background font-medium text-foreground shadow-xs transition-[color,box-shadow]",
-        { "z-10 border-ring ring-[3px] ring-ring/50": props.isActive },
+        "border-input bg-background text-foreground flex size-9 items-center justify-center rounded-md border font-medium shadow-xs transition-[color,box-shadow]",
+        { "border-ring ring-ring/50 z-10 ring-[3px]": props.isActive },
       )}
     >
       {props.char !== null && <div>{props.char}</div>}

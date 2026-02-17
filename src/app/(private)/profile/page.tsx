@@ -6,23 +6,23 @@ import AccountSettings from "./_components/account-settings";
 
 export default function page() {
   return (
-    <Tabs defaultValue="dashboard" className="container-xl px-base ">
+    <Tabs defaultValue="dashboard" className="container-xl px-base">
       <div className="border-bottom">
         <TabsList
           variant={"line"}
-          className="flex items-center justify-between w-full py-0"
+          className="flex w-full items-center justify-between py-0"
         >
           <div className="flex-center">
             <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
             <TabsTrigger value="account-settings">Account Settings</TabsTrigger>
           </div>
-          <div className="w-fit h-full pl-7.5 border-l border-secondary/10 flex-center">
+          <div className="border-secondary/10 flex-center h-full w-fit border-l pl-7.5">
             <SignOut />
           </div>
         </TabsList>
       </div>
-      <div className="flex-1 flex-center">
-        <div className="container-lg  w-full">
+      <div className="flex-center flex-1">
+        <div className="container-lg w-full">
           <TabsContent value="dashboard">
             <Dashboard />
           </TabsContent>

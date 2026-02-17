@@ -94,7 +94,10 @@ export const authOptions: NextAuthOptions = {
       }
 
       // Token still valid
-      if (token.accessTokenExpires && Date.now() < Number(token.accessTokenExpires)) {
+      if (
+        token.accessTokenExpires &&
+        Date.now() < Number(token.accessTokenExpires)
+      ) {
         return token;
       }
 

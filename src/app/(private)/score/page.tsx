@@ -341,7 +341,7 @@ function ScorePagePersonalityAccordion() {
             className="group"
             disabled={!personality.descriptions}
           >
-            <div className="flex items-center justify-between w-full gap-4">
+            <div className="flex w-full items-center justify-between gap-4">
               <div className="flex-center gap-2">
                 <span
                   className={cn({
@@ -366,12 +366,12 @@ function ScorePagePersonalityAccordion() {
           <AccordionContent className="space-y-10">
             {personality.descriptions?.map((description, index) => (
               <div key={index} className="flex items-start gap-2">
-                <div className="size-4 bg-error-container shrink-0" />
-                <div className="grow flex flex-col gap-2">
+                <div className="bg-error-container size-4 shrink-0" />
+                <div className="flex grow flex-col gap-2">
                   <p className="body-medium-primary text-left">
                     {description.title}
                   </p>
-                  <div className="flex items-center flex-wrap gap-1">
+                  <div className="flex flex-wrap items-center gap-1">
                     {description.items.map((item, index) => (
                       <Badge key={index}>
                         <Icon>{item.icon}</Icon>
@@ -422,11 +422,11 @@ function ScorePageNotchCard({
   ...props
 }: { title: string } & ComponentProps<"div"> & PropsWithChildren) {
   return (
-    <div className="border-t border-t-error-container  w-full">
-      <div className="label-small-primary rounded-b-xl w-fit bg-error-container px-3 py-1 mx-auto">
+    <div className="border-t-error-container w-full border-t">
+      <div className="label-small-primary bg-error-container mx-auto w-fit rounded-b-xl px-3 py-1">
         {title}
       </div>
-      <div {...props} className={cn("flex-1 shrink-0 w-full pt-8", className)}>
+      <div {...props} className={cn("w-full flex-1 shrink-0 pt-8", className)}>
         {children}
       </div>
     </div>
@@ -442,7 +442,7 @@ function ScorePageContainer({
     <div
       {...props}
       className={cn(
-        "flex-1 w-full lg:w-1/2 shrink-0",
+        "w-full flex-1 shrink-0 lg:w-1/2",
         {
           "max-lg:pb-8 lg:pr-8": type === "left",
           "max-lg:pt-8 lg:pl-8": type === "right",
@@ -477,7 +477,7 @@ function ScorePageShareButton({
     <button
       {...props}
       className={cn(
-        "absolute cursor-pointer top-0 left-full bg-error-container flex items-center justify-center gap-2 h-8 w-24 rounded-b-lg -translate-x-8 translate-y-8 -rotate-90",
+        "bg-error-container absolute top-0 left-full flex h-8 w-24 -translate-x-8 translate-y-8 -rotate-90 cursor-pointer items-center justify-center gap-2 rounded-b-lg",
         className,
       )}
     >
@@ -514,20 +514,20 @@ const main_tabs = [
           <ScorePageShareButton className="max-xl:hidden" />
           <ScorePageContainer
             type="left"
-            className="flex-center flex-col md:flex-row gap-8"
+            className="flex-center flex-col gap-8 md:flex-row"
           >
             <Image
               src="https://images.unsplash.com/photo-1558898479-33c0057a5d12?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Score"
               width={288}
               height={288}
-              className="rounded-md size-72 md:size-24 object-cover object-center"
+              className="size-72 rounded-md object-cover object-center md:size-24"
             />
-            <div className="flex-col flex gap-2 text-on-surface">
-              <h3 className="text-left headline-small-emphasized">
+            <div className="text-on-surface flex flex-col gap-2">
+              <h3 className="headline-small-emphasized text-left">
                 Visionary pathfinder
               </h3>
-              <p className="text-left body-medium-primary">
+              <p className="body-medium-primary text-left">
                 Your facial cues suggest a natural openness and curiosity, often
                 seen in individuals who enjoy exploring new ideas and connecting
                 with others.
@@ -536,7 +536,7 @@ const main_tabs = [
           </ScorePageContainer>
           <ScorePageContainer
             type="right"
-            className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-3"
+            className="flex flex-col items-center justify-between gap-8 md:flex-row md:gap-3"
           >
             {main_scores.map((score, index) => (
               <ScorePageProgress
@@ -552,7 +552,7 @@ const main_tabs = [
           <ScorePageShareButton className="max-xl:hidden" />
           <ScorePageContainer
             type="left"
-            className="h-110.25 flex flex-col items-center"
+            className="flex h-110.25 flex-col items-center"
           >
             <SimpleRadarChart />
             <Button variant={"outline"}>
@@ -564,7 +564,7 @@ const main_tabs = [
             <ScorePagePersonalityAccordion />
           </ScorePageContainer>
         </ScorePageCard>
-        <ScorePageCard className="flex-center flex-col gap-8 divide-none ">
+        <ScorePageCard className="flex-center flex-col gap-8 divide-none">
           <Tabs defaultValue="overview" className="mx-auto">
             <TabsList>
               <TabsTrigger value="overview">Worth sharing</TabsTrigger>
@@ -573,7 +573,7 @@ const main_tabs = [
             </TabsList>
           </Tabs>
           <Carousel
-            className="max-w-276 mx-auto pr-8"
+            className="mx-auto max-w-276 pr-8"
             opts={{
               align: "start",
             }}
@@ -582,9 +582,9 @@ const main_tabs = [
               <CarouselContent>
                 {Array.from({ length: 10 }).map((_, index) => (
                   <CarouselItem className="" key={index}>
-                    <Card className="border-none size-83 shadow-none bg-[url('https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-no-repeat p-0 overflow-hidden">
-                      <CardContent className="size-full backdrop-blur-[2px] bg-black/40 p-0 flex flex-col">
-                        <CardHeader className="flex items-center gap-2 justify-end p-3">
+                    <Card className="size-83 overflow-hidden border-none bg-[url('https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-no-repeat p-0 shadow-none">
+                      <CardContent className="flex size-full flex-col bg-black/40 p-0 backdrop-blur-[2px]">
+                        <CardHeader className="flex items-center justify-end gap-2 p-3">
                           <Button variant={"icon"} className="size-10">
                             <CameraPlus className="size-5" />
                           </Button>
@@ -597,16 +597,16 @@ const main_tabs = [
                           name="Steve Jobs"
                           role="Visionary pathfinder"
                         />
-                        <Separator className="h-1 to-white/30 mt-3" />
+                        <Separator className="mt-3 h-1 to-white/30" />
 
-                        <SimpleRadarChart className="text-white pointer-events-none" />
+                        <SimpleRadarChart className="pointer-events-none text-white" />
                       </CardContent>
                     </Card>
                   </CarouselItem>
                 ))}
               </CarouselContent>
             </div>
-            <div className="px-2 my-8">
+            <div className="my-8 px-2">
               <CarouselIndicator />
             </div>
             <div className="flex-center gap-2">
@@ -628,7 +628,7 @@ const main_tabs = [
         <ScorePageShareButton className="max-xl:hidden" />
         <ScorePageContainer type="left" className="flex flex-col gap-8">
           <div className="flex items-start gap-2">
-            <Quote className="shrink-0 mt-2" />
+            <Quote className="mt-2 shrink-0" />
             <h2 className="headline-small-emphasized text-left">
               A heart that listens and eyes that roam, curious, kind, and ever
               at home.
@@ -652,7 +652,7 @@ const main_tabs = [
               <span className="label-small-primary text-left">
                 {story.title}
               </span>
-              <div className="flex items-center flex-wrap gap-1">
+              <div className="flex flex-wrap items-center gap-1">
                 {story.items.map((item, index) => (
                   <Badge key={index}>
                     <Icon>{item.icon}</Icon>
@@ -676,19 +676,19 @@ const main_tabs = [
         <ScorePageShareButton className="max-xl:hidden" />
         <ScorePageContainer
           type="left"
-          className="flex flex-col  items-center gap-8"
+          className="flex flex-col items-center gap-8"
         >
           <div>
-            <h2 className="display-large-emphasized flex items-center text-transparent bg-gradient bg-clip-text text-center flex-center gap-2">
-              <div className="size-6 bg-gradient clip-triangle" />
+            <h2 className="display-large-emphasized bg-gradient flex-center flex items-center gap-2 bg-clip-text text-center text-transparent">
+              <div className="bg-gradient clip-triangle size-6" />
               72%
             </h2>
-            <p className="body-large-emphasized max-w-52 text-center mx-auto">
+            <p className="body-large-emphasized mx-auto max-w-52 text-center">
               Ahead of your age group in empathy index
             </p>
           </div>
           <ScorePageNotchCard title="Score breakdown">
-            <div className="flex flex-col lg:flex-row lg:justify-center items-center gap-6">
+            <div className="flex flex-col items-center gap-6 lg:flex-row lg:justify-center">
               {relationship_scores.map((score, index) => (
                 <ScorePageProgress
                   key={index}
@@ -723,15 +723,15 @@ const main_tabs = [
             {relationship_results.map((result, index) => (
               <AccordionItem key={index} value={result.title}>
                 <AccordionTrigger className="group">
-                  <div className="flex items-center justify-between w-full gap-4">
+                  <div className="flex w-full items-center justify-between gap-4">
                     <div className="flex-center gap-2">{result.title}</div>
                     <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="space-y-6">
                   <div className="flex items-start gap-2">
-                    <div className="size-4 bg-error-container shrink-0 mt-2" />
-                    <div className="grow flex flex-col gap-2">
+                    <div className="bg-error-container mt-2 size-4 shrink-0" />
+                    <div className="flex grow flex-col gap-2">
                       <p className="body-medium-primary text-left">
                         {result.description}
                       </p>
@@ -759,19 +759,19 @@ const main_tabs = [
         <ScorePageShareButton className="max-xl:hidden" />
         <ScorePageContainer
           type="left"
-          className="flex flex-col  items-center gap-8"
+          className="flex flex-col items-center gap-8"
         >
           <div>
-            <h2 className="display-large-emphasized flex items-center text-transparent bg-gradient bg-clip-text text-center flex-center gap-2">
-              <div className="size-6 bg-gradient clip-triangle" />
+            <h2 className="display-large-emphasized bg-gradient flex-center flex items-center gap-2 bg-clip-text text-center text-transparent">
+              <div className="bg-gradient clip-triangle size-6" />
               72%
             </h2>
-            <p className="body-large-emphasized max-w-52 text-center mx-auto">
+            <p className="body-large-emphasized mx-auto max-w-52 text-center">
               Ahead of your age group in empathy index
             </p>
           </div>
           <ScorePageNotchCard title="Score breakdown">
-            <div className="flex flex-col lg:flex-row lg:justify-center items-center gap-6">
+            <div className="flex flex-col items-center gap-6 lg:flex-row lg:justify-center">
               {relationship_scores.map((score, index) => (
                 <ScorePageProgress
                   key={index}
@@ -806,15 +806,15 @@ const main_tabs = [
             {relationship_results.map((result, index) => (
               <AccordionItem key={index} value={result.title}>
                 <AccordionTrigger className="group">
-                  <div className="flex items-center justify-between w-full gap-4">
+                  <div className="flex w-full items-center justify-between gap-4">
                     <div className="flex-center gap-2">{result.title}</div>
                     <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="space-y-6">
                   <div className="flex items-start gap-2">
-                    <div className="size-4 bg-error-container shrink-0 mt-2" />
-                    <div className="grow flex flex-col gap-2">
+                    <div className="bg-error-container mt-2 size-4 shrink-0" />
+                    <div className="flex grow flex-col gap-2">
                       <p className="body-medium-primary text-left">
                         {result.description}
                       </p>
@@ -842,19 +842,19 @@ const main_tabs = [
         <ScorePageShareButton className="max-xl:hidden" />
         <ScorePageContainer
           type="left"
-          className="flex flex-col  items-center gap-8"
+          className="flex flex-col items-center gap-8"
         >
           <div>
-            <h2 className="display-large-emphasized flex items-center text-transparent bg-gradient bg-clip-text text-center flex-center gap-2">
-              <div className="size-6 bg-gradient clip-triangle" />
+            <h2 className="display-large-emphasized bg-gradient flex-center flex items-center gap-2 bg-clip-text text-center text-transparent">
+              <div className="bg-gradient clip-triangle size-6" />
               72%
             </h2>
-            <p className="body-large-emphasized max-w-52 text-center mx-auto">
+            <p className="body-large-emphasized mx-auto max-w-52 text-center">
               Ahead of your age group in empathy index
             </p>
           </div>
           <ScorePageNotchCard title="Score breakdown">
-            <div className="flex flex-col lg:flex-row lg:justify-center items-center gap-6">
+            <div className="flex flex-col items-center gap-6 lg:flex-row lg:justify-center">
               {relationship_scores.map((score, index) => (
                 <ScorePageProgress
                   key={index}
@@ -889,15 +889,15 @@ const main_tabs = [
             {relationship_results.map((result, index) => (
               <AccordionItem key={index} value={result.title}>
                 <AccordionTrigger className="group">
-                  <div className="flex items-center justify-between w-full gap-4">
+                  <div className="flex w-full items-center justify-between gap-4">
                     <div className="flex-center gap-2">{result.title}</div>
                     <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="space-y-6">
                   <div className="flex items-start gap-2">
-                    <div className="size-4 bg-error-container shrink-0 mt-2" />
-                    <div className="grow flex flex-col gap-2">
+                    <div className="bg-error-container mt-2 size-4 shrink-0" />
+                    <div className="flex grow flex-col gap-2">
                       <p className="body-medium-primary text-left">
                         {result.description}
                       </p>
@@ -925,19 +925,19 @@ const main_tabs = [
         <ScorePageShareButton className="max-xl:hidden" />
         <ScorePageContainer
           type="left"
-          className="flex flex-col  items-center gap-8"
+          className="flex flex-col items-center gap-8"
         >
           <div>
-            <h2 className="display-large-emphasized flex items-center text-transparent bg-gradient bg-clip-text text-center flex-center gap-2">
-              <div className="size-6 bg-gradient clip-triangle" />
+            <h2 className="display-large-emphasized bg-gradient flex-center flex items-center gap-2 bg-clip-text text-center text-transparent">
+              <div className="bg-gradient clip-triangle size-6" />
               72%
             </h2>
-            <p className="body-large-emphasized max-w-52 text-center mx-auto">
+            <p className="body-large-emphasized mx-auto max-w-52 text-center">
               Ahead of your age group in empathy index
             </p>
           </div>
           <ScorePageNotchCard title="Score breakdown">
-            <div className="flex flex-col lg:flex-row lg:justify-center items-center gap-6">
+            <div className="flex flex-col items-center gap-6 lg:flex-row lg:justify-center">
               {relationship_scores.map((score, index) => (
                 <ScorePageProgress
                   key={index}
@@ -972,15 +972,15 @@ const main_tabs = [
             {relationship_results.map((result, index) => (
               <AccordionItem key={index} value={result.title}>
                 <AccordionTrigger className="group">
-                  <div className="flex items-center justify-between w-full gap-4">
+                  <div className="flex w-full items-center justify-between gap-4">
                     <div className="flex-center gap-2">{result.title}</div>
                     <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="space-y-6">
                   <div className="flex items-start gap-2">
-                    <div className="size-4 bg-error-container shrink-0 mt-2" />
-                    <div className="grow flex flex-col gap-2">
+                    <div className="bg-error-container mt-2 size-4 shrink-0" />
+                    <div className="flex grow flex-col gap-2">
                       <p className="body-medium-primary text-left">
                         {result.description}
                       </p>
@@ -1008,19 +1008,19 @@ const main_tabs = [
         <ScorePageShareButton className="max-xl:hidden" />
         <ScorePageContainer
           type="left"
-          className="flex flex-col  items-center gap-8"
+          className="flex flex-col items-center gap-8"
         >
           <div>
-            <h2 className="display-large-emphasized flex items-center text-transparent bg-gradient bg-clip-text text-center flex-center gap-2">
-              <div className="size-6 bg-gradient clip-triangle" />
+            <h2 className="display-large-emphasized bg-gradient flex-center flex items-center gap-2 bg-clip-text text-center text-transparent">
+              <div className="bg-gradient clip-triangle size-6" />
               72%
             </h2>
-            <p className="body-large-emphasized max-w-52 text-center mx-auto">
+            <p className="body-large-emphasized mx-auto max-w-52 text-center">
               Ahead of your age group in empathy index
             </p>
           </div>
           <ScorePageNotchCard title="Score breakdown">
-            <div className="flex flex-col lg:flex-row lg:justify-center items-center gap-6">
+            <div className="flex flex-col items-center gap-6 lg:flex-row lg:justify-center">
               {relationship_scores.map((score, index) => (
                 <ScorePageProgress
                   key={index}
@@ -1055,15 +1055,15 @@ const main_tabs = [
             {relationship_results.map((result, index) => (
               <AccordionItem key={index} value={result.title}>
                 <AccordionTrigger className="group">
-                  <div className="flex items-center justify-between w-full gap-4">
+                  <div className="flex w-full items-center justify-between gap-4">
                     <div className="flex-center gap-2">{result.title}</div>
                     <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="space-y-6">
                   <div className="flex items-start gap-2">
-                    <div className="size-4 bg-error-container shrink-0 mt-2" />
-                    <div className="grow flex flex-col gap-2">
+                    <div className="bg-error-container mt-2 size-4 shrink-0" />
+                    <div className="flex grow flex-col gap-2">
                       <p className="body-medium-primary text-left">
                         {result.description}
                       </p>
@@ -1091,19 +1091,19 @@ const main_tabs = [
         <ScorePageShareButton className="max-xl:hidden" />
         <ScorePageContainer
           type="left"
-          className="flex flex-col  items-center gap-8"
+          className="flex flex-col items-center gap-8"
         >
           <div>
-            <h2 className="display-large-emphasized flex items-center text-transparent bg-gradient bg-clip-text text-center flex-center gap-2">
-              <div className="size-6 bg-gradient clip-triangle" />
+            <h2 className="display-large-emphasized bg-gradient flex-center flex items-center gap-2 bg-clip-text text-center text-transparent">
+              <div className="bg-gradient clip-triangle size-6" />
               72%
             </h2>
-            <p className="body-large-emphasized max-w-52 text-center mx-auto">
+            <p className="body-large-emphasized mx-auto max-w-52 text-center">
               Ahead of your age group in empathy index
             </p>
           </div>
           <ScorePageNotchCard title="Score breakdown">
-            <div className="flex flex-col lg:flex-row lg:justify-center items-center gap-6">
+            <div className="flex flex-col items-center gap-6 lg:flex-row lg:justify-center">
               {relationship_scores.map((score, index) => (
                 <ScorePageProgress
                   key={index}
@@ -1138,15 +1138,15 @@ const main_tabs = [
             {relationship_results.map((result, index) => (
               <AccordionItem key={index} value={result.title}>
                 <AccordionTrigger className="group">
-                  <div className="flex items-center justify-between w-full gap-4">
+                  <div className="flex w-full items-center justify-between gap-4">
                     <div className="flex-center gap-2">{result.title}</div>
                     <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="space-y-6">
                   <div className="flex items-start gap-2">
-                    <div className="size-4 bg-error-container shrink-0 mt-2" />
-                    <div className="grow flex flex-col gap-2">
+                    <div className="bg-error-container mt-2 size-4 shrink-0" />
+                    <div className="flex grow flex-col gap-2">
                       <p className="body-medium-primary text-left">
                         {result.description}
                       </p>
@@ -1172,7 +1172,7 @@ const main_tabs = [
     content: () => (
       <ScorePageCard>
         <Carousel
-          className="max-w-276 mx-auto pr-8"
+          className="mx-auto max-w-276 pr-8"
           opts={{
             align: "start",
           }}
@@ -1181,9 +1181,9 @@ const main_tabs = [
             <CarouselContent>
               {Array.from({ length: 10 }).map((_, index) => (
                 <CarouselItem className="" key={index}>
-                  <Card className="border-none size-83 shadow-none bg-[url('https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-no-repeat p-0 overflow-hidden">
-                    <CardContent className="size-full  bg-linear-to-t from-black/80 to-transparent p-0 flex flex-col items-center justify-between">
-                      <CardHeader className="text-white title-medium-emphasized w-full text-center bg-linear-to-r from-error to-transparent px-3 py-1">
+                  <Card className="size-83 overflow-hidden border-none bg-[url('https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-no-repeat p-0 shadow-none">
+                    <CardContent className="flex size-full flex-col items-center justify-between bg-linear-to-t from-black/80 to-transparent p-0">
+                      <CardHeader className="title-medium-emphasized from-error w-full bg-linear-to-r to-transparent px-3 py-1 text-center text-white">
                         Keanu Reeves
                       </CardHeader>
                       <div className="pb-3">
@@ -1199,7 +1199,7 @@ const main_tabs = [
               ))}
             </CarouselContent>
           </div>
-          <div className="px-2 my-8">
+          <div className="my-8 px-2">
             <CarouselIndicator />
           </div>
           <div className="flex-center gap-2">
@@ -1216,11 +1216,11 @@ const main_tabs = [
     title: "Summary & exports",
     is_visible: true,
     content: () => (
-      <ScorePageCard className="flex flex-col lg:flex-row items-center justify-between gap-6 bg-transparent divide-none">
+      <ScorePageCard className="flex flex-col items-center justify-between gap-6 divide-none bg-transparent lg:flex-row">
         {export_items.map((item, index) => (
-          <div className="size-full  p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container">
-            <div className="flex-1 py-6 flex-center">{item.icon}</div>
-            <div className="flex-1 py-6 flex-center">
+          <div className="bg-error-container/16 divide-error-container flex size-full flex-col divide-y rounded-xl p-8">
+            <div className="flex-center flex-1 py-6">{item.icon}</div>
+            <div className="flex-center flex-1 py-6">
               <Button variant={"outline"}>{item.title}</Button>
             </div>
           </div>
@@ -1234,28 +1234,28 @@ const main_tabs = [
     title: "Level-up add-ons",
     is_visible: true,
     content: () => (
-      <ScorePageCard className="flex flex-col lg:flex-row items-center justify-between gap-6 bg-transparent divide-none">
+      <ScorePageCard className="flex flex-col items-center justify-between gap-6 divide-none bg-transparent lg:flex-row">
         {level_up_items.map((item) => (
           <div
             key={item.title}
             className={cn(
-              "size-full p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container relative",
+              "bg-error-container/16 divide-error-container relative flex size-full flex-col divide-y rounded-xl p-8",
               {
                 "opacity-25": item.type == "disabled",
-                "border border-error": item.type == "popular",
+                "border-error border": item.type == "popular",
               },
             )}
           >
             {item.type == "popular" && (
-              <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-error text-white rounded-full py-1 px-3 label-small-emphasized">
+              <span className="bg-error label-small-emphasized absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full px-3 py-1 text-white">
                 🔥 Popular
               </span>
             )}
-            <div className="flex-1 py-6 flex-center flex-col">
+            <div className="flex-center flex-1 flex-col py-6">
               <h4 className="text-outline">{item.title}</h4>
               <p className="display-large-emphasized mt-4 mb-2">
                 ${item.price}
-                <span className="title-small-emphasized font-semibold text-outline">
+                <span className="title-small-emphasized text-outline font-semibold">
                   /{item.time}
                 </span>
               </p>
@@ -1264,7 +1264,7 @@ const main_tabs = [
                 {item.badge.description}
               </Badge>
             </div>
-            <div className="flex-1 py-6 flex-center">
+            <div className="flex-center flex-1 py-6">
               <Button variant={"outline"}>Buy Now</Button>
             </div>
           </div>
@@ -1291,9 +1291,9 @@ export default function ScorePage() {
 
   return (
     <div className="">
-      <div className="sticky top-0 z-10 bg-background">
-        <div className="border-b border-secondary/10">
-          <div className="container-xl flex items-center gap-4 px-3 xl:px-6 py-3">
+      <div className="bg-background sticky top-0 z-10">
+        <div className="border-secondary/10 border-b">
+          <div className="container-xl flex items-center gap-4 px-3 py-3 xl:px-6">
             <Button variant="outline" size={"icon"}>
               <ArrowForward className="rotate-180" />
             </Button>
@@ -1311,7 +1311,7 @@ export default function ScorePage() {
                 </div>
               </SelectTrigger>
               <SelectContent
-                className="border border-outline-variant"
+                className="border-outline-variant border"
                 position="popper"
               >
                 <SelectGroup>
@@ -1329,7 +1329,7 @@ export default function ScorePage() {
         <div className="border-bottom overflow-hidden">
           <Tabs
             defaultValue="overview"
-            className="container-xl px-3 xl:px-6 overflow-x-auto no-scrollbar"
+            className="container-xl no-scrollbar overflow-x-auto px-3 xl:px-6"
           >
             <TabsList variant={"line"} className="">
               {main_tabs.map(({ id, label, is_visible }) => {
@@ -1343,7 +1343,7 @@ export default function ScorePage() {
           </Tabs>
         </div>
       </div>
-      <div className=" lg:py-16 px-4 space-y-16">
+      <div className="space-y-16 px-4 lg:py-16">
         {main_tabs.map(({ id, title, content }) => {
           return (
             <ScorePageSection id={id} key={id}>

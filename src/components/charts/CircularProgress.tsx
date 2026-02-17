@@ -24,11 +24,11 @@ const CircularProgress = ({
   const offset = circumference - (progress / 100) * circumference;
   return (
     <div
-      className="relative flex flex-col items-center justify-center "
+      className="relative flex flex-col items-center justify-center"
       style={{ width: size, height: size }}
     >
       <div
-        className="relative transform rotate-150 "
+        className="relative rotate-150 transform"
         style={{ width: size, height: size }}
       >
         <svg className="size-full">
