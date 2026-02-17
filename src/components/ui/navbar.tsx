@@ -1,3 +1,4 @@
+"use client";
 import { Logo } from "@/assets/Logo";
 import { ReactNode } from "react";
 import { Button, buttonVariants } from "./button";
@@ -7,6 +8,8 @@ import Translation from "./translation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import SignOut from "./SignOut";
+import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
+import { useSession } from "next-auth/react";
 export type NavItemType = {
   label: ReactNode;
   href: string;
@@ -46,31 +49,59 @@ function NavList({ item }: { item: NavItemType[] }) {
 }
 
 export default function Navbar() {
+  const { data: session } = useSession();
+
   return (
     <div className="border-b border-secondary/10">
-      <header className="container-lg px-3 xl:px-6 py-3 flex-between">
+      <header className="container-xl px-base py-3 flex-between">
         <div className="flex-center gap-lg">
           <Logo />
           <NavList item={nav_items} />
         </div>
-        <div className="hidden xl:flex flex-center gap-2">
-          <SignOut />
-          <Translation />
-          <Link
-            href="/upload"
-            className={cn(
-              buttonVariants({
-                variant: "default",
-              }),
-            )}
-          >
-            <VideoCam />
-            Upload or record video
+
+        {session?.user ? (
+          <Link href="/profile">
+            <Avatar className="size-13.5 border-4 border-blue">
+              <AvatarImage
+                src="https://github.com/shadcn.png"
+                alt="@shadcn"
+                // className="grayscale"
+              />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
           </Link>
-        </div>
-        <Button variant={"ghost"} className="xl:hidden">
-          <Menu />
-        </Button>
+        ) : (
+          <>
+            <div className="hidden xl:flex flex-center gap-2">
+              {/* <SignOut /> */}
+              <Link
+                href="/sign-in"
+                className={cn(
+                  buttonVariants({
+                    variant: "ghost",
+                  }),
+                )}
+              >
+                Sign in
+              </Link>
+              <Translation />
+              <Link
+                href="/upload"
+                className={cn(
+                  buttonVariants({
+                    variant: "default",
+                  }),
+                )}
+              >
+                <VideoCam />
+                Upload or record video
+              </Link>
+            </div>
+            <Button variant={"ghost"} className="xl:hidden">
+              <Menu />
+            </Button>
+          </>
+        )}
       </header>
     </div>
   );

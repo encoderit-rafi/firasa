@@ -5,10 +5,14 @@
 
 @theme {
   --font-roboto: var(--font-roboto);
+  --font-inter: var(--font-inter);
 
   --color-warning: var(--warning);
   --color-danger: var(--danger);
   --color-success: var(--success);
+  --color-yellow: var(--yellow);
+  --color-blue: var(--blue);
+  --color-blue-primary: var(--blue-primary);
 
   --color-primary: var(--primary-40);
   --color-on-primary: var(--primary-99);
@@ -56,6 +60,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-roboto: var(--font-roboto);
+  --font-inter: var(--font-inter);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -94,6 +99,9 @@
   --warning: #e8b931;
   --danger: #ec221f;
   --success: #22c55e;
+  --yellow: #fbbc05;
+  --blue: #1c37d1;
+  --blue-primary: #1a2dc9;
 
   --primary-10: #21005d;
   --primary-20: #381e72;
@@ -237,6 +245,15 @@
     @apply text-center font-normal text-base leading-6 tracking-wide text-on-surface;
   }
 
+  .border-bottom {
+    @apply border-b border-secondary/10;
+  }
+  .py-base {
+    @apply py-8! xl:py-16!;
+  }
+  .px-base {
+    @apply px-3! xl:px-6!;
+  }
   .section {
     @apply py-8 lg:py-24;
   }
@@ -265,6 +282,10 @@
     @apply bg-linear-to-l from-[#FF77D7] to-[#FA6C12];
   }
 
+  .bg-gradient-blue {
+    @apply bg-linear-to-l from-[#0E70DD] to-[#1C37D1];
+  }
+
   .container-xs {
     @apply mx-auto max-w-109;
   }
@@ -278,6 +299,9 @@
   }
 
   .container-lg {
+    @apply mx-auto max-w-300;
+  }
+  .container-xl {
     @apply mx-auto max-w-360;
   }
 
