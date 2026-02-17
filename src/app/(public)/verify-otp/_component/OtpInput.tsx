@@ -3,10 +3,14 @@
 import { OTPInput, type SlotProps } from "input-otp";
 import { useCallback, useEffect, useId, useState } from "react";
 import { cn } from "@/lib/utils";
-import { Button } from "../../../components/ui/button";
-import { useMutationVerifyOtp, useMutationResendOtp } from "@/app/verify-otp/_api/use-mutation-verify-otp";
+// import { Button } from "../../../components/ui/button";
+import {
+  useMutationVerifyOtp,
+  useMutationResendOtp,
+} from "@/app/verify-otp/_api/use-mutation-verify-otp";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export default function OtpInput() {
   const id = useId();
@@ -23,7 +27,6 @@ export default function OtpInput() {
     return localStorage.getItem("verify_email");
   }, []);
 
-
   useEffect(() => {
     const email = getEmail();
     if (!email) {
@@ -31,7 +34,6 @@ export default function OtpInput() {
       router.push("/sign-up");
     }
   }, [getEmail, router]);
-
 
   useEffect(() => {
     if (timer <= 0) {
@@ -84,7 +86,7 @@ export default function OtpInput() {
           setTimer(30);
           setIsResendDisabled(true);
         },
-      }
+      },
     );
   }, [isResendDisabled, getEmail, resendOtp, router]);
 
@@ -138,9 +140,9 @@ function Slot(props: SlotProps) {
   return (
     <div
       className={cn(
-        "flex md:h-[60px] md:w-[52px] h-[52px] w-[48px] items-center justify-center rounded-[14px] border border-[#E2E0DF] bg-background font-medium text-foreground shadow-xs transition-[color,box-shadow]",
+        "flex md:h-15 md:w-13 h-13 w-12 items-center justify-center rounded-[14px] border border-[#E2E0DF] bg-background font-medium text-foreground shadow-xs transition-[color,box-shadow]",
         { "z-10 border-[#FA6C12] ": props.isActive },
-        { "z-10 border-[#FA6C12] ": props.char }
+        { "z-10 border-[#FA6C12] ": props.char },
       )}
     >
       {props.char !== null && <div>{props.char}</div>}
