@@ -1,0 +1,1023 @@
+{
+  "data": {
+    "id": "84f1d6f8-5ffd-4959-9187-7732cb9d4363",
+    "name": "WhatsApp Video 2026-02-17 at 11.29.51 AM.mp4",
+    "analysis_id": "ecf4fae1-837b-430b-94c0-e8afbf9ff134",
+    "analysis": {
+      "id": "ecf4fae1-837b-430b-94c0-e8afbf9ff134",
+      "job_id": "cd89052b-1d91-4b92-92c8-b19b140eb75d",
+      "user_id": 86,
+      "video_upload_id": "d3e0f3d7-27ee-477f-a502-50254118dedb",
+      "video_url": "d3e0f3d7-27ee-477f-a502-50254118dedb",
+      "video_hash": "00cc03518aea8490e961c44d708ef443388e1e2c84af382f42c78d493d6a4a6b",
+      "status": "pending",
+      "error_message": null,
+      "created_at": "2026-02-17T07:10:24.000000Z",
+      "updated_at": "2026-02-17T07:10:24.000000Z",
+      "video": {
+        "id": "d3e0f3d7-27ee-477f-a502-50254118dedb",
+        "user_id": 86,
+        "file_name": "WhatsApp Video 2026-02-17 at 11.29.51 AM.mp4",
+        "file_size": 941604,
+        "total_chunks": 3,
+        "uploaded_chunks": 3,
+        "upload_type": "file",
+        "source": "web",
+        "mime_type": "video/mp4",
+        "video_duration": 6,
+        "path": "uploads/videos/d3e0f3d7-27ee-477f-a502-50254118dedb.mp4",
+        "status": "completed",
+        "created_at": "2026-02-17T07:10:18.000000Z",
+        "updated_at": "2026-02-17T07:10:19.000000Z"
+      }
+    },
+    "user_id": 86,
+    "user": {
+      "id": 86,
+      "name": "User user1770792178",
+      "email": "user1770792178@gmail.com",
+      "avatar_url": "https://ui-avatars.com/api/?name=User+user1770792178&color=7F9CF5&background=EBF4FF",
+      "email_verified_at": "2026-02-11T06:43:37.000000Z",
+      "created_at": "2026-02-11T06:42:58.000000Z",
+      "is_admin": 0
+    },
+    "job_id": "ecf4fae1-837b-430b-94c0-e8afbf9ff134",
+    "device_used": "Test Device by video analysis",
+    "personality_type": "Test Personality",
+    "ocean_scores": null,
+    "deep_insights": null,
+    "strengths_weaknesses": null,
+    "growth_plan": null,
+    "career_match": null,
+    "confidence_score": "0.00",
+    "full_result": {
+      "success": true,
+      "predictions": {
+        "extraversion": 0.4146867593129476,
+        "neuroticism": 0.46245895822842914,
+        "agreeableness": 0.4864540596803029,
+        "conscientiousness": 0.40085092186927795,
+        "openness": 0.5741617679595947
+      },
+      "metadata": {
+        "file_path": "/tmp/tmpj3v879rl.mp4",
+        "preprocessing": {
+          "path": "/tmp/tmpj3v879rl.mp4",
+          "frame_count": 145,
+          "fps": 24,
+          "width": 480,
+          "height": 640,
+          "duration_seconds": 6.041666666666667,
+          "original_size": [480, 640],
+          "method": "face",
+          "face_detected": true,
+          "face_bbox": {
+            "x": 137,
+            "y": 63,
+            "width": 215,
+            "height": 215
+          },
+          "processed_size": [290, 290],
+          "face_image_base64": "data:image/jpeg;base64,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",
+          "file_path": "/tmp/tmpj3v879rl.mp4",
+          "file_type": "video",
+          "preprocessing_method": "resnet_multi_frame",
+          "num_frames_requested": 30,
+          "num_frames_extracted": 30,
+          "num_frames_processed": 30,
+          "faces_detected_count": 30,
+          "frames_skipped_no_face": 0,
+          "skip_no_face_enabled": true,
+          "face_detection_rate": 1
+        },
+        "prediction": {
+          "model": "resnet",
+          "backbone": "resnet18",
+          "image_size": 256,
+          "tta_used": true,
+          "device": "cpu",
+          "num_frames_extracted": 30,
+          "num_frames_used": 3,
+          "selected_frame_indices": [23, 26, 28],
+          "aggregation_method": "top-3",
+          "per_trait_std_all_frames": {
+            "extraversion": 0.023976436837811924,
+            "neuroticism": 0.02583432232026679,
+            "agreeableness": 0.020655953449944427,
+            "conscientiousness": 0.02486257614182626,
+            "openness": 0.023135729367853585
+          }
+        },
+        "norms": {
+          "source": "train_single_image_annotations_CLEANED.csv",
+          "computed_at": "2025-01-15",
+          "version": "1.0",
+          "means": {
+            "extraversion": 0.476364,
+            "neuroticism": 0.520432,
+            "agreeableness": 0.548365,
+            "conscientiousness": 0.523032,
+            "openness": 0.566469
+          },
+          "stds": {
+            "extraversion": 0.152412,
+            "neuroticism": 0.153773,
+            "agreeableness": 0.136434,
+            "conscientiousness": 0.155261,
+            "openness": 0.147068
+          }
+        },
+        "cutoffs": {
+          "very_low": 30,
+          "low_hi": 44,
+          "avg_hi": 55,
+          "high_hi": 64,
+          "very_high": 65
+        },
+        "multimodal": {
+          "frames_analyzed": 3,
+          "has_transcript": true,
+          "transcript_length": 14,
+          "has_assessment": false,
+          "questions_answered": 0
+        },
+        "streaming": true
+      },
+      "interpretations": {
+        "extraversion": {
+          "raw_score": 0.4147,
+          "t_score": 45.95,
+          "percentile": 34.3,
+          "category": "Average",
+          "label": "Balanced sociability",
+          "interpretation": "Balanced between sociability and introspection; comfortable alone or with others."
+        },
+        "neuroticism": {
+          "raw_score": 0.4625,
+          "t_score": 46.23,
+          "percentile": 35.3,
+          "category": "Average",
+          "label": "Emotionally balanced",
+          "interpretation": "Typical emotional balance; sometimes stressed, usually resilient."
+        },
+        "agreeableness": {
+          "raw_score": 0.4865,
+          "t_score": 45.46,
+          "percentile": 32.5,
+          "category": "Average",
+          "label": "Cooperative, fair",
+          "interpretation": "Kind and fair; balances assertiveness with empathy."
+        },
+        "conscientiousness": {
+          "raw_score": 0.4009,
+          "t_score": 42.13,
+          "percentile": 21.6,
+          "category": "Low",
+          "label": "Casual, flexible",
+          "interpretation": "Casual and adaptable; may overlook details or deadlines at times."
+        },
+        "openness": {
+          "raw_score": 0.5742,
+          "t_score": 50.52,
+          "percentile": 52.1,
+          "category": "Average",
+          "label": "Balanced curiosity",
+          "interpretation": "Balances imagination with practicality; open when relevant."
+        }
+      },
+      "summary": {
+        "category_distribution": {
+          "Very Low": 0,
+          "Low": 1,
+          "Average": 4,
+          "High": 0,
+          "Very High": 0
+        },
+        "dominant_traits": [],
+        "subdued_traits": [],
+        "mean_t_score": 46.06,
+        "total_traits": 5
+      },
+      "relationship_metrics": {
+        "metrics": {
+          "trust_signaling": {
+            "score": 48,
+            "level": "Moderate",
+            "description": "You balance openness with appropriate caution in building trust."
+          },
+          "social_openness": {
+            "score": 48,
+            "level": "Moderate",
+            "description": "You're selectively social, engaging when the context feels right."
+          },
+          "empathic_disposition": {
+            "score": 53,
+            "level": "Moderate",
+            "description": "You balance empathy with objectivity in understanding others."
+          },
+          "conflict_avoidance": {
+            "score": 51,
+            "level": "Moderate",
+            "description": "You pick your battles wisely, balancing harmony with assertiveness."
+          },
+          "harmony_seeking": {
+            "score": 53,
+            "level": "Moderate",
+            "description": "You value harmony but can be direct when necessary."
+          },
+          "anxiety_avoidance": {
+            "score": 50,
+            "level": "Moderate",
+            "description": "You may feel some anxiety about conflict but can manage it."
+          }
+        },
+        "coach_recommendation": "Your communication style is warm and straightforward, as you stated plainly, \"Du bist schön.\" You use few words but convey strong positive emotion, which suggests you relate in a candid and open manner. This directness, paired with your expressive and lively delivery, indicates you are approachable and engaging in relationships. To deepen connections, consider inviting reciprocity beyond compliments, encouraging dialogue and responding to others' emotions with similar warmth.",
+        "actionable_steps": [
+          {
+            "emoji": "👂",
+            "text": "Listen actively to others"
+          },
+          {
+            "emoji": "🤝",
+            "text": "Encourage two-way conversations"
+          },
+          {
+            "emoji": "💬",
+            "text": "Share feelings openly"
+          },
+          {
+            "emoji": "😊",
+            "text": "Give meaningful compliments"
+          },
+          {
+            "emoji": "🙋\u200d♂️",
+            "text": "Ask about others' experiences"
+          },
+          {
+            "emoji": "💞",
+            "text": "Show appreciation regularly"
+          }
+        ],
+        "snapshot_insight": "You express warm affection openly and confidently with a positive, engaging style.",
+        "behavioral_patterns": [
+          {
+            "title": "Direct Expressiveness",
+            "description": "You communicate warmly and straightforwardly, using clear positive phrases."
+          },
+          {
+            "title": "Engaged Presence",
+            "description": "Your lively delivery shows genuine interest and an open, approachable demeanor."
+          }
+        ],
+        "how_others_experience": "Others see you as a friendly, confident person who shares warmth clearly and without hesitation.",
+        "strength": {
+          "title": "Connector",
+          "description": "Your ability to affirm others quickly creates bonds and eases social interaction."
+        },
+        "tradeoff": {
+          "title": "Briefness",
+          "description": "Your concise style may sometimes limit deeper emotional exchange or mutual sharing."
+        },
+        "growth_lever": "Inviting more dialogue and emotional exchange can deepen your connections and foster richer relationships.",
+        "suitable_for": [
+          "Warm Listeners",
+          "Open Communicators",
+          "Positive Expressers"
+        ]
+      },
+      "work_metrics": {
+        "metrics": {
+          "persistence": {
+            "score": 45,
+            "level": "Moderate",
+            "description": "You show reasonable persistence but may benefit from strategies to stay motivated."
+          },
+          "focus_attention": {
+            "score": 45,
+            "level": "Moderate",
+            "description": "You can maintain focus reasonably well but may benefit from structured work environments."
+          },
+          "structure_preference": {
+            "score": 41,
+            "level": "Moderate",
+            "description": "You appreciate some structure but also value flexibility when needed."
+          },
+          "risk_aversion": {
+            "score": 50,
+            "level": "Moderate",
+            "description": "You balance caution with willingness to take reasonable risks when justified."
+          }
+        },
+        "coach_recommendation": "Your brief and direct style, illustrated by \"Du bist schön,\" suggests a preference for clear, efficient communication at work. The calm, authoritative voice and rapid delivery indicate confidence and decisiveness. However, the lack of elaboration also hints at potential challenges in articulating complex plans or detailed steps. Structuring your ideas further and inviting feedback can improve teamwork and project clarity.",
+        "actionable_steps": [
+          {
+            "emoji": "📝",
+            "text": "Plan key points ahead"
+          },
+          {
+            "emoji": "📅",
+            "text": "Use agendas in meetings"
+          },
+          {
+            "emoji": "🗣️",
+            "text": "Explain ideas clearly"
+          },
+          {
+            "emoji": "🤔",
+            "text": "Ask for feedback often"
+          },
+          {
+            "emoji": "📊",
+            "text": "Break down complex tasks"
+          },
+          {
+            "emoji": "💡",
+            "text": "Share concise updates regularly"
+          }
+        ],
+        "snapshot_insight": "You work with clear communication and confident, rapid delivery but favor brevity over detail.",
+        "behavioral_patterns": [
+          {
+            "title": "Confident Delivery",
+            "description": "You present ideas assertively with a strong, stable voice."
+          },
+          {
+            "title": "Concise Communication",
+            "description": "You favor brief, direct expressions rather than elaboration."
+          }
+        ],
+        "how_others_experience": "Colleagues see you as assertive and efficient, though sometimes wanting more detail.",
+        "strength": {
+          "title": "Decisive Communicator",
+          "description": "Your clarity and confidence facilitate swift decision-making and direction."
+        },
+        "tradeoff": {
+          "title": "Detail Omission",
+          "description": "Preferring briefness can lead to misunderstandings or overlooked complexities."
+        },
+        "growth_lever": "Adding relevant details and structured explanations strengthen your professional impact.",
+        "suitable_for": [
+          "Task-Focused Roles",
+          "Fast-Paced Environments",
+          "Leadership Positions"
+        ]
+      },
+      "creativity_metrics": {
+        "metrics": {
+          "ideation_power": {
+            "score": 54,
+            "level": "Moderate",
+            "description": "You have a balanced approach to ideation and can generate creative solutions when needed."
+          },
+          "openness_to_novelty": {
+            "score": 55,
+            "level": "Moderate",
+            "description": "You balance appreciation for the familiar with openness to new experiences."
+          },
+          "originality_index": {
+            "score": 54,
+            "level": "Moderate",
+            "description": "You balance originality with practicality in your creative work."
+          },
+          "attention_to_detail_creative": {
+            "score": 41,
+            "level": "Moderate",
+            "description": "You balance big-picture thinking with attention to important details."
+          }
+        },
+        "coach_recommendation": "Your choice to offer a simple, sincere compliment \"Du bist schön\" shows creativity in emotional connection rather than elaborate invention. The warmth and directness indicated a preference for impactful simplicity over complexity. You demonstrate a grounded imagination focused on meaningful, human-centered expression rather than abstract or fantastical ideas.",
+        "actionable_steps": [
+          {
+            "emoji": "🧠",
+            "text": "Explore varied creative expressions"
+          },
+          {
+            "emoji": "🎨",
+            "text": "Practice storytelling skills"
+          },
+          {
+            "emoji": "💌",
+            "text": "Write personal affirmations"
+          },
+          {
+            "emoji": "📚",
+            "text": "Read emotional literature"
+          },
+          {
+            "emoji": "📝",
+            "text": "Experiment with metaphors"
+          },
+          {
+            "emoji": "💬",
+            "text": "Engage in expressive conversations"
+          }
+        ],
+        "snapshot_insight": "You creatively convey warmth through direct, simple affirmations rather than elaborate ideas.",
+        "behavioral_patterns": [
+          {
+            "title": "Emotional Impact Focus",
+            "description": "Your creativity centers on genuine, heartfelt connection with others."
+          },
+          {
+            "title": "Simplicity Preference",
+            "description": "You favor straightforward expressions over complex imaginative constructs."
+          }
+        ],
+        "how_others_experience": "Others appreciate your heartfelt, clear warmth in your creative communication.",
+        "strength": {
+          "title": "Authentic Connector",
+          "description": "Your sincere and concise emotional expression fosters genuine connection."
+        },
+        "tradeoff": {
+          "title": "Limited Complexity",
+          "description": "Choosing simplicity may sometimes restrict broader imaginative exploration."
+        },
+        "growth_lever": "Experimenting with more elaborate creative forms can expand your expressive range.",
+        "suitable_for": [
+          "Emotional Writing",
+          "Personal Storytelling",
+          "Social Arts"
+        ]
+      },
+      "stress_metrics": {
+        "metrics": {
+          "stress_indicators": {
+            "score": 50,
+            "level": "Moderate",
+            "description": "You experience typical levels of stress and generally cope well."
+          },
+          "emotional_regulation": {
+            "score": 48,
+            "level": "Moderate",
+            "description": "You have a reasonable ability to regulate emotions but may struggle during high stress."
+          },
+          "resilience_score": {
+            "score": 48,
+            "level": "Moderate",
+            "description": "You have reasonable resilience but may benefit from strengthening your coping toolkit."
+          }
+        },
+        "coach_recommendation": "Since you chose a positive, warm phrase, and demonstrated stable vocal control and calm authoritative pitch, you likely approach stress with composure. Your quick, confident speech suggests problem-solving rather than avoidance. This implies you may face challenges head-on with steady confidence rather than catastrophizing or withdrawing.",
+        "actionable_steps": [
+          {
+            "emoji": "🧘\u200d♂️",
+            "text": "Practice calming breath techniques"
+          },
+          {
+            "emoji": "📈",
+            "text": "Break tasks into steps"
+          },
+          {
+            "emoji": "💪",
+            "text": "Focus on solutions actively"
+          },
+          {
+            "emoji": "🤝",
+            "text": "Seek social support"
+          },
+          {
+            "emoji": "📝",
+            "text": "Reflect on stress triggers"
+          },
+          {
+            "emoji": "🛑",
+            "text": "Set clear boundaries under pressure"
+          }
+        ],
+        "snapshot_insight": "You exhibit composure and confidence under pressure, tackling problems swiftly and with poise.",
+        "behavioral_patterns": [
+          {
+            "title": "Stable Vocal Control",
+            "description": "Your calm, authoritative pitch maintains steady presence."
+          },
+          {
+            "title": "Rapid Problem Focus",
+            "description": "Fast speech pace indicates mental agility in stress situations."
+          }
+        ],
+        "how_others_experience": "Others see you as calm and capable of managing stress without panic.",
+        "strength": {
+          "title": "Composed Resilience",
+          "description": "Your steady voice and quick problem orientation help you stay grounded."
+        },
+        "tradeoff": {
+          "title": "Pressure Vulnerability",
+          "description": "Fast pace might sometimes overlook emotional nuances under stress."
+        },
+        "growth_lever": "Integrating reflective pauses can improve emotional awareness during stress.",
+        "suitable_for": [
+          "High-Pressure Roles",
+          "Crisis Management",
+          "Fast-Decision Environments"
+        ]
+      },
+      "openness_metrics": {
+        "metrics": {
+          "openness_to_experience": {
+            "score": 57,
+            "level": "Moderate",
+            "description": "You balance curiosity with practicality, open to new ideas while valuing familiar approaches."
+          },
+          "novelty_seeking": {
+            "score": 52,
+            "level": "Moderate",
+            "description": "You enjoy novelty in moderation, balancing exploration with comfort."
+          },
+          "risk_tolerance_adventure": {
+            "score": 51,
+            "level": "Moderate",
+            "description": "You take measured risks when the potential reward is clear."
+          },
+          "planning_preference": {
+            "score": 41,
+            "level": "Moderate",
+            "description": "You balance planning with flexibility, adapting as situations evolve."
+          }
+        },
+        "coach_recommendation": "Your warm, simple phrase indicates comfort with familiar expressions rather than abstract novelty. However, your energetic delivery and bright demeanor suggest enthusiasm for engagement. You appear open to experience through interpersonal connection more than through abstract concepts or unconventional ideas.",
+        "actionable_steps": [
+          {
+            "emoji": "🌍",
+            "text": "Try novel social activities"
+          },
+          {
+            "emoji": "📚",
+            "text": "Explore new cultural ideas"
+          },
+          {
+            "emoji": "🎭",
+            "text": "Experiment with artistic hobbies"
+          },
+          {
+            "emoji": "🤝",
+            "text": "Meet diverse people"
+          },
+          {
+            "emoji": "🧩",
+            "text": "Learn new perspectives"
+          },
+          {
+            "emoji": "🧳",
+            "text": "Travel to unfamiliar places"
+          }
+        ],
+        "snapshot_insight": "You embrace new interpersonal experiences actively though prefer simple, familiar expressive forms.",
+        "behavioral_patterns": [
+          {
+            "title": "Engaged Sociability",
+            "description": "Your bright energy and warmth encourage social exploration."
+          },
+          {
+            "title": "Familiar Expression Comfort",
+            "description": "You opt for well-known phrases over novel, abstract language."
+          }
+        ],
+        "how_others_experience": "People see you as warm and engaging, open through your positive communication style.",
+        "strength": {
+          "title": "Social Explorer",
+          "description": "Your enthusiasm and energy facilitate embracing new people and ideas socially."
+        },
+        "tradeoff": {
+          "title": "Conventional Expression",
+          "description": "Preferring standard phrases may limit abstract creativity or novelty."
+        },
+        "growth_lever": "Trying more abstract or novel expressions can enrich your experiential range.",
+        "suitable_for": [
+          "Social Groups",
+          "Community Events",
+          "Cultural Exchanges"
+        ]
+      },
+      "learning_metrics": {
+        "metrics": {
+          "intellectual_curiosity": {
+            "score": 54,
+            "level": "Moderate",
+            "description": "You enjoy learning when topics interest you, balancing curiosity with practicality."
+          },
+          "reflective_tendency": {
+            "score": 52,
+            "level": "Moderate",
+            "description": "You reflect on experiences when prompted, balancing action with contemplation."
+          },
+          "structured_learning_preference": {
+            "score": 41,
+            "level": "Moderate",
+            "description": "You appreciate structure but can adapt to different learning formats."
+          },
+          "adaptability_index": {
+            "score": 53,
+            "level": "Moderate",
+            "description": "You can adapt to change with some adjustment time and support."
+          }
+        },
+        "coach_recommendation": "Your brief, confident expression reflects a direct and efficient learning style. Your fast-paced and clear vocal delivery indicates decisiveness and clarity in processing information. However, the lack of elaboration may suggest challenges in deep exploration or detailed reflection.",
+        "actionable_steps": [
+          {
+            "emoji": "🧠",
+            "text": "Ask clarifying questions"
+          },
+          {
+            "emoji": "📚",
+            "text": "Take detailed notes"
+          },
+          {
+            "emoji": "🤔",
+            "text": "Reflect on lessons learned"
+          },
+          {
+            "emoji": "🗣️",
+            "text": "Discuss ideas aloud"
+          },
+          {
+            "emoji": "🔍",
+            "text": "Analyze concepts deeply"
+          },
+          {
+            "emoji": "⏳",
+            "text": "Pace learning with pauses"
+          }
+        ],
+        "snapshot_insight": "You process information quickly and decisively, favoring concise understanding over deep exploration.",
+        "behavioral_patterns": [
+          {
+            "title": "Rapid Comprehension",
+            "description": "Your speech pace reflects quick mental processing of ideas."
+          },
+          {
+            "title": "Concise Explanation",
+            "description": "You express thoughts briefly without extended elaboration."
+          }
+        ],
+        "how_others_experience": "Others view you as a fast thinker who communicates ideas clearly but briefly.",
+        "strength": {
+          "title": "Quick Processor",
+          "description": "Your ability to grasp concepts swiftly aids efficient learning."
+        },
+        "tradeoff": {
+          "title": "Surface Reflection",
+          "description": "Preferring brevity can limit deeper critical analysis."
+        },
+        "growth_lever": "Incorporating reflective pauses can enhance deeper understanding and retention.",
+        "suitable_for": [
+          "Fast-Paced Learning",
+          "Practical Workshops",
+          "Collaborative Discussion"
+        ]
+      },
+      "insights": {
+        "title": "Warm Affirmation",
+        "tags": [
+          {
+            "emoji": "😊",
+            "label": "Agreeable"
+          },
+          {
+            "emoji": "📣",
+            "label": "Expressive"
+          },
+          {
+            "emoji": "⚡",
+            "label": "Energetic"
+          }
+        ],
+        "description": "You express warmth and positivity succinctly with confidence and calm authority, saying simply, \"Du bist schön.\" Your quick, loud, and stable voice supports your direct, friendly approach.",
+        "quote": "Kindness is best shown simply and confidently, with warmth in every word.",
+        "story": "You chose a simple yet powerful phrase, \"Du bist schön,\" to convey warmth and appreciation. Your delivery was fast-paced with a loud yet mellow voice, showing confident and positive energy. The stable tone and authoritative pitch combined with your bright facial expressions suggest genuine friendliness. Despite the brevity, your message carried clear emotional intent without hesitation, indicating directness and an open, approachable personality. Your posture and gaze in the video frames matched this openness and energy, reinforcing your sincere and outgoing style. You communicate effectively with few words, demonstrating a strong presence and capacity to affirm others warmly and confidently.",
+        "story_traits": [
+          {
+            "emoji": "😊",
+            "label": "Warm"
+          },
+          {
+            "emoji": "💬",
+            "label": "Concise"
+          },
+          {
+            "emoji": "🎯",
+            "label": "Direct"
+          },
+          {
+            "emoji": "⚡",
+            "label": "Energized"
+          },
+          {
+            "emoji": "🗣️",
+            "label": "Confident"
+          },
+          {
+            "emoji": "🔊",
+            "label": "Expressive"
+          }
+        ]
+      },
+      "audio_metrics": {
+        "indicators": {
+          "vocal_extraversion": {
+            "score": 62.4,
+            "level": "Moderate",
+            "signals": [
+              "projects voice confidently",
+              "speaks rapidly with few pauses"
+            ]
+          },
+          "vocal_expressiveness": {
+            "score": 41.5,
+            "level": "Moderate",
+            "signals": ["moderate expression"]
+          },
+          "vocal_fluency": {
+            "score": 63.4,
+            "level": "Moderate",
+            "signals": ["continuous speech flow", "steady voice quality"]
+          }
+        },
+        "interpretations": {
+          "pitch": "Low pitch voice, often perceived as calm and authoritative",
+          "expressiveness": "Moderate vocal variety, balanced expression",
+          "volume": "Loud and projecting voice",
+          "pace": "Fast-paced speech with few pauses, rapid communication",
+          "brightness": "Warm, mellow voice quality",
+          "stability": "Very stable and controlled voice"
+        },
+        "coach_recommendation": "Your loud, calm, and authoritative voice with stable control and fast pace conveys confidence and assertiveness. Moderate expressiveness balances clarity with approachability. This vocal style enhances your direct and warm communication style, reinforcing your clear presence.",
+        "actionable_steps": [
+          {
+            "emoji": "🎤",
+            "text": "Practice varied vocal pitches"
+          },
+          {
+            "emoji": "🧘",
+            "text": "Use breathing exercises"
+          },
+          {
+            "emoji": "📢",
+            "text": "Engage in public speaking"
+          },
+          {
+            "emoji": "🎧",
+            "text": "Record and review voice"
+          },
+          {
+            "emoji": "💬",
+            "text": "Maintain steady pace"
+          },
+          {
+            "emoji": "😊",
+            "text": "Add warmth in tone"
+          }
+        ],
+        "snapshot_insight": "You use a steady, calm voice with clear projection and confident, rapid delivery.",
+        "behavioral_patterns": [
+          {
+            "title": "Stable Projection",
+            "description": "Your loud, calm voice maintains presence in conversation."
+          },
+          {
+            "title": "Energetic Speech Pace",
+            "description": "Fast pace reflects lively and decisive communication style."
+          }
+        ],
+        "how_others_experience": "Your voice is heard as confident and engaging, balancing warmth and authority well.",
+        "strength": {
+          "title": "Commanding Presence",
+          "description": "Your vocal control supports confident and clear communication."
+        },
+        "tradeoff": {
+          "title": "Rapid Delivery",
+          "description": "Fast pace may sometimes shorten listener processing time."
+        },
+        "growth_lever": "Incorporating measured pauses can improve listener engagement and clarity.",
+        "suitable_for": [
+          "Presentations",
+          "Leadership Talks",
+          "One-on-One Coaching"
+        ]
+      },
+      "user_transcript": "Du bist schön."
+    },
+    "free_result": {
+      "predictions": {
+        "extraversion": 0.4146867593129476,
+        "neuroticism": 0.46245895822842914,
+        "agreeableness": 0.4864540596803029,
+        "conscientiousness": 0.40085092186927795,
+        "openness": 0.5741617679595947
+      },
+      "insights": {
+        "title": "Warm Affirmation",
+        "tags": [
+          {
+            "emoji": "😊",
+            "label": "Agreeable"
+          },
+          {
+            "emoji": "📣",
+            "label": "Expressive"
+          },
+          {
+            "emoji": "⚡",
+            "label": "Energetic"
+          }
+        ],
+        "description": "You express warmth and positivity succinctly with confidence and calm authority, saying simply, \"Du bist schön.\" Your quick, loud, and stable voice supports your direct, friendly approach.",
+        "quote": "Kindness is best shown simply and confidently, with warmth in every word.",
+        "story": "You chose a simple yet powerful phrase, \"Du bist schön,\" to convey warmth and appreciation. Your delivery was fast-paced with a loud yet mellow voice, showing confident and positive energy. The stable tone and authoritative pitch combined with your bright facial expressions suggest genuine friendliness. Despite the brevity, your message carried clear emotional intent without hesitation, indicating directness and an open, approachable personality. Your posture and gaze in the video frames matched this openness and energy, reinforcing your sincere and outgoing style. You communicate effectively with few words, demonstrating a strong presence and capacity to affirm others warmly and confidently.",
+        "story_traits": [
+          {
+            "emoji": "😊",
+            "label": "Warm"
+          },
+          {
+            "emoji": "💬",
+            "label": "Concise"
+          },
+          {
+            "emoji": "🎯",
+            "label": "Direct"
+          },
+          {
+            "emoji": "⚡",
+            "label": "Energized"
+          },
+          {
+            "emoji": "🗣️",
+            "label": "Confident"
+          },
+          {
+            "emoji": "🔊",
+            "label": "Expressive"
+          }
+        ]
+      },
+      "metadata": {
+        "file_path": "/tmp/tmpj3v879rl.mp4",
+        "preprocessing": {
+          "path": "/tmp/tmpj3v879rl.mp4",
+          "frame_count": 145,
+          "fps": 24,
+          "width": 480,
+          "height": 640,
+          "duration_seconds": 6.041666666666667,
+          "original_size": [480, 640],
+          "method": "face",
+          "face_detected": true,
+          "face_bbox": {
+            "x": 137,
+            "y": 63,
+            "width": 215,
+            "height": 215
+          },
+          "processed_size": [290, 290],
+          "face_image_base64": "data:image/jpeg;base64,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",
+          "file_path": "/tmp/tmpj3v879rl.mp4",
+          "file_type": "video",
+          "preprocessing_method": "resnet_multi_frame",
+          "num_frames_requested": 30,
+          "num_frames_extracted": 30,
+          "num_frames_processed": 30,
+          "faces_detected_count": 30,
+          "frames_skipped_no_face": 0,
+          "skip_no_face_enabled": true,
+          "face_detection_rate": 1
+        },
+        "prediction": {
+          "model": "resnet",
+          "backbone": "resnet18",
+          "image_size": 256,
+          "tta_used": true,
+          "device": "cpu",
+          "num_frames_extracted": 30,
+          "num_frames_used": 3,
+          "selected_frame_indices": [23, 26, 28],
+          "aggregation_method": "top-3",
+          "per_trait_std_all_frames": {
+            "extraversion": 0.023976436837811924,
+            "neuroticism": 0.02583432232026679,
+            "agreeableness": 0.020655953449944427,
+            "conscientiousness": 0.02486257614182626,
+            "openness": 0.023135729367853585
+          }
+        },
+        "norms": {
+          "source": "train_single_image_annotations_CLEANED.csv",
+          "computed_at": "2025-01-15",
+          "version": "1.0",
+          "means": {
+            "extraversion": 0.476364,
+            "neuroticism": 0.520432,
+            "agreeableness": 0.548365,
+            "conscientiousness": 0.523032,
+            "openness": 0.566469
+          },
+          "stds": {
+            "extraversion": 0.152412,
+            "neuroticism": 0.153773,
+            "agreeableness": 0.136434,
+            "conscientiousness": 0.155261,
+            "openness": 0.147068
+          }
+        },
+        "cutoffs": {
+          "very_low": 30,
+          "low_hi": 44,
+          "avg_hi": 55,
+          "high_hi": 64,
+          "very_high": 65
+        },
+        "multimodal": {
+          "frames_analyzed": 3,
+          "has_transcript": true,
+          "transcript_length": 14,
+          "has_assessment": false,
+          "questions_answered": 0
+        },
+        "streaming": true
+      },
+      "work_metrics": {
+        "metrics": {
+          "persistence": {
+            "score": 45,
+            "level": "Moderate",
+            "description": "You show reasonable persistence but may benefit from strategies to stay motivated."
+          },
+          "focus_attention": {
+            "score": 45,
+            "level": "Moderate",
+            "description": "You can maintain focus reasonably well but may benefit from structured work environments."
+          },
+          "structure_preference": {
+            "score": 41,
+            "level": "Moderate",
+            "description": "You appreciate some structure but also value flexibility when needed."
+          },
+          "risk_aversion": {
+            "score": 50,
+            "level": "Moderate",
+            "description": "You balance caution with willingness to take reasonable risks when justified."
+          }
+        },
+        "coach_recommendation": "Your brief and direct style, illustrated by \"Du bist schön,\" suggests a preference for clear, efficient communication at work. The calm, authoritative voice and rapid delivery indicate confidence and decisiveness. However, the lack of elaboration also hints at potential challenges in articulating complex plans or detailed steps. Structuring your ideas further and inviting feedback can improve teamwork and project clarity.",
+        "actionable_steps": [
+          {
+            "emoji": "📝",
+            "text": "Plan key points ahead"
+          },
+          {
+            "emoji": "📅",
+            "text": "Use agendas in meetings"
+          },
+          {
+            "emoji": "🗣️",
+            "text": "Explain ideas clearly"
+          },
+          {
+            "emoji": "🤔",
+            "text": "Ask for feedback often"
+          },
+          {
+            "emoji": "📊",
+            "text": "Break down complex tasks"
+          },
+          {
+            "emoji": "💡",
+            "text": "Share concise updates regularly"
+          }
+        ],
+        "snapshot_insight": "You work with clear communication and confident, rapid delivery but favor brevity over detail.",
+        "behavioral_patterns": [
+          {
+            "title": "Confident Delivery",
+            "description": "You present ideas assertively with a strong, stable voice."
+          },
+          {
+            "title": "Concise Communication",
+            "description": "You favor brief, direct expressions rather than elaboration."
+          }
+        ],
+        "how_others_experience": "Colleagues see you as assertive and efficient, though sometimes wanting more detail.",
+        "strength": {
+          "title": "Decisive Communicator",
+          "description": "Your clarity and confidence facilitate swift decision-making and direction."
+        },
+        "tradeoff": {
+          "title": "Detail Omission",
+          "description": "Preferring briefness can lead to misunderstandings or overlooked complexities."
+        },
+        "growth_lever": "Adding relevant details and structured explanations strengthen your professional impact.",
+        "suitable_for": [
+          "Task-Focused Roles",
+          "Fast-Paced Environments",
+          "Leadership Positions"
+        ]
+      }
+    },
+    "is_public": false,
+    "created_at": "2026-02-17T07:10:27.000000Z",
+    "updated_at": "2026-02-17T07:10:27.000000Z",
+    "is_full_report": false
+  },
+  "message": "Report fetched successfully",
+  "success": true,
+  "status": 200
+}
