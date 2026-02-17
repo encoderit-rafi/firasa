@@ -286,14 +286,6 @@ const export_items = [
     title: "Export to Docx",
   },
 ];
-const items = [
-  "Relationship & empathy",
-  "Focus & execution style",
-  "Ideation & creative energy",
-  "Pressure response & recovery",
-  "Openness to experience",
-  "Learning & growth",
-];
 const level_up_items = [
   {
     title: "Discover Personalities Around You",
@@ -1301,7 +1293,7 @@ export default function ScorePage() {
     <div className="">
       <div className="sticky top-0 z-10 bg-background">
         <div className="border-b border-secondary/10">
-          <div className="container-lg flex items-center gap-4 px-3 xl:px-6 py-3">
+          <div className="container-xl flex items-center gap-4 px-3 xl:px-6 py-3">
             <Button variant="outline" size={"icon"}>
               <ArrowForward className="rotate-180" />
             </Button>
@@ -1334,10 +1326,10 @@ export default function ScorePage() {
             </Select>
           </div>
         </div>
-        <div className="border-b border-secondary/10 overflow-hidden">
+        <div className="border-bottom overflow-hidden">
           <Tabs
             defaultValue="overview"
-            className="container-lg px-3 xl:px-6 overflow-x-auto no-scrollbar"
+            className="container-xl px-3 xl:px-6 overflow-x-auto no-scrollbar"
           >
             <TabsList variant={"line"} className="">
               {main_tabs.map(({ id, label, is_visible }) => {
