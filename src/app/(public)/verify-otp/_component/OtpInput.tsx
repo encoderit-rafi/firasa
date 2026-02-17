@@ -4,13 +4,14 @@ import { OTPInput, type SlotProps } from "input-otp";
 import { useCallback, useEffect, useId, useState } from "react";
 import { cn } from "@/lib/utils";
 // import { Button } from "../../../components/ui/button";
-import {
-  useMutationVerifyOtp,
-  useMutationResendOtp,
-} from "@/app/verify-otp/_api/use-mutation-verify-otp";
+// import {
+//   useMutationVerifyOtp,
+//   useMutationResendOtp,
+// } from "@/app/verify-otp/_api/use-mutation-verify-otp";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { useMutationResendOtp, useMutationVerifyOtp } from "../_api";
 
 export default function OtpInput() {
   const id = useId();
