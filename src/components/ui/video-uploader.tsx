@@ -27,14 +27,12 @@ export default function VideoUploader() {
     recordedBlob,
   } = useVideoUpload();
 
-  console.log("status initial:", status);
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const videoPreviewRef = useRef<HTMLVideoElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  console.log("preview initial:", previewUrl);
 
   const formatBytes = (bytes: number, decimals = 2) => {
     if (bytes === 0) return "0 Bytes";
@@ -61,12 +59,13 @@ export default function VideoUploader() {
       fileToUpload = new File([recordedBlob], "recorded-video.webm", {
         type: "video/webm",
       });
-      type = "record";
+      // type = "record";
+      type = "file";
     }
 
     if (fileToUpload) {
       console.log("fileToUpload", fileToUpload);
-      // await uploadFile(fileToUpload, type);
+      await uploadFile(fileToUpload, type);
     }
   };
 
@@ -120,7 +119,7 @@ export default function VideoUploader() {
               startRecording={startRecording}
               stopRecording={stopRecording}
               recordingStatusIdle={recordingStatusIdle}
-              duration={duration}
+              handleStartUpload={handleStartUpload}
             />
           ) : status === "uploading" ||
             status === "uploaded" ||

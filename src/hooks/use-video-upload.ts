@@ -53,7 +53,7 @@ export const useVideoUpload = () => {
     if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
   }, []);
 
-  const startRecording = useCallback(async () => {
+  const startRecording = useCallback(async (timerDuration: number | null = 65) => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
@@ -82,9 +82,9 @@ export const useVideoUpload = () => {
       timerIntervalRef.current = setInterval(() => {
         const d = Math.floor((Date.now() - startTime) / 1000);
         setDuration(d);
-        if (d >= 65) {
+        if (timerDuration && d >= timerDuration) {
           stopRecording();
-          toast.info("Recording reached 60 seconds limit");
+          toast.info(`Recording reached ${timerDuration} seconds limit`);
         }
       }, 1000);
 
