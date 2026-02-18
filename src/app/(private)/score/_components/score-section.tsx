@@ -26,25 +26,22 @@ import {
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { CameraPlus, Share } from "@/assets/icons";
 type Props = {
-  data: any;
+  full_result: any;
+  metrics: any;
 };
-export default function RelationshipAndEmpathy({ data }: Props) {
-  const { full_result } = data;
-  const {
-    metadata,
-    predictions,
-    relationship_metrics: {
-      actionable_steps,
-      snapshot_insight,
-      behavioral_patterns,
-      how_others_experience,
-      strength,
-      tradeoff,
-      growth_lever,
-      coach_recommendation,
-    },
-  } = full_result;
+export default function ScoreSection({ full_result, metrics }: Props) {
+  const { metadata, predictions } = full_result;
   const { preprocessing } = metadata;
+  const {
+    actionable_steps,
+    snapshot_insight,
+    behavioral_patterns,
+    how_others_experience,
+    strength,
+    tradeoff,
+    growth_lever,
+    coach_recommendation,
+  } = metrics;
 
   const relationship_results = [
     {
