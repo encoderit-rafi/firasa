@@ -12,7 +12,7 @@ export default function ScorePageShareButton({
     <button
       {...props}
       className={cn(
-        "absolute cursor-pointer top-0 left-full bg-error-container flex items-center justify-center gap-2 h-8 w-24 rounded-b-lg -translate-x-8 translate-y-8 -rotate-90",
+        "absolute cursor-pointer top-0 left-full bg-error-container flex items-center justify-center gap-2 h-8 w-24 rounded-b-lg -translate-x-8 translate-y-8 -rotate-90 label-small-primary",
         className,
       )}
     >

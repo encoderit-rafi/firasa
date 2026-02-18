@@ -26,6 +26,7 @@ const buttonVariants = cva(
         icon: "bg-error-container rounded-full",
         error: "text-white title-medium-primary rounded-full bg-danger",
         black: "bg-on-surface text-white label-large-primary rounded-full",
+      absolute: "absolute cursor-pointer top-0 left-full bg-error-container flex items-center justify-center gap-2 h-8 w-24 rounded-t-none rounded-b-lg -translate-x-8 translate-y-8 -rotate-90 label-small-primary",
       },
       size: {
         default: "px-4 py-2 has-[>svg]:px-4",

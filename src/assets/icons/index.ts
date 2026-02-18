@@ -30,3 +30,4 @@ export { PDF } from "./PDF";
 export { DOCX } from "./DOCX";
 export { JSON } from "./JSON";
 export { LoadingIcon } from "./LoadingIcon";
+export { SquareBox } from "./SquareBox";

@@ -7,7 +7,7 @@ import { ArrowOutward, Menu, VideoCam } from "@/assets/icons";
 import Translation from "./translation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import SignOut from "./SignOut";
+import SignOut from "./sign-out";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { useSession } from "next-auth/react";
 export type NavItemType = {

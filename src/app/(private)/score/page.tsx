@@ -1129,126 +1129,17 @@ export default function ScorePage() {
   //     router.replace("/upload");
   //   }
   // }, [analysisId, router]);
-   const { data: reportData, isLoading } = useQueryGetVideoReport(analysisId);
+  const { data: reportData, isLoading } = useQueryGetVideoReport(analysisId);
 
   const [sectionData, setSectionData] = useState<
-    | {
-        id: string;
-        label: string;
-        title: string;
-        is_visible: boolean;
-        component: ReactNode;
-      }[]
-    
-  >([
-    // {
-    //   id: "score",
-    //   label: "Big 5 scores",
-    //   title: "Big 5 personality score",
-    //   is_visible: true,
-    //   component: (
-    //     <BigScores
-    //     data={{
-
-    //     }}
-    //     // data={{
-    //     //   image: "full_result.metadata.preprocessing.face_image_base64",
-    //     //   title: "full_result.insights.title",
-    //     //   description: "full_result.insights.description",
-    //     //   scores: "full_result.predictions",
-    //     // }}
-    //     />
-    //   ),
-    // },
-    // {
-    //   id: "story",
-    //   label: "Unique story",
-    //   title: "Your unique personality story",
-    //   is_visible: true,
-    //   component: (
-    //     <UniqueStory
-    //     // data={{
-    //     //   image: "full_result.metadata.preprocessing.face_image_base64",
-    //     //   quote: "full_result.insights.quote",
-    //     //   story: "full_result.insights.story",
-    //     //   story_traits: "full_result.insights.story_traits",
-    //     // }}
-    //     />
-    //   ),
-    // },
-    // {
-    //   id: "relationship",
-    //   label: "Relationship & empathy",
-    //   title: "Relationship & empathy",
-    //   is_visible: true,
-    //   component: (
-    //     <RelationshipAndEmpathy
-    //     // data={{
-    //     //   metrics: "full_result.relationship_metrics.metrics",
-    //     //   actionable_steps:
-    //     //     "full_result.relationship_metrics.actionable_steps",
-    //     // }}
-    //     />
-    //   ),
-    // },
-    // {
-    //   id: "focus",
-    //   label: "Focus & execution style",
-    //   title: "Focus & execution style",
-    //   is_visible: true,
-    //   component: <FocusAndExecution />,
-    // },
-    // {
-    //   id: "ideation",
-    //   label: "Ideation & creative energy",
-    //   title: "Ideation & creative energy",
-    //   is_visible: true,
-    //   component: <RelationshipAndEmpathy />,
-    // },
-    // {
-    //   id: "pressure",
-    //   label: "Pressure response & recovery",
-    //   title: "Pressure response & recovery",
-    //   is_visible: true,
-    //   component: <RelationshipAndEmpathy />,
-    // },
-    // {
-    //   id: "openness",
-    //   label: "Openness to experience",
-    //   title: "Openness to experience",
-    //   is_visible: true,
-    //   component: <RelationshipAndEmpathy />,
-    // },
-    // {
-    //   id: "learning",
-    //   label: "Learning & growth",
-    //   title: "Learning & growth",
-    //   is_visible: true,
-    //   component: <RelationshipAndEmpathy />,
-    // },
-    // {
-    //   id: "similarity",
-    //   label: "Similarity to famous",
-    //   title: "Personalities you might relate to",
-    //   is_visible: true,
-    //   component: <SimilarityToFamous />,
-    // },
-    // {
-    //   id: "exports",
-    //   label: "Exports",
-    //   title: "Summary & exports",
-    //   is_visible: true,
-    //   component: <SummaryAndExports />,
-    // },
-    // {
-    //   id: "add-ons",
-    //   label: "Add-ons",
-    //   title: "Level-up add-ons",
-    //   is_visible: true,
-    //   component: <AddOns />,
-    // },
-  ]);
- 
+    {
+      id: string;
+      label: string;
+      title: string;
+      is_visible: boolean;
+      component: ReactNode;
+    }[]
+  >([]);
 
   // if (!analysisId) return null;
   useEffect(() => {
@@ -1259,11 +1150,7 @@ export default function ScorePage() {
           label: "Big 5 scores",
           title: "Big 5 personality score",
           is_visible: true,
-          component: (
-            <BigScores
-            data={reportData}
-            />
-          ),
+          component: <BigScores data={reportData} />,
         },
         {
           id: "story",
@@ -1272,12 +1159,13 @@ export default function ScorePage() {
           is_visible: true,
           component: (
             <UniqueStory
-            // data={{
-            //   image: "full_result.metadata.preprocessing.face_image_base64",
-            //   quote: "full_result.insights.quote",
-            //   story: "full_result.insights.story",
-            //   story_traits: "full_result.insights.story_traits",
-            // }}
+              data={reportData}
+              // data={{
+              //   image: "full_result.metadata.preprocessing.face_image_base64",
+              //   quote: "full_result.insights.quote",
+              //   story: "full_result.insights.story",
+              //   story_traits: "full_result.insights.story_traits",
+              // }}
             />
           ),
         },
@@ -1359,9 +1247,9 @@ export default function ScorePage() {
 
   return (
     <div className="">
-      <div className="sticky top-0 z-10 bg-background">
-        <div className="border-b border-secondary/10">
-          <div className="container-xl flex items-center gap-4 px-3 xl:px-6 py-3">
+      <div className="bg-background sticky top-0 z-10">
+        <div className="border-secondary/10 border-b">
+          <div className="container-xl flex items-center gap-4 px-3 py-3 xl:px-6">
             <Button variant="outline" size={"icon"}>
               <ArrowForward className="rotate-180" />
             </Button>
@@ -1379,7 +1267,7 @@ export default function ScorePage() {
                 </div>
               </SelectTrigger>
               <SelectContent
-                className="border border-outline-variant"
+                className="border-outline-variant border"
                 position="popper"
               >
                 <SelectGroup>
@@ -1397,7 +1285,7 @@ export default function ScorePage() {
         <div className="border-bottom overflow-hidden">
           <Tabs
             defaultValue="overview"
-            className="container-xl px-3 xl:px-6 overflow-x-auto no-scrollbar"
+            className="container-xl no-scrollbar overflow-x-auto px-3 xl:px-6"
           >
             <TabsList variant={"line"} className="">
               {sectionData?.map(({ id, label, is_visible }) => {
@@ -1411,7 +1299,7 @@ export default function ScorePage() {
           </Tabs>
         </div>
       </div>
-      <div className=" lg:py-16 px-4 space-y-16">
+      <div className="space-y-16 px-4 lg:py-16">
         {sectionData?.map(({ id, title, component }) => {
           return (
             <ScorePageSection id={id} key={id}>

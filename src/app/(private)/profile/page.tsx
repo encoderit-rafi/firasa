@@ -1,4 +1,4 @@
-import SignOut from "@/components/ui/SignOut";
+import SignOut from "@/components/ui/sign-out";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Dashboard from "./_components/dashboard";
 import AccountSettings from "./_components/account-settings";
