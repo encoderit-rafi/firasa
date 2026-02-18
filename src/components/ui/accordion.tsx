@@ -5,6 +5,7 @@ import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { ChevronDownIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { SquareBox } from "@/assets/icons";
 
 function Accordion({
   ...props
@@ -67,4 +68,49 @@ function AccordionContent({
   );
 }
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
+function AccordionDescriptionContainer({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"div">) {
+  return (
+    <div className={cn("flex items-start gap-2", className)} {...props}>
+      <SquareBox className="mt-1" />
+      <div className="flex grow flex-col gap-2">{children}</div>
+    </div>
+  );
+}
+function AccordionDescription({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"p">) {
+  return (
+    <p className={cn("body-medium-primary text-left", className)} {...props}>
+      {children}
+    </p>
+  );
+}
+function AccordionDescriptionItems({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"div">) {
+  return (
+    <div
+      className={cn("flex flex-wrap items-center gap-1", className)}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}
+export {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+  AccordionDescriptionContainer,
+  AccordionDescription,
+  AccordionDescriptionItems,
+};

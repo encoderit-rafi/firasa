@@ -141,38 +141,38 @@ const relationship_items = [
     title: "Emotionally Secure Partner",
   },
 ];
-const relationship_results = [
-  {
-    title: "Snapshot insight",
-    description:
-      "You tend to show up as emotionally present and steady, making others feel comfortable and understood in conversation.",
-  },
-  {
-    title: "Behavioral patterns observed",
-    description:
-      "You tend to show up as emotionally present and steady, making others feel comfortable and understood in conversation.",
-  },
-  {
-    title: "How others likely experience you",
-    description:
-      "You tend to show up as emotionally present and steady, making others feel comfortable and understood in conversation.",
-  },
-  {
-    title: "Strength & trade-offs",
-    description:
-      "You tend to show up as emotionally present and steady, making others feel comfortable and understood in conversation.",
-  },
-  {
-    title: "Growth Lever",
-    description:
-      "You tend to show up as emotionally present and steady, making others feel comfortable and understood in conversation.",
-  },
-  {
-    title: "Coach recommendation",
-    description:
-      "You tend to show up as emotionally present and steady, making others feel comfortable and understood in conversation.",
-  },
-];
+// const relationship_results = [
+//   {
+//     title: "Snapshot insight",
+//     description:
+//       "You tend to show up as emotionally present and steady, making others feel comfortable and understood in conversation.",
+//   },
+//   {
+//     title: "Behavioral patterns observed",
+//     description:
+//       "You tend to show up as emotionally present and steady, making others feel comfortable and understood in conversation.",
+//   },
+//   {
+//     title: "How others likely experience you",
+//     description:
+//       "You tend to show up as emotionally present and steady, making others feel comfortable and understood in conversation.",
+//   },
+//   {
+//     title: "Strength & trade-offs",
+//     description:
+//       "You tend to show up as emotionally present and steady, making others feel comfortable and understood in conversation.",
+//   },
+//   {
+//     title: "Growth Lever",
+//     description:
+//       "You tend to show up as emotionally present and steady, making others feel comfortable and understood in conversation.",
+//   },
+//   {
+//     title: "Coach recommendation",
+//     description:
+//       "You tend to show up as emotionally present and steady, making others feel comfortable and understood in conversation.",
+//   },
+// ];
 // const personality_scores = [
 //   {
 //     title: "Openness",
@@ -232,62 +232,62 @@ const relationship_results = [
 //   },
 // ];
 
-const personality_stories = [
-  {
-    title: "You are:",
-    items: [
-      {
-        icon: "😃",
-        description: "Emotionally Intelligent",
-      },
-      {
-        icon: "🔬",
-        description: "Curious and Observant",
-      },
-      {
-        icon: "😇",
-        description: "Adventurous Spirit",
-      },
-      {
-        icon: "🤝",
-        description: "Warm and Approachable",
-      },
-      {
-        icon: "🌿",
-        description: "Inquisitive Mind",
-      },
-      {
-        icon: "🧠",
-        description: "Deep Connector",
-      },
-      {
-        icon: "🌈",
-        description: "Flexible and Open-Minded",
-      },
-      {
-        icon: "🪄",
-        description: "Inspired by the Unexpected",
-      },
-    ],
-  },
-  {
-    title: "Room for improvement:",
-    items: [
-      {
-        icon: <ArrowOutward />,
-        description: "Explore new inputs",
-      },
-      {
-        icon: <ArrowOutward />,
-        description: "Challenge assumptions",
-      },
-      {
-        icon: <ArrowOutward />,
-        description: "Create without outcome",
-      },
-    ],
-  },
-];
+// const personality_stories = [
+//   {
+//     title: "You are:",
+//     items: [
+//       {
+//         icon: "😃",
+//         description: "Emotionally Intelligent",
+//       },
+//       {
+//         icon: "🔬",
+//         description: "Curious and Observant",
+//       },
+//       {
+//         icon: "😇",
+//         description: "Adventurous Spirit",
+//       },
+//       {
+//         icon: "🤝",
+//         description: "Warm and Approachable",
+//       },
+//       {
+//         icon: "🌿",
+//         description: "Inquisitive Mind",
+//       },
+//       {
+//         icon: "🧠",
+//         description: "Deep Connector",
+//       },
+//       {
+//         icon: "🌈",
+//         description: "Flexible and Open-Minded",
+//       },
+//       {
+//         icon: "🪄",
+//         description: "Inspired by the Unexpected",
+//       },
+//     ],
+//   },
+//   {
+//     title: "Room for improvement:",
+//     items: [
+//       {
+//         icon: <ArrowOutward />,
+//         description: "Explore new inputs",
+//       },
+//       {
+//         icon: <ArrowOutward />,
+//         description: "Challenge assumptions",
+//       },
+//       {
+//         icon: <ArrowOutward />,
+//         description: "Create without outcome",
+//       },
+//     ],
+//   },
+// ];
 
 // const level_up_items = [
 //   {
@@ -1157,17 +1157,7 @@ export default function ScorePage() {
           label: "Unique story",
           title: "Your unique personality story",
           is_visible: true,
-          component: (
-            <UniqueStory
-              data={reportData}
-              // data={{
-              //   image: "full_result.metadata.preprocessing.face_image_base64",
-              //   quote: "full_result.insights.quote",
-              //   story: "full_result.insights.story",
-              //   story_traits: "full_result.insights.story_traits",
-              // }}
-            />
-          ),
+          component: <UniqueStory data={reportData} />,
         },
         {
           id: "relationship",
@@ -1176,11 +1166,12 @@ export default function ScorePage() {
           is_visible: true,
           component: (
             <RelationshipAndEmpathy
-            // data={{
-            //   metrics: "full_result.relationship_metrics.metrics",
-            //   actionable_steps:
-            //     "full_result.relationship_metrics.actionable_steps",
-            // }}
+              data={reportData}
+              // data={{
+              //   metrics: "full_result.relationship_metrics.metrics",
+              //   actionable_steps:
+              //     "full_result.relationship_metrics.actionable_steps",
+              // }}
             />
           ),
         },
@@ -1191,34 +1182,34 @@ export default function ScorePage() {
           is_visible: true,
           component: <FocusAndExecution />,
         },
-        {
-          id: "ideation",
-          label: "Ideation & creative energy",
-          title: "Ideation & creative energy",
-          is_visible: true,
-          component: <RelationshipAndEmpathy />,
-        },
-        {
-          id: "pressure",
-          label: "Pressure response & recovery",
-          title: "Pressure response & recovery",
-          is_visible: true,
-          component: <RelationshipAndEmpathy />,
-        },
-        {
-          id: "openness",
-          label: "Openness to experience",
-          title: "Openness to experience",
-          is_visible: true,
-          component: <RelationshipAndEmpathy />,
-        },
-        {
-          id: "learning",
-          label: "Learning & growth",
-          title: "Learning & growth",
-          is_visible: true,
-          component: <RelationshipAndEmpathy />,
-        },
+        // {
+        //   id: "ideation",
+        //   label: "Ideation & creative energy",
+        //   title: "Ideation & creative energy",
+        //   is_visible: true,
+        //   component: <RelationshipAndEmpathy />,
+        // },
+        // {
+        //   id: "pressure",
+        //   label: "Pressure response & recovery",
+        //   title: "Pressure response & recovery",
+        //   is_visible: true,
+        //   component: <RelationshipAndEmpathy />,
+        // },
+        // {
+        //   id: "openness",
+        //   label: "Openness to experience",
+        //   title: "Openness to experience",
+        //   is_visible: true,
+        //   component: <RelationshipAndEmpathy />,
+        // },
+        // {
+        //   id: "learning",
+        //   label: "Learning & growth",
+        //   title: "Learning & growth",
+        //   is_visible: true,
+        //   component: <RelationshipAndEmpathy />,
+        // },
         {
           id: "similarity",
           label: "Similarity to famous",

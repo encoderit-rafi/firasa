@@ -9,10 +9,13 @@ import { Button } from "@/components/ui/button";
 import {
   Accordion,
   AccordionContent,
+  AccordionDescription,
+  AccordionDescriptionContainer,
+  AccordionDescriptionItems,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { cn } from "@/lib/utils";
+import { cn, handleFormatPredictions } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -36,11 +39,12 @@ import CustomRadarChart from "@/components/charts/RadarChart";
 import { ChevronDownIcon, Square } from "lucide-react";
 import PercentageText from "@/components/ui/percentage-text";
 import ShareButton from "@/components/ui/share-button";
-type PersonalityType = {
-  name: string;
-  value: number | string;
-  type: "moderate" | "high" | "low";
-};
+import { PersonalityType } from "@/global-types";
+// type PersonalityType = {
+//   name: string;
+//   value: number | string;
+//   type: "moderate" | "high" | "low";
+// };
 const descriptions = [
   {
     title: "What this means:",
@@ -102,22 +106,17 @@ export function ScorePagePersonalityAccordion({
           </AccordionTrigger>
           <AccordionContent className="space-y-10">
             {descriptions.map((description, index) => (
-              <div key={index} className="flex items-start gap-2">
-                <SquareBox />
-                <div className="flex grow flex-col gap-2">
-                  <p className="body-medium-primary text-left">
-                    {description.title}
-                  </p>
-                  <div className="flex flex-wrap items-center gap-1">
-                    {description.items.map((item, index) => (
-                      <Badge key={index}>
-                        <Icon>{item.icon}</Icon>
-                        {item.description}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              <AccordionDescriptionContainer key={index}>
+                <AccordionDescription>{description.title}</AccordionDescription>
+                <AccordionDescriptionItems>
+                  {description.items.map((item, index) => (
+                    <Badge key={index}>
+                      <Icon>{item.icon}</Icon>
+                      {item.description}
+                    </Badge>
+                  ))}
+                </AccordionDescriptionItems>
+              </AccordionDescriptionContainer>
             ))}
 
             <Button variant={"outline"}>
@@ -134,29 +133,30 @@ type Props = {
   data: any;
 };
 export default function BigScores({ data }: Props) {
-  function handlePercentage(value: number) {
-    return Number((((value + 1) / 2) * 100).toFixed(1));
-  }
+  // function handlePercentage(value: number) {
+  //   return Number((((value + 1) / 2) * 100).toFixed(1));
+  // }
   const { full_result } = data;
   const { predictions, metadata, insights } = full_result;
   const { preprocessing } = metadata;
 
-  const personality_scores = Object.entries(predictions).map(([key, value]) => {
-    const score = handlePercentage(Number(value));
-    let type = "";
-    if (score < 33) {
-      type = "low";
-    } else if (score < 66) {
-      type = "moderate";
-    } else {
-      type = "high";
-    }
-    return {
-      name: key,
-      value: score,
-      type: type,
-    };
-  }) as PersonalityType[];
+  // const personality_scores = Object.entries(predictions).map(([key, value]) => {
+  //   const score = handlePercentage(Number(value));
+  //   let type = "";
+  //   if (score < 33) {
+  //     type = "low";
+  //   } else if (score < 66) {
+  //     type = "moderate";
+  //   } else {
+  //     type = "high";
+  //   }
+  //   return {
+  //     name: key,
+  //     value: score,
+  //     type: type,
+  //   };
+  // }) as PersonalityType[];
+  const personality_scores = handleFormatPredictions(predictions);
   return (
     <>
       <ScorePageCard className="xl:rounded-tr-none">
@@ -243,12 +243,6 @@ export default function BigScores({ data }: Props) {
                           <Share className="size-5" />
                         </Button>
                       </CardHeader>
-                      {/* <CardAvatar
-                        src="https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                        name="Steve Jobs"
-                        role="Visionary pathfinder"
-                      />
-                      <Separator className="mt-3 h-1 to-white/30" /> */}
                       <div className="h-1/2">
                         <SimpleRadarChart className="pointer-events-none text-white" />
                       </div>

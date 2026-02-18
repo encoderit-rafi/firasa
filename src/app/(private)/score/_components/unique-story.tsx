@@ -5,15 +5,25 @@ import ScorePageContainer from "./score-page-container";
 import { ArrowOutward, Quote } from "@/assets/icons";
 import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
+import ShareButton from "@/components/ui/share-button";
 type Props = {
   data: any;
+};
+type StoryTrait = {
+  emoji: string;
+  label: string;
+};
+type PersonalityStory = {
+  title: string;
+  items: StoryTrait[];
 };
 export default function UniqueStory({ data }: Props) {
   const { full_result } = data;
   const {
     insights: { quote, story, story_traits },
   } = full_result;
-  const personality_stories = [
+
+  const personality_stories: PersonalityStory[] = [
     {
       title: "You are:",
       items: story_traits,
@@ -38,7 +48,7 @@ export default function UniqueStory({ data }: Props) {
   ];
   return (
     <ScorePageCard className="xl:rounded-tr-none">
-      <ScorePageShareButton className="max-xl:hidden" />
+      <ShareButton className="max-xl:hidden" variant={"absolute"} />
       <ScorePageContainer type="left" className="flex flex-col gap-8">
         <div className="flex items-start gap-2">
           <Quote className="mt-2 shrink-0" />
