@@ -6,7 +6,7 @@ export const useQueryGetVideoReport = (analysisId: string | null) => {
     queryKey: ["video-report", analysisId],
     queryFn: async () => {
       const { data } = await api.get(`/videos/analyze/reports/${analysisId}`);
-      return data;
+      return data.data;
     },
     enabled: !!analysisId,
   });

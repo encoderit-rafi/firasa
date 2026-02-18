@@ -1129,6 +1129,8 @@ export default function ScorePage() {
   //     router.replace("/upload");
   //   }
   // }, [analysisId, router]);
+   const { data: reportData, isLoading } = useQueryGetVideoReport(analysisId);
+
   const [sectionData, setSectionData] = useState<
     | {
         id: string;
@@ -1137,117 +1139,118 @@ export default function ScorePage() {
         is_visible: boolean;
         component: ReactNode;
       }[]
-    | null
+    
   >([
-    {
-      id: "score",
-      label: "Big 5 scores",
-      title: "Big 5 personality score",
-      is_visible: true,
-      component: (
-        <BigScores
-        // data={{
-        //   image: "full_result.metadata.preprocessing.face_image_base64",
-        //   title: "full_result.insights.title",
-        //   description: "full_result.insights.description",
-        //   scores: "full_result.predictions",
-        // }}
-        />
-      ),
-    },
-    {
-      id: "story",
-      label: "Unique story",
-      title: "Your unique personality story",
-      is_visible: true,
-      component: (
-        <UniqueStory
-        // data={{
-        //   image: "full_result.metadata.preprocessing.face_image_base64",
-        //   quote: "full_result.insights.quote",
-        //   story: "full_result.insights.story",
-        //   story_traits: "full_result.insights.story_traits",
-        // }}
-        />
-      ),
-    },
-    {
-      id: "relationship",
-      label: "Relationship & empathy",
-      title: "Relationship & empathy",
-      is_visible: true,
-      component: (
-        <RelationshipAndEmpathy
-        // data={{
-        //   metrics: "full_result.relationship_metrics.metrics",
-        //   actionable_steps:
-        //     "full_result.relationship_metrics.actionable_steps",
-        // }}
-        />
-      ),
-    },
-    {
-      id: "focus",
-      label: "Focus & execution style",
-      title: "Focus & execution style",
-      is_visible: true,
-      component: <FocusAndExecution />,
-    },
-    {
-      id: "ideation",
-      label: "Ideation & creative energy",
-      title: "Ideation & creative energy",
-      is_visible: true,
-      component: <RelationshipAndEmpathy />,
-    },
-    {
-      id: "pressure",
-      label: "Pressure response & recovery",
-      title: "Pressure response & recovery",
-      is_visible: true,
-      component: <RelationshipAndEmpathy />,
-    },
-    {
-      id: "openness",
-      label: "Openness to experience",
-      title: "Openness to experience",
-      is_visible: true,
-      component: <RelationshipAndEmpathy />,
-    },
-    {
-      id: "learning",
-      label: "Learning & growth",
-      title: "Learning & growth",
-      is_visible: true,
-      component: <RelationshipAndEmpathy />,
-    },
-    {
-      id: "similarity",
-      label: "Similarity to famous",
-      title: "Personalities you might relate to",
-      is_visible: true,
-      component: <SimilarityToFamous />,
-    },
-    {
-      id: "exports",
-      label: "Exports",
-      title: "Summary & exports",
-      is_visible: true,
-      component: <SummaryAndExports />,
-    },
-    {
-      id: "add-ons",
-      label: "Add-ons",
-      title: "Level-up add-ons",
-      is_visible: true,
-      component: <AddOns />,
-    },
+    // {
+    //   id: "score",
+    //   label: "Big 5 scores",
+    //   title: "Big 5 personality score",
+    //   is_visible: true,
+    //   component: (
+    //     <BigScores
+    //     data={{
+
+    //     }}
+    //     // data={{
+    //     //   image: "full_result.metadata.preprocessing.face_image_base64",
+    //     //   title: "full_result.insights.title",
+    //     //   description: "full_result.insights.description",
+    //     //   scores: "full_result.predictions",
+    //     // }}
+    //     />
+    //   ),
+    // },
+    // {
+    //   id: "story",
+    //   label: "Unique story",
+    //   title: "Your unique personality story",
+    //   is_visible: true,
+    //   component: (
+    //     <UniqueStory
+    //     // data={{
+    //     //   image: "full_result.metadata.preprocessing.face_image_base64",
+    //     //   quote: "full_result.insights.quote",
+    //     //   story: "full_result.insights.story",
+    //     //   story_traits: "full_result.insights.story_traits",
+    //     // }}
+    //     />
+    //   ),
+    // },
+    // {
+    //   id: "relationship",
+    //   label: "Relationship & empathy",
+    //   title: "Relationship & empathy",
+    //   is_visible: true,
+    //   component: (
+    //     <RelationshipAndEmpathy
+    //     // data={{
+    //     //   metrics: "full_result.relationship_metrics.metrics",
+    //     //   actionable_steps:
+    //     //     "full_result.relationship_metrics.actionable_steps",
+    //     // }}
+    //     />
+    //   ),
+    // },
+    // {
+    //   id: "focus",
+    //   label: "Focus & execution style",
+    //   title: "Focus & execution style",
+    //   is_visible: true,
+    //   component: <FocusAndExecution />,
+    // },
+    // {
+    //   id: "ideation",
+    //   label: "Ideation & creative energy",
+    //   title: "Ideation & creative energy",
+    //   is_visible: true,
+    //   component: <RelationshipAndEmpathy />,
+    // },
+    // {
+    //   id: "pressure",
+    //   label: "Pressure response & recovery",
+    //   title: "Pressure response & recovery",
+    //   is_visible: true,
+    //   component: <RelationshipAndEmpathy />,
+    // },
+    // {
+    //   id: "openness",
+    //   label: "Openness to experience",
+    //   title: "Openness to experience",
+    //   is_visible: true,
+    //   component: <RelationshipAndEmpathy />,
+    // },
+    // {
+    //   id: "learning",
+    //   label: "Learning & growth",
+    //   title: "Learning & growth",
+    //   is_visible: true,
+    //   component: <RelationshipAndEmpathy />,
+    // },
+    // {
+    //   id: "similarity",
+    //   label: "Similarity to famous",
+    //   title: "Personalities you might relate to",
+    //   is_visible: true,
+    //   component: <SimilarityToFamous />,
+    // },
+    // {
+    //   id: "exports",
+    //   label: "Exports",
+    //   title: "Summary & exports",
+    //   is_visible: true,
+    //   component: <SummaryAndExports />,
+    // },
+    // {
+    //   id: "add-ons",
+    //   label: "Add-ons",
+    //   title: "Level-up add-ons",
+    //   is_visible: true,
+    //   component: <AddOns />,
+    // },
   ]);
-  const { data: reportData, isLoading } = useQueryGetVideoReport(analysisId);
-  console.log("👉 ~ ScorePage ~ reportData:", reportData);
+ 
 
   // if (!analysisId) return null;
-  // if (isLoading) return <Loader2 className="animate-spin" />;
   useEffect(() => {
     if (reportData) {
       setSectionData([
@@ -1258,12 +1261,7 @@ export default function ScorePage() {
           is_visible: true,
           component: (
             <BigScores
-            // data={{
-            //   image: "full_result.metadata.preprocessing.face_image_base64",
-            //   title: "full_result.insights.title",
-            //   description: "full_result.insights.description",
-            //   scores: "full_result.predictions",
-            // }}
+            data={reportData}
             />
           ),
         },
@@ -1357,6 +1355,8 @@ export default function ScorePage() {
       ]);
     }
   }, [reportData]);
+  if (isLoading) return <Loader2 className="animate-spin" />;
+
   return (
     <div className="">
       <div className="sticky top-0 z-10 bg-background">

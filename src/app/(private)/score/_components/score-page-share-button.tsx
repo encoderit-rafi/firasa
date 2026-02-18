@@ -1,5 +1,6 @@
+import { Share } from "@/assets/icons";
 import { cn } from "@/lib/utils";
-import { Share } from "lucide-react";
+// import { Share } from "lucide-react";
 import { ComponentProps, PropsWithChildren } from "react";
 
 export default function ScorePageShareButton({

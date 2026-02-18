@@ -12,7 +12,7 @@ export default function ScorePageProgress({
   return (
     <div className="flex flex-col items-center gap-1">
       <CircularProgress label={label} progress={progress} />
-      <p className="label-small-primary">{title}</p>
+      <p className="label-small-primary capitalize">{title}</p>
     </div>
   );
 }

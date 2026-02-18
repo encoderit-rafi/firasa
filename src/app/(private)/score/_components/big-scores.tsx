@@ -98,7 +98,32 @@ export function ScorePagePersonalityAccordion() {
     </Accordion>
   );
 }
-export default function BigScores() {
+type Props = {
+  data:any
+}
+export default function BigScores({data}:Props) {
+  function handelPersentage(value:number){
+    return Math.floor(value*100)
+  }
+  const {full_result}=data
+  const {predictions,metadata,insights}=full_result
+  const {preprocessing}=metadata
+
+  const personality_scores=Object.entries(predictions).map(([key, value]) => {
+     const score=handelPersentage(Number(value))
+     let type=""
+     if(score<33){
+      type="low"
+     }else if(score<66){
+      type="moderate"
+     }else{
+      type="high"
+     }
+    return({
+    name: key,
+    value: score,
+    type:type
+  })})
   return (
     <>
       <ScorePageCard className="xl:rounded-tr-none">
@@ -108,7 +133,8 @@ export default function BigScores() {
           className="flex-center flex-col md:flex-row gap-8"
         >
           <Image
-            src="https://images.unsplash.com/photo-1558898479-33c0057a5d12?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            // src="https://images.unsplash.com/photo-1558898479-33c0057a5d12?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src={preprocessing.face_image_base64}
             alt="Score"
             width={288}
             height={288}
@@ -116,12 +142,10 @@ export default function BigScores() {
           />
           <div className="flex-col flex gap-2 text-on-surface">
             <h3 className="text-left headline-small-emphasized">
-              Visionary pathfinder
+              {insights.title}
             </h3>
-            <p className="text-left body-medium-primary">
-              Your facial cues suggest a natural openness and curiosity, often
-              seen in individuals who enjoy exploring new ideas and connecting
-              with others.
+            <p className="text-left body-medium-primary line-clamp-3">
+              {insights.description}
             </p>
           </div>
         </ScorePageContainer>
@@ -129,14 +153,14 @@ export default function BigScores() {
           type="right"
           className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-3"
         >
-          {/* {main_scores.map((score, index) => (
+          {personality_scores.map((score, index) => (
             <ScorePageProgress
               key={index}
-              label={score.level as "low" | "moderate" | "high"}
-              progress={score.score}
-              title={score.title}
+              label={score.type as "low" | "moderate" | "high"}
+              progress={score.value}
+              title={score.name}
             />
-          ))} */}
+          ))} 
         </ScorePageContainer>
       </ScorePageCard>
       <ScorePageCard className="xl:rounded-tr-none">
