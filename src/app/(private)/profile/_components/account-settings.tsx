@@ -4,6 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
+import { signOut, useSession } from "next-auth/react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { api } from "@/axios";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 type AccountFormData = {
   completeName: string;
@@ -13,27 +18,111 @@ type AccountFormData = {
 };
 
 export default function AccountSettings() {
-  const { register, handleSubmit, setValue, watch } = useForm<AccountFormData>({
-    defaultValues: {
-      completeName: "John doe ",
-      emailAddress: "john.doe@gmail.com",
-      signInMethod: "Google",
-      subscribeToNewsletter: false,
+  const session = useSession();
+  const queryClient = useQueryClient();
+  const userId = session.data?.user?.id;
+
+  const { data } = useQuery({
+    queryKey: ["user", userId],
+    queryFn: async () => {
+      const response = await api.get(`/auth/profile`);
+      return response.data;
     },
+    enabled: !!userId,
+  });
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    reset,
+    formState: { isDirty },
+  } = useForm<AccountFormData>({
+    defaultValues: {
+      completeName: data?.data?.name || "",
+      emailAddress: data?.data?.email || "",
+      signInMethod: "Crediential",
+      subscribeToNewsletter: data?.data?.is_subscribe_to_newsletter === 1,
+    },
+  });
+
+  useEffect(() => {
+    if (data?.data) {
+      reset({
+        completeName: data.data.name || "",
+        emailAddress: data.data.email || "",
+        signInMethod: "Crediential",
+        subscribeToNewsletter: data.data.is_subscribe_to_newsletter === 1,
+      });
+    }
+  }, [data, reset]);
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (formData: AccountFormData) => {
+      const response = await api.put(`/profile/update`, {
+        name: formData.completeName,
+        email: formData.emailAddress,
+        is_subscribe_to_newsletter: formData.subscribeToNewsletter ? 1 : 0,
+      });
+      return response.data;
+    },
+    onSuccess: (res) => {
+      toast.success(res?.message || "Profile updated successfully!");
+    },
+    onError: (error: unknown) => {
+      if (error && typeof error === "object" && "response" in error) {
+        const axiosError = error as { response?: { data?: { message?: string } }; message?: string };
+        toast.error(axiosError.response?.data?.message || axiosError.message || "Failed to update profile");
+      } else {
+        toast.error("Failed to update profile");
+      }
+    },
+    onSettled:()=>{
+      queryClient.invalidateQueries({ queryKey: ["user", userId] });
+    }
+  });
+
+  const { mutate: deleteAccount, isPending: isDeleting } = useMutation({
+    mutationFn: async () => {
+      const response = await api.delete(`/profile/delete-account`);
+      return response.data;
+    },
+    onSuccess: () => {
+      signOut({ callbackUrl: "/sign-in" });
+    },
+    onError: (error: unknown) => {
+      if (error && typeof error === "object" && "response" in error) {
+        const axiosError = error as { response?: { data?: { message?: string } }; message?: string };
+        toast.error(axiosError.response?.data?.message || axiosError.message || "Failed to delete account");
+      } else {
+        toast.error("Failed to delete account");
+      }
+    },
+    onSettled:()=>{
+      queryClient.invalidateQueries({ queryKey: ["user", userId] });
+      signOut({ callbackUrl: "/sign-in" });
+    }
   });
 
   const subscribeToNewsletter = watch("subscribeToNewsletter");
 
-  const onSubmit = (data: AccountFormData) => {
-    console.log(data);
+  const onSubmit = (formData: AccountFormData) => {
+    mutate(formData);
   };
 
   return (
     <div className="space-y-8 py-16">
       <div className="flex-between font-inter font-bold">
         <h6 className="font-inter text-xl font-bold">My account</h6>
-        <Button variant={"ghost"} className="text-danger font-inter font-bold">
-          Delete account
+        <Button
+          type="button"
+          variant={"ghost"}
+          disabled={isDeleting}
+          onClick={() => deleteAccount()}
+          className="text-danger font-inter font-bold"
+        >
+          {isDeleting ? "Deleting..." : "Delete account"}
         </Button>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
@@ -78,16 +167,17 @@ export default function AccountSettings() {
           <Switch
             checked={subscribeToNewsletter}
             onCheckedChange={(checked) =>
-              setValue("subscribeToNewsletter", checked)
+              setValue("subscribeToNewsletter", checked, { shouldDirty: true })
             }
           />
         </div>
         <Button
           type="submit"
           variant={"secondary"}
+          disabled={!isDirty || isPending}
           className="w-fit bg-blue font-inter font-bold text-white"
         >
-          Save Changes
+          {isPending ? "Saving..." : "Save Changes"}
         </Button>
       </form>
     </div>
