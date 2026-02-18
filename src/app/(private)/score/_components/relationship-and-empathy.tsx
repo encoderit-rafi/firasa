@@ -39,6 +39,7 @@ export default function RelationshipAndEmpathy({ data }: Props) {
       behavioral_patterns,
       how_others_experience,
       strength,
+      tradeoff,
       growth_lever,
       coach_recommendation,
     },
@@ -122,10 +123,66 @@ export default function RelationshipAndEmpathy({ data }: Props) {
         </AccordionDescriptionContainer>
       ),
     },
-    // {
-    //   title: "Strength",
-    //   component: strength,
-    // },
+    {
+      title: "Strength",
+      component: (
+        <Carousel
+          className="mx-auto max-w-276 pr-8"
+          opts={{
+            align: "start",
+          }}
+        >
+          <div className="flex flex-col space-y-3">
+            <CarouselContent>
+              {[strength, tradeoff].map(
+                (
+                  pattern: { title: string; description: string },
+                  index: number,
+                ) => (
+                  <CarouselItem className="" key={index}>
+                    <Card
+                      className={cn(
+                        "size-[240px] overflow-hidden border-none bg-cover bg-no-repeat p-0 shadow-none",
+                      )}
+                      style={{
+                        backgroundImage: `url(${preprocessing.face_image_base64})`,
+                      }}
+                    >
+                      <CardContent className="flex size-full flex-col justify-between bg-black/40 p-0 backdrop-blur-[1px]">
+                        <CardHeader className="flex items-center justify-end gap-2 p-3">
+                          <Button variant={"icon"} className="size-10">
+                            <CameraPlus className="size-5" />
+                          </Button>
+                          <Button variant={"icon"} className="size-10">
+                            <Share className="size-5" />
+                          </Button>
+                        </CardHeader>
+
+                        <div className="h-fit p-4">
+                          <h6 className="title-small-emphasized text-left text-[#FA6C12]">
+                            {pattern.title}
+                          </h6>
+                          <p className="body-small-primary line-clamp-2 text-left text-white">
+                            {pattern.description}
+                          </p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ),
+              )}
+            </CarouselContent>
+          </div>
+          <div className="my-8 px-2">
+            <CarouselIndicator />
+          </div>
+          {/* <div className="flex-center gap-2">
+            <CarouselPrevious />
+            <CarouselNext />
+          </div> */}
+        </Carousel>
+      ),
+    },
     {
       title: "Growth Lever",
       component: (
