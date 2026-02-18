@@ -173,64 +173,64 @@ const relationship_results = [
       "You tend to show up as emotionally present and steady, making others feel comfortable and understood in conversation.",
   },
 ];
-const personality_scores = [
-  {
-    title: "Openness",
-    score: 78,
-    level: "moderate",
-    descriptions: [
-      {
-        title: "What this means:",
-        items: [
-          {
-            icon: "🤝",
-            description: "You enjoy new ideas and perspectives",
-          },
-          {
-            icon: "🌿",
-            description: "You adapt well to change",
-          },
-          {
-            icon: "🧠",
-            description: "You value personal growth",
-          },
-        ],
-      },
-      {
-        title: "How to increase:",
-        items: [
-          {
-            icon: "🌍",
-            description: "Explore new inputs",
-          },
-          {
-            icon: "🔍",
-            description: "Challenge assumptions",
-          },
-          {
-            icon: "✏️",
-            description: "Create without outcome",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: "Conscientiousness",
-    score: 64,
-    level: "moderate",
-  },
-  {
-    title: "Agreeableness",
-    score: 81,
-    level: "high",
-  },
-  {
-    title: "Neuroticism",
-    score: 41,
-    level: "low",
-  },
-];
+// const personality_scores = [
+//   {
+//     title: "Openness",
+//     score: 78,
+//     level: "moderate",
+//     descriptions: [
+//       {
+//         title: "What this means:",
+//         items: [
+//           {
+//             icon: "🤝",
+//             description: "You enjoy new ideas and perspectives",
+//           },
+//           {
+//             icon: "🌿",
+//             description: "You adapt well to change",
+//           },
+//           {
+//             icon: "🧠",
+//             description: "You value personal growth",
+//           },
+//         ],
+//       },
+//       {
+//         title: "How to increase:",
+//         items: [
+//           {
+//             icon: "🌍",
+//             description: "Explore new inputs",
+//           },
+//           {
+//             icon: "🔍",
+//             description: "Challenge assumptions",
+//           },
+//           {
+//             icon: "✏️",
+//             description: "Create without outcome",
+//           },
+//         ],
+//       },
+//     ],
+//   },
+//   {
+//     title: "Conscientiousness",
+//     score: 64,
+//     level: "moderate",
+//   },
+//   {
+//     title: "Agreeableness",
+//     score: 81,
+//     level: "high",
+//   },
+//   {
+//     title: "Neuroticism",
+//     score: 41,
+//     level: "low",
+//   },
+// ];
 
 const personality_stories = [
   {

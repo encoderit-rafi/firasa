@@ -9,44 +9,45 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-// #region Sample data
-const data = [
-  {
-    subject: "Math",
-    A: 120,
-    B: 110,
-    fullMark: 150,
-  },
-  {
-    subject: "Chinese",
-    A: 98,
-    B: 130,
-    fullMark: 150,
-  },
-  {
-    subject: "English",
-    A: 86,
-    B: 130,
-    fullMark: 150,
-  },
-  {
-    subject: "Geography",
-    A: 99,
-    B: 100,
-    fullMark: 150,
-  },
-  {
-    subject: "Physics",
-    A: 85,
-    B: 90,
-    fullMark: 150,
-  },
-];
+// // #region Sample data
+// const data = [
+//   {
+//     subject: "Math",
+//     A: 120,
+//     B: 110,
+//     fullMark: 150,
+//   },
+//   {
+//     subject: "Chinese",
+//     A: 98,
+//     B: 130,
+//     fullMark: 150,
+//   },
+//   {
+//     subject: "English",
+//     A: 86,
+//     B: 130,
+//     fullMark: 150,
+//   },
+//   {
+//     subject: "Geography",
+//     A: 99,
+//     B: 100,
+//     fullMark: 150,
+//   },
+//   {
+//     subject: "Physics",
+//     A: 85,
+//     B: 90,
+//     fullMark: 150,
+//   },
+// ];
 
-// #endregion
-export default function SimpleRadarChart({
+// // #endregion
+export default function CustomRadarChart({
+  data,
   ...props
-}: ComponentProps<typeof RadarChart>) {
+}: {data:{name:string,value:number|string}[]} & ComponentProps<typeof RadarChart>) {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <RadarChart
@@ -68,13 +69,14 @@ export default function SimpleRadarChart({
         </defs>
         <PolarGrid gridType="circle" strokeOpacity={0.3} stroke="#FF77D7"/>
         <PolarAngleAxis
-          dataKey="subject"
+          dataKey="name"
+          className="capitalize"
           tick={{ fill: "currentColor", fontSize: 10 }}
         />
         {/* <PolarRadiusAxis /> */}
         <Radar
           name="Data"
-          dataKey="A"
+          dataKey="value"
           fill="url(#radarGradient)"
           fillOpacity={0.6}
         />

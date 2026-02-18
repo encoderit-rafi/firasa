@@ -6,7 +6,6 @@ import Image from "next/image";
 import ScorePageProgress from "./score-page-circular-progress";
 import SimpleRadarChart from "@/components/charts/SimpleRadarChart";
 import { Button } from "@/components/ui/button";
-import { ChevronDownIcon, Share } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -31,45 +30,87 @@ import {
   CardContent,
   CardHeader,
 } from "@/components/ui/card";
-import { CameraPlus } from "@/assets/icons";
+import { CameraPlus, Share } from "@/assets/icons";
 import Separator from "@/components/ui/separator";
-export function ScorePagePersonalityAccordion() {
+import CustomRadarChart from "@/components/charts/RadarChart";
+import { ChevronDownIcon } from "lucide-react";
+type PersonalityType={
+  name:string,
+  value:number|string,
+  type:"moderate"|"high"|"low"
+}
+const descriptions= [
+      {
+        title: "What this means:",
+        items: [
+          {
+            icon: "🤝",
+            description: "You enjoy new ideas and perspectives",
+          },
+          {
+            icon: "🌿",
+            description: "You adapt well to change",
+          },
+          {
+            icon: "🧠",
+            description: "You value personal growth",
+          },
+        ],
+      },
+      {
+        title: "How to increase:",
+        items: [
+          {
+            icon: "🌍",
+            description: "Explore new inputs",
+          },
+          {
+            icon: "🔍",
+            description: "Challenge assumptions",
+          },
+          {
+            icon: "✏️",
+            description: "Create without outcome",
+          },
+        ],
+      },
+    ]
+export function ScorePagePersonalityAccordion({data}:{data:PersonalityType[]}) {
   return (
     <Accordion
       type="single"
       collapsible
-      //   defaultValue={personality_scores[0].title}
+        defaultValue={data[0].name}
     >
-      {/* {personality_scores.map((personality, index) => (
-        <AccordionItem key={index} value={personality.title}>
+      {data.map((personality, index) => (
+        <AccordionItem key={index} value={personality.name}>
           <AccordionTrigger
             className="group"
-            disabled={!personality.descriptions}
           >
             <div className="flex items-center justify-between w-full gap-4">
-              <div className="flex-center gap-2">
+              <div className="flex-center gap-2 capitalize">
                 <span
                   className={cn({
-                    "text-warning": personality.level === "moderate",
-                    "text-error": personality.level === "low",
-                    "text-success": personality.level === "high",
+                    "text-warning": personality.type === "moderate",
+                    "text-error": personality.type === "low",
+                    "text-success": personality.type === "high",
                   })}
                 >
-                  {personality.score}%
+                  {personality.value}%
                 </span>
-                {personality.title}
+                {personality.name}
                 <Badge
-                  variant={personality.level as "moderate" | "high" | "low"}
+                  variant={personality.type as "moderate" | "high" | "low"}
                   className="capitalize"
                 >
-                  {personality.level}
+                  {personality.type}
                 </Badge>
               </div>
               <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
             </div>
           </AccordionTrigger>
           <AccordionContent className="space-y-10">
-            {personality.descriptions?.map((description, index) => (
+            {descriptions.map((description, index) => (
               <div key={index} className="flex items-start gap-2">
                 <div className="size-4 bg-error-container shrink-0" />
                 <div className="grow flex flex-col gap-2">
@@ -94,7 +135,7 @@ export function ScorePagePersonalityAccordion() {
             </Button>
           </AccordionContent>
         </AccordionItem>
-      ))} */}
+      ))}
     </Accordion>
   );
 }
@@ -102,15 +143,15 @@ type Props = {
   data:any
 }
 export default function BigScores({data}:Props) {
-  function handelPersentage(value:number){
-    return Math.floor(value*100)
+  function handlePercentage(value: number) {
+    return Number((((value + 1) / 2) * 100).toFixed(1));
   }
   const {full_result}=data
   const {predictions,metadata,insights}=full_result
   const {preprocessing}=metadata
 
   const personality_scores=Object.entries(predictions).map(([key, value]) => {
-     const score=handelPersentage(Number(value))
+     const score = handlePercentage(Number(value));
      let type=""
      if(score<33){
       type="low"
@@ -123,7 +164,7 @@ export default function BigScores({data}:Props) {
     name: key,
     value: score,
     type:type
-  })})
+  })}) as PersonalityType[]
   return (
     <>
       <ScorePageCard className="xl:rounded-tr-none">
@@ -157,7 +198,7 @@ export default function BigScores({data}:Props) {
             <ScorePageProgress
               key={index}
               label={score.type as "low" | "moderate" | "high"}
-              progress={score.value}
+              progress={Number(score.value)}
               title={score.name}
             />
           ))} 
@@ -169,14 +210,14 @@ export default function BigScores({data}:Props) {
           type="left"
           className="h-110.25 flex flex-col items-center"
         >
-          <SimpleRadarChart />
+          <CustomRadarChart data={personality_scores} />
           <Button variant={"outline"}>
             <Share className="size-3" />
             Share
           </Button>
         </ScorePageContainer>
         <ScorePageContainer type="right">
-          <ScorePagePersonalityAccordion />
+          <ScorePagePersonalityAccordion data={personality_scores}/>
         </ScorePageContainer>
       </ScorePageCard>
       <ScorePageCard className="flex-center flex-col gap-8 divide-none ">
