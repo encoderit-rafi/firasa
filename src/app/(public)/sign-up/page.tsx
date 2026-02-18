@@ -16,7 +16,7 @@ export default function SignUpPage() {
 
           <TextSeparator />
           <SignupForm />
-          <div className="flex-center gap-1 md:gap-3 body-large-primary text-outline mt-16">
+          <div className="flex-center body-large-primary text-outline mt-16 gap-1 md:gap-3">
             <div className="">
               Already have an account?{" "}
               <Link href="/sign-in" className="hover:underline">

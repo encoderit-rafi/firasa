@@ -141,9 +141,9 @@ function Slot(props: SlotProps) {
   return (
     <div
       className={cn(
-        "flex md:h-15 md:w-13 h-13 w-12 items-center justify-center rounded-[14px] border border-[#E2E0DF] bg-background font-medium text-foreground shadow-xs transition-[color,box-shadow]",
-        { "z-10 border-[#FA6C12] ": props.isActive },
-        { "z-10 border-[#FA6C12] ": props.char },
+        "bg-background text-foreground flex h-13 w-12 items-center justify-center rounded-[14px] border border-[#E2E0DF] font-medium shadow-xs transition-[color,box-shadow] md:h-15 md:w-13",
+        { "z-10 border-[#FA6C12]": props.isActive },
+        { "z-10 border-[#FA6C12]": props.char },
       )}
     >
       {props.char !== null && <div>{props.char}</div>}

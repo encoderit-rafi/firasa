@@ -2,8 +2,8 @@ import React from "react";
 
 export default function FeaturedIn() {
   return (
-    <section className="section overflow-x-hidden space-y-8 lg:space-y-24">
-      <h6 className="text-center text-outline">Firasa is featured in</h6>
+    <section className="section space-y-8 overflow-x-hidden lg:space-y-24">
+      <h6 className="text-outline text-center">Firasa is featured in</h6>
       <div className="flex-center gap-24">
         <img
           src="/blink.png"

@@ -35,7 +35,7 @@ export default function Hero() {
           Upload or record a 5-second video and let AI analyze your personality
           in seconds.
         </p>
-        <div className="flex items-center justify-center gap-2 md:flex-row flex-col md:gap-6">
+        <div className="flex flex-col items-center justify-center gap-2 md:flex-row md:gap-6">
           <Link
             href="/upload"
             className={cn(
@@ -53,8 +53,8 @@ export default function Hero() {
             Discover sample result
           </Button>
         </div>
-        <div className="bg-[url('/union.png')] bg-center bg-no-repeat overflow-x-hidden">
-          <div className="relative w-fit mx-auto">
+        <div className="overflow-x-hidden bg-[url('/union.png')] bg-center bg-no-repeat">
+          <div className="relative mx-auto w-fit">
             <CardFeature
               data={features[0]}
               className={"absolute top-50 -left-20"}
@@ -65,7 +65,7 @@ export default function Hero() {
             />
             <CardFeature
               data={features[2]}
-              className={"absolute -right-20 top-1/2"}
+              className={"absolute top-1/2 -right-20"}
             />
 
             <Image
@@ -73,7 +73,7 @@ export default function Hero() {
               alt="Hero image"
               width={514}
               height={514}
-              className="mx-auto relative z-10"
+              className="relative z-10 mx-auto"
             />
           </div>
         </div>

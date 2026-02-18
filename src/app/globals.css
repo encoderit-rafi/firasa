@@ -219,34 +219,34 @@
   }
 
   * body {
-    @apply antialiased bg-white font-roboto text-on-surface;
+    @apply font-roboto text-on-surface bg-white antialiased;
   }
 
   h1 {
-    @apply font-medium text-3xl leading-tight tracking-normal mx-auto text-center md:text-6xl text-on-surface;
+    @apply text-on-surface mx-auto text-center text-3xl leading-tight font-medium tracking-normal md:text-6xl;
   }
 
   /* h2 {
     @apply text-center font-medium text-4xl leading-tight tracking-normal  text-on-surface;
   } */
   h3 {
-    @apply text-center font-medium text-xl leading-8 tracking-normal text-on-surface;
+    @apply text-on-surface text-center text-xl leading-8 font-medium tracking-normal;
   }
 
   h4 {
-    @apply text-center font-medium text-base leading-6 tracking-wide text-on-surface;
+    @apply text-on-surface text-center text-base leading-6 font-medium tracking-wide;
   }
 
   h6 {
-    @apply text-center font-bold text-sm leading-5 tracking-tight;
+    @apply text-center text-sm leading-5 font-bold tracking-tight;
   }
 
   p {
-    @apply text-center font-normal text-base leading-6 tracking-wide text-on-surface;
+    @apply text-on-surface text-center text-base leading-6 font-normal tracking-wide;
   }
 
   .border-bottom {
-    @apply border-b border-secondary/10;
+    @apply border-secondary/10 border-b;
   }
   .py-base {
     @apply py-8! xl:py-16!;
@@ -263,7 +263,7 @@
   }
 
   .section-title {
-    @apply mt-8 mb-4 font-medium text-4xl leading-tight tracking-normal text-on-surface text-center;
+    @apply text-on-surface mt-8 mb-4 text-center text-4xl leading-tight font-medium tracking-normal;
   }
 
   .section-description {
@@ -314,7 +314,7 @@
   }
 
   .card-with-divider {
-    @apply relative p-8 flex flex-col lg:flex-row items-center justify-center max-lg:divide-y lg:divide-x divide-error-container py-8 mx-auto bg-error-container/16 rounded-2xl border-none shadow-none;
+    @apply divide-error-container bg-error-container/16 relative mx-auto flex flex-col items-center justify-center rounded-2xl border-none p-8 py-8 shadow-none max-lg:divide-y lg:flex-row lg:divide-x;
   }
 
   /* add this to your global CSS */
@@ -323,71 +323,71 @@
 
   /* PRIMARY DISPLAY  */
   .display-large-primary {
-    @apply font-normal text-6xl leading-tight tracking-tight;
+    @apply text-6xl leading-tight font-normal tracking-tight;
   }
 
   .display-medium-primary {
-    @apply font-normal text-5xl leading-tight tracking-normal;
+    @apply text-5xl leading-tight font-normal tracking-normal;
   }
 
   .display-small-primary {
-    @apply font-normal text-4xl leading-tight tracking-normal;
+    @apply text-4xl leading-tight font-normal tracking-normal;
   }
 
   /* PRIMARY HEADLINE */
 
   .headline-large-primary {
-    @apply font-normal text-3xl leading-tight tracking-normal;
+    @apply text-3xl leading-tight font-normal tracking-normal;
   }
 
   .headline-medium-primary {
-    @apply font-normal text-2xl leading-9 tracking-normal;
+    @apply text-2xl leading-9 font-normal tracking-normal;
   }
 
   .headline-small-primary {
-    @apply font-normal text-xl leading-8 tracking-normal;
+    @apply text-xl leading-8 font-normal tracking-normal;
   }
 
   /* PRIMARY TITLE */
 
   .title-large-primary {
-    @apply font-normal text-lg leading-7 tracking-normal;
+    @apply text-lg leading-7 font-normal tracking-normal;
   }
 
   .title-medium-primary {
-    @apply font-medium text-base leading-6 tracking-tight;
+    @apply text-base leading-6 font-medium tracking-tight;
   }
 
   .title-small-primary {
-    @apply font-medium text-sm leading-5 tracking-tight;
+    @apply text-sm leading-5 font-medium tracking-tight;
   }
 
   /* PRIMARY LABEL */
 
   .label-large-primary {
-    @apply font-medium text-sm leading-5 tracking-tight;
+    @apply text-sm leading-5 font-medium tracking-tight;
   }
 
   .label-medium-primary {
-    @apply font-medium text-xs leading-4 tracking-wide;
+    @apply text-xs leading-4 font-medium tracking-wide;
   }
 
   .label-small-primary {
-    @apply font-medium text-xs leading-4 tracking-wide;
+    @apply text-xs leading-4 font-medium tracking-wide;
   }
 
   /* PRIMARY BODY */
 
   .body-large-primary {
-    @apply font-normal text-base leading-6 tracking-wide;
+    @apply text-base leading-6 font-normal tracking-wide;
   }
 
   .body-medium-primary {
-    @apply font-normal text-sm leading-5 tracking-normal;
+    @apply text-sm leading-5 font-normal tracking-normal;
   }
 
   .body-small-primary {
-    @apply font-normal text-xs leading-4 tracking-normal;
+    @apply text-xs leading-4 font-normal tracking-normal;
   }
 
   /** EMPHASIZED **/
@@ -395,76 +395,76 @@
   /* EMPHASIZED DISPLAY */
 
   .display-large-emphasized {
-    @apply font-medium text-4xl lg:text-6xl leading-tight tracking-normal;
+    @apply text-4xl leading-tight font-medium tracking-normal lg:text-6xl;
   }
 
   .display-medium-emphasized {
-    @apply font-medium text-5xl leading-tight tracking-normal;
+    @apply text-5xl leading-tight font-medium tracking-normal;
   }
 
   .display-small-emphasized {
-    @apply font-medium text-4xl leading-tight tracking-normal;
+    @apply text-4xl leading-tight font-medium tracking-normal;
   }
 
   /* EMPHASIZED HEADLINE */
 
   .headline-large-emphasized {
-    @apply font-medium text-3xl leading-tight tracking-normal;
+    @apply text-3xl leading-tight font-medium tracking-normal;
   }
 
   .headline-medium-emphasized {
-    @apply font-medium leading-9 text-2xl tracking-normal;
+    @apply text-2xl leading-9 font-medium tracking-normal;
   }
 
   .headline-small-emphasized {
-    @apply font-medium text-xl leading-8 tracking-normal;
+    @apply text-xl leading-8 font-medium tracking-normal;
   }
 
   /* EMPHASIZED TITLE */
 
   .title-large-emphasized {
-    @apply font-medium text-lg leading-7 tracking-normal;
+    @apply text-lg leading-7 font-medium tracking-normal;
   }
 
   .title-medium-emphasized {
-    @apply font-bold text-base leading-6 tracking-tight;
+    @apply text-base leading-6 font-bold tracking-tight;
   }
 
   .title-small-emphasized {
-    @apply font-bold text-sm leading-5 tracking-tight;
+    @apply text-sm leading-5 font-bold tracking-tight;
   }
 
   /* EMPHASIZED LABEL */
 
   .label-large-emphasized {
-    @apply font-bold text-sm leading-5 tracking-tight;
+    @apply text-sm leading-5 font-bold tracking-tight;
   }
 
   .label-medium-emphasized {
-    @apply font-bold text-xs leading-4 tracking-wide;
+    @apply text-xs leading-4 font-bold tracking-wide;
   }
 
   .label-small-emphasized {
-    @apply font-bold text-xs leading-4 tracking-wide;
+    @apply text-xs leading-4 font-bold tracking-wide;
   }
 
   /* EMPHASIZED BODY */
 
   .body-large-emphasized {
-    @apply font-medium text-base leading-6 tracking-wide;
+    @apply text-base leading-6 font-medium tracking-wide;
   }
 
   .body-medium-emphasized {
-    @apply font-medium text-sm leading-5 tracking-normal;
+    @apply text-sm leading-5 font-medium tracking-normal;
   }
 
   .body-small-emphasized {
-    @apply font-medium text-xs leading-4 tracking-normal;
+    @apply text-xs leading-4 font-medium tracking-normal;
   }
 }
 
 .clip-triangle {
-  clippath: polygon(50% 0%, 0% 100%, 100% 100%);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
 
 @utility no-scrollbar {

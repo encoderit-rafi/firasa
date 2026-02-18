@@ -36,11 +36,11 @@ const steps: {
 export default function HowItWorks() {
   return (
     <section className="section">
-      <div className="px-4 w-fit mx-auto">
-        <div className="container-md flex flex-col lg:flex-row items-start gap-10">
+      <div className="mx-auto w-fit px-4">
+        <div className="container-md flex flex-col items-start gap-10 lg:flex-row">
           <div className="w-full lg:w-1/2">
             <h6 className="section-label text-left">How it works</h6>
-            <h2 className="text-left section-title">3 steps, ultra simple.</h2>
+            <h2 className="section-title text-left">3 steps, ultra simple.</h2>
             <Separator />
             <Accordion
               type="single"
@@ -73,7 +73,7 @@ export default function HowItWorks() {
               Try now
             </Button>
           </div>
-          <div className="flex-center  w-full lg:w-1/2">
+          <div className="flex-center w-full lg:w-1/2">
             <Image src="/selfie.png" alt="selfie" width={544} height={596} />
           </div>
         </div>

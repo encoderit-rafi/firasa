@@ -27,7 +27,7 @@ const solutions = [
 export default function Poster() {
   return (
     <section className="section bg-error-container/16 px-4">
-      <div className="box-black flex relative  min-h-79 container-sm mx-auto max-lg:pt-16 px-8 overflow-hidden">
+      <div className="box-black container-sm relative mx-auto flex min-h-79 overflow-hidden px-8 max-lg:pt-16">
         <Image
           src="/union-2.png"
           alt="Union 2"
@@ -35,9 +35,9 @@ export default function Poster() {
           className="absolute top-0 right-0 bottom-0 translate-y-1/3"
         />
 
-        <div className="flex-1 flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div className="flex flex-1 flex-col items-center justify-between gap-6 lg:flex-row">
           <div className="space-y-6">
-            <AvatarGroup className="flex items-center p-1 pr-2 rounded-full bg-on-surface-variant w-fit">
+            <AvatarGroup className="bg-on-surface-variant flex w-fit items-center rounded-full p-1 pr-2">
               <Avatar size="sm">
                 <AvatarImage
                   src="https://github.com/shadcn.png"
@@ -59,7 +59,7 @@ export default function Poster() {
                 />
                 <AvatarFallback>ER</AvatarFallback>
               </Avatar>
-              <span className="text-white label-large-emphasized ml-3">
+              <span className="label-large-emphasized ml-3 text-white">
                 Trusted by 12,000+ users
               </span>
             </AvatarGroup>
@@ -82,7 +82,7 @@ export default function Poster() {
               alt="Poster"
               width={514}
               height={514}
-              className="w-full h-full object-cover"
+              className="h-full w-full object-cover"
             />
           </div>
         </div>

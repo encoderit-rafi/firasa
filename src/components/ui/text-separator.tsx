@@ -3,11 +3,7 @@ type Props = {
 };
 export default function TextSeparator({ text = "OR" }: Props) {
   return (
-    <div
-      className="relative w-full flex items-center text-sm text-outline
-            before:content-[''] before:flex-1 before:border-t before:border-error-container
-            after:content-[''] after:flex-1 after:border-t after:border-error-container"
-    >
+    <div className="text-outline before:border-error-container after:border-error-container relative flex w-full items-center text-sm before:flex-1 before:border-t before:content-[''] after:flex-1 after:border-t after:content-['']">
       <span className="px-3">{text}</span>
     </div>
   );

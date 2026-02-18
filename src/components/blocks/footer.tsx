@@ -87,14 +87,14 @@ const footers = [
 
 export default function Footer() {
   return (
-    <section className="section px-4 bg-on-surface">
+    <section className="section bg-on-surface px-4">
       <div className="container-md mx-auto p-0 px-3 pb-7">
         {/* Desktop View */}
-        <footer className="hidden lg:flex items-start justify-between gap-4 border-b border-outline pb-7">
+        <footer className="border-outline hidden items-start justify-between gap-4 border-b pb-7 lg:flex">
           {footers.map((footer) => (
             <div key={footer.title} className="space-y-8">
-              <h6 className="text-white text-left">{footer.title}</h6>
-              <ul className="space-y-3 text-custom-neutral-70 body-medium-primary">
+              <h6 className="text-left text-white">{footer.title}</h6>
+              <ul className="text-custom-neutral-70 body-medium-primary space-y-3">
                 {footer.links.map((link) => (
                   <li key={link.label}>{link.label}</li>
                 ))}
@@ -117,14 +117,14 @@ export default function Footer() {
                 value={footer.title}
                 className="border-none"
               >
-                <AccordionTrigger className="text-white body-large-emphasized py-6 hover:no-underline data-[state=open]:text-white!">
-                  <div className="flex items-center justify-between w-full">
+                <AccordionTrigger className="body-large-emphasized py-6 text-white hover:no-underline data-[state=open]:text-white!">
+                  <div className="flex w-full items-center justify-between">
                     <span>{footer.title}</span>
-                    <ChevronDown className="size-4 shrink-0 transition-transform duration-200 text-outline" />
+                    <ChevronDown className="text-outline size-4 shrink-0 transition-transform duration-200" />
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
-                  <ul className="space-y-3 text-custom-neutral-70 body-medium-primary pb-4">
+                  <ul className="text-custom-neutral-70 body-medium-primary space-y-3 pb-4">
                     {footer.links.map((link) => (
                       <li key={link.label}>{link.label}</li>
                     ))}
@@ -134,15 +134,15 @@ export default function Footer() {
             ))}
           </Accordion>
         </div>
-        <div className="flex flex-col lg:flex-row lg:items-center gap-8 mt-10 justify-between text-custom-neutral-70 py-2 body-medium-primary">
-          <ul className="flex flex-col lg:flex-row lg:items-center gap-6">
+        <div className="text-custom-neutral-70 body-medium-primary mt-10 flex flex-col justify-between gap-8 py-2 lg:flex-row lg:items-center">
+          <ul className="flex flex-col gap-6 lg:flex-row lg:items-center">
             <li>Terms of service</li>
             <li>Consent & Disclaimer</li>
             <li>Cookie policy</li>
             <li>User rights</li>
             <li>Privacy policy</li>
           </ul>
-          <ul className="flex items-center justify-between  gap-3 max-w-md">
+          <ul className="flex max-w-md items-center justify-between gap-3">
             <li>
               <Youtube className="size-4" />
             </li>

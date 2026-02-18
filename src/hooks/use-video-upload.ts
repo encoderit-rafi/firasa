@@ -53,55 +53,58 @@ export const useVideoUpload = () => {
     if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
   }, []);
 
-  const startRecording = useCallback(async (timerDuration: number | null = 65) => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: true,
-      });
-      mediaStreamRef.current = stream;
-      chunksRef.current = [];
+  const startRecording = useCallback(
+    async (timerDuration: number | null = 65) => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: true,
+        });
+        mediaStreamRef.current = stream;
+        chunksRef.current = [];
 
-      const recorder = new MediaRecorder(stream);
-      mediaRecorderRef.current = recorder;
+        const recorder = new MediaRecorder(stream);
+        mediaRecorderRef.current = recorder;
 
-      recorder.ondataavailable = (e) => {
-        if (e.data.size > 0) chunksRef.current.push(e.data);
-      };
+        recorder.ondataavailable = (e) => {
+          if (e.data.size > 0) chunksRef.current.push(e.data);
+        };
 
-      recorder.onstop = () => {
-        setStatus("idle");
-        if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
-      };
+        recorder.onstop = () => {
+          setStatus("idle");
+          if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
+        };
 
-      recorder.start();
+        recorder.start();
 
-      setDuration(0);
+        setDuration(0);
 
-      const startTime = Date.now();
-      timerIntervalRef.current = setInterval(() => {
-        const d = Math.floor((Date.now() - startTime) / 1000);
-        setDuration(d);
-        if (timerDuration && d >= timerDuration) {
-          stopRecording();
-          toast.info(`Recording reached ${timerDuration} seconds limit`);
-        }
-      }, 1000);
+        const startTime = Date.now();
+        timerIntervalRef.current = setInterval(() => {
+          const d = Math.floor((Date.now() - startTime) / 1000);
+          setDuration(d);
+          if (timerDuration && d >= timerDuration) {
+            stopRecording();
+            toast.info(`Recording reached ${timerDuration} seconds limit`);
+          }
+        }, 1000);
 
-      return stream;
-    } catch (err) {
-      console.error("Error starting recording:", err);
-      toast.error("Could not access camera/microphone");
-      return null;
-    }
-  }, [stopRecording]);
+        return stream;
+      } catch (err) {
+        console.error("Error starting recording:", err);
+        toast.error("Could not access camera/microphone");
+        return null;
+      }
+    },
+    [stopRecording],
+  );
 
   const recordingStatusUpdate = () => {
     setStatus("recording");
-  }
+  };
   const recordingStatusIdle = () => {
     setStatus("idle");
-  }
+  };
 
   const getVideoDuration = (file: File): Promise<number> => {
     return new Promise((resolve) => {

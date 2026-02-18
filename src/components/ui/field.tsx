@@ -118,7 +118,7 @@ function FieldLabel({
         "group/field-label peer/field-label flex w-fit gap-2 leading-snug group-data-[disabled=true]/field:opacity-50",
         "has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col has-[>[data-slot=field]]:rounded-md has-[>[data-slot=field]]:border *:data-[slot=field]:p-4",
         "has-data-[state=checked]:bg-primary/5 has-data-[state=checked]:border-primary dark:has-data-[state=checked]:bg-primary/10",
-        "-translate-y-1/2 absolute start-1 top-0 z-10 block bg-background px-2  text-xs group-has-disabled:opacity-50 body-small-primary text-on-surface-variant",
+        "bg-background body-small-primary text-on-surface-variant absolute start-1 top-0 z-10 block -translate-y-1/2 px-2 text-xs group-has-disabled:opacity-50",
         "group-data-[invalid=true]/field:text-error",
         className,
       )}

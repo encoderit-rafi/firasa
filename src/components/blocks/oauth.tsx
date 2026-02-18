@@ -23,7 +23,7 @@ const items = [
 const handleSocialLogin = async (method: string) => {
   try {
     const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/social/${method}`
+      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/social/${method}`,
     );
 
     const redirectUrl = res.data?.data?.url;
@@ -43,7 +43,12 @@ export default function OAuth() {
     <div className="flex flex-col space-y-2">
       {items.map((item, index) => {
         return (
-          <Button onClick={() => handleSocialLogin(item.method)} variant="outline-variant" size="md" key={index}>
+          <Button
+            onClick={() => handleSocialLogin(item.method)}
+            variant="outline-variant"
+            size="md"
+            key={index}
+          >
             <item.icon />
             {item.text}
           </Button>

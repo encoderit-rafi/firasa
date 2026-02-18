@@ -5,7 +5,6 @@ import { NextRequest, NextResponse } from "next/server";
 export default async function middleware(req: NextRequest) {
   const isProduction = process.env.NODE_ENV === "production";
 
-
   const token = await getToken({
     req: req,
     secret: process.env.NEXTAUTH_SECRET,
@@ -39,7 +38,5 @@ export default async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|.*\\.).*)",
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|.*\\.).*)"],
 };

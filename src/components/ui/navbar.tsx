@@ -52,8 +52,8 @@ export default function Navbar() {
   const { data: session } = useSession();
 
   return (
-    <div className="border-b border-secondary/10">
-      <header className="container-xl px-base py-3 flex-between">
+    <div className="border-secondary/10 border-b">
+      <header className="container-xl px-base flex-between py-3">
         <div className="flex-center gap-lg">
           <Logo />
           <NavList item={nav_items} />
@@ -61,7 +61,7 @@ export default function Navbar() {
 
         {session?.user ? (
           <Link href="/profile">
-            <Avatar className="size-13.5 border-4 border-blue">
+            <Avatar className="border-blue size-13.5 border-4">
               <AvatarImage
                 src="https://github.com/shadcn.png"
                 alt="@shadcn"
@@ -72,7 +72,7 @@ export default function Navbar() {
           </Link>
         ) : (
           <>
-            <div className="hidden xl:flex flex-center gap-2">
+            <div className="flex-center hidden gap-2 xl:flex">
               {/* <SignOut /> */}
               <Link
                 href="/sign-in"

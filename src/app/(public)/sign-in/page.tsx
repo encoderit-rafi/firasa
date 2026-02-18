@@ -13,11 +13,11 @@ export default function SignInPage() {
           <OAuth />
           <TextSeparator />
           <FormSignIn />
-          <div className="flex-center gap-1 md:gap-3 body-large-primary text-outline mt-16">
+          <div className="flex-center body-large-primary text-outline mt-16 gap-1 md:gap-3">
             <Link href="/forgot-password" className="hover:underline">
               Forgot Password?
             </Link>
-            <div className="w-px h-4 bg-error-container"></div>
+            <div className="bg-error-container h-4 w-px"></div>
             <div className="">
               Don’t have account?{" "}
               <Link href="/sign-up" className="hover:underline">
