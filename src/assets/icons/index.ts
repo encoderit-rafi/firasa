@@ -34,3 +34,4 @@ export { SquareBox } from "./SquareBox";
 export { Download } from "./Download";
 export { ThreedotMenu } from "./ThreedotMenu";
 export { LinkIcon } from "./LinkIcon";
+export { Copy } from "./Copy";

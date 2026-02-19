@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ScorePageCard } from "./score-page-card";
 import ScorePageShareButton from "./score-page-share-button";
 import ScorePageContainer from "./score-page-container";
@@ -15,7 +15,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { cn, handleFormatPredictions } from "@/lib/utils";
+import { cn, handleCopyLink, handleFormatPredictions } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -27,19 +27,25 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import {
-  Card,
-  CardAvatar,
-  CardContent,
-  CardHeader,
-} from "@/components/ui/card";
-import { CameraPlus, Share, SquareBox } from "@/assets/icons";
-import Separator from "@/components/ui/separator";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { CameraPlus, Copy, FacebookFilled, Share, X } from "@/assets/icons";
 import CustomRadarChart from "@/components/charts/RadarChart";
-import { ChevronDownIcon, Square } from "lucide-react";
+import { ChevronDownIcon } from "lucide-react";
 import PercentageText from "@/components/ui/percentage-text";
 import ShareButton from "@/components/ui/share-button";
 import { PersonalityType } from "@/global-types";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+} from "react-share";
+import { LinkedinFilled } from "@/assets/icons/LinkedinFilled";
 // type PersonalityType = {
 //   name: string;
 //   value: number | string;
@@ -86,6 +92,11 @@ export function ScorePagePersonalityAccordion({
 }: {
   data: PersonalityType[];
 }) {
+  const [dialogData, setDialogData] = useState({
+    open: false,
+    description: "",
+    link: "",
+  });
   return (
     <Accordion type="single" collapsible defaultValue={data[0].name}>
       {data.map((personality, index) => (
@@ -119,13 +130,60 @@ export function ScorePagePersonalityAccordion({
               </AccordionDescriptionContainer>
             ))}
 
-            <Button variant={"outline"}>
-              <Share className="size-3" />
-              Share
-            </Button>
+            <ShareButton
+              onClick={() =>
+                setDialogData({
+                  open: true,
+                  description: `
+              78% Openness (Moderate) \n
+              What this means:\n🤝 You enjoy new ideas and perspectives\n🌿 You adapt well to change\n🧠 You value personal growth\n\nHow to increase:\n🌍 Explore new inputs\n🔍 Challenge assumptions\n✏️ Create without outcome`,
+                  link: "https://firasa.ai",
+                })
+              }
+            />
           </AccordionContent>
         </AccordionItem>
       ))}
+      <Dialog
+        open={dialogData.open}
+        onOpenChange={(open) => setDialogData({ ...dialogData, open })}
+      >
+        <DialogContent className="max-w-136 space-y-6">
+          <DialogHeader>
+            <DialogTitle>Make it a post</DialogTitle>
+          </DialogHeader>
+          <div className="flex-between border-error-container gap-4 rounded-lg border bg-white p-6 text-wrap">
+            {dialogData.description}
+          </div>
+
+          <div className="flex-center mb-0 gap-3">
+            <TwitterShareButton url="">
+              <Button variant={"icon-muted"}>
+                <X />
+              </Button>
+            </TwitterShareButton>
+            <LinkedinShareButton url="">
+              <Button variant={"icon-muted"}>
+                <LinkedinFilled />
+              </Button>
+            </LinkedinShareButton>
+            <FacebookShareButton
+              url="firasa.ai"
+              content={dialogData.description}
+            >
+              <Button variant={"icon-muted"}>
+                <FacebookFilled />
+              </Button>
+            </FacebookShareButton>
+            <Button
+              variant={"icon-muted"}
+              onClick={() => handleCopyLink(dialogData.description)}
+            >
+              <Copy />
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </Accordion>
   );
 }
@@ -133,34 +191,32 @@ type Props = {
   data: any;
 };
 export default function BigScores({ data }: Props) {
-  // function handlePercentage(value: number) {
-  //   return Number((((value + 1) / 2) * 100).toFixed(1));
-  // }
   const { full_result } = data;
   const { predictions, metadata, insights } = full_result;
   const { preprocessing } = metadata;
-
-  // const personality_scores = Object.entries(predictions).map(([key, value]) => {
-  //   const score = handlePercentage(Number(value));
-  //   let type = "";
-  //   if (score < 33) {
-  //     type = "low";
-  //   } else if (score < 66) {
-  //     type = "moderate";
-  //   } else {
-  //     type = "high";
-  //   }
-  //   return {
-  //     name: key,
-  //     value: score,
-  //     type: type,
-  //   };
-  // }) as PersonalityType[];
   const personality_scores = handleFormatPredictions(predictions);
+
+  const [dialogData, setDialogData] = useState({
+    open: false,
+    description: "",
+    link: "",
+  });
   return (
     <>
       <ScorePageCard className="xl:rounded-tr-none">
-        <ShareButton className="max-xl:hidden" variant={"absolute"} />
+        <ShareButton
+          className="max-xl:hidden"
+          variant={"absolute"}
+          onClick={() =>
+            setDialogData({
+              open: true,
+              description: `
+              78% Openness (Moderate) \n
+              What this means:\n🤝 You enjoy new ideas and perspectives\n🌿 You adapt well to change\n🧠 You value personal growth\n\nHow to increase:\n🌍 Explore new inputs\n🔍 Challenge assumptions\n✏️ Create without outcome`,
+              link: "https://firasa.ai",
+            })
+          }
+        />
         <ScorePageContainer
           type="left"
           className="flex-center flex-col gap-8 md:flex-row"
@@ -239,12 +295,27 @@ export default function BigScores({ data }: Props) {
                         <Button variant={"icon"} className="size-10">
                           <CameraPlus className="size-5" />
                         </Button>
-                        <Button variant={"icon"} className="size-10">
+                        <Button
+                          variant={"icon"}
+                          className="size-10"
+                          onClick={() =>
+                            setDialogData({
+                              open: true,
+                              description: `
+              78% Openness (Moderate) \n
+              What this means:\n🤝 You enjoy new ideas and perspectives\n🌿 You adapt well to change\n🧠 You value personal growth\n\nHow to increase:\n🌍 Explore new inputs\n🔍 Challenge assumptions\n✏️ Create without outcome`,
+                              link: "https://firasa.ai",
+                            })
+                          }
+                        >
                           <Share className="size-5" />
                         </Button>
                       </CardHeader>
                       <div className="h-1/2">
-                        <SimpleRadarChart className="pointer-events-none text-white" />
+                        <CustomRadarChart
+                          data={personality_scores}
+                          className="pointer-events-none text-white"
+                        />
                       </div>
                     </CardContent>
                   </Card>
@@ -261,6 +332,46 @@ export default function BigScores({ data }: Props) {
           </div>
         </Carousel>
       </ScorePageCard>
+      <Dialog
+        open={dialogData.open}
+        onOpenChange={(open) => setDialogData({ ...dialogData, open })}
+      >
+        <DialogContent className="max-w-136 space-y-6">
+          <DialogHeader>
+            <DialogTitle>Make it a post</DialogTitle>
+          </DialogHeader>
+          <div className="flex-between border-error-container gap-4 rounded-lg border bg-white p-6 text-wrap">
+            {dialogData.description}
+          </div>
+
+          <div className="flex-center mb-0 gap-3">
+            <TwitterShareButton url="">
+              <Button variant={"icon-muted"}>
+                <X />
+              </Button>
+            </TwitterShareButton>
+            <LinkedinShareButton url="">
+              <Button variant={"icon-muted"}>
+                <LinkedinFilled />
+              </Button>
+            </LinkedinShareButton>
+            <FacebookShareButton
+              url="firasa.ai"
+              content={dialogData.description}
+            >
+              <Button variant={"icon-muted"}>
+                <FacebookFilled />
+              </Button>
+            </FacebookShareButton>
+            <Button
+              variant={"icon-muted"}
+              onClick={() => handleCopyLink(dialogData.description)}
+            >
+              <Copy />
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

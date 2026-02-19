@@ -31,7 +31,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { cn } from "@/lib/utils";
+import { cn, handleCopyLink } from "@/lib/utils";
 import { Copy, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
@@ -65,17 +65,18 @@ import { InstagramFilled } from "@/assets/icons/InstagramFilled";
 
 export default function ScorePage() {
   // const router = useRouter();
-  const fullPath = window.location.href;
+  const fullPath = window && window.location.href;
+
   const searchParams = useSearchParams();
   const analysisId = searchParams.get("analysis_id");
   const [isOpenShare, setIsOpenShare] = useState(false);
   const { data: reportData, isLoading } = useQueryGetVideoReport(analysisId);
 
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(fullPath).then(() => {
-      toast.success("Link copied to clipboard");
-    });
-  };
+  // const handleCopyLink = () => {
+  //   navigator.clipboard.writeText(fullPath).then(() => {
+  //     toast.success("Link copied to clipboard");
+  //   });
+  // };
 
   const [sectionData, setSectionData] = useState<
     {
@@ -310,7 +311,7 @@ export default function ScorePage() {
               <Language className="size-5 shrink-0" />
               <span className="line-clamp-1">{fullPath}</span>
             </div>
-            <Button onClick={handleCopyLink}>
+            <Button onClick={() => handleCopyLink(fullPath)}>
               <LinkIcon />
               Copy link
             </Button>
