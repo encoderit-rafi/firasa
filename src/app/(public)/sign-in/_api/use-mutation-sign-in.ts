@@ -22,6 +22,7 @@ export const useMutationSignIn = () => {
           refresh_token: token.refresh_token,
           expires_in: String(token.expires_in),
           user_name: user?.name,
+          user_id: String(user?.id),
           user_email: user?.email,
           user_avatar: user?.avatar_url,
           user_role: role?.[0] || "",

@@ -45,6 +45,7 @@ export const authOptions: NextAuthOptions = {
         refresh_token: {},
         expires_in: {},
         user_name: {},
+        user_id: {},
         user_email: {},
         user_avatar: {},
         user_role: {},
@@ -58,7 +59,7 @@ export const authOptions: NextAuthOptions = {
 
         // Use `as User` to satisfy TS if .d.ts isn't picked up
         return {
-          id: credentials?.user_email || accessToken,
+          id: credentials?.user_id || accessToken,
           name: credentials?.user_name || null,
           email: credentials?.user_email || null,
           avatar: credentials?.user_avatar || "",
@@ -87,6 +88,7 @@ export const authOptions: NextAuthOptions = {
         token.avatar = (user as User).avatar;
         token.name = user.name;
         token.email = user.email;
+        token.id = user.id;
         token.accessTokenExpires =
           (user as User).accessTokenExpires ||
           Date.now() + 259200 * 1000 - 60_000;
@@ -114,6 +116,7 @@ export const authOptions: NextAuthOptions = {
           name: token.name,
           email: token.email,
           role: token.role,
+          id: token.id,
           avatar: token.avatar,
         },
       };

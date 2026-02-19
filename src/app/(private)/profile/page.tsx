@@ -2,9 +2,37 @@ import SignOut from "@/components/ui/sign-out";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Dashboard from "./_components/dashboard";
 import AccountSettings from "./_components/account-settings";
-// import React from "react";
+import { getServerSession } from "next-auth";
+import { API_BASE_URL } from "@/consts";
+import { authOptions } from "@/utlis/authOptions";
 
-export default function page() {
+export default async function page() {
+  const session = await getServerSession(authOptions);
+
+  let reports=[]
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/get-user-own-reports`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session?.token?.access_token}`,
+      },
+    });
+
+    if (!res.ok) {
+      console.error("Error:", res.status, res.statusText);
+      const errorBody = await res.text();
+      console.error("Response:", errorBody);
+    } else {
+      const data = await res.json();
+      // console.log(data.data.data);
+      reports=data.data.data
+    }
+  } catch (error) {
+    console.error(error);
+  }
+
   return (
     <Tabs defaultValue="dashboard" className="container-xl px-base">
       <div className="border-bottom">
@@ -24,7 +52,7 @@ export default function page() {
       <div className="flex-center flex-1">
         <div className="container-lg w-full">
           <TabsContent value="dashboard">
-            <Dashboard />
+            <Dashboard reports={reports}/>
           </TabsContent>
           <TabsContent value="account-settings">
             <AccountSettings />

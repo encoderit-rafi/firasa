@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Dot, MoreHorizontal, Plus } from "lucide-react";
 import React from "react";
 
-export default function Dashboard() {
+export default function Dashboard({reports}: {reports: any}) {
+  
   return (
     <div className="space-y-8 py-16">
       <div className="flex-between font-inter font-bold">
@@ -16,7 +17,7 @@ export default function Dashboard() {
         </Button>
       </div>
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-        {Array.from({ length: 7 }).map((_, index) => (
+        {reports.map((report: any, index: number) => (
           <div
             key={index}
             className="border-secondary/10 h-fit space-y-1.5 rounded-2xl border p-6"
