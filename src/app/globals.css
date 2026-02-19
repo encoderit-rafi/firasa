@@ -10,6 +10,7 @@
   --color-warning: var(--warning);
   --color-danger: var(--danger);
   --color-success: var(--success);
+  --color-muted-gray: var(--muted-gray);
   --color-yellow: var(--yellow);
   --color-blue: var(--blue);
   --color-blue-primary: var(--blue-primary);
@@ -102,6 +103,7 @@
   --yellow: #fbbc05;
   --blue: #1c37d1;
   --blue-primary: #1a2dc9;
+  --muted-gray: #d1d1d6;
 
   --primary-10: #21005d;
   --primary-20: #381e72;
@@ -244,9 +246,9 @@
   p {
     @apply text-on-surface text-center text-base leading-6 font-normal tracking-wide;
   }
-.rotate-icon{
-  @apply text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180
-}
+  .rotate-icon {
+    @apply text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180;
+  }
   .border-bottom {
     @apply border-secondary/10 border-b;
   }

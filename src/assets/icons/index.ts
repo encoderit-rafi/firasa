@@ -31,3 +31,6 @@ export { DOCX } from "./DOCX";
 export { JSON } from "./JSON";
 export { LoadingIcon } from "./LoadingIcon";
 export { SquareBox } from "./SquareBox";
+export { Download } from "./Download";
+export { ThreedotMenu } from "./ThreedotMenu";
+export { LinkIcon } from "./LinkIcon";

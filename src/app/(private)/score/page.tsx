@@ -1,7 +1,24 @@
 "use client";
 
-import { ArrowForward } from "@/assets/icons";
-
+import {
+  ArrowForward,
+  Download,
+  Facebook,
+  FacebookFilled,
+  Instagram,
+  Language,
+  Linkedin,
+  LinkIcon,
+  Menu,
+  Share,
+  ThreedotMenu,
+  X,
+} from "@/assets/icons";
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+} from "react-share";
 import { Button, buttonVariants } from "@/components/ui/button";
 
 import {
@@ -15,7 +32,8 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
-import { Loader2 } from "lucide-react";
+import { Copy, Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import Link from "next/link";
 import { ReactNode, useState } from "react";
 import {
@@ -31,13 +49,33 @@ import SimilarityToFamous from "./_components/similarity-to-famous";
 import SummaryAndExports from "./_components/summary-and-exports";
 import AddOns from "./_components/add-ons";
 import ScoreSection from "./_components/score-section";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import TextSeparator from "@/components/ui/text-separator";
+import { LinkedinFilled } from "@/assets/icons/LinkedinFilled";
+import { InstagramFilled } from "@/assets/icons/InstagramFilled";
 
 export default function ScorePage() {
   // const router = useRouter();
+  const fullPath = window.location.href;
   const searchParams = useSearchParams();
   const analysisId = searchParams.get("analysis_id");
-
+  const [isOpenShare, setIsOpenShare] = useState(false);
   const { data: reportData, isLoading } = useQueryGetVideoReport(analysisId);
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(fullPath).then(() => {
+      toast.success("Link copied to clipboard");
+    });
+  };
 
   const [sectionData, setSectionData] = useState<
     {
@@ -49,7 +87,6 @@ export default function ScorePage() {
     }[]
   >([]);
 
-  // if (!analysisId) return null;
   useEffect(() => {
     if (reportData) {
       setSectionData([
@@ -163,6 +200,8 @@ export default function ScorePage() {
       ]);
     }
   }, [reportData]);
+
+  if (!analysisId) return null;
   if (isLoading)
     return (
       <div className="flex-center h-screen w-full">
@@ -174,37 +213,61 @@ export default function ScorePage() {
     <div className="">
       <div className="bg-background sticky top-0 z-10">
         <div className="border-secondary/10 border-b">
-          <div className="container-xl flex items-center gap-4 px-3 py-3 xl:px-6">
-            <Button variant="outline" size={"icon"}>
-              <ArrowForward className="rotate-180" />
-            </Button>
-            <Select defaultValue="video-1" value="video-1">
-              <SelectTrigger
-                className={cn(
-                  "w-fit max-w-31 border-none shadow-none",
-                  buttonVariants({
-                    variant: "ghost",
-                  }),
-                )}
+          <div className="container-xl px-base flex items-center justify-between gap-4 py-2">
+            <div className="flex-center gap-4">
+              <Button variant="outline" size={"icon"}>
+                <ArrowForward className="rotate-180" />
+              </Button>
+              <Select defaultValue="video-1" value="video-1">
+                <SelectTrigger
+                  className={cn(
+                    "w-fit max-w-31 border-none shadow-none",
+                    buttonVariants({
+                      variant: "ghost",
+                    }),
+                  )}
+                >
+                  <div className="flex items-center">
+                    <SelectValue placeholder="Select a video" />
+                  </div>
+                </SelectTrigger>
+                <SelectContent
+                  className="border-outline-variant border"
+                  position="popper"
+                >
+                  <SelectGroup>
+                    <SelectLabel>Video</SelectLabel>
+                    <SelectItem value="video-1">Video 1</SelectItem>
+                    <SelectItem value="video-2">Video 2</SelectItem>
+                    <SelectItem value="video-3">Video 3</SelectItem>
+                    <SelectItem value="video-4">Video 4</SelectItem>
+                    <SelectItem value="video-5">Video 5</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex-center gap-2">
+              <div className="flex items-center space-x-2">
+                <Label htmlFor="airplane-mode" className="body-medium-primary">
+                  Public
+                </Label>
+                <Switch id="airplane-mode" size="xl" />
+              </div>
+              <Button variant="outline" size={"icon"} className="size-10">
+                <Download />
+              </Button>
+              <Button
+                variant="outline"
+                size={"icon"}
+                className="size-10"
+                onClick={() => setIsOpenShare(true)}
               >
-                <div className="flex items-center">
-                  <SelectValue placeholder="Select a video" />
-                </div>
-              </SelectTrigger>
-              <SelectContent
-                className="border-outline-variant border"
-                position="popper"
-              >
-                <SelectGroup>
-                  <SelectLabel>Video</SelectLabel>
-                  <SelectItem value="video-1">Video 1</SelectItem>
-                  <SelectItem value="video-2">Video 2</SelectItem>
-                  <SelectItem value="video-3">Video 3</SelectItem>
-                  <SelectItem value="video-4">Video 4</SelectItem>
-                  <SelectItem value="video-5">Video 5</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+                <Share />
+              </Button>
+              <Button variant="outline" size={"icon"} className="size-10">
+                <ThreedotMenu />
+              </Button>
+            </div>
           </div>
         </div>
         <div className="border-bottom overflow-hidden">
@@ -234,6 +297,48 @@ export default function ScorePage() {
           );
         })}
       </div>
+      <Dialog open={isOpenShare} onOpenChange={setIsOpenShare}>
+        <DialogContent className="max-w-136 space-y-6">
+          <DialogHeader>
+            <DialogTitle>Share your personality</DialogTitle>
+            <DialogDescription>
+              Drop your Firasa results and let people react.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex-between border-error-container gap-4 rounded-full border bg-white p-3">
+            <div className="flex-center body-medium-primary text-outline-variant gap-2">
+              <Language className="size-5 shrink-0" />
+              <span className="line-clamp-1">{fullPath}</span>
+            </div>
+            <Button onClick={handleCopyLink}>
+              <LinkIcon />
+              Copy link
+            </Button>
+          </div>
+          <TextSeparator />
+
+          <div className="flex-center mb-0 gap-3">
+            <TwitterShareButton url={fullPath}>
+              <Button variant={"icon-muted"}>
+                <X />
+              </Button>
+            </TwitterShareButton>
+            <LinkedinShareButton url={fullPath}>
+              <Button variant={"icon-muted"}>
+                <LinkedinFilled />
+              </Button>
+            </LinkedinShareButton>
+            <FacebookShareButton url={fullPath}>
+              <Button variant={"icon-muted"}>
+                <FacebookFilled />
+              </Button>
+            </FacebookShareButton>
+            {/* <Button variant={"icon-muted"}>
+              <InstagramFilled />
+            </Button> */}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

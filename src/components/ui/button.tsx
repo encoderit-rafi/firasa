@@ -13,6 +13,8 @@ const buttonVariants = cva(
       variant: {
         // default: "bg-primary text-primary-foreground hover:bg-primary/90",
         default: "bg-gradient",
+        "icon-muted":
+          "bg-muted-gray hover:bg-linear-to-l from-[#FF77D7] to-[#FA6C12] size-10 text-on-surface rounded-full",
         "gradient-blue": "bg-gradient-blue text-white font-bold font-inter",
         destructive:
           "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
@@ -26,7 +28,8 @@ const buttonVariants = cva(
         icon: "bg-error-container rounded-full",
         error: "text-white title-medium-primary rounded-full bg-danger",
         black: "bg-on-surface text-white label-large-primary rounded-full",
-      absolute: "absolute cursor-pointer top-0 left-full bg-error-container flex items-center justify-center gap-2 h-8 w-24 rounded-t-none rounded-b-lg -translate-x-8 translate-y-8 -rotate-90 label-small-primary",
+        absolute:
+          "absolute cursor-pointer top-0 left-full bg-error-container flex items-center justify-center gap-2 h-8 w-24 rounded-t-none rounded-b-lg -translate-x-8 translate-y-8 -rotate-90 label-small-primary",
       },
       size: {
         default: "px-4 py-2 has-[>svg]:px-4",
