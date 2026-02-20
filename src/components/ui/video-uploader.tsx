@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AlertCircleIcon, XIcon, Loader2 } from "lucide-react";
+import { AlertCircleIcon, XIcon, Loader2, CheckCircle2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import { Button } from "./button";
-import { Guard, LoadingIcon, Upload, VideoCam, X } from "@/assets/icons";
+import { Check, Guard, LoadingIcon, Upload, VideoCam, X } from "@/assets/icons";
 import TextSeparator from "./text-separator";
 import { useVideoUpload } from "@/hooks/use-video-upload";
 import { cn } from "@/lib/utils";
@@ -16,7 +17,7 @@ export default function VideoUploader() {
     progress,
     duration,
     videoId,
-    analysisLogs,
+    analysisId,
     startRecording,
     recordingStatusUpdate,
     uploadFile,
@@ -26,6 +27,8 @@ export default function VideoUploader() {
     cancelUpload,
     recordedBlob,
   } = useVideoUpload();
+
+  const router = useRouter();
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -122,7 +125,8 @@ export default function VideoUploader() {
             />
           ) : status === "uploading" ||
             status === "uploaded" ||
-            status === "analyzing" ? (
+            status === "analyzing" ||
+            status === "completed" ? (
             <div className="flex w-full flex-col items-center justify-center gap-6 p-4 text-center">
               <div className="flex w-full items-center justify-between">
                 <div className="flex-1">
@@ -151,13 +155,33 @@ export default function VideoUploader() {
                     style={{ width: `${progress}%` }}
                   />
                 </div>
-                <div className="flex-center bg-on-surface/10 mx-auto w-fit gap-2 rounded-full px-6 py-4">
+                {/* <div className="flex-center bg-on-surface/10 mx-auto w-fit gap-2 rounded-full px-6 py-4">
+              
                   <LoadingIcon />
                   <span className="title-medium-primary text-on-surface/50">
                     {status === "uploading" ? "Uploading..." : "Analyzing..."} (
                     {progress}%)
                   </span>
-                </div>
+                </div> */}
+                {status === "completed" ? (
+                  <Button
+                    // className="w-f"
+                    onClick={() =>
+                      router.push(`/score?analysis_id=${analysisId}`)
+                    }
+                  >
+                    <Check />
+                    Finish, show score
+                  </Button>
+                ) : (
+                  <div className="flex-center bg-on-surface/10 mx-auto w-fit gap-2 rounded-full px-6 py-4">
+                    <LoadingIcon />
+                    <span className="title-medium-primary text-on-surface/50">
+                      {status === "uploading" ? "Uploading..." : "Analyzing..."}{" "}
+                      ({progress}%)
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           ) : (
