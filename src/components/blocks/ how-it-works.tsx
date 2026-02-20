@@ -9,6 +9,7 @@ import Separator from "@/components/ui/separator";
 import { SVGProps } from "react";
 import Image from "next/image";
 import { Button } from "../ui/button";
+import TryNow from "../ui/try-now";
 const steps: {
   icon: React.FC<SVGProps<SVGSVGElement>>;
   title: string;
@@ -35,47 +36,46 @@ const steps: {
 ];
 export default function HowItWorks() {
   return (
-    <section className="section">
-      <div className="mx-auto w-fit px-4">
-        <div className="container-md flex flex-col items-start gap-10 lg:flex-row">
-          <div className="w-full lg:w-1/2">
-            <h6 className="section-label text-left">How it works</h6>
-            <h2 className="section-title text-left">3 steps, ultra simple.</h2>
-            <Separator />
-            <Accordion
-              type="single"
-              collapsible
-              defaultValue={steps[0].title}
-              className="mt-4 w-full"
-            >
-              {steps.map((step) => (
-                <AccordionItem key={step.title} value={step.title}>
-                  <AccordionTrigger>
-                    <step.icon />
-                    {step.title}
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <p className="pl-10 text-left">{step.content}</p>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-              <AccordionItem value="item-1">
-                <AccordionTrigger></AccordionTrigger>
+    <section id="how-it-works" className="section">
+      <div className="container-md flex flex-col items-start gap-10 px-4 lg:flex-row">
+        <div className="w-full flex-1 shrink-0 lg:w-1/2">
+          <h6 className="section-label text-left">How it works</h6>
+          <h2 className="section-title text-left">3 steps, ultra simple.</h2>
+          <Separator />
+          <Accordion
+            type="single"
+            collapsible
+            defaultValue={steps[0].title}
+            className="mt-4 w-full"
+          >
+            {steps.map((step) => (
+              <AccordionItem key={step.title} value={step.title}>
+                <AccordionTrigger>
+                  <step.icon />
+                  {step.title}
+                </AccordionTrigger>
                 <AccordionContent>
-                  <p>
-                    Yes, it is free to use. You can use it as much as you want.
-                  </p>
+                  <p className="pl-10 text-left">{step.content}</p>
                 </AccordionContent>
               </AccordionItem>
-            </Accordion>
-            {/* <Button variant="error">Try now</Button> */}
-            <Button variant={"error"} size={"error"}>
-              Try now
-            </Button>
-          </div>
-          <div className="flex-center w-full lg:w-1/2">
-            <Image src="/selfie.png" alt="selfie" width={544} height={596} />
-          </div>
+            ))}
+            <AccordionItem value="item-1">
+              <AccordionTrigger></AccordionTrigger>
+              <AccordionContent>
+                <p>
+                  Yes, it is free to use. You can use it as much as you want.
+                </p>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+          {/* <Button variant="error">Try now</Button> */}
+          {/* <Button variant={"error"} size={"error"}>
+            Try now
+          </Button> */}
+          <TryNow />
+        </div>
+        <div className="flex-center w-full flex-1 shrink-0 lg:w-1/2">
+          <Image src="/selfie.png" alt="selfie" width={544} height={596} />
         </div>
       </div>
     </section>
