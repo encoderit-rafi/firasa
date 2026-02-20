@@ -22,11 +22,11 @@ const nav_items: NavItemType[] = [
         <ArrowOutward />
       </span>
     ),
-    href: "/descover",
+    href: "#descover",
   },
-  { label: "How it works", href: "/how-it-works" },
-  { label: "Solution", href: "/solution" },
-  { label: "Pricing", href: "/pricing" },
+  { label: "How it works", href: "#how-it-works" },
+  { label: "Solution", href: "#solution" },
+  { label: "Pricing", href: "#pricing" },
 ];
 
 function NavListItem({ item }: { item: NavItemType }) {
@@ -52,7 +52,7 @@ export default function Navbar() {
   const { data: session } = useSession();
 
   return (
-    <div className="border-secondary/10 border-b">
+    <div className="border-bottom sticky top-0 z-50 bg-white">
       <header className="container-xl px-base flex-between py-3">
         <div className="flex-center gap-lg">
           <Logo />
@@ -73,7 +73,6 @@ export default function Navbar() {
         ) : (
           <>
             <div className="flex-center hidden gap-2 xl:flex">
-              {/* <SignOut /> */}
               <Link
                 href="/sign-in"
                 className={cn(

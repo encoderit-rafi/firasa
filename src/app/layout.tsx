@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${roboto.variable} ${inter.variable}`}>
+      <body className={`${roboto.variable} ${inter.variable} relative`}>
         <QueryProvider>
           <Navbar />
           {children}
