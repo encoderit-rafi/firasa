@@ -53,13 +53,14 @@ export default function Faqs() {
     <section className="section px-4">
       <h2 className="section-title">FAQs</h2>
       <div className="container-sm mx-auto mt-8">
-        <Accordion type="single" collapsible defaultValue={steps[0].title}>
+        <Accordion
+          type="single"
+          collapsible
+          defaultValue={steps[0].title}
+          className="border-t-tertiary-container border-t"
+        >
           {steps.map((step) => (
-            <AccordionItem
-              key={step.title}
-              value={step.title}
-              className="border-y-tertiary-container border-y"
-            >
+            <AccordionItem key={step.title} value={step.title}>
               <AccordionTrigger className="group py-6 data-[state=open]:pb-2">
                 <div className="headline-small-emphasized flex w-full items-center justify-between gap-4 text-base">
                   {/* <step.icon /> */}

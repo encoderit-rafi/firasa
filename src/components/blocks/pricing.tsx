@@ -204,7 +204,7 @@ export default function Pricing() {
       </p>
 
       <div className="container-sm mx-auto mt-8 space-y-6 px-4 lg:mt-16">
-        <Tabs defaultValue="overview">
+        <Tabs defaultValue="annual">
           <Table className="max-md:hidden">
             <TableHeader>
               <TableRow>
