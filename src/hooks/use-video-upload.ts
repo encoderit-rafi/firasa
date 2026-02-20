@@ -7,7 +7,7 @@ import { api } from "@/axios";
 import { toast } from "sonner";
 import { AxiosProgressEvent } from "axios";
 
-const CHUNK_SIZE = 5 * 1024 * 1024; // 5MB
+const CHUNK_SIZE = 1 * 1024 * 1024; // 5MB
 
 export type UploadStatus =
   | "idle"

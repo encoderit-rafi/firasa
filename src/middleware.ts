@@ -16,12 +16,14 @@ export default async function middleware(req: NextRequest) {
 
   const { pathname } = req.nextUrl;
 
-  // Check if current route is login or signup
+  // Check if current route is login or signup or home
   const isAuthPage =
     pathname === "/sign-in" ||
     pathname === "/sign-up" ||
     pathname === "/forgot-password" ||
     pathname === "/verify-otp";
+
+  const isPublicPage = pathname === "/" || isAuthPage;
 
   // If user is authenticated and trying to access auth pages, redirect away
   if (token && isAuthPage) {
@@ -29,7 +31,7 @@ export default async function middleware(req: NextRequest) {
   }
 
   // If user is not authenticated and on protected route, redirect to login
-  if (!token && !isAuthPage) {
+  if (!token && !isPublicPage) {
     const loginUrl = new URL("/sign-in", req.url);
     return NextResponse.redirect(loginUrl);
   }

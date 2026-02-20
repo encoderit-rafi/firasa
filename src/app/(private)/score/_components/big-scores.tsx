@@ -134,9 +134,8 @@ export function ScorePagePersonalityAccordion({
               onClick={() =>
                 setDialogData({
                   open: true,
-                  description: `
-              78% Openness (Moderate) \n
-              What this means:\n🤝 You enjoy new ideas and perspectives\n🌿 You adapt well to change\n🧠 You value personal growth\n\nHow to increase:\n🌍 Explore new inputs\n🔍 Challenge assumptions\n✏️ Create without outcome`,
+                  description:
+                    "78% Openness (Moderate)\n\nWhat this means:\n🤝 You enjoy new ideas and perspectives\n🌿 You adapt well to change\n🧠 You value personal growth\n\nHow to increase:\n🌍 Explore new inputs\n🔍 Challenge assumptions\n✏️ Create without outcome",
                   link: "https://firasa.ai",
                 })
               }
@@ -152,7 +151,7 @@ export function ScorePagePersonalityAccordion({
           <DialogHeader>
             <DialogTitle>Make it a post</DialogTitle>
           </DialogHeader>
-          <div className="flex-between border-error-container gap-4 rounded-lg border bg-white p-6 text-wrap">
+          <div className="border-error-container rounded-lg border bg-white p-6 text-wrap whitespace-pre-line">
             {dialogData.description}
           </div>
 
@@ -210,9 +209,8 @@ export default function BigScores({ data }: Props) {
           onClick={() =>
             setDialogData({
               open: true,
-              description: `
-              78% Openness (Moderate) \n
-              What this means:\n🤝 You enjoy new ideas and perspectives\n🌿 You adapt well to change\n🧠 You value personal growth\n\nHow to increase:\n🌍 Explore new inputs\n🔍 Challenge assumptions\n✏️ Create without outcome`,
+              description:
+                "78% Openness (Moderate)\n\nWhat this means:\n🤝 You enjoy new ideas and perspectives\n🌿 You adapt well to change\n🧠 You value personal growth\n\nHow to increase:\n🌍 Explore new inputs\n🔍 Challenge assumptions\n✏️ Create without outcome",
               link: "https://firasa.ai",
             })
           }
@@ -301,9 +299,8 @@ export default function BigScores({ data }: Props) {
                           onClick={() =>
                             setDialogData({
                               open: true,
-                              description: `
-              78% Openness (Moderate) \n
-              What this means:\n🤝 You enjoy new ideas and perspectives\n🌿 You adapt well to change\n🧠 You value personal growth\n\nHow to increase:\n🌍 Explore new inputs\n🔍 Challenge assumptions\n✏️ Create without outcome`,
+                              description:
+                                "78% Openness (Moderate)\n\nWhat this means:\n🤝 You enjoy new ideas and perspectives\n🌿 You adapt well to change\n🧠 You value personal growth\n\nHow to increase:\n🌍 Explore new inputs\n🔍 Challenge assumptions\n✏️ Create without outcome",
                               link: "https://firasa.ai",
                             })
                           }
@@ -340,7 +337,7 @@ export default function BigScores({ data }: Props) {
           <DialogHeader>
             <DialogTitle>Make it a post</DialogTitle>
           </DialogHeader>
-          <div className="flex-between border-error-container gap-4 rounded-lg border bg-white p-6 text-wrap">
+          <div className="border-error-container rounded-lg border bg-white p-6 text-wrap whitespace-pre-line">
             {dialogData.description}
           </div>
 
