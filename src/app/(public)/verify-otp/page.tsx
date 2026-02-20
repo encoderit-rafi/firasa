@@ -1,4 +1,4 @@
-import OtpInput from "@/app/verify-otp/_component/OtpInput";
+import OtpInput from "@/app/(public)/verify-otp/_component/OtpInput";
 import { Button } from "@/components/ui/button";
 import TextSeparator from "@/components/ui/text-separator";
 import Link from "next/link";
