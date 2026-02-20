@@ -23,7 +23,7 @@ export default async function middleware(req: NextRequest) {
     pathname === "/forgot-password" ||
     pathname === "/verify-otp";
 
-  const isPublicPage = pathname === "/" || isAuthPage;
+  const isPublicPage = pathname === "/" || isAuthPage || pathname === "/share";
 
   // If user is authenticated and trying to access auth pages, redirect away
   if (token && isAuthPage) {

@@ -36,10 +36,6 @@ import { Copy, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
 import { ReactNode, useState, Suspense } from "react";
-import {
-  ScorePageSection,
-  ScorePageSectionTitle,
-} from "./_components/score-page-section";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import {
@@ -47,12 +43,7 @@ import {
   useQueryGetVideoReport,
   useQueryGetUserReports,
 } from "./_api";
-import BigScores from "./_components/big-scores";
-import UniqueStory from "./_components/unique-story";
-import SimilarityToFamous from "./_components/similarity-to-famous";
-import SummaryAndExports from "./_components/summary-and-exports";
-import AddOns from "./_components/add-ons";
-import ScoreSection from "./_components/score-section";
+import ScoreReportView from "./_components/score-report-view";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import {
@@ -65,7 +56,7 @@ import {
 } from "@/components/ui/dialog";
 import TextSeparator from "@/components/ui/text-separator";
 import { LinkedinFilled } from "@/assets/icons/LinkedinFilled";
-import { InstagramFilled } from "@/assets/icons/InstagramFilled";
+// import { InstagramFilled } from "@/assets/icons/InstagramFilled";
 
 export default function ScorePage() {
   return (
@@ -93,7 +84,7 @@ function ScorePageContent() {
     useQueryGetUserReports();
   console.log("👉 ~ ScorePageContent ~ userReports:", userReports);
 
-  const { mutate: toggleSharing, isPending: isTogglingSharing } =
+  const { mutateAsync: toggleSharing, isPending: isTogglingSharing } =
     useMutationToggleSharing(analysisId);
 
   const handleVideoChange = (videoId: string) => {
@@ -102,137 +93,23 @@ function ScorePageContent() {
     window.location.href = `${window.location.pathname}?${params.toString()}`;
   };
 
+  const sharePath = reportData?.share_token
+    ? `${window.location.origin}/share?share_token=${reportData.share_token}`
+    : fullPath;
+
+  const handleShareClick = async () => {
+    if (!reportData?.share_token) {
+      await toggleSharing();
+    }
+    setIsOpenShare(true);
+  };
+
   // const handleCopyLink = () => {
   //   navigator.clipboard.writeText(fullPath).then(() => {
   //     toast.success("Link copied to clipboard");
   //   });
   // };
 
-  const [sectionData, setSectionData] = useState<
-    {
-      id: string;
-      label: string;
-      title: string;
-      is_visible: boolean;
-      component: ReactNode;
-    }[]
-  >([]);
-
-  useEffect(() => {
-    if (reportData) {
-      setSectionData([
-        {
-          id: "score",
-          label: "Big 5 scores",
-          title: "Big 5 personality score",
-          is_visible: true,
-          component: <BigScores data={reportData} />,
-        },
-        {
-          id: "story",
-          label: "Unique story",
-          title: "Your unique personality story",
-          is_visible: true,
-          component: <UniqueStory data={reportData} />,
-        },
-        {
-          id: "relationship",
-          label: "Relationship & empathy",
-          title: "Relationship & empathy",
-          is_visible: true,
-          component: (
-            <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.relationship_metrics}
-            />
-          ),
-        },
-        {
-          id: "focus",
-          label: "Focus & execution style",
-          title: "Focus & execution style",
-          is_visible: true,
-          component: (
-            <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.work_metrics}
-            />
-          ),
-        },
-        {
-          id: "ideation",
-          label: "Ideation & creative energy",
-          title: "Ideation & creative energy",
-          is_visible: true,
-          component: (
-            <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.creativity_metrics}
-            />
-          ),
-        },
-        {
-          id: "pressure",
-          label: "Pressure response & recovery",
-          title: "Pressure response & recovery",
-          is_visible: true,
-          component: (
-            <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.stress_metrics}
-            />
-          ),
-        },
-        {
-          id: "openness",
-          label: "Openness to experience",
-          title: "Openness to experience",
-          is_visible: true,
-          component: (
-            <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.openness_metrics}
-            />
-          ),
-        },
-        {
-          id: "learning",
-          label: "Learning & growth",
-          title: "Learning & growth",
-          is_visible: true,
-          component: (
-            <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.learning_metrics}
-            />
-          ),
-        },
-        {
-          id: "similarity",
-          label: "Similarity to famous",
-          title: "Personalities you might relate to",
-          is_visible: true,
-          component: <SimilarityToFamous />,
-        },
-        {
-          id: "exports",
-          label: "Exports",
-          title: "Summary & exports",
-          is_visible: true,
-          component: <SummaryAndExports />,
-        },
-        {
-          id: "add-ons",
-          label: "Add-ons",
-          title: "Level-up add-ons",
-          is_visible: true,
-          component: <AddOns />,
-        },
-      ]);
-    }
-  }, [reportData]);
-
-  if (!analysisId) return null;
   if (isLoading)
     return (
       <div className="flex-center h-screen w-full">
@@ -305,7 +182,7 @@ function ScorePageContent() {
                 variant="outline"
                 size={"icon"}
                 className="size-10"
-                onClick={() => setIsOpenShare(true)}
+                onClick={handleShareClick}
               >
                 <Share />
               </Button>
@@ -315,34 +192,9 @@ function ScorePageContent() {
             </div>
           </div>
         </div>
-        <div className="border-bottom overflow-hidden">
-          <Tabs
-            defaultValue="overview"
-            className="container-xl no-scrollbar overflow-x-auto px-3 xl:px-6"
-          >
-            <TabsList variant={"line"} className="">
-              {sectionData?.map(({ id, label, is_visible }) => {
-                return (
-                  <TabsTrigger key={id} value={id} disabled={!is_visible}>
-                    <Link href={`#${id}`}>{label}</Link>
-                  </TabsTrigger>
-                );
-              })}
-            </TabsList>
-          </Tabs>
-        </div>
       </div>
 
-      <div className="space-y-16 px-4 lg:py-16">
-        {sectionData?.map(({ id, title, component }) => {
-          return (
-            <ScorePageSection id={id} key={id}>
-              <ScorePageSectionTitle>{title}</ScorePageSectionTitle>
-              {component}
-            </ScorePageSection>
-          );
-        })}
-      </div>
+      <ScoreReportView reportData={reportData} />
       <Dialog open={isOpenShare} onOpenChange={setIsOpenShare}>
         <DialogContent className="max-w-136 space-y-6">
           <DialogHeader>
@@ -354,9 +206,9 @@ function ScorePageContent() {
           <div className="flex-between border-error-container gap-4 rounded-full border bg-white p-3">
             <div className="flex-center body-medium-primary text-outline-variant gap-2">
               <Language className="size-5 shrink-0" />
-              <span className="line-clamp-1">{fullPath}</span>
+              <span className="line-clamp-1">{sharePath}</span>
             </div>
-            <Button onClick={() => handleCopyLink(fullPath)}>
+            <Button onClick={() => handleCopyLink(sharePath)}>
               <LinkIcon />
               Copy link
             </Button>
@@ -364,17 +216,17 @@ function ScorePageContent() {
           <TextSeparator />
 
           <div className="flex-center mb-0 gap-3">
-            <TwitterShareButton url={fullPath}>
+            <TwitterShareButton url={sharePath}>
               <Button variant={"icon-muted"}>
                 <X />
               </Button>
             </TwitterShareButton>
-            <LinkedinShareButton url={fullPath}>
+            <LinkedinShareButton url={sharePath}>
               <Button variant={"icon-muted"}>
                 <LinkedinFilled />
               </Button>
             </LinkedinShareButton>
-            <FacebookShareButton url={fullPath}>
+            <FacebookShareButton url={sharePath}>
               <Button variant={"icon-muted"}>
                 <FacebookFilled />
               </Button>
