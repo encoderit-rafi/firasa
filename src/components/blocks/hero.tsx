@@ -1,10 +1,9 @@
-import React from "react";
-import { Button, buttonVariants } from "../ui/button";
-import { ArrowForward, Guard, Model, Video, VideoCam } from "@/assets/icons";
+import { Guard, Model, Video } from "@/assets/icons";
 import CardFeature, { PropsCardFeature } from "../cards/feature/CardFeature";
 import Image from "next/image";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
+
+import UploadOrRecordVideo from "../ui/upload-or-record-video";
+import DiscoverSampleResult from "../ui/discover-sample-result";
 const features: PropsCardFeature[] = [
   {
     title: "Big 5 model",
@@ -36,22 +35,8 @@ export default function Hero() {
           in seconds.
         </p>
         <div className="flex flex-col items-center justify-center gap-2 md:flex-row md:gap-6">
-          <Link
-            href="/upload"
-            className={cn(
-              "w-61.25",
-              buttonVariants({
-                variant: "default",
-              }),
-            )}
-          >
-            <VideoCam />
-            Upload or record video
-          </Link>
-          <Button variant={"outline"} className="w-61.25">
-            <ArrowForward />
-            Discover sample result
-          </Button>
+          <UploadOrRecordVideo className="w-61.25" />
+          <DiscoverSampleResult className="w-61.25" />
         </div>
         <div className="overflow-x-hidden bg-[url('/union.png')] bg-center bg-no-repeat">
           <div className="relative mx-auto w-fit">

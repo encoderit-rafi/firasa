@@ -103,6 +103,37 @@ function TableCaption({
     />
   );
 }
+function TableHeading({ className, ...props }: React.ComponentProps<"h3">) {
+  return <h3 className={cn("", className)} {...props} />;
+}
+function TableDescription({ className, ...props }: React.ComponentProps<"p">) {
+  return (
+    <p
+      className={cn("title-small-emphasized text-outline", className)}
+      {...props}
+    />
+  );
+}
+function TablePrice({
+  variant = "default",
+  className,
+  ...props
+}: { variant: "muted" | "default" } & React.ComponentProps<"span">) {
+  return (
+    <span
+      className={cn(
+        "display-large-emphasized block text-center",
+        {
+          "bg-gradient display-large-emphasized bg-clip-text text-transparent":
+            variant === "default",
+          "text-error-container": variant === "muted",
+        },
+        className,
+      )}
+      {...props}
+    />
+  );
+}
 
 export {
   Table,
@@ -113,4 +144,7 @@ export {
   TableRow,
   TableCell,
   TableCaption,
+  TableHeading,
+  TableDescription,
+  TablePrice,
 };
