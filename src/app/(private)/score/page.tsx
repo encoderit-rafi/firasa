@@ -35,7 +35,7 @@ import { cn, handleCopyLink } from "@/lib/utils";
 import { Copy, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, Suspense } from "react";
 import {
   ScorePageSection,
   ScorePageSectionTitle,
@@ -64,8 +64,22 @@ import { LinkedinFilled } from "@/assets/icons/LinkedinFilled";
 import { InstagramFilled } from "@/assets/icons/InstagramFilled";
 
 export default function ScorePage() {
+  return (
+    <Suspense>
+      <ScorePageContent />
+    </Suspense>
+  );
+}
+
+function ScorePageContent() {
   // const router = useRouter();
-  const fullPath = window && window.location.href;
+  const [fullPath, setFullPath] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setFullPath(window.location.href);
+    }
+  }, []);
 
   const searchParams = useSearchParams();
   const analysisId = searchParams.get("analysis_id");

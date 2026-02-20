@@ -1,10 +1,18 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 export default function SocialCallback() {
+  return (
+    <Suspense>
+      <SocialCallbackContent />
+    </Suspense>
+  );
+}
+
+function SocialCallbackContent() {
   const params = useSearchParams();
 
   useEffect(() => {
