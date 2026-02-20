@@ -36,19 +36,14 @@ import { Copy, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
 import { ReactNode, useState, Suspense } from "react";
-import {
-  ScorePageSection,
-  ScorePageSectionTitle,
-} from "./_components/score-page-section";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { useQueryGetVideoReport } from "./_api";
-import BigScores from "./_components/big-scores";
-import UniqueStory from "./_components/unique-story";
-import SimilarityToFamous from "./_components/similarity-to-famous";
-import SummaryAndExports from "./_components/summary-and-exports";
-import AddOns from "./_components/add-ons";
-import ScoreSection from "./_components/score-section";
+import {
+  useMutationToggleSharing,
+  useQueryGetVideoReport,
+  useQueryGetUserReports,
+} from "./_api";
+import ScoreReportView from "./_components/score-report-view";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import {
@@ -61,7 +56,7 @@ import {
 } from "@/components/ui/dialog";
 import TextSeparator from "@/components/ui/text-separator";
 import { LinkedinFilled } from "@/assets/icons/LinkedinFilled";
-import { InstagramFilled } from "@/assets/icons/InstagramFilled";
+// import { InstagramFilled } from "@/assets/icons/InstagramFilled";
 
 export default function ScorePage() {
   return (
@@ -85,6 +80,29 @@ function ScorePageContent() {
   const analysisId = searchParams.get("analysis_id");
   const [isOpenShare, setIsOpenShare] = useState(false);
   const { data: reportData, isLoading } = useQueryGetVideoReport(analysisId);
+  const { data: userReports, isLoading: isLoadingUserReports } =
+    useQueryGetUserReports();
+  console.log("👉 ~ ScorePageContent ~ userReports:", userReports);
+
+  const { mutateAsync: toggleSharing, isPending: isTogglingSharing } =
+    useMutationToggleSharing(analysisId);
+
+  const handleVideoChange = (videoId: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("analysis_id", videoId);
+    window.location.href = `${window.location.pathname}?${params.toString()}`;
+  };
+
+  const sharePath = reportData?.share_token
+    ? `${window.location.origin}/share?share_token=${reportData.share_token}`
+    : fullPath;
+
+  const handleShareClick = async () => {
+    if (!reportData?.share_token) {
+      await toggleSharing();
+    }
+    setIsOpenShare(true);
+  };
 
   // const handleCopyLink = () => {
   //   navigator.clipboard.writeText(fullPath).then(() => {
@@ -92,131 +110,6 @@ function ScorePageContent() {
   //   });
   // };
 
-  const [sectionData, setSectionData] = useState<
-    {
-      id: string;
-      label: string;
-      title: string;
-      is_visible: boolean;
-      component: ReactNode;
-    }[]
-  >([]);
-
-  useEffect(() => {
-    if (reportData) {
-      setSectionData([
-        {
-          id: "score",
-          label: "Big 5 scores",
-          title: "Big 5 personality score",
-          is_visible: true,
-          component: <BigScores data={reportData} />,
-        },
-        {
-          id: "story",
-          label: "Unique story",
-          title: "Your unique personality story",
-          is_visible: true,
-          component: <UniqueStory data={reportData} />,
-        },
-        {
-          id: "relationship",
-          label: "Relationship & empathy",
-          title: "Relationship & empathy",
-          is_visible: true,
-          component: (
-            <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.relationship_metrics}
-            />
-          ),
-        },
-        {
-          id: "focus",
-          label: "Focus & execution style",
-          title: "Focus & execution style",
-          is_visible: true,
-          component: (
-            <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.work_metrics}
-            />
-          ),
-        },
-        {
-          id: "ideation",
-          label: "Ideation & creative energy",
-          title: "Ideation & creative energy",
-          is_visible: true,
-          component: (
-            <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.creativity_metrics}
-            />
-          ),
-        },
-        {
-          id: "pressure",
-          label: "Pressure response & recovery",
-          title: "Pressure response & recovery",
-          is_visible: true,
-          component: (
-            <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.stress_metrics}
-            />
-          ),
-        },
-        {
-          id: "openness",
-          label: "Openness to experience",
-          title: "Openness to experience",
-          is_visible: true,
-          component: (
-            <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.openness_metrics}
-            />
-          ),
-        },
-        {
-          id: "learning",
-          label: "Learning & growth",
-          title: "Learning & growth",
-          is_visible: true,
-          component: (
-            <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.learning_metrics}
-            />
-          ),
-        },
-        {
-          id: "similarity",
-          label: "Similarity to famous",
-          title: "Personalities you might relate to",
-          is_visible: true,
-          component: <SimilarityToFamous />,
-        },
-        {
-          id: "exports",
-          label: "Exports",
-          title: "Summary & exports",
-          is_visible: true,
-          component: <SummaryAndExports />,
-        },
-        {
-          id: "add-ons",
-          label: "Add-ons",
-          title: "Level-up add-ons",
-          is_visible: true,
-          component: <AddOns />,
-        },
-      ]);
-    }
-  }, [reportData]);
-
-  if (!analysisId) return null;
   if (isLoading)
     return (
       <div className="flex-center h-screen w-full">
@@ -230,13 +123,17 @@ function ScorePageContent() {
         <div className="border-secondary/10 border-b">
           <div className="container-xl px-base flex items-center justify-between gap-4 py-2">
             <div className="flex-center gap-4">
-              <Button variant="outline" size={"icon"}>
+              <Button variant="outline" size={"icon"} className="size-10">
                 <ArrowForward className="rotate-180" />
               </Button>
-              <Select defaultValue="video-1" value="video-1">
+              <Select
+                defaultValue={analysisId || ""}
+                value={analysisId || ""}
+                onValueChange={handleVideoChange}
+              >
                 <SelectTrigger
                   className={cn(
-                    "w-fit max-w-31 border-none shadow-none",
+                    "w-fit border-none shadow-none",
                     buttonVariants({
                       variant: "ghost",
                     }),
@@ -252,11 +149,15 @@ function ScorePageContent() {
                 >
                   <SelectGroup>
                     <SelectLabel>Video</SelectLabel>
-                    <SelectItem value="video-1">Video 1</SelectItem>
-                    <SelectItem value="video-2">Video 2</SelectItem>
-                    <SelectItem value="video-3">Video 3</SelectItem>
-                    <SelectItem value="video-4">Video 4</SelectItem>
-                    <SelectItem value="video-5">Video 5</SelectItem>
+                    {userReports?.map((report: any) => (
+                      <SelectItem
+                        key={String(report.analysis_id)}
+                        value={String(report.analysis_id)}
+                        className="line-clamp-1 text-nowrap"
+                      >
+                        {report.name}
+                      </SelectItem>
+                    ))}
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -266,7 +167,13 @@ function ScorePageContent() {
                 <Label htmlFor="airplane-mode" className="body-medium-primary">
                   Public
                 </Label>
-                <Switch id="airplane-mode" size="xl" />
+                <Switch
+                  id="airplane-mode"
+                  size="xl"
+                  checked={!!reportData?.share_token}
+                  onCheckedChange={() => toggleSharing()}
+                  disabled={isTogglingSharing}
+                />
               </div>
               <Button variant="outline" size={"icon"} className="size-10">
                 <Download />
@@ -275,7 +182,7 @@ function ScorePageContent() {
                 variant="outline"
                 size={"icon"}
                 className="size-10"
-                onClick={() => setIsOpenShare(true)}
+                onClick={handleShareClick}
               >
                 <Share />
               </Button>
@@ -285,33 +192,9 @@ function ScorePageContent() {
             </div>
           </div>
         </div>
-        <div className="border-bottom overflow-hidden">
-          <Tabs
-            defaultValue="overview"
-            className="container-xl no-scrollbar overflow-x-auto px-3 xl:px-6"
-          >
-            <TabsList variant={"line"} className="">
-              {sectionData?.map(({ id, label, is_visible }) => {
-                return (
-                  <TabsTrigger key={id} value={id} disabled={!is_visible}>
-                    <Link href={`#${id}`}>{label}</Link>
-                  </TabsTrigger>
-                );
-              })}
-            </TabsList>
-          </Tabs>
-        </div>
       </div>
-      <div className="space-y-16 px-4 lg:py-16">
-        {sectionData?.map(({ id, title, component }) => {
-          return (
-            <ScorePageSection id={id} key={id}>
-              <ScorePageSectionTitle>{title}</ScorePageSectionTitle>
-              {component}
-            </ScorePageSection>
-          );
-        })}
-      </div>
+
+      <ScoreReportView reportData={reportData} />
       <Dialog open={isOpenShare} onOpenChange={setIsOpenShare}>
         <DialogContent className="max-w-136 space-y-6">
           <DialogHeader>
@@ -323,9 +206,9 @@ function ScorePageContent() {
           <div className="flex-between border-error-container gap-4 rounded-full border bg-white p-3">
             <div className="flex-center body-medium-primary text-outline-variant gap-2">
               <Language className="size-5 shrink-0" />
-              <span className="line-clamp-1">{fullPath}</span>
+              <span className="line-clamp-1">{sharePath}</span>
             </div>
-            <Button onClick={() => handleCopyLink(fullPath)}>
+            <Button onClick={() => handleCopyLink(sharePath)}>
               <LinkIcon />
               Copy link
             </Button>
@@ -333,17 +216,17 @@ function ScorePageContent() {
           <TextSeparator />
 
           <div className="flex-center mb-0 gap-3">
-            <TwitterShareButton url={fullPath}>
+            <TwitterShareButton url={sharePath}>
               <Button variant={"icon-muted"}>
                 <X />
               </Button>
             </TwitterShareButton>
-            <LinkedinShareButton url={fullPath}>
+            <LinkedinShareButton url={sharePath}>
               <Button variant={"icon-muted"}>
                 <LinkedinFilled />
               </Button>
             </LinkedinShareButton>
-            <FacebookShareButton url={fullPath}>
+            <FacebookShareButton url={sharePath}>
               <Button variant={"icon-muted"}>
                 <FacebookFilled />
               </Button>

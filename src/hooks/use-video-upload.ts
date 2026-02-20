@@ -31,6 +31,7 @@ export const useVideoUpload = () => {
   const [uploadId, setUploadId] = useState<string | null>(null);
   const [videoId, setVideoId] = useState<string | null>(null);
   const [analysisLogs, setAnalysisLogs] = useState<AnalysisLog[]>([]);
+  const [analysisId, setAnalysisId] = useState<string | null>(null);
   const [duration, setDuration] = useState(0);
 
   // Recording refs
@@ -257,7 +258,7 @@ export const useVideoUpload = () => {
               setProgress(data.progress || 0);
               if (data.stage === "complete") {
                 setStatus("completed");
-                router.push(`/score?analysis_id=${data.analysis_id}`);
+                setAnalysisId(data.analysis_id);
               }
             } catch (e) {
               console.error("Error parsing SSE data", e);
@@ -288,6 +289,7 @@ export const useVideoUpload = () => {
     setProgress(0);
     setUploadId(null);
     setVideoId(null);
+    setAnalysisId(null);
     setDuration(0);
     chunksRef.current = [];
   }, []);
@@ -299,6 +301,7 @@ export const useVideoUpload = () => {
     uploadId,
     videoId,
     analysisLogs,
+    analysisId,
     startRecording,
     recordingStatusUpdate,
     recordingStatusIdle,
