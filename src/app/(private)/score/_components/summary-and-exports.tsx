@@ -18,11 +18,14 @@ const export_items = [
 ];
 export default function SummaryAndExports() {
   return (
-    <ScorePageCard className="flex flex-col lg:flex-row items-center justify-between gap-6 bg-transparent divide-none">
+    <ScorePageCard className="flex flex-col items-center justify-between gap-6 divide-none bg-transparent lg:flex-row">
       {export_items.map((item, index) => (
-        <div className="size-full  p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container">
-          <div className="flex-1 py-6 flex-center">{item.icon}</div>
-          <div className="flex-1 py-6 flex-center">
+        <div
+          key={index}
+          className="bg-error-container/16 divide-error-container flex size-full flex-col divide-y rounded-xl p-8"
+        >
+          <div className="flex-center flex-1 py-6">{item.icon}</div>
+          <div className="flex-center flex-1 py-6">
             <Button variant={"outline"}>{item.title}</Button>
           </div>
         </div>

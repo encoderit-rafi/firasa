@@ -7,9 +7,10 @@ import { ArrowOutward, Menu, VideoCam } from "@/assets/icons";
 import Translation from "./translation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import SignOut from "./sign-out";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { useSession } from "next-auth/react";
+import SignIn from "./sign-in";
+import UploadOrRecordVideo from "./upload-or-record-video";
 export type NavItemType = {
   label: ReactNode;
   href: string;
@@ -32,7 +33,7 @@ const nav_items: NavItemType[] = [
 function NavListItem({ item }: { item: NavItemType }) {
   return (
     <li key={item.href} className="body-large-primary text-neutral-10">
-      <a href={item.href}>{item.label}</a>
+      <Link href={item.href}>{item.label}</Link>
     </li>
   );
 }
@@ -73,28 +74,9 @@ export default function Navbar() {
         ) : (
           <>
             <div className="flex-center hidden gap-2 xl:flex">
-              <Link
-                href="/sign-in"
-                className={cn(
-                  buttonVariants({
-                    variant: "ghost",
-                  }),
-                )}
-              >
-                Sign in
-              </Link>
+              <SignIn />
               <Translation />
-              <Link
-                href="/upload"
-                className={cn(
-                  buttonVariants({
-                    variant: "default",
-                  }),
-                )}
-              >
-                <VideoCam />
-                Upload or record video
-              </Link>
+              <UploadOrRecordVideo />
             </div>
             <Button variant={"ghost"} className="xl:hidden">
               <Menu />
