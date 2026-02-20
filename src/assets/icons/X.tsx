@@ -15,7 +15,7 @@ export function X({ className, ...props }: Props) {
     >
       <path
         d="M8.7383 11.651L13.5 18H20.5L12.6417 7.5223L19.1808 0H16.5308L11.4143 5.88578L7 0H0L7.51086 10.0145L0.56915 18H3.21917L8.7383 11.651ZM14.5 16L4 2H6L16.5 16H14.5Z"
-        fill="#79747E"
+        fill="currentColor"
       />
     </svg>
   );

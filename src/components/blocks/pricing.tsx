@@ -14,7 +14,7 @@ const IsChecked = (value: boolean) => {
     <div
       className={cn(
         bg,
-        "w-6 h-6 rounded-full flex items-center justify-center",
+        "flex h-6 w-6 items-center justify-center rounded-full",
       )}
     >
       {value ? (
@@ -72,31 +72,31 @@ export default function Pricing() {
         ready.
       </p>
       <div className="px-4">
-        <div className="container-sm mt-8 lg:mt-16 space-y-6 mx-auto">
+        <div className="container-sm mx-auto mt-8 space-y-6 lg:mt-16">
           <Tabs defaultValue="overview">
             <Table className="max-md:hidden">
               <TableHeader>
                 <TableRow>
                   <TableHead className=""></TableHead>
-                  <TableHead className="text-center pt-8! lg:text-end py-4">
+                  <TableHead className="py-4 pt-8! text-center lg:text-end">
                     <p className="headline-small-emphasized">Free</p>
                     <p className="title-small-emphasized text-outline">
                       No sign-up.
                       <br />
                       No credit card.
                     </p>
-                    <p className="mt-8 text-center display-large-emphasized text-error-container">
+                    <p className="display-large-emphasized text-error-container mt-8 text-center">
                       $0
                     </p>
                   </TableHead>
-                  <TableHead className="text-center  bg-red-50 pt-8! rounded-t-3xl py-4">
+                  <TableHead className="rounded-t-3xl bg-red-50 py-4 pt-8! text-center">
                     <p className="headline-small-emphasized">Pro</p>
                     <p className="text-outline title-small-emphasized">
                       Made for sharing.
                       <br />
                       Built for self-growth.
                     </p>
-                    <p className="text-transparent bg-clip-text bg-gradient display-large-emphasized">
+                    <p className="bg-gradient display-large-emphasized bg-clip-text text-transparent">
                       $79
                     </p>
                     <TabsList>
@@ -113,17 +113,17 @@ export default function Pricing() {
                     <TableCell className="">
                       <div
                         className={cn(
-                          "size-6 rounded-full mx-auto bg-gradient",
+                          "bg-gradient mx-auto size-6 rounded-full",
                         )}
                       >
                         <Check className="text-white" />
                       </div>
                     </TableCell>
-                    <TableCell className=" text-center bg-red-50">
+                    <TableCell className="bg-red-50 text-center">
                       <TabsContent value="overview">
                         <div
                           className={cn(
-                            "size-6 rounded-full mx-auto bg-gradient",
+                            "bg-gradient mx-auto size-6 rounded-full",
                           )}
                         >
                           <Check className="text-white" />
@@ -132,7 +132,7 @@ export default function Pricing() {
                       <TabsContent value="analytics">
                         <div
                           className={cn(
-                            "size-6 rounded-full mx-auto bg-gradient",
+                            "bg-gradient mx-auto size-6 rounded-full",
                           )}
                         >
                           <Check className="text-white" />
@@ -145,30 +145,30 @@ export default function Pricing() {
               <TableFooter className="border-none bg-transparent">
                 <TableRow>
                   <TableCell className=""></TableCell>
-                  <TableCell className="text-center pb-8">
+                  <TableCell className="pb-8 text-center">
                     <Button variant="outline">Get free score</Button>
                   </TableCell>
                   <TableCell
-                    className={" text-center pb-8 rounded-b-3xl bg-red-50"}
+                    className={"rounded-b-3xl bg-red-50 pb-8 text-center"}
                   >
                     <Button variant="black">Unlock pro report</Button>
                   </TableCell>
                 </TableRow>
               </TableFooter>
             </Table>
-            <div className="md:hidden space-y-6">
-              <div className="border border-error-container py-8 rounded-3xl overflow-hidden">
+            <div className="space-y-6 md:hidden">
+              <div className="border-error-container overflow-hidden rounded-3xl border py-8">
                 <Table className="">
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="text-center py-4" colSpan={2}>
+                      <TableHead className="py-4 text-center" colSpan={2}>
                         <p className="headline-small-emphasized">Free</p>
                         <p className="title-small-emphasized text-outline">
                           No sign-up.
                           <br />
                           No credit card.
                         </p>
-                        <p className="mt-8 text-center display-large-emphasized text-error-container">
+                        <p className="display-large-emphasized text-error-container mt-8 text-center">
                           $0
                         </p>
                       </TableHead>
@@ -181,7 +181,7 @@ export default function Pricing() {
                         <TableCell className="">
                           <div
                             className={cn(
-                              "size-6 rounded-full ml-auto lg:mx-auto bg-gradient",
+                              "bg-gradient ml-auto size-6 rounded-full lg:mx-auto",
                             )}
                           >
                             <Check className="text-white" />
@@ -204,7 +204,7 @@ export default function Pricing() {
                 <TableHeader>
                   <TableRow>
                     <TableHead
-                      className="text-center bg-red-50 pt-8! rounded-t-3xl py-4"
+                      className="rounded-t-3xl bg-red-50 py-4 pt-8! text-center"
                       colSpan={2}
                     >
                       <p className="headline-small-emphasized">Pro</p>
@@ -213,7 +213,7 @@ export default function Pricing() {
                         <br />
                         Built for self-growth.
                       </p>
-                      <p className="text-transparent bg-clip-text bg-gradient display-large-emphasized">
+                      <p className="bg-gradient display-large-emphasized bg-clip-text text-transparent">
                         $79
                       </p>
                       <TabsList>
@@ -229,11 +229,11 @@ export default function Pricing() {
                       <TableCell className="bg-red-50">
                         {invoice.paymentMethod}
                       </TableCell>
-                      <TableCell className="text-center bg-red-50">
+                      <TableCell className="bg-red-50 text-center">
                         <TabsContent value="overview">
                           <div
                             className={cn(
-                              "size-6 rounded-full ml-auto lg:mx-auto bg-gradient",
+                              "bg-gradient ml-auto size-6 rounded-full lg:mx-auto",
                             )}
                           >
                             <Check className="text-white" />
@@ -242,7 +242,7 @@ export default function Pricing() {
                         <TabsContent value="analytics">
                           <div
                             className={cn(
-                              "size-6 rounded-full ml-auto lg:mx-auto bg-gradient",
+                              "bg-gradient ml-auto size-6 rounded-full lg:mx-auto",
                             )}
                           >
                             <Check className="text-white" />
@@ -255,7 +255,7 @@ export default function Pricing() {
                 <TableFooter className="border-none bg-transparent">
                   <TableRow>
                     <TableCell
-                      className={"text-center rounded-b-3xl pb-8 bg-red-50"}
+                      className={"rounded-b-3xl bg-red-50 pb-8 text-center"}
                       colSpan={2}
                     >
                       <Button variant="black">Unlock pro report</Button>

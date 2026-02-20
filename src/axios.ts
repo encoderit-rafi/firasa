@@ -1,32 +1,33 @@
 import axios from "axios";
 import { API_BASE_URL } from "./consts";
-// import { toast } from "sonner";
-// import { useToken, useCurrentUser } from "./store";
+import { getSession, signOut } from "next-auth/react";
 
 export const api = axios.create({
   baseURL: `${API_BASE_URL}/api`,
   headers: { "Content-Type": "application/json" },
 });
 
-// Attach token automatically
-api.interceptors.request.use((config) => {
-  // const { token } = useToken.getState();
-  // if (token) {
-  //   config.headers.Authorization = `Bearer ${token}`;
-  // }
+api.interceptors.request.use(async (config) => {
+  const session = await getSession();
+
+  if (session?.error === "RefreshTokenError") {
+    await signOut({ callbackUrl: "/sign-in" });
+    return Promise.reject(new Error("Session expired"));
+  }
+
+  const accessToken = session?.token?.access_token;
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+
   return config;
 });
 
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error) => {
     if (error.response?.status === 401) {
-      // useToken.getState().setToken(null);
-      // useCurrentUser.getState().clearUser();
-      if (typeof window !== "undefined") {
-        window.location.href = "/login";
-      }
-      // toast.error("Session expired. Please login again.");
+      await signOut({ callbackUrl: "/sign-in" });
     }
     return Promise.reject(error);
   },

@@ -70,28 +70,28 @@ const steps: {
 ];
 export default function UploadPage() {
   return (
-    <section className="section space-y-8 md:space-y-16 px-4">
+    <section className="section space-y-8 px-4 md:space-y-16">
       <h1>Upload or record video</h1>
-      <div className="flex flex-col gap-4 max-w-136 mx-auto space-y-8 md:space-y-16">
+      <div className="mx-auto flex max-w-136 flex-col gap-4 space-y-8 md:space-y-16">
         <VideoUploader />
         <div className="space-y-8">
           <div className="">
-            <h6 className="section-label text-left pb-5">
+            <h6 className="section-label pb-5 text-left">
               Do's: Video requirements
             </h6>
             <Accordion
               type="single"
               collapsible
               defaultValue={steps[0].title}
-              className="container-sm mx-auto border-y border-y-tertiary-container"
+              className="container-sm border-y-tertiary-container mx-auto border-y"
             >
               {steps.map((step) => (
                 <AccordionItem key={step.title} value={step.title}>
                   <AccordionTrigger className="group py-6 data-[state=open]:pb-2">
-                    <div className="flex items-center justify-between w-full gap-4 headline-small-emphasized ">
+                    <div className="headline-small-emphasized flex w-full items-center justify-between gap-4">
                       {/* <step.icon /> */}
                       <div className="flex items-center gap-2">
-                        <div className="size-6 rounded-full bg-error flex-center shrink-0">
+                        <div className="bg-error flex-center size-6 shrink-0 rounded-full">
                           <Check className="text-on-error size-5" />
                         </div>
                         {step.title}
@@ -100,29 +100,29 @@ export default function UploadPage() {
                     </div>
                   </AccordionTrigger>
                   <AccordionContent>
-                    <p className="text-left pl-8">{step.content}</p>
+                    <p className="pl-8 text-left">{step.content}</p>
                   </AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
           </div>
           <div className="">
-            <h6 className="section-label text-left pb-5 border-b border-b-error-container">
+            <h6 className="section-label border-b-error-container border-b pb-5 text-left">
               Don'ts: Video restrictions
             </h6>
             <Accordion
               type="single"
               collapsible
               defaultValue={steps[0].title}
-              className="container-sm mx-auto border-y border-y-tertiary-container"
+              className="container-sm border-y-tertiary-container mx-auto border-y"
             >
               {steps.map((step) => (
                 <AccordionItem key={step.title} value={step.title}>
                   <AccordionTrigger className="group py-6 data-[state=open]:pb-2">
-                    <div className="flex items-center justify-between w-full gap-4 headline-small-emphasized ">
+                    <div className="headline-small-emphasized flex w-full items-center justify-between gap-4">
                       {/* <step.icon /> */}
                       <div className="flex items-center gap-2">
-                        <div className="size-6 rounded-full bg-error-container flex-center shrink-0">
+                        <div className="bg-error-container flex-center size-6 shrink-0 rounded-full">
                           <Close className="text-on-error size-5" />
                         </div>
                         {step.title}
@@ -131,7 +131,7 @@ export default function UploadPage() {
                     </div>
                   </AccordionTrigger>
                   <AccordionContent>
-                    <p className="text-left pl-8">{step.content}</p>
+                    <p className="pl-8 text-left">{step.content}</p>
                   </AccordionContent>
                 </AccordionItem>
               ))}

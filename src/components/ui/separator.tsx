@@ -9,7 +9,7 @@ export default function Separator({ className, ...props }: Props) {
     <div
       {...props}
       className={cn(
-        "h-1 min-w-24 w-full bg-linear-to-l from-transparent to-outline rounded-full",
+        "to-outline h-1 w-full min-w-24 rounded-full bg-linear-to-l from-transparent",
         className,
       )}
     ></div>

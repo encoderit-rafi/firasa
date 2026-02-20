@@ -9,7 +9,7 @@ export default function Icon({
   return (
     <span
       className={cn(
-        "size-6 bg-error-container rounded-full text-center flex-center",
+        "bg-error-container flex-center size-6 rounded-full text-center",
         className,
       )}
       {...props}

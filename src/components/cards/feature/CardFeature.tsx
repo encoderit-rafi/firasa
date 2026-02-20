@@ -41,7 +41,7 @@ export default function CardFeature({
         </div>
         <p
           className={cn(
-            "body-small-primary text-left text-on-surface-variant",
+            "body-small-primary text-on-surface-variant text-left",
             {
               "text-right": isReverse,
             },

@@ -5,6 +5,7 @@ import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { ChevronDownIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { SquareBox } from "@/assets/icons";
 
 function Accordion({
   ...props
@@ -20,7 +21,7 @@ function AccordionItem({
     <AccordionPrimitive.Item
       data-slot="accordion-item"
       className={cn(
-        "border-b border-b-tertiary-container last:border-b-0",
+        "border-b-tertiary-container border-b last:border-b-0",
         className,
       )}
       {...props}
@@ -38,7 +39,7 @@ function AccordionTrigger({
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          "focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-center gap-4 rounded-md pt-4 pb-2 text-left transition-all outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50  text-outline! data-[state=open]:text-on-surface!  font-medium text-base leading-6 tracking-wide",
+          "focus-visible:border-ring focus-visible:ring-ring/50 text-outline! data-[state=open]:text-on-surface! flex flex-1 items-center gap-4 rounded-md pt-4 pb-2 text-left text-base leading-6 font-medium tracking-wide transition-all outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50",
           className,
         )}
         // [&[data-state=open]>svg]:rotate-180
@@ -67,4 +68,49 @@ function AccordionContent({
   );
 }
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
+function AccordionDescriptionContainer({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"div">) {
+  return (
+    <div className={cn("flex items-start gap-2", className)} {...props}>
+      <SquareBox className="mt-1" />
+      <div className="flex grow flex-col gap-2">{children}</div>
+    </div>
+  );
+}
+function AccordionDescription({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"p">) {
+  return (
+    <p className={cn("body-medium-primary text-left", className)} {...props}>
+      {children}
+    </p>
+  );
+}
+function AccordionDescriptionItems({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"div">) {
+  return (
+    <div
+      className={cn("flex flex-wrap items-center gap-1", className)}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}
+export {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+  AccordionDescriptionContainer,
+  AccordionDescription,
+  AccordionDescriptionItems,
+};

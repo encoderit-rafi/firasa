@@ -64,7 +64,7 @@ function LogoText() {
 }
 function Logo() {
   return (
-    <Link href="/" className="flex-center gap-3 cursor-pointer">
+    <Link href="/" className="flex-center cursor-pointer gap-3">
       <LogoIcon />
       <LogoText />
     </Link>

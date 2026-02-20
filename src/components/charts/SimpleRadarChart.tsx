@@ -66,14 +66,14 @@ export default function SimpleRadarChart({
             <stop offset="100%" stopColor="#FA6C12" stopOpacity={1} />
           </linearGradient>
         </defs>
-        <PolarGrid gridType="circle" strokeOpacity={0.3} />
+        <PolarGrid gridType="circle" strokeOpacity={0.3} stroke="#FF77D7"/>
         <PolarAngleAxis
           dataKey="subject"
           tick={{ fill: "currentColor", fontSize: 10 }}
         />
         {/* <PolarRadiusAxis /> */}
         <Radar
-          name="Mike"
+          name="Data"
           dataKey="A"
           fill="url(#radarGradient)"
           fillOpacity={0.6}

@@ -1,65 +1,179 @@
 "use client";
 
-import { AlertCircleIcon, ImageUpIcon, XIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { AlertCircleIcon, XIcon, Loader2 } from "lucide-react";
 
-import { useFileUpload } from "@/hooks/use-file-upload";
 import { Button } from "./button";
-import { Guard, Upload, VideoCam } from "@/assets/icons";
+import { Guard, LoadingIcon, Upload, VideoCam, X } from "@/assets/icons";
 import TextSeparator from "./text-separator";
+import { useVideoUpload } from "@/hooks/use-video-upload";
+import { cn } from "@/lib/utils";
+import { Recording } from "./video/Recording";
 
 export default function VideoUploader() {
-  const maxSizeMB = 5;
-  const maxSize = maxSizeMB * 1024 * 1024; // 5MB default
+  const {
+    status,
+    progress,
+    duration,
+    videoId,
+    analysisLogs,
+    startRecording,
+    recordingStatusUpdate,
+    uploadFile,
+    stopRecording,
+    recordingStatusIdle,
+    startAnalysis,
+    cancelUpload,
+    recordedBlob,
+  } = useVideoUpload();
 
-  const [
-    { files, isDragging, errors },
-    {
-      handleDragEnter,
-      handleDragLeave,
-      handleDragOver,
-      handleDrop,
-      openFileDialog,
-      removeFile,
-      getInputProps,
-    },
-  ] = useFileUpload({
-    accept: "image/*",
-    maxSize,
-  });
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const videoPreviewRef = useRef<HTMLVideoElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const previewUrl = files[0]?.preview || null;
+  const formatBytes = (bytes: number, decimals = 2) => {
+    if (bytes === 0) return "0 Bytes";
+    const k = 1024;
+    // const k = 1024 * 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedFile(file);
+      setPreviewUrl(URL.createObjectURL(file));
+    }
+  };
+
+  const handleStartUpload = async () => {
+    let fileToUpload = selectedFile;
+    let type: "file" | "record" = "file";
+
+    if (!fileToUpload && recordedBlob) {
+      fileToUpload = new File([recordedBlob], "recorded-video.webm", {
+        type: "video/webm",
+      });
+      // type = "record";
+      type = "file";
+    }
+
+    if (fileToUpload) {
+      console.log("fileToUpload", fileToUpload);
+      await uploadFile(fileToUpload, type);
+    }
+  };
+
+  const handleRemoveFile = () => {
+    setSelectedFile(null);
+    setPreviewUrl(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const handleCancelUpload = () => {
+    cancelUpload();
+    handleRemoveFile();
+  };
+
+  useEffect(() => {
+    if (status === "recording" && videoPreviewRef.current) {
+      startRecording().then((stream) => {
+        if (stream && videoPreviewRef.current) {
+          videoPreviewRef.current.srcObject = stream;
+        }
+      });
+    }
+  }, [status, startRecording]);
+
+  useEffect(() => {
+    if (status === "idle") {
+      if (selectedFile || recordedBlob) {
+        handleStartUpload();
+      }
+    }
+  }, [selectedFile, recordedBlob, status]);
+
+  useEffect(() => {
+    if (status === "uploaded" && videoId) {
+      startAnalysis(videoId);
+    }
+  }, [status, videoId, startAnalysis]);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4">
       <div className="relative">
-        {/* Drop area */}
         <div
-          className="relative py-12 flex min-h-52 flex-col items-center bg-custom-error-95 justify-center overflow-hidden rounded-xl border border-error border-dashed p-4 transition-colors  has-disabled:pointer-events-none has-[input:focus]:border-ring has-[img]:border-none has-disabled:opacity-50 has-[input:focus]:ring-[3px] has-[input:focus]:ring-ring/50 data-[dragging=true]:bg-error-container/20"
-          data-dragging={isDragging || undefined}
-          onDragEnter={handleDragEnter}
-          onDragLeave={handleDragLeave}
-          onDragOver={handleDragOver}
-          onDrop={handleDrop}
-          role="button"
-          tabIndex={-1}
+          className={cn(
+            "relative flex min-h-64 flex-col items-center justify-center overflow-hidden rounded-xl border border-dashed p-4 py-12 transition-colors",
+            "bg-custom-error-95 border-error",
+          )}
         >
-          <input
-            {...getInputProps()}
-            aria-label="Upload file"
-            className="sr-only"
-          />
-          {previewUrl ? (
-            <div className="absolute inset-0">
-              <img
-                alt={files[0]?.file?.name || "Uploaded image"}
-                className="size-full object-cover"
-                src={previewUrl}
-              />
+          {status === "recording" ? (
+            <Recording
+              videoPreviewRef={videoPreviewRef}
+              startRecording={startRecording}
+              stopRecording={stopRecording}
+              recordingStatusIdle={recordingStatusIdle}
+              handleStartUpload={handleStartUpload}
+            />
+          ) : status === "uploading" ||
+            status === "uploaded" ||
+            status === "analyzing" ? (
+            <div className="flex w-full flex-col items-center justify-center gap-6 p-4 text-center">
+              <div className="flex w-full items-center justify-between">
+                <div className="flex-1">
+                  <p className="body-large-emphasized text-left">
+                    {selectedFile?.name}
+                  </p>
+                  <p className="body-small-primary text-left">
+                    {formatBytes(selectedFile?.size || recordedBlob?.size || 0)}
+                  </p>
+                </div>
+                <div className="">
+                  <Button
+                    variant="ghost"
+                    size={"icon"}
+                    onClick={handleCancelUpload}
+                  >
+                    <XIcon />
+                  </Button>
+                </div>
+              </div>
+
+              <div className="w-full space-y-6">
+                <div className="bg-error-container h-0.5 w-full overflow-hidden rounded-full">
+                  <div
+                    className="bg-error h-full rounded-full transition-all duration-300 ease-out"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+                <div className="flex-center bg-on-surface/10 mx-auto w-fit gap-2 rounded-full px-6 py-4">
+                  <LoadingIcon />
+                  <span className="title-medium-primary text-on-surface/50">
+                    {status === "uploading" ? "Uploading..." : "Analyzing..."} (
+                    {progress}%)
+                  </span>
+                </div>
+              </div>
             </div>
           ) : (
-            <div className="flex flex-col space-y-6 items-center justify-center px-4 py-3 text-center">
+            <div className="flex flex-col items-center justify-center space-y-6 px-4 py-3 text-center">
+              <input
+                type="file"
+                accept="video/*"
+                className="hidden"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+              />
               <div className="flex flex-col gap-2">
-                <Button onClick={openFileDialog} className="w-56.25">
+                <Button
+                  onClick={() => fileInputRef.current?.click()}
+                  className="w-56.25"
+                >
                   <Upload />
                   Choose video file
                 </Button>
@@ -68,39 +182,22 @@ export default function VideoUploader() {
 
               <TextSeparator />
               <div className="flex flex-col gap-2">
-                <Button variant="outline" className="w-56.25">
+                <Button
+                  variant="outline"
+                  className="w-56.25"
+                  onClick={() => recordingStatusUpdate()}
+                >
                   <VideoCam />
                   Record with camera
                 </Button>
-                <p className="body-small-primary">Record a 25 seconds video</p>
+                <p className="body-small-primary">Record a video</p>
               </div>
             </div>
           )}
         </div>
-        {previewUrl && (
-          <div className="absolute top-4 right-4">
-            <button
-              aria-label="Remove image"
-              className="z-50 flex size-8 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white outline-none transition-[color,box-shadow] hover:bg-black/80 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
-              onClick={() => removeFile(files[0]?.id)}
-              type="button"
-            >
-              <XIcon aria-hidden="true" className="size-4" />
-            </button>
-          </div>
-        )}
       </div>
 
-      {errors.length > 0 && (
-        <div
-          className="flex items-center gap-1 text-destructive text-xs"
-          role="alert"
-        >
-          <AlertCircleIcon className="size-3 shrink-0" />
-          <span>{errors[0]}</span>
-        </div>
-      )}
-      <p className="mt-2 text-center text-muted-foreground text-xs flex-center gap-3">
+      <p className="text-muted-foreground mt-2 flex items-center justify-center gap-2 text-center text-xs">
         <Guard className="size-4" />
         Auto-deleted. Your privacy is our priority.
       </p>
