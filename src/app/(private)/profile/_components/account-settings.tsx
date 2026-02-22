@@ -72,15 +72,22 @@ export default function AccountSettings() {
     },
     onError: (error: unknown) => {
       if (error && typeof error === "object" && "response" in error) {
-        const axiosError = error as { response?: { data?: { message?: string } }; message?: string };
-        toast.error(axiosError.response?.data?.message || axiosError.message || "Failed to update profile");
+        const axiosError = error as {
+          response?: { data?: { message?: string } };
+          message?: string;
+        };
+        toast.error(
+          axiosError.response?.data?.message ||
+            axiosError.message ||
+            "Failed to update profile",
+        );
       } else {
         toast.error("Failed to update profile");
       }
     },
-    onSettled:()=>{
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["user", userId] });
-    }
+    },
   });
 
   const { mutate: deleteAccount, isPending: isDeleting } = useMutation({
@@ -93,16 +100,23 @@ export default function AccountSettings() {
     },
     onError: (error: unknown) => {
       if (error && typeof error === "object" && "response" in error) {
-        const axiosError = error as { response?: { data?: { message?: string } }; message?: string };
-        toast.error(axiosError.response?.data?.message || axiosError.message || "Failed to delete account");
+        const axiosError = error as {
+          response?: { data?: { message?: string } };
+          message?: string;
+        };
+        toast.error(
+          axiosError.response?.data?.message ||
+            axiosError.message ||
+            "Failed to delete account",
+        );
       } else {
         toast.error("Failed to delete account");
       }
     },
-    onSettled:()=>{
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["user", userId] });
       signOut({ callbackUrl: "/sign-in" });
-    }
+    },
   });
 
   const subscribeToNewsletter = watch("subscribeToNewsletter");
@@ -132,7 +146,7 @@ export default function AccountSettings() {
           </label>
           <Input
             {...register("completeName")}
-            className="border-0 p-0 font-inter text-base font-bold shadow-none focus-visible:ring-0"
+            className="font-inter border-0 p-0 text-base font-bold shadow-none focus-visible:ring-0"
           />
         </div>
         <div className="rounded-lg border border-[#F2F2F2] px-3 py-2">
@@ -142,7 +156,7 @@ export default function AccountSettings() {
           <Input
             {...register("emailAddress")}
             type="email"
-            className="border-0 p-0 font-inter text-base font-bold shadow-none focus-visible:ring-0"
+            className="font-inter border-0 p-0 text-base font-bold shadow-none focus-visible:ring-0"
           />
         </div>
         <div className="rounded-lg border border-[#F2F2F2] bg-[#F9F9F9] px-3 py-2">
@@ -152,7 +166,7 @@ export default function AccountSettings() {
           <Input
             {...register("signInMethod")}
             disabled
-            className="border-0 bg-transparent p-0 font-inter text-base font-bold shadow-none focus-visible:ring-0"
+            className="font-inter border-0 bg-transparent p-0 text-base font-bold shadow-none focus-visible:ring-0"
           />
         </div>
         <div className="flex items-center justify-between rounded-lg border border-[#F2F2F2] px-3 py-2">
@@ -165,6 +179,7 @@ export default function AccountSettings() {
             </p>
           </div>
           <Switch
+            className="h-6! w-9!"
             checked={subscribeToNewsletter}
             onCheckedChange={(checked) =>
               setValue("subscribeToNewsletter", checked, { shouldDirty: true })
@@ -175,7 +190,7 @@ export default function AccountSettings() {
           type="submit"
           variant={"secondary"}
           disabled={!isDirty || isPending}
-          className="w-fit bg-blue font-inter font-bold text-white"
+          className="bg-blue font-inter w-fit font-bold text-white"
         >
           {isPending ? "Saving..." : "Save Changes"}
         </Button>

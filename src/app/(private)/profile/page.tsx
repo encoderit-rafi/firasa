@@ -9,7 +9,7 @@ import { authOptions } from "@/utlis/authOptions";
 export default async function page() {
   const session = await getServerSession(authOptions);
 
-  let reports=[]
+  let reports = [];
 
   try {
     const res = await fetch(`${API_BASE_URL}/api/get-user-own-reports`, {
@@ -27,7 +27,7 @@ export default async function page() {
     } else {
       const data = await res.json();
       // console.log(data.data.data);
-      reports=data.data.data
+      reports = data.data.data;
     }
   } catch (error) {
     console.error(error);
@@ -38,13 +38,17 @@ export default async function page() {
       <div className="border-bottom">
         <TabsList
           variant={"line"}
-          className="flex w-full items-center justify-between py-0"
+          className="flex h-fit! w-full items-center justify-between py-0"
         >
           <div className="flex-center">
-            <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
-            <TabsTrigger value="account-settings">Account Settings</TabsTrigger>
+            <TabsTrigger value="dashboard" className="py-3">
+              Dashboard
+            </TabsTrigger>
+            <TabsTrigger value="account-settings" className="py-3">
+              Account Settings
+            </TabsTrigger>
           </div>
-          <div className="border-secondary/10 flex-center h-full w-fit border-l pl-7.5">
+          <div className="border-secondary/10 flex-center h-full w-fit border-l py-3 pl-7.5">
             <SignOut />
           </div>
         </TabsList>
@@ -52,7 +56,7 @@ export default async function page() {
       <div className="flex-center flex-1">
         <div className="container-lg w-full">
           <TabsContent value="dashboard">
-            <Dashboard reports={reports}/>
+            <Dashboard reports={reports} />
           </TabsContent>
           <TabsContent value="account-settings">
             <AccountSettings />

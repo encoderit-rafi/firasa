@@ -6,7 +6,7 @@ export default function SignOut() {
     <Button
       onClick={() => signOut({ callbackUrl: "/sign-in" })}
       variant="gradient-blue"
-      className="h-7.5"
+      className="h-8"
     >
       Sign Out
     </Button>
