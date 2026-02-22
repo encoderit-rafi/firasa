@@ -10,6 +10,7 @@ import ScoreSection from "./score-section";
 import SimilarityToFamous from "./similarity-to-famous";
 import SummaryAndExports from "./summary-and-exports";
 import AddOns from "./add-ons";
+import UnlockFullStory from "./unlock-full-story";
 
 interface ScoreReportViewProps {
   reportData: any;
@@ -35,6 +36,13 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           title: "Big 5 personality score",
           is_visible: true,
           component: <BigScores data={reportData} />,
+        },
+        {
+          id: "unlock-full-story",
+          label: "  ",
+          title: "",
+          is_visible: true,
+          component: <UnlockFullStory />,
         },
         {
           id: "story",
