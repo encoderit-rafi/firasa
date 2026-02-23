@@ -16,7 +16,7 @@ export function handleFormatPredictions(
   return Object.entries(predictions).map(([key, value]) => {
     const score = handlePercentage(Number(value));
     let type: PersonalityType["type"];
-    if (score < 33) {
+    if (score < 35) {
       type = "low";
     } else if (score < 66) {
       type = "moderate";

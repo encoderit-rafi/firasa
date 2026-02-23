@@ -33,7 +33,12 @@ import CustomRadarChart from "@/components/charts/RadarChart";
 import { ChevronDownIcon } from "lucide-react";
 import PercentageText from "@/components/ui/percentage-text";
 import ShareButton from "@/components/ui/share-button";
-import { PersonalityType } from "@/global-types";
+import {
+  PersonalityInsights,
+  PersonalityTraits,
+  PersonalityType,
+  TBigFiveTraits,
+} from "@/global-types";
 import {
   Dialog,
   DialogContent,
@@ -49,11 +54,7 @@ import { LinkedinFilled } from "@/assets/icons/LinkedinFilled";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useMutationToggleSharing } from "../_api";
-// type PersonalityType = {
-//   name: string;
-//   value: number | string;
-//   type: "moderate" | "high" | "low";
-// };
+
 const descriptions = [
   {
     title: "What this means:",
@@ -215,19 +216,22 @@ export function ScorePagePersonalityAccordion({
     </Accordion>
   );
 }
+
 type Props = {
-  data: any;
+  data: TBigFiveTraits;
 };
 export default function BigScores({ data }: Props) {
-  const { full_result } = data;
-  const { predictions, metadata, insights } = full_result;
-  const { preprocessing } = metadata;
+  const {
+    face_image_base64,
+    predictions,
+    insights: { title, description },
+    share_token,
+  } = data;
   const personality_scores = handleFormatPredictions(predictions);
 
   const [dialogData, setDialogData] = useState({
     open: false,
-    description: "",
-    link: "",
+    data: "",
   });
 
   const [fullPath, setFullPath] = useState("");
@@ -242,18 +246,23 @@ export default function BigScores({ data }: Props) {
   const analysisId = searchParams.get("analysis_id");
   const { mutateAsync: toggleSharing } = useMutationToggleSharing(analysisId);
 
-  const sharePath = data?.share_token
-    ? `${window.location.origin}/share?share_token=${data.share_token}`
+  const sharePath = share_token
+    ? `${window.location.origin}/share?share_token=${share_token}`
     : fullPath;
+  const share_data = `
+  ${title}\n
+  ${description}\n
+  ${personality_scores.map((score) => `${score.name}: ${score.value}%`).join("\n")}
+  \nShow more at: ${sharePath}`;
 
   const handleShareClick = async (description: string) => {
-    if (!data?.share_token) {
+    if (!share_token) {
       await toggleSharing();
     }
     setDialogData({
       open: true,
-      description,
-      link: window.location.origin,
+      data: share_data,
+      // link: window.location.origin,
     });
   };
 
@@ -274,18 +283,16 @@ export default function BigScores({ data }: Props) {
           className="flex-center flex-col gap-8 md:flex-row"
         >
           <Image
-            src={preprocessing.face_image_base64}
+            src={face_image_base64}
             alt="Score"
             width={288}
             height={288}
             className="size-72 rounded-md object-cover object-center md:size-24"
           />
           <div className="text-on-surface flex flex-col gap-2">
-            <h3 className="headline-small-emphasized text-left">
-              {insights.title}
-            </h3>
+            <h3 className="headline-small-emphasized text-left">{title}</h3>
             <p className="body-medium-primary line-clamp-3 text-left">
-              {insights.description}
+              {description}
             </p>
           </div>
         </ScorePageContainer>
@@ -329,7 +336,7 @@ export default function BigScores({ data }: Props) {
         <ScorePageContainer type="right">
           <ScorePagePersonalityAccordion
             data={personality_scores}
-            shareToken={data?.share_token}
+            shareToken={share_token ?? ""}
             toggleSharing={toggleSharing}
           />
         </ScorePageContainer>
@@ -357,7 +364,7 @@ export default function BigScores({ data }: Props) {
                       "size-83 overflow-hidden border-none bg-cover bg-no-repeat p-0 shadow-none",
                     )}
                     style={{
-                      backgroundImage: `url(${preprocessing.face_image_base64})`,
+                      backgroundImage: `url(${face_image_base64})`,
                     }}
                   >
                     <CardContent className="flex size-full flex-col justify-between bg-black/40 p-0 backdrop-blur-[1px]">
@@ -407,7 +414,7 @@ export default function BigScores({ data }: Props) {
             <DialogTitle>Make it a post</DialogTitle>
           </DialogHeader>
           <div className="border-error-container rounded-lg border bg-white p-6 text-wrap whitespace-pre-line">
-            {dialogData.description}
+            {dialogData.data}
           </div>
 
           <div className="flex-center mb-0 gap-3">
@@ -421,17 +428,14 @@ export default function BigScores({ data }: Props) {
                 <LinkedinFilled />
               </Button>
             </LinkedinShareButton>
-            <FacebookShareButton
-              url={sharePath}
-              content={dialogData.description}
-            >
+            <FacebookShareButton url={sharePath} content={dialogData.data}>
               <Button variant={"icon-muted"}>
                 <FacebookFilled />
               </Button>
             </FacebookShareButton>
             <Button
               variant={"icon-muted"}
-              onClick={() => handleCopyLink(dialogData.description)}
+              onClick={() => handleCopyLink(dialogData.data)}
             >
               <Copy />
             </Button>

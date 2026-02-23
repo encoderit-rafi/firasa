@@ -10,14 +10,28 @@ import ScoreSection from "./score-section";
 import SimilarityToFamous from "./similarity-to-famous";
 import SummaryAndExports from "./summary-and-exports";
 import AddOns from "./add-ons";
-import UnlockFullStory from "./unlock-full-story";
+import { TBigFiveTraits, TReportData } from "@/global-types";
+import { handleFormatPredictions } from "@/lib/utils";
 
 interface ScoreReportViewProps {
-  reportData: any;
+  reportData: TReportData;
 }
 
 export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
+  const { id, share_token, full_result } = reportData;
+  const { predictions, metadata, insights } = full_result;
+  const {
+    preprocessing: { face_image_base64 },
+  } = metadata;
+  // const personality_scores = handleFormatPredictions(predictions);
   const [activeTab, setActiveTab] = useState("score");
+  const big_scores: TBigFiveTraits = {
+    id,
+    share_token,
+    face_image_base64,
+    insights,
+    predictions,
+  };
   const [sectionData, setSectionData] = useState<
     {
       id: string;
@@ -36,7 +50,14 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           label: "Big 5 scores",
           title: "Big 5 personality score",
           is_visible: true,
-          component: <BigScores data={reportData} />,
+          component: (
+            <BigScores
+              data={big_scores}
+              // dataa={{
+              //   id,
+              // }}
+            />
+          ),
         },
         // {
         //   id: "unlock-full-story",

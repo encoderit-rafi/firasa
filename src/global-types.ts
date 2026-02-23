@@ -9,20 +9,19 @@ export type PersonalityScores = PersonalityType[];
 export type PredictionResponse = {
   success: boolean;
   predictions: PersonalityTraits;
-  interpretations?: TraitInterpretations;
-  summary?: ProfileSummary;
-  insights?: PersonalityInsights;
-  relationship_metrics?: RelationshipMetrics;
-  work_metrics?: WorkMetrics;
-  creativity_metrics?: CreativityMetrics;
-  stress_metrics?: StressMetrics;
-  openness_metrics?: OpennessMetrics;
-  learning_metrics?: LearningMetrics;
-  audio_metrics?: AudioMetrics; // Video only
-  transcript?: string; // Video only
-  report_error?: string;
-  // metadata?: PredictionMetadata;
-  metadata?: any;
+  interpretations: TraitInterpretations;
+  summary: ProfileSummary;
+  insights: PersonalityInsights;
+  relationship_metrics: RelationshipMetrics;
+  work_metrics: WorkMetrics;
+  creativity_metrics: CreativityMetrics;
+  stress_metrics: StressMetrics;
+  openness_metrics: OpennessMetrics;
+  learning_metrics: LearningMetrics;
+  audio_metrics: AudioMetrics; // Video only
+  transcript: string; // Video only
+  report_error: string;
+  metadata: PredictionMetadata;
   timestamp: string; // ISO 8601
 };
 export type PersonalityTraits = {
@@ -235,4 +234,105 @@ export type BehavioralPattern = {
 export type StrengthTradeoff = {
   title: string; // e.g., "Empathy Champion"
   description: string; // e.g., "Your ability to understand others..."
+};
+
+export type PredictionMetadata = {
+  norms: {
+    stds: BigFiveTraits;
+    means: BigFiveTraits;
+    source: string;
+    version: string;
+    computed_at: string;
+  };
+
+  cutoffs: {
+    avg_hi: number;
+    low_hi: number;
+    high_hi: number;
+    very_low: number;
+    very_high: number;
+  };
+
+  file_path: string;
+  streaming: boolean;
+
+  multimodal: {
+    has_assessment: boolean;
+    has_transcript: boolean;
+    frames_analyzed: number;
+    transcript_length: number;
+    questions_answered: number;
+  };
+
+  prediction: {
+    model: string;
+    device: string;
+    backbone: string;
+    tta_used: boolean;
+    image_size: number;
+    num_frames_used: number;
+    aggregation_method: string;
+    num_frames_extracted: number;
+    selected_frame_indices: number[];
+    per_trait_std_all_frames: BigFiveTraits;
+  };
+
+  preprocessing: {
+    fps: number;
+    path: string;
+    width: number;
+    height: number;
+    method: string;
+    face_bbox: {
+      x: number;
+      y: number;
+      width: number;
+      height: number;
+    };
+    file_path: string;
+    file_type: string;
+    frame_count: number;
+    face_detected: boolean;
+    original_size: [number, number];
+    processed_size: [number, number];
+    duration_seconds: number;
+    face_image_base64: string;
+    face_detection_rate: number;
+    faces_detected_count: number;
+    num_frames_extracted: number;
+    num_frames_processed: number;
+    num_frames_requested: number;
+    preprocessing_method: string;
+    skip_no_face_enabled: boolean;
+    frames_skipped_no_face: number;
+  };
+};
+
+export type BigFiveTraits = {
+  openness: number;
+  neuroticism: number;
+  extraversion: number;
+  agreeableness: number;
+  conscientiousness: number;
+};
+export type TReportData = {
+  id: string;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    avatar_url: string;
+    is_admin: number;
+  };
+  analysis_id: string;
+  name: string;
+  share_token: null | string;
+  full_result: PredictionResponse;
+};
+export type TBigFiveTraits = {
+  id: string;
+  share_token: string | null;
+  face_image_base64: string;
+  insights: Pick<PersonalityInsights, "title" | "description">;
+  predictions: PersonalityTraits;
 };

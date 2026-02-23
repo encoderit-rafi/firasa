@@ -1,5 +1,4 @@
 "use client";
-
 import {
   ArrowForward,
   Download,
@@ -168,7 +167,7 @@ export default function ScorePageClient() {
         </div>
       </div>
 
-      <ScoreReportView reportData={reportData} />
+      {reportData && <ScoreReportView reportData={reportData} />}
       <Dialog open={isOpenShare} onOpenChange={setIsOpenShare}>
         <DialogContent className="max-w-136 space-y-6">
           <DialogHeader>
