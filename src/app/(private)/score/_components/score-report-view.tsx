@@ -1,3 +1,4 @@
+// score-report-view.tsx
 "use client";
 
 import { ReactNode, useEffect, useState } from "react";
@@ -11,6 +12,8 @@ import SimilarityToFamous from "./similarity-to-famous";
 import SummaryAndExports from "./summary-and-exports";
 import AddOns from "./add-ons";
 import UnlockFullStory from "./unlock-full-story";
+
+const EXCLUDED_FROM_PDF = ["exports", "add-ons"];
 
 interface ScoreReportViewProps {
   reportData: any;
@@ -38,13 +41,6 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: <BigScores data={reportData} />,
         },
-        // {
-        //   id: "unlock-full-story",
-        //   label: "",
-        //   title: "",
-        //   is_visible: true,
-        //   component: <UnlockFullStory />,
-        // },
         {
           id: "story",
           label: "Unique story",
@@ -136,7 +132,9 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           label: "Exports",
           title: "Summary & exports",
           is_visible: true,
-          component: <SummaryAndExports />,
+          component: (
+            <SummaryAndExports reportData={reportData.full_result} />
+          ),
         },
         {
           id: "add-ons",
@@ -180,6 +178,13 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
     return () => observer.disconnect();
   }, [sectionData]);
 
+  const pdfSections = sectionData.filter(
+    (s) => !EXCLUDED_FROM_PDF.includes(s.id)
+  );
+  const nonPdfSections = sectionData.filter((s) =>
+    EXCLUDED_FROM_PDF.includes(s.id)
+  );
+
   return (
     <>
       <div className="border-bottom bg-background sticky top-16 z-10 overflow-hidden">
@@ -200,15 +205,25 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           </TabsList>
         </Tabs>
       </div>
+
+      {/* Sections included in PDF */}
       <div id="pdf-content" className="space-y-16 px-4 lg:py-16">
-        {sectionData?.map(({ id, title, component }) => {
-          return (
-            <ScorePageSection id={id} key={id}>
-              {title && <ScorePageSectionTitle>{title}</ScorePageSectionTitle>}
-              {component}
-            </ScorePageSection>
-          );
-        })}
+        {pdfSections.map(({ id, title, component }) => (
+          <ScorePageSection id={id} key={id}>
+            {title && <ScorePageSectionTitle>{title}</ScorePageSectionTitle>}
+            {component}
+          </ScorePageSection>
+        ))}
+      </div>
+
+      {/* Sections excluded from PDF */}
+      <div className="space-y-16 px-4 lg:py-16">
+        {nonPdfSections.map(({ id, title, component }) => (
+          <ScorePageSection id={id} key={id}>
+            {title && <ScorePageSectionTitle>{title}</ScorePageSectionTitle>}
+            {component}
+          </ScorePageSection>
+        ))}
       </div>
     </>
   );
