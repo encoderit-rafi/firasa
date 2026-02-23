@@ -195,7 +195,7 @@ function ProHeading() {
 }
 export default function Pricing() {
   return (
-    <section className="section">
+    <section id="pricing" className="section">
       <h6 className="section-label">Pricing</h6>
       <h2 className="section-title">Start free. Go deeper with pro.</h2>
       <p className="section-description">

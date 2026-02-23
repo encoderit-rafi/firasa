@@ -26,7 +26,7 @@ const solutions = [
 ];
 export default function Solutions() {
   return (
-    <section className="section bg-error-container/16">
+    <section id="solution" className="section bg-error-container/16">
       <h6 className="section-label">Solutions</h6>
       <h2 className="section-title">
         {" "}

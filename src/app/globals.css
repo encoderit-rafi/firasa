@@ -220,7 +220,7 @@
     scroll-padding-top: 110px;
   }
 
-  * body {
+  body {
     @apply font-roboto text-on-surface bg-white antialiased;
   }
 
