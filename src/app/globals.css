@@ -480,6 +480,9 @@
     display: none;
   }
 }
+.clip-triangle {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
 @utility clip-triangle {
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }

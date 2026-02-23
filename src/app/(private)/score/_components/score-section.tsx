@@ -71,7 +71,7 @@ export default function ScoreSection({ full_result, metrics }: Props) {
                   <CarouselItem className="" key={index}>
                     <Card
                       className={cn(
-                        "size-[240px] overflow-hidden border-none bg-cover bg-no-repeat p-0 shadow-none",
+                        "size-60 overflow-hidden border-none bg-cover bg-no-repeat p-0 shadow-none",
                       )}
                       style={{
                         backgroundImage: `url(${preprocessing.face_image_base64})`,
