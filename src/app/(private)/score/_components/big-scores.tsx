@@ -46,6 +46,7 @@ import {
   TwitterShareButton,
 } from "react-share";
 import { LinkedinFilled } from "@/assets/icons/LinkedinFilled";
+import Link from "next/link";
 // type PersonalityType = {
 //   name: string;
 //   value: number | string;
@@ -153,6 +154,13 @@ export function ScorePagePersonalityAccordion({
           </DialogHeader>
           <div className="border-error-container rounded-lg border bg-white p-6 text-wrap whitespace-pre-line">
             {dialogData.description}
+            Show more at:{" "}
+            <Link
+              href={dialogData.link}
+              className="bg-gradient bg-clip-text text-transparent"
+            >
+              {dialogData.link}
+            </Link>
           </div>
 
           <div className="flex-center mb-0 gap-3">

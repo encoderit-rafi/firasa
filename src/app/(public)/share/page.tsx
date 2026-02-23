@@ -1,53 +1,60 @@
-"use client";
-
-import { useSearchParams } from "next/navigation";
+import { Metadata } from "next";
+import { API_BASE_URL } from "@/consts";
+import SharePageClient from "./_components/share-page-client";
 import { Suspense } from "react";
-import { useQueryGetSharedReport } from "./_api/use-query-get-shared-report";
-import ScoreReportView from "../../(private)/score/_components/score-report-view";
-import { Loader2 } from "lucide-react";
 
-function SharePageContent() {
-  const searchParams = useSearchParams();
-  const shareToken = searchParams.get("share_token");
-  const {
-    data: reportData,
-    isLoading,
-    error,
-  } = useQueryGetSharedReport(shareToken);
+type Props = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export async function generateMetadata({
+  searchParams,
+}: Props): Promise<Metadata> {
+  const params = await searchParams;
+  const shareToken = params.share_token as string;
 
   if (!shareToken) {
-    return (
-      <div className="flex-center h-screen w-full">
-        <p className="text-xl">Invalid or missing share token.</p>
-      </div>
-    );
+    return {
+      title: "Shared Personality Report - FIRASA",
+    };
   }
 
-  if (isLoading) {
-    return (
-      <div className="flex-center h-screen w-full">
-        <Loader2 className="animate-spin" />
-      </div>
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/api/public/reports/${shareToken}`,
     );
+
+    if (response.ok) {
+      const { data: report } = await response.json();
+      return {
+        title: `${report.name || "Personality Report"} - FIRASA`,
+        description: `Check out the personality analysis for ${report.name}. Built on real psychology, powered by AI.`,
+        openGraph: {
+          title: `${report.name || "Personality Report"} - FIRASA`,
+          description: `Check out the personality analysis for ${report.name}. Built on real psychology, powered by AI.`,
+          images: ["/og-image.png"], // Suggesting to use a dynamic image if backend provides one
+        },
+        twitter: {
+          card: "summary_large_image",
+          title: `${report.name || "Personality Report"} - FIRASA`,
+          description: `Check out the personality analysis for ${report.name}. Built on real psychology, powered by AI.`,
+          images: ["/og-image.png"],
+        },
+      };
+    }
+  } catch (error) {
+    console.error("Error fetching metadata for share page:", error);
   }
 
-  if (error || !reportData) {
-    return (
-      <div className="flex-center h-screen w-full">
-        <p className="text-error text-xl">
-          Failed to load shared report. It may have been set to private.
-        </p>
-      </div>
-    );
-  }
-
-  return <ScoreReportView reportData={reportData} />;
+  return {
+    title: "Shared Personality Report - FIRASA",
+  };
 }
 
 export default function SharePage() {
   return (
     <Suspense>
-      <SharePageContent />
+      <SharePageClient />
     </Suspense>
   );
 }
