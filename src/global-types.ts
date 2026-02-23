@@ -5,3 +5,234 @@ export type PersonalityType = {
 };
 
 export type PersonalityScores = PersonalityType[];
+
+export type PredictionResponse = {
+  success: boolean;
+  predictions: PersonalityTraits;
+  interpretations?: TraitInterpretations;
+  summary?: ProfileSummary;
+  insights?: PersonalityInsights;
+  relationship_metrics?: RelationshipMetrics;
+  work_metrics?: WorkMetrics;
+  creativity_metrics?: CreativityMetrics;
+  stress_metrics?: StressMetrics;
+  openness_metrics?: OpennessMetrics;
+  learning_metrics?: LearningMetrics;
+  audio_metrics?: AudioMetrics; // Video only
+  transcript?: string; // Video only
+  report_error?: string;
+  // metadata?: PredictionMetadata;
+  metadata?: any;
+  timestamp: string; // ISO 8601
+};
+export type PersonalityTraits = {
+  openness: number; // 0.0 to 1.0
+  conscientiousness: number;
+  extraversion: number;
+  agreeableness: number;
+  neuroticism: number;
+};
+export type TraitInterpretations = {
+  openness: TraitInterpretation;
+  conscientiousness: TraitInterpretation;
+  extraversion: TraitInterpretation;
+  agreeableness: TraitInterpretation;
+  neuroticism: TraitInterpretation;
+};
+
+export type TraitInterpretation = {
+  raw_score: number; // 0.0 to 1.0
+  t_score: number; // ~20-80, mean=50, std=10
+  percentile: number; // 0-100
+  category: string; // "Very Low" | "Low" | "Average" | "High" | "Very High"
+  label: string; // e.g., "Highly curious and imaginative"
+  interpretation: string; // Detailed narrative (100+ words)
+};
+export type ProfileSummary = {
+  category_distribution: {
+    "Very Low": number;
+    Low: number;
+    Average: number;
+    High: number;
+    "Very High": number;
+  };
+  dominant_traits: string[]; // Traits with T ≥ 60
+  subdued_traits: string[]; // Traits with T ≤ 40
+  mean_t_score: number; // Average T-score
+  total_traits: number; // Always 5
+};
+export type PersonalityInsights = {
+  title: string; // e.g., "The Creative Strategist"
+  tags: TraitTag[]; // 3 trait tags
+  description: string; // 1-2 sentence summary
+  quote: string; // Personal motto (10-15 words)
+  story: string; // Narrative (100-150 words)
+  story_traits: TraitTag[]; // 6-8 "You are..." descriptors
+};
+
+export type TraitTag = {
+  emoji: string; // e.g., ":dart:"
+  label: string; // e.g., "Purpose-driven"
+};
+export type RelationshipMetrics = {
+  metrics: {
+    trust_signaling: DerivedMetric;
+    social_openness: DerivedMetric;
+    empathic_disposition: DerivedMetric;
+    conflict_avoidance: DerivedMetric;
+    harmony_seeking: DerivedMetric;
+    anxiety_avoidance: DerivedMetric;
+  };
+  coach_recommendation: string; // 50-100 words
+  actionable_steps: ActionableStep[]; // 6 steps
+
+  // Accordion fields
+  snapshot_insight?: string;
+  behavioral_patterns?: BehavioralPattern[];
+  how_others_experience?: string;
+  strength?: StrengthTradeoff;
+  tradeoff?: StrengthTradeoff;
+  growth_lever?: string;
+  suitable_for?: string[]; // e.g., ["Team Environments", "Client-Facing Roles"]
+};
+export type WorkMetrics = {
+  metrics: {
+    persistence: DerivedMetric;
+    focus_attention: DerivedMetric;
+    structure_preference: DerivedMetric;
+    risk_aversion: DerivedMetric;
+  };
+  coach_recommendation: string;
+  actionable_steps: ActionableStep[];
+
+  // Accordion fields (same as RelationshipMetrics)
+  snapshot_insight?: string;
+  behavioral_patterns?: BehavioralPattern[];
+  how_others_experience?: string;
+  strength?: StrengthTradeoff;
+  tradeoff?: StrengthTradeoff;
+  growth_lever?: string;
+  suitable_for?: string[];
+};
+export type CreativityMetrics = {
+  metrics: {
+    ideation_power: DerivedMetric;
+    openness_to_novelty: DerivedMetric;
+    originality_index: DerivedMetric;
+    attention_to_detail_creative: DerivedMetric;
+  };
+  coach_recommendation: string;
+  actionable_steps: ActionableStep[];
+
+  // Accordion fields (same structure)
+  snapshot_insight?: string;
+  behavioral_patterns?: BehavioralPattern[];
+  how_others_experience?: string;
+  strength?: StrengthTradeoff;
+  tradeoff?: StrengthTradeoff;
+  growth_lever?: string;
+  suitable_for?: string[];
+};
+export type StressMetrics = {
+  metrics: {
+    stress_indicators: DerivedMetric;
+    emotional_regulation: DerivedMetric;
+    resilience_score: DerivedMetric;
+  };
+  coach_recommendation: string;
+  actionable_steps: ActionableStep[];
+
+  // Accordion fields (same structure)
+  snapshot_insight?: string;
+  behavioral_patterns?: BehavioralPattern[];
+  how_others_experience?: string;
+  strength?: StrengthTradeoff;
+  tradeoff?: StrengthTradeoff;
+  growth_lever?: string;
+  suitable_for?: string[];
+};
+export type OpennessMetrics = {
+  metrics: {
+    openness_to_experience: DerivedMetric;
+    novelty_seeking: DerivedMetric;
+    risk_tolerance_adventure: DerivedMetric;
+    planning_preference: DerivedMetric;
+  };
+  coach_recommendation: string;
+  actionable_steps: ActionableStep[];
+
+  // Accordion fields (same structure)
+  snapshot_insight?: string;
+  behavioral_patterns?: BehavioralPattern[];
+  how_others_experience?: string;
+  strength?: StrengthTradeoff;
+  tradeoff?: StrengthTradeoff;
+  growth_lever?: string;
+  suitable_for?: string[];
+};
+export type LearningMetrics = {
+  metrics: {
+    intellectual_curiosity: DerivedMetric;
+    reflective_tendency: DerivedMetric;
+    structured_learning_preference: DerivedMetric;
+    adaptability_index: DerivedMetric;
+  };
+  coach_recommendation: string;
+  actionable_steps: ActionableStep[];
+
+  // Accordion fields (same structure)
+  snapshot_insight?: string;
+  behavioral_patterns?: BehavioralPattern[];
+  how_others_experience?: string;
+  strength?: StrengthTradeoff;
+  tradeoff?: StrengthTradeoff;
+  growth_lever?: string;
+  suitable_for?: string[];
+};
+export type AudioMetrics = {
+  indicators: {
+    vocal_extraversion: VocalIndicator;
+    vocal_stability: VocalIndicator;
+    vocal_confidence: VocalIndicator;
+    vocal_warmth: VocalIndicator;
+  };
+  interpretations: {
+    pitch: string;
+    expressiveness: string;
+    volume: string;
+    pace: string;
+    brightness: string;
+    stability: string;
+  };
+  coach_recommendation: string;
+  actionable_steps: ActionableStep[];
+};
+
+export type VocalIndicator = {
+  score: number; // 0-100
+  level: string; // "Low" | "Moderate" | "High"
+  signals: string[]; // e.g., ["projects voice confidently", "speaks rapidly"]
+};
+export type DerivedMetric = {
+  score: number; // 0-100 percentage
+  level: string; // "Low" | "Moderate" | "High"
+  description: string; // Personalized description based on score
+};
+// *Level Thresholds:*
+// | Level | Score Range |
+// |-------|-------------|
+// | Low | 0-35 |
+// | Moderate | 36-64 |
+// | High | 65-100 |
+export type ActionableStep = {
+  emoji: string; // e.g., ":dart:"
+  text: string; // e.g., "Set small daily goals"
+};
+export type BehavioralPattern = {
+  title: string; // e.g., "Active Listener"
+  description: string; // e.g., "You naturally pick up on emotional cues..."
+};
+export type StrengthTradeoff = {
+  title: string; // e.g., "Empathy Champion"
+  description: string; // e.g., "Your ability to understand others..."
+};

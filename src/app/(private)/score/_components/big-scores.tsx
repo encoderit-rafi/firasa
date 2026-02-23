@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScorePageCard } from "./score-page-card";
 import ScorePageShareButton from "./score-page-share-button";
 import ScorePageContainer from "./score-page-container";
@@ -47,6 +47,8 @@ import {
 } from "react-share";
 import { LinkedinFilled } from "@/assets/icons/LinkedinFilled";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useMutationToggleSharing } from "../_api";
 // type PersonalityType = {
 //   name: string;
 //   value: number | string;
@@ -90,14 +92,36 @@ const descriptions = [
 ];
 export function ScorePagePersonalityAccordion({
   data,
+  shareToken,
+  toggleSharing,
 }: {
   data: PersonalityType[];
+  shareToken?: string;
+  toggleSharing: () => Promise<any>;
 }) {
   const [dialogData, setDialogData] = useState({
     open: false,
     description: "",
     link: "",
   });
+
+  const sharePath = shareToken
+    ? `${window.location.origin}/share?share_token=${shareToken}`
+    : typeof window !== "undefined"
+      ? window.location.href
+      : "";
+
+  const handleShareClick = async (description: string) => {
+    if (!shareToken) {
+      await toggleSharing();
+    }
+    setDialogData({
+      open: true,
+      description,
+      link: window.location.origin,
+    });
+  };
+
   return (
     <Accordion type="single" collapsible defaultValue={data[0].name}>
       {data.map((personality, index) => (
@@ -133,12 +157,9 @@ export function ScorePagePersonalityAccordion({
 
             <ShareButton
               onClick={() =>
-                setDialogData({
-                  open: true,
-                  description:
-                    "78% Openness (Moderate)\n\nWhat this means:\n🤝 You enjoy new ideas and perspectives\n🌿 You adapt well to change\n🧠 You value personal growth\n\nHow to increase:\n🌍 Explore new inputs\n🔍 Challenge assumptions\n✏️ Create without outcome",
-                  link: "https://firasa.ai",
-                })
+                handleShareClick(
+                  "78% Openness (Moderate)\n\nWhat this means:\n🤝 You enjoy new ideas and perspectives\n🌿 You adapt well to change\n🧠 You value personal growth\n\nHow to increase:\n🌍 Explore new inputs\n🔍 Challenge assumptions\n✏️ Create without outcome",
+                )
               }
             />
           </AccordionContent>
@@ -164,18 +185,18 @@ export function ScorePagePersonalityAccordion({
           </div>
 
           <div className="flex-center mb-0 gap-3">
-            <TwitterShareButton url="">
+            <TwitterShareButton url={sharePath}>
               <Button variant={"icon-muted"}>
                 <X />
               </Button>
             </TwitterShareButton>
-            <LinkedinShareButton url="">
+            <LinkedinShareButton url={sharePath}>
               <Button variant={"icon-muted"}>
                 <LinkedinFilled />
               </Button>
             </LinkedinShareButton>
             <FacebookShareButton
-              url="firasa.ai"
+              url={sharePath}
               content={dialogData.description}
             >
               <Button variant={"icon-muted"}>
@@ -208,6 +229,34 @@ export default function BigScores({ data }: Props) {
     description: "",
     link: "",
   });
+
+  const [fullPath, setFullPath] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setFullPath(window.location.href);
+    }
+  }, []);
+
+  const searchParams = useSearchParams();
+  const analysisId = searchParams.get("analysis_id");
+  const { mutateAsync: toggleSharing } = useMutationToggleSharing(analysisId);
+
+  const sharePath = data?.share_token
+    ? `${window.location.origin}/share?share_token=${data.share_token}`
+    : fullPath;
+
+  const handleShareClick = async (description: string) => {
+    if (!data?.share_token) {
+      await toggleSharing();
+    }
+    setDialogData({
+      open: true,
+      description,
+      link: window.location.origin,
+    });
+  };
+
   return (
     <>
       <ScorePageCard className="xl:rounded-tr-none">
@@ -215,12 +264,9 @@ export default function BigScores({ data }: Props) {
           className="max-xl:hidden"
           variant={"absolute"}
           onClick={() =>
-            setDialogData({
-              open: true,
-              description:
-                "78% Openness (Moderate)\n\nWhat this means:\n🤝 You enjoy new ideas and perspectives\n🌿 You adapt well to change\n🧠 You value personal growth\n\nHow to increase:\n🌍 Explore new inputs\n🔍 Challenge assumptions\n✏️ Create without outcome",
-              link: "https://firasa.ai",
-            })
+            handleShareClick(
+              "78% Openness (Moderate)\n\nWhat this means:\n🤝 You enjoy new ideas and perspectives\n🌿 You adapt well to change\n🧠 You value personal growth\n\nHow to increase:\n🌍 Explore new inputs\n🔍 Challenge assumptions\n✏️ Create without outcome",
+            )
           }
         />
         <ScorePageContainer
@@ -258,16 +304,34 @@ export default function BigScores({ data }: Props) {
         </ScorePageContainer>
       </ScorePageCard>
       <ScorePageCard className="xl:rounded-tr-none">
-        <ShareButton className="max-xl:hidden" variant={"absolute"} />
+        <ShareButton
+          className="max-xl:hidden"
+          variant={"absolute"}
+          onClick={() =>
+            handleShareClick(
+              "Personality Radar Chart analysis showing Big 5 traits Balance.",
+            )
+          }
+        />
         <ScorePageContainer
           type="left"
           className="flex h-110.25 flex-col items-center"
         >
           <CustomRadarChart data={personality_scores} />
-          <ShareButton />
+          <ShareButton
+            onClick={() =>
+              handleShareClick(
+                "Personality Radar Chart analysis showing Big 5 traits Balance.",
+              )
+            }
+          />
         </ScorePageContainer>
         <ScorePageContainer type="right">
-          <ScorePagePersonalityAccordion data={personality_scores} />
+          <ScorePagePersonalityAccordion
+            data={personality_scores}
+            shareToken={data?.share_token}
+            toggleSharing={toggleSharing}
+          />
         </ScorePageContainer>
       </ScorePageCard>
       <ScorePageCard className="flex-center flex-col gap-8 divide-none">
@@ -305,12 +369,9 @@ export default function BigScores({ data }: Props) {
                           variant={"icon"}
                           className="size-10"
                           onClick={() =>
-                            setDialogData({
-                              open: true,
-                              description:
-                                "78% Openness (Moderate)\n\nWhat this means:\n🤝 You enjoy new ideas and perspectives\n🌿 You adapt well to change\n🧠 You value personal growth\n\nHow to increase:\n🌍 Explore new inputs\n🔍 Challenge assumptions\n✏️ Create without outcome",
-                              link: "https://firasa.ai",
-                            })
+                            handleShareClick(
+                              "78% Openness (Moderate)\n\nWhat this means:\n🤝 You enjoy new ideas and perspectives\n🌿 You adapt well to change\n🧠 You value personal growth\n\nHow to increase:\n🌍 Explore new inputs\n🔍 Challenge assumptions\n✏️ Create without outcome",
+                            )
                           }
                         >
                           <Share className="size-5" />
@@ -350,18 +411,18 @@ export default function BigScores({ data }: Props) {
           </div>
 
           <div className="flex-center mb-0 gap-3">
-            <TwitterShareButton url="">
+            <TwitterShareButton url={sharePath}>
               <Button variant={"icon-muted"}>
                 <X />
               </Button>
             </TwitterShareButton>
-            <LinkedinShareButton url="">
+            <LinkedinShareButton url={sharePath}>
               <Button variant={"icon-muted"}>
                 <LinkedinFilled />
               </Button>
             </LinkedinShareButton>
             <FacebookShareButton
-              url="firasa.ai"
+              url={sharePath}
               content={dialogData.description}
             >
               <Button variant={"icon-muted"}>
