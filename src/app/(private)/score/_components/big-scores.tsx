@@ -255,7 +255,7 @@ export default function BigScores({ data }: Props) {
   ${personality_scores.map((score) => `${score.name}: ${score.value}%`).join("\n")}
   \nShow more at: ${sharePath}`;
 
-  const handleShareClick = async (description: string) => {
+  const handleShareClick = async () => {
     if (!share_token) {
       await toggleSharing();
     }
@@ -272,11 +272,7 @@ export default function BigScores({ data }: Props) {
         <ShareButton
           className="max-xl:hidden"
           variant={"absolute"}
-          onClick={() =>
-            handleShareClick(
-              "78% Openness (Moderate)\n\nWhat this means:\n🤝 You enjoy new ideas and perspectives\n🌿 You adapt well to change\n🧠 You value personal growth\n\nHow to increase:\n🌍 Explore new inputs\n🔍 Challenge assumptions\n✏️ Create without outcome",
-            )
-          }
+          onClick={handleShareClick}
         />
         <ScorePageContainer
           type="left"
@@ -314,24 +310,14 @@ export default function BigScores({ data }: Props) {
         <ShareButton
           className="max-xl:hidden"
           variant={"absolute"}
-          onClick={() =>
-            handleShareClick(
-              "Personality Radar Chart analysis showing Big 5 traits Balance.",
-            )
-          }
+          onClick={handleShareClick}
         />
         <ScorePageContainer
           type="left"
           className="flex h-110.25 flex-col items-center"
         >
           <CustomRadarChart data={personality_scores} />
-          <ShareButton
-            onClick={() =>
-              handleShareClick(
-                "Personality Radar Chart analysis showing Big 5 traits Balance.",
-              )
-            }
-          />
+          <ShareButton onClick={handleShareClick} />
         </ScorePageContainer>
         <ScorePageContainer type="right">
           <ScorePagePersonalityAccordion
@@ -375,11 +361,7 @@ export default function BigScores({ data }: Props) {
                         <Button
                           variant={"icon"}
                           className="size-10"
-                          onClick={() =>
-                            handleShareClick(
-                              "78% Openness (Moderate)\n\nWhat this means:\n🤝 You enjoy new ideas and perspectives\n🌿 You adapt well to change\n🧠 You value personal growth\n\nHow to increase:\n🌍 Explore new inputs\n🔍 Challenge assumptions\n✏️ Create without outcome",
-                            )
-                          }
+                          onClick={handleShareClick}
                         >
                           <Share className="size-5" />
                         </Button>
