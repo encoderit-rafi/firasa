@@ -19,15 +19,15 @@ const nav_items: NavItemType[] = [
   {
     label: (
       <span className="flex-center">
-        Descover
+        Discover
         <ArrowOutward />
       </span>
     ),
-    href: "#descover",
+    href: "/#discover",
   },
-  { label: "How it works", href: "#how-it-works" },
-  { label: "Solution", href: "#solution" },
-  { label: "Pricing", href: "#pricing" },
+  { label: "How it works", href: "/#how-it-works" },
+  { label: "Solution", href: "/#solution" },
+  { label: "Pricing", href: "/#pricing" },
 ];
 
 function NavListItem({ item }: { item: NavItemType }) {
