@@ -13,9 +13,9 @@ import CircularProgress from "@/components/charts/CircularProgress";
 
 export default function SimilarityToFamous() {
   return (
-    <ScorePageCard>
+    <ScorePageCard className="overflow-hidden">
       <Carousel
-        className="max-w-276 mx-auto pr-8"
+        className="mx-auto max-w-276 pr-8"
         opts={{
           align: "start",
         }}
@@ -24,9 +24,9 @@ export default function SimilarityToFamous() {
           <CarouselContent>
             {Array.from({ length: 10 }).map((_, index) => (
               <CarouselItem className="" key={index}>
-                <Card className="border-none size-83 shadow-none bg-[url('https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-no-repeat p-0 overflow-hidden">
-                  <CardContent className="size-full  bg-linear-to-t from-black/80 to-transparent p-0 flex flex-col items-center justify-between">
-                    <CardHeader className="text-white title-medium-emphasized w-full text-center bg-linear-to-r from-error to-transparent px-3 py-1">
+                <Card className="size-83 overflow-hidden border-none bg-[url('https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-no-repeat p-0 shadow-none">
+                  <CardContent className="flex size-full flex-col items-center justify-between bg-linear-to-t from-black/80 to-transparent p-0">
+                    <CardHeader className="title-medium-emphasized from-error w-full bg-linear-to-r to-transparent px-3 py-1 text-center text-white">
                       Keanu Reeves
                     </CardHeader>
                     <div className="pb-3">
@@ -42,7 +42,7 @@ export default function SimilarityToFamous() {
             ))}
           </CarouselContent>
         </div>
-        <div className="px-2 my-8">
+        <div className="my-8 px-2">
           <CarouselIndicator />
         </div>
         <div className="flex-center gap-2">

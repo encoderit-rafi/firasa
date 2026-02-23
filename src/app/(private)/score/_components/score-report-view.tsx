@@ -37,13 +37,13 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: <BigScores data={reportData} />,
         },
-        {
-          id: "unlock-full-story",
-          label: "  ",
-          title: "",
-          is_visible: true,
-          component: <UnlockFullStory />,
-        },
+        // {
+        //   id: "unlock-full-story",
+        //   label: "  ",
+        //   title: "",
+        //   is_visible: true,
+        //   component: <UnlockFullStory />,
+        // },
         {
           id: "story",
           label: "Unique story",
@@ -167,7 +167,7 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
         </Tabs>
       </div>
 
-      <div className="space-y-16 px-4 lg:py-16">
+      <div id="pdf-content" className="space-y-16 px-4 lg:py-16">
         {sectionData?.map(({ id, title, component }) => {
           return (
             <ScorePageSection id={id} key={id}>
