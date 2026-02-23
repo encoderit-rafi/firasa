@@ -17,6 +17,7 @@ interface ScoreReportViewProps {
 }
 
 export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
+  const [activeTab, setActiveTab] = useState("score");
   const [sectionData, setSectionData] = useState<
     {
       id: string;
@@ -29,7 +30,7 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
 
   useEffect(() => {
     if (reportData) {
-      setSectionData([
+      const data = [
         {
           id: "score",
           label: "Big 5 scores",
@@ -37,13 +38,13 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: <BigScores data={reportData} />,
         },
-        {
-          id: "unlock-full-story",
-          label: "  ",
-          title: "",
-          is_visible: true,
-          component: <UnlockFullStory />,
-        },
+        // {
+        //   id: "unlock-full-story",
+        //   label: "",
+        //   title: "",
+        //   is_visible: true,
+        //   component: <UnlockFullStory />,
+        // },
         {
           id: "story",
           label: "Unique story",
@@ -144,19 +145,52 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: <AddOns />,
         },
-      ]);
+      ];
+      setSectionData(data);
     }
   }, [reportData]);
 
+  useEffect(() => {
+    if (sectionData.length === 0) return;
+
+    const observerOptions = {
+      root: null,
+      rootMargin: "-20% 0px -70% 0px",
+      threshold: 0,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveTab(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      observerCallback,
+      observerOptions,
+    );
+
+    sectionData.forEach((section) => {
+      const element = document.getElementById(section.id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, [sectionData]);
+
   return (
     <>
-      <div className="border-bottom bg-background sticky top-14 z-10 overflow-hidden">
+      <div className="border-bottom bg-background sticky top-16 z-10 overflow-hidden">
         <Tabs
-          defaultValue="overview"
+          value={activeTab}
+          onValueChange={setActiveTab}
           className="container-xl no-scrollbar overflow-x-auto px-3 xl:px-6"
         >
           <TabsList variant={"line"} className="">
             {sectionData?.map(({ id, label, is_visible }) => {
+              if (!label.trim()) return null;
               return (
                 <TabsTrigger key={id} value={id} disabled={!is_visible}>
                   <Link href={`#${id}`}>{label}</Link>
@@ -166,12 +200,11 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           </TabsList>
         </Tabs>
       </div>
-
-      <div className="space-y-16 px-4 lg:py-16">
+      <div id="pdf-content" className="space-y-16 px-4 lg:py-16">
         {sectionData?.map(({ id, title, component }) => {
           return (
             <ScorePageSection id={id} key={id}>
-              <ScorePageSectionTitle>{title}</ScorePageSectionTitle>
+              {title && <ScorePageSectionTitle>{title}</ScorePageSectionTitle>}
               {component}
             </ScorePageSection>
           );
