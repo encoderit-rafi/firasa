@@ -21,7 +21,8 @@ export default async function middleware(req: NextRequest) {
     pathname === "/sign-in" ||
     pathname === "/sign-up" ||
     pathname === "/forgot-password" ||
-    pathname === "/verify-otp";
+    pathname === "/verify-otp" ||
+    pathname.startsWith("/auth/social");
 
   const isPublicPage = pathname === "/" || isAuthPage || pathname === "/share";
 
