@@ -1,48 +1,54 @@
 "use client";
+import { useEffect, useState } from "react";
 import { Logo } from "@/assets/Logo";
-import { ReactNode } from "react";
-import { Button, buttonVariants } from "./button";
-
-import { ArrowOutward, Menu, VideoCam } from "@/assets/icons";
+import { Button } from "./button";
+import { ArrowOutward, Menu } from "@/assets/icons";
 import Translation from "./translation";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { useSession } from "next-auth/react";
 import SignIn from "./sign-in";
 import UploadOrRecordVideo from "./upload-or-record-video";
+
 export type NavItemType = {
-  label: ReactNode;
+  label: string;
   href: string;
 };
+
 const nav_items: NavItemType[] = [
-  {
-    label: (
-      <span className="flex-center">
-        Discover
-        <ArrowOutward />
-      </span>
-    ),
-    href: "/#discover",
-  },
+  { label: "Discover", href: "/#discover" },
   { label: "How it works", href: "/#how-it-works" },
   { label: "Solution", href: "/#solution" },
   { label: "Pricing", href: "/#pricing" },
 ];
 
-function NavListItem({ item }: { item: NavItemType }) {
+function NavListItem({
+  item,
+  isActive,
+}: {
+  item: NavItemType;
+  isActive: boolean;
+}) {
   return (
     <li key={item.href} className="body-large-primary text-neutral-10">
-      <Link href={item.href}>{item.label}</Link>
+      <Link href={item.href} className="flex-center">
+        {item.label}
+        {isActive && <ArrowOutward />}
+      </Link>
     </li>
   );
 }
-function NavList({ item }: { item: NavItemType[] }) {
+
+function NavList({ activeSection }: { activeSection: string }) {
   return (
     <nav className="hidden md:block">
       <ul className="flex-center gap-lg">
-        {item.map((item) => (
-          <NavListItem key={item.href} item={item} />
+        {nav_items.map((item) => (
+          <NavListItem
+            key={item.href}
+            item={item}
+            isActive={activeSection === item.href.replace("/#", "")}
+          />
         ))}
       </ul>
     </nav>
@@ -51,23 +57,49 @@ function NavList({ item }: { item: NavItemType[] }) {
 
 export default function Navbar() {
   const { data: session } = useSession();
+  const [activeSection, setActiveSection] = useState("");
+
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: "-50% 0px -50% 0px",
+      threshold: 0,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      observerCallback,
+      observerOptions,
+    );
+
+    const sections = ["discover", "how-it-works", "solution", "pricing"];
+    sections.forEach((id) => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="border-bottom sticky top-0 z-50 bg-white">
       <header className="container-xl px-base flex-between py-3">
         <div className="flex-center gap-lg">
           <Logo />
-          <NavList item={nav_items} />
+          <NavList activeSection={activeSection} />
         </div>
 
         {session?.user ? (
           <Link href="/profile">
             <Avatar className="border-blue size-13.5 border-4">
-              <AvatarImage
-                src="https://github.com/shadcn.png"
-                alt="@shadcn"
-                // className="grayscale"
-              />
+              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </Link>
