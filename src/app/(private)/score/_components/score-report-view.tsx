@@ -85,6 +85,8 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: (
             <ScoreSection
+              title="Relationship"
+              shareToken={share_token}
               full_result={reportData.full_result}
               metrics={reportData.full_result.relationship_metrics}
             />
@@ -97,6 +99,8 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: (
             <ScoreSection
+              title="Work & Focus"
+              shareToken={share_token}
               full_result={reportData.full_result}
               metrics={reportData.full_result.work_metrics}
             />
@@ -109,6 +113,8 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: (
             <ScoreSection
+              title="Creativity & Ideation"
+              shareToken={share_token}
               full_result={reportData.full_result}
               metrics={reportData.full_result.creativity_metrics}
             />
@@ -121,6 +127,8 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: (
             <ScoreSection
+              title="Stress & Pressure"
+              shareToken={share_token}
               full_result={reportData.full_result}
               metrics={reportData.full_result.stress_metrics}
             />
@@ -133,6 +141,8 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: (
             <ScoreSection
+              title="Openness"
+              shareToken={share_token}
               full_result={reportData.full_result}
               metrics={reportData.full_result.openness_metrics}
             />
@@ -145,6 +155,8 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: (
             <ScoreSection
+              title="Learning"
+              shareToken={share_token}
               full_result={reportData.full_result}
               metrics={reportData.full_result.learning_metrics}
             />

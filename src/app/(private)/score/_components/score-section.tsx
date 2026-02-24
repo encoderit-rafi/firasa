@@ -15,6 +15,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import ShareButton from "@/components/ui/share-button";
+import { useScoreShare } from "../_hooks/use-score-share";
+import { ScoreShareDialog } from "./score-share-dialog";
 import { TriangleShape } from "@/assets/icons/TriangleShape";
 import { cn, handleFormatPredictions } from "@/lib/utils";
 import {
@@ -26,10 +28,17 @@ import {
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { CameraPlus, Share } from "@/assets/icons";
 type Props = {
+  title: string;
+  shareToken: string | null;
   full_result: any;
   metrics: any;
 };
-export default function ScoreSection({ full_result, metrics }: Props) {
+export default function ScoreSection({
+  title,
+  shareToken,
+  full_result,
+  metrics,
+}: Props) {
   const { metadata, predictions } = full_result;
   const { preprocessing } = metadata;
   const {
@@ -42,6 +51,17 @@ export default function ScoreSection({ full_result, metrics }: Props) {
     growth_lever,
     coach_recommendation,
   } = metrics;
+
+  const { isOpen, setIsOpen, shareData, handleShare, sharePath } =
+    useScoreShare(shareToken);
+
+  const handleShareClick = () => {
+    const share_text = `
+      ${title}\n
+      ${coach_recommendation}\n
+      \nShow more at: ${sharePath}`;
+    handleShare(share_text);
+  };
 
   const relationship_results = [
     {
@@ -82,7 +102,11 @@ export default function ScoreSection({ full_result, metrics }: Props) {
                           <Button variant={"icon"} className="size-10">
                             <CameraPlus className="size-5" />
                           </Button>
-                          <Button variant={"icon"} className="size-10">
+                          <Button
+                            variant={"icon"}
+                            className="size-10"
+                            onClick={handleShareClick}
+                          >
                             <Share className="size-5" />
                           </Button>
                         </CardHeader>
@@ -139,7 +163,7 @@ export default function ScoreSection({ full_result, metrics }: Props) {
                   <CarouselItem className="" key={index}>
                     <Card
                       className={cn(
-                        "size-[240px] overflow-hidden border-none bg-cover bg-no-repeat p-0 shadow-none",
+                        "size-60 overflow-hidden border-none bg-cover bg-no-repeat p-0 shadow-none",
                       )}
                       style={{
                         backgroundImage: `url(${preprocessing.face_image_base64})`,
@@ -150,7 +174,11 @@ export default function ScoreSection({ full_result, metrics }: Props) {
                           <Button variant={"icon"} className="size-10">
                             <CameraPlus className="size-5" />
                           </Button>
-                          <Button variant={"icon"} className="size-10">
+                          <Button
+                            variant={"icon"}
+                            className="size-10"
+                            onClick={handleShareClick}
+                          >
                             <Share className="size-5" />
                           </Button>
                         </CardHeader>
@@ -217,7 +245,11 @@ export default function ScoreSection({ full_result, metrics }: Props) {
   const relationship_scores = handleFormatPredictions(predictions);
   return (
     <ScorePageCard className="xl:rounded-tr-none">
-      <ShareButton className="max-xl:hidden" variant={"absolute"} />
+      <ShareButton
+        className="max-xl:hidden"
+        variant={"absolute"}
+        onClick={handleShareClick}
+      />
       <ScorePageContainer
         type="left"
         className="flex flex-col items-center gap-8"
@@ -256,7 +288,7 @@ export default function ScoreSection({ full_result, metrics }: Props) {
           </div>
         </ScorePageNotchCard>
 
-        <ShareButton />
+        <ShareButton onClick={handleShareClick} />
       </ScorePageContainer>
       <ScorePageContainer type="right">
         <Accordion
@@ -274,12 +306,18 @@ export default function ScoreSection({ full_result, metrics }: Props) {
               </AccordionTrigger>
               <AccordionContent className="space-y-6">
                 {result.component}
-                <ShareButton />
+                <ShareButton onClick={handleShareClick} />
               </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
       </ScorePageContainer>
+      <ScoreShareDialog
+        open={isOpen}
+        onOpenChange={setIsOpen}
+        shareData={shareData}
+        sharePath={sharePath}
+      />
     </ScorePageCard>
   );
 }

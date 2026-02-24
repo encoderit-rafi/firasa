@@ -39,21 +39,8 @@ import {
   PersonalityType,
   TBigFiveTraits,
 } from "@/global-types";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import {
-  FacebookShareButton,
-  LinkedinShareButton,
-  TwitterShareButton,
-} from "react-share";
-import { LinkedinFilled } from "@/assets/icons/LinkedinFilled";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { useMutationToggleSharing } from "../_api";
+import { useScoreShare } from "../_hooks/use-score-share";
+import { ScoreShareDialog } from "./score-share-dialog";
 
 const descriptions = [
   {
@@ -94,33 +81,15 @@ const descriptions = [
 export function ScorePagePersonalityAccordion({
   data,
   shareToken,
-  toggleSharing,
 }: {
   data: PersonalityType[];
   shareToken?: string;
-  toggleSharing: () => Promise<any>;
 }) {
-  const [dialogData, setDialogData] = useState({
-    open: false,
-    description: "",
-    link: "",
-  });
-
-  const sharePath = shareToken
-    ? `${window.location.origin}/share?share_token=${shareToken}`
-    : typeof window !== "undefined"
-      ? window.location.href
-      : "";
+  const { isOpen, setIsOpen, shareData, handleShare, sharePath } =
+    useScoreShare(shareToken ?? null);
 
   const handleShareClick = async (description: string) => {
-    if (!shareToken) {
-      await toggleSharing();
-    }
-    setDialogData({
-      open: true,
-      description,
-      link: window.location.origin,
-    });
+    handleShare(`${description}\n\nShow more at: ${sharePath}`);
   };
 
   return (
@@ -166,50 +135,12 @@ export function ScorePagePersonalityAccordion({
           </AccordionContent>
         </AccordionItem>
       ))}
-      <Dialog
-        open={dialogData.open}
-        onOpenChange={(open) => setDialogData({ ...dialogData, open })}
-      >
-        <DialogContent className="max-w-136 space-y-6">
-          <DialogHeader>
-            <DialogTitle>Make it a post</DialogTitle>
-          </DialogHeader>
-          <div className="border-error-container rounded-lg border bg-white p-6 text-wrap whitespace-pre-line">
-            {dialogData.description}
-            Show more at:{" "}
-            <Link
-              href={dialogData.link}
-              className="bg-gradient bg-clip-text text-transparent"
-            >
-              {dialogData.link}
-            </Link>
-          </div>
-
-          <div className="flex-center mb-0 gap-3">
-            <TwitterShareButton url={sharePath} title={dialogData.description}>
-              <Button variant={"icon-muted"}>
-                <X />
-              </Button>
-            </TwitterShareButton>
-            <LinkedinShareButton url={sharePath} title={dialogData.description}>
-              <Button variant={"icon-muted"}>
-                <LinkedinFilled />
-              </Button>
-            </LinkedinShareButton>
-            <FacebookShareButton url={sharePath}>
-              <Button variant={"icon-muted"}>
-                <FacebookFilled />
-              </Button>
-            </FacebookShareButton>
-            <Button
-              variant={"icon-muted"}
-              onClick={() => handleCopyLink(dialogData.description)}
-            >
-              <Copy />
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <ScoreShareDialog
+        open={isOpen}
+        onOpenChange={setIsOpen}
+        shareData={shareData}
+        sharePath={sharePath}
+      />
     </Accordion>
   );
 }
@@ -226,26 +157,9 @@ export default function BigScores({ data }: Props) {
   } = data;
   const personality_scores = handleFormatPredictions(predictions);
 
-  const [dialogData, setDialogData] = useState({
-    open: false,
-    data: "",
-  });
+  const { isOpen, setIsOpen, shareData, handleShare, sharePath } =
+    useScoreShare(share_token);
 
-  const [fullPath, setFullPath] = useState("");
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setFullPath(window.location.href);
-    }
-  }, []);
-
-  const searchParams = useSearchParams();
-  const analysisId = searchParams.get("analysis_id");
-  const { mutateAsync: toggleSharing } = useMutationToggleSharing(analysisId);
-
-  const sharePath = share_token
-    ? `${window.location.origin}/share?share_token=${share_token}`
-    : fullPath;
   const share_data = `
   ${title}\n
   ${description}\n
@@ -253,14 +167,7 @@ export default function BigScores({ data }: Props) {
   \nShow more at: ${sharePath}`;
 
   const handleShareClick = async () => {
-    if (!share_token) {
-      await toggleSharing();
-    }
-    setDialogData({
-      open: true,
-      data: share_data,
-      // link: window.location.origin,
-    });
+    handleShare(share_data);
   };
 
   return (
@@ -320,7 +227,6 @@ export default function BigScores({ data }: Props) {
           <ScorePagePersonalityAccordion
             data={personality_scores}
             shareToken={share_token ?? ""}
-            toggleSharing={toggleSharing}
           />
         </ScorePageContainer>
       </ScorePageCard>
@@ -384,43 +290,12 @@ export default function BigScores({ data }: Props) {
           </div>
         </Carousel>
       </ScorePageCard>
-      <Dialog
-        open={dialogData.open}
-        onOpenChange={(open) => setDialogData({ ...dialogData, open })}
-      >
-        <DialogContent className="max-w-136 space-y-6">
-          <DialogHeader>
-            <DialogTitle>Make it a post</DialogTitle>
-          </DialogHeader>
-          <div className="border-error-container rounded-lg border bg-white p-6 text-wrap whitespace-pre-line">
-            {dialogData.data}
-          </div>
-
-          <div className="flex-center mb-0 gap-3">
-            <TwitterShareButton url={sharePath} title={dialogData.data}>
-              <Button variant={"icon-muted"}>
-                <X />
-              </Button>
-            </TwitterShareButton>
-            <LinkedinShareButton url={sharePath} title={dialogData.data}>
-              <Button variant={"icon-muted"}>
-                <LinkedinFilled />
-              </Button>
-            </LinkedinShareButton>
-            <FacebookShareButton url={sharePath}>
-              <Button variant={"icon-muted"}>
-                <FacebookFilled />
-              </Button>
-            </FacebookShareButton>
-            <Button
-              variant={"icon-muted"}
-              onClick={() => handleCopyLink(dialogData.data)}
-            >
-              <Copy />
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <ScoreShareDialog
+        open={isOpen}
+        onOpenChange={setIsOpen}
+        shareData={shareData}
+        sharePath={sharePath}
+      />
     </>
   );
 }
