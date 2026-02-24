@@ -11,7 +11,11 @@ import ScoreSection from "./score-section";
 import SimilarityToFamous from "./similarity-to-famous";
 import SummaryAndExports from "./summary-and-exports";
 import AddOns from "./add-ons";
-import { TBigFiveTraits, TReportData } from "@/global-types";
+import {
+  TBigFiveTraits,
+  TReportData,
+  TUniqueStoryTraits,
+} from "@/global-types";
 import { handleFormatPredictions } from "@/lib/utils";
 
 const EXCLUDED_FROM_PDF = ["exports", "add-ons"];
@@ -34,6 +38,11 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
     face_image_base64,
     insights,
     predictions,
+  };
+  const unique_stories: TUniqueStoryTraits = {
+    id,
+    share_token,
+    insights,
   };
   const [sectionData, setSectionData] = useState<
     {
@@ -67,7 +76,7 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           label: "Unique story",
           title: "Your unique personality story",
           is_visible: true,
-          component: <UniqueStory data={reportData} />,
+          component: <UniqueStory data={unique_stories} />,
         },
         {
           id: "relationship",
@@ -153,9 +162,7 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           label: "Exports",
           title: "Summary & exports",
           is_visible: true,
-          component: (
-            <SummaryAndExports reportData={reportData.full_result} />
-          ),
+          component: <SummaryAndExports reportData={reportData.full_result} />,
         },
         {
           id: "add-ons",
@@ -200,10 +207,10 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
   }, [sectionData]);
 
   const pdfSections = sectionData.filter(
-    (s) => !EXCLUDED_FROM_PDF.includes(s.id)
+    (s) => !EXCLUDED_FROM_PDF.includes(s.id),
   );
   const nonPdfSections = sectionData.filter((s) =>
-    EXCLUDED_FROM_PDF.includes(s.id)
+    EXCLUDED_FROM_PDF.includes(s.id),
   );
 
   return (

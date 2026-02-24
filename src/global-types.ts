@@ -336,3 +336,8 @@ export type TBigFiveTraits = {
   insights: Pick<PersonalityInsights, "title" | "description">;
   predictions: PersonalityTraits;
 };
+export type TUniqueStoryTraits = {
+  id: string;
+  share_token: string | null;
+  insights: Pick<PersonalityInsights, "quote" | "story" | "story_traits">;
+};

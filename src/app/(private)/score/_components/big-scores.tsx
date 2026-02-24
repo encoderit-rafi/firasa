@@ -186,20 +186,17 @@ export function ScorePagePersonalityAccordion({
           </div>
 
           <div className="flex-center mb-0 gap-3">
-            <TwitterShareButton url={sharePath}>
+            <TwitterShareButton url={sharePath} title={dialogData.description}>
               <Button variant={"icon-muted"}>
                 <X />
               </Button>
             </TwitterShareButton>
-            <LinkedinShareButton url={sharePath}>
+            <LinkedinShareButton url={sharePath} title={dialogData.description}>
               <Button variant={"icon-muted"}>
                 <LinkedinFilled />
               </Button>
             </LinkedinShareButton>
-            <FacebookShareButton
-              url={sharePath}
-              content={dialogData.description}
-            >
+            <FacebookShareButton url={sharePath}>
               <Button variant={"icon-muted"}>
                 <FacebookFilled />
               </Button>
@@ -400,17 +397,17 @@ export default function BigScores({ data }: Props) {
           </div>
 
           <div className="flex-center mb-0 gap-3">
-            <TwitterShareButton url={sharePath}>
+            <TwitterShareButton url={sharePath} title={dialogData.data}>
               <Button variant={"icon-muted"}>
                 <X />
               </Button>
             </TwitterShareButton>
-            <LinkedinShareButton url={sharePath}>
+            <LinkedinShareButton url={sharePath} title={dialogData.data}>
               <Button variant={"icon-muted"}>
                 <LinkedinFilled />
               </Button>
             </LinkedinShareButton>
-            <FacebookShareButton url={sharePath} content={dialogData.data}>
+            <FacebookShareButton url={sharePath}>
               <Button variant={"icon-muted"}>
                 <FacebookFilled />
               </Button>

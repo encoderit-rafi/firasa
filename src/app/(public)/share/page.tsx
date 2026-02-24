@@ -26,18 +26,35 @@ export async function generateMetadata({
 
     if (response.ok) {
       const { data: report } = await response.json();
+      const insights = report.full_result?.insights;
+      const displayTitle = insights?.title
+        ? `${insights.title} - FIRASA`
+        : `${report.name || "Personality Report"} - FIRASA`;
+      const displayDescription =
+        insights?.description ||
+        `Check out the personality analysis for ${report.name}. Built on real psychology, powered by AI.`;
+
       return {
-        title: `${report.name || "Personality Report"} - FIRASA`,
-        description: `Check out the personality analysis for ${report.name}. Built on real psychology, powered by AI.`,
+        title: displayTitle,
+        description: displayDescription,
         openGraph: {
-          title: `${report.name || "Personality Report"} - FIRASA`,
-          description: `Check out the personality analysis for ${report.name}. Built on real psychology, powered by AI.`,
-          images: ["/og-image.png"], // Suggesting to use a dynamic image if backend provides one
+          title: displayTitle,
+          description: displayDescription,
+          type: "website",
+          siteName: "FIRASA",
+          images: [
+            {
+              url: "/og-image.png",
+              width: 1200,
+              height: 630,
+              alt: displayTitle,
+            },
+          ],
         },
         twitter: {
           card: "summary_large_image",
-          title: `${report.name || "Personality Report"} - FIRASA`,
-          description: `Check out the personality analysis for ${report.name}. Built on real psychology, powered by AI.`,
+          title: displayTitle,
+          description: displayDescription,
           images: ["/og-image.png"],
         },
       };
