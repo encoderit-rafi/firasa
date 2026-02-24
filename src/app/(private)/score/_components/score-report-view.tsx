@@ -87,8 +87,13 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
             <ScoreSection
               title="Relationship"
               shareToken={share_token}
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.relationship_metrics}
+              // full_result={reportData.full_result}
+              // metrics={reportData.full_result.relationship_metrics}
+              face_image={
+                reportData?.full_result.metadata?.preprocessing
+                  ?.face_image_base64
+              }
+              data={reportData.full_result.relationship_metrics}
             />
           ),
         },
@@ -101,8 +106,13 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
             <ScoreSection
               title="Work & Focus"
               shareToken={share_token}
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.work_metrics}
+              // full_result={reportData.full_result}
+              // metrics={reportData.full_result.relationship_metrics}
+              face_image={
+                reportData?.full_result.metadata?.preprocessing
+                  ?.face_image_base64
+              }
+              data={reportData.full_result.work_metrics}
             />
           ),
         },
@@ -115,8 +125,13 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
             <ScoreSection
               title="Creativity & Ideation"
               shareToken={share_token}
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.creativity_metrics}
+              // full_result={reportData.full_result}
+              // metrics={reportData.full_result.creativity_metrics}
+              face_image={
+                reportData?.full_result.metadata?.preprocessing
+                  ?.face_image_base64
+              }
+              data={reportData.full_result.creativity_metrics}
             />
           ),
         },
@@ -129,8 +144,13 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
             <ScoreSection
               title="Stress & Pressure"
               shareToken={share_token}
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.stress_metrics}
+              // full_result={reportData.full_result}
+              // metrics={reportData.full_result.stress_metrics}
+              face_image={
+                reportData?.full_result.metadata?.preprocessing
+                  ?.face_image_base64
+              }
+              data={reportData.full_result.stress_metrics}
             />
           ),
         },
@@ -143,8 +163,13 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
             <ScoreSection
               title="Openness"
               shareToken={share_token}
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.openness_metrics}
+              // full_result={reportData.full_result}
+              // metrics={reportData.full_result.openness_metrics}
+              face_image={
+                reportData?.full_result.metadata?.preprocessing
+                  ?.face_image_base64
+              }
+              data={reportData.full_result.openness_metrics}
             />
           ),
         },
@@ -157,8 +182,13 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
             <ScoreSection
               title="Learning"
               shareToken={share_token}
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.learning_metrics}
+              // full_result={reportData.full_result}
+              // metrics={reportData.full_result.learning_metrics}
+              face_image={
+                reportData?.full_result.metadata?.preprocessing
+                  ?.face_image_base64
+              }
+              data={reportData.full_result.learning_metrics}
             />
           ),
         },

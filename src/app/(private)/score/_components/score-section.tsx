@@ -27,20 +27,44 @@ import {
 } from "@/components/ui/carousel";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { CameraPlus, Share } from "@/assets/icons";
+import {
+  CreativityMetrics,
+  LearningMetrics,
+  OpennessMetrics,
+  RelationshipMetrics,
+  StressMetrics,
+  TLevel,
+  WorkMetrics,
+} from "@/global-types";
 type Props = {
+  face_image: string;
   title: string;
   shareToken: string | null;
-  full_result: any;
-  metrics: any;
+  data:
+    | RelationshipMetrics
+    | WorkMetrics
+    | CreativityMetrics
+    | StressMetrics
+    | OpennessMetrics
+    | LearningMetrics;
 };
+// type Props = {
+//   title: string;
+//   shareToken: string | null;
+//   full_result: any;
+//   metrics: any;
+//   data: RelationshipMetrics;
+// };
 export default function ScoreSection({
   title,
   shareToken,
-  full_result,
-  metrics,
+  face_image,
+  // full_result,
+  // metrics,
+  data,
 }: Props) {
-  const { metadata, predictions } = full_result;
-  const { preprocessing } = metadata;
+  // const { metadata, predictions } = full_result;
+  // const { preprocessing } = metadata;
   const {
     actionable_steps,
     snapshot_insight,
@@ -50,8 +74,8 @@ export default function ScoreSection({
     tradeoff,
     growth_lever,
     coach_recommendation,
-  } = metrics;
-
+    metrics,
+  } = data;
   const { isOpen, setIsOpen, shareData, handleShare, sharePath } =
     useScoreShare(shareToken);
 
@@ -83,7 +107,7 @@ export default function ScoreSection({
         >
           <div className="flex flex-col space-y-3">
             <CarouselContent>
-              {behavioral_patterns.map(
+              {behavioral_patterns?.map(
                 (
                   pattern: { title: string; description: string },
                   index: number,
@@ -94,7 +118,7 @@ export default function ScoreSection({
                         "size-60 overflow-hidden border-none bg-cover bg-no-repeat p-0 shadow-none",
                       )}
                       style={{
-                        backgroundImage: `url(${preprocessing.face_image_base64})`,
+                        backgroundImage: `url(${face_image})`,
                       }}
                     >
                       <CardContent className="flex size-full flex-col justify-between bg-black/40 p-0 backdrop-blur-[1px]">
@@ -155,56 +179,47 @@ export default function ScoreSection({
         >
           <div className="flex flex-col space-y-3">
             <CarouselContent>
-              {[strength, tradeoff].map(
-                (
-                  pattern: { title: string; description: string },
-                  index: number,
-                ) => (
-                  <CarouselItem className="" key={index}>
-                    <Card
-                      className={cn(
-                        "size-60 overflow-hidden border-none bg-cover bg-no-repeat p-0 shadow-none",
-                      )}
-                      style={{
-                        backgroundImage: `url(${preprocessing.face_image_base64})`,
-                      }}
-                    >
-                      <CardContent className="flex size-full flex-col justify-between bg-black/40 p-0 backdrop-blur-[1px]">
-                        <CardHeader className="flex items-center justify-end gap-2 p-3">
-                          <Button variant={"icon"} className="size-10">
-                            <CameraPlus className="size-5" />
-                          </Button>
-                          <Button
-                            variant={"icon"}
-                            className="size-10"
-                            onClick={handleShareClick}
-                          >
-                            <Share className="size-5" />
-                          </Button>
-                        </CardHeader>
+              {[strength, tradeoff].map((item, index) => (
+                <CarouselItem className="" key={index}>
+                  <Card
+                    className={cn(
+                      "size-60 overflow-hidden border-none bg-cover bg-no-repeat p-0 shadow-none",
+                    )}
+                    style={{
+                      backgroundImage: `url(${face_image})`,
+                    }}
+                  >
+                    <CardContent className="flex size-full flex-col justify-between bg-black/40 p-0 backdrop-blur-[1px]">
+                      <CardHeader className="flex items-center justify-end gap-2 p-3">
+                        <Button variant={"icon"} className="size-10">
+                          <CameraPlus className="size-5" />
+                        </Button>
+                        <Button
+                          variant={"icon"}
+                          className="size-10"
+                          onClick={handleShareClick}
+                        >
+                          <Share className="size-5" />
+                        </Button>
+                      </CardHeader>
 
-                        <div className="h-fit p-4">
-                          <h6 className="title-small-emphasized text-left text-[#FA6C12]">
-                            {pattern.title}
-                          </h6>
-                          <p className="body-small-primary line-clamp-2 text-left text-white">
-                            {pattern.description}
-                          </p>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
-                ),
-              )}
+                      <div className="h-fit p-4">
+                        <h6 className="title-small-emphasized text-left text-[#FA6C12]">
+                          {item?.title}
+                        </h6>
+                        <p className="body-small-primary line-clamp-2 text-left text-white">
+                          {item?.description}
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              ))}
             </CarouselContent>
           </div>
           <div className="my-8 px-2">
             <CarouselIndicator />
           </div>
-          {/* <div className="flex-center gap-2">
-            <CarouselPrevious />
-            <CarouselNext />
-          </div> */}
         </Carousel>
       ),
     },
@@ -242,7 +257,6 @@ export default function ScoreSection({
       ),
     },
   ];
-  const relationship_scores = handleFormatPredictions(predictions);
   return (
     <ScorePageCard className="xl:rounded-tr-none">
       <ShareButton
@@ -265,12 +279,12 @@ export default function ScoreSection({
         </div>
         <ScorePageNotchCard title="Score breakdown">
           <div className="flex flex-col flex-wrap items-center gap-6 lg:flex-row lg:justify-center">
-            {relationship_scores.map((score, index) => (
+            {Object.entries(metrics).map(([key, value]) => (
               <ScorePageProgress
-                key={index}
-                label={score.type}
-                progress={Number(score.value)}
-                title={score.name}
+                key={key}
+                level={value.level as TLevel}
+                score={value.score}
+                title={key}
               />
             ))}
           </div>

@@ -84,15 +84,13 @@ export type RelationshipMetrics = {
   };
   coach_recommendation: string; // 50-100 words
   actionable_steps: ActionableStep[]; // 6 steps
-
-  // Accordion fields
   snapshot_insight?: string;
   behavioral_patterns?: BehavioralPattern[];
   how_others_experience?: string;
   strength?: StrengthTradeoff;
   tradeoff?: StrengthTradeoff;
   growth_lever?: string;
-  suitable_for?: string[]; // e.g., ["Team Environments", "Client-Facing Roles"]
+  suitable_for?: string[];
 };
 export type WorkMetrics = {
   metrics: {
@@ -159,8 +157,6 @@ export type OpennessMetrics = {
   };
   coach_recommendation: string;
   actionable_steps: ActionableStep[];
-
-  // Accordion fields (same structure)
   snapshot_insight?: string;
   behavioral_patterns?: BehavioralPattern[];
   how_others_experience?: string;
@@ -178,8 +174,6 @@ export type LearningMetrics = {
   };
   coach_recommendation: string;
   actionable_steps: ActionableStep[];
-
-  // Accordion fields (same structure)
   snapshot_insight?: string;
   behavioral_patterns?: BehavioralPattern[];
   how_others_experience?: string;
@@ -212,9 +206,11 @@ export type VocalIndicator = {
   level: string; // "Low" | "Moderate" | "High"
   signals: string[]; // e.g., ["projects voice confidently", "speaks rapidly"]
 };
+export type TLevel = "Low" | "Moderate" | "High";
 export type DerivedMetric = {
   score: number; // 0-100 percentage
-  level: string; // "Low" | "Moderate" | "High"
+  // level: string; // "Low" | "Moderate" | "High"
+  level: TLevel;
   description: string; // Personalized description based on score
 };
 // *Level Thresholds:*

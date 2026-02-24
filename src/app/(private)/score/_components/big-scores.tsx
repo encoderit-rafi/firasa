@@ -38,6 +38,7 @@ import {
   PersonalityTraits,
   PersonalityType,
   TBigFiveTraits,
+  TLevel,
 } from "@/global-types";
 import { useScoreShare } from "../_hooks/use-score-share";
 import { ScoreShareDialog } from "./score-share-dialog";
@@ -203,8 +204,8 @@ export default function BigScores({ data }: Props) {
           {personality_scores.map((score, index) => (
             <ScorePageProgress
               key={index}
-              label={score.type}
-              progress={Number(score.value)}
+              level={score.type as TLevel}
+              score={Number(score.value)}
               title={score.name}
             />
           ))}
