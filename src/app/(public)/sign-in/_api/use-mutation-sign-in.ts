@@ -26,6 +26,7 @@ export const useMutationSignIn = () => {
           user_email: user?.email,
           user_avatar: user?.avatar_url,
           user_role: role?.[0] || "",
+          user_method: "Credentials",
           redirect: false,
           callbackUrl: "/",
         });
