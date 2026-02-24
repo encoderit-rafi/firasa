@@ -9,12 +9,9 @@ import {
   ThreedotMenu,
   X,
 } from "@/assets/icons";
-import {
-  FacebookShareButton,
-  LinkedinShareButton,
-  TwitterShareButton,
-} from "react-share";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { useScoreShare } from "../_hooks/use-score-share";
+import { ScoreShareDialog } from "./score-share-dialog";
 
 import {
   Select,
@@ -28,7 +25,7 @@ import {
 import { cn, handleCopyLink } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   useMutationToggleSharing,
   useQueryGetVideoReport,
@@ -37,29 +34,16 @@ import {
 import ScoreReportView from "./score-report-view";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import TextSeparator from "@/components/ui/text-separator";
-import { LinkedinFilled } from "@/assets/icons/LinkedinFilled";
 
 export default function ScorePageClient() {
-  const [fullPath, setFullPath] = useState("");
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setFullPath(window.location.href);
-    }
-  }, []);
-
+  const router = useRouter();
   const searchParams = useSearchParams();
   const analysisId = searchParams.get("analysis_id");
-  const [isOpenShare, setIsOpenShare] = useState(false);
   const { data: reportData, isLoading } = useQueryGetVideoReport(analysisId);
+
+  const { isOpen, setIsOpen, shareData, handleShare, sharePath } =
+    useScoreShare(reportData?.share_token ?? null);
   const { data: userReports, isLoading: isLoadingUserReports } =
     useQueryGetUserReports();
 
@@ -72,15 +56,8 @@ export default function ScorePageClient() {
     window.location.href = `${window.location.pathname}?${params.toString()}`;
   };
 
-  const sharePath = reportData?.share_token
-    ? `${window.location.origin}/share?share_token=${reportData.share_token}`
-    : fullPath;
-
   const handleShareClick = async () => {
-    if (!reportData?.share_token) {
-      await toggleSharing();
-    }
-    setIsOpenShare(true);
+    handleShare(""); // Message will be empty or we can set a default
   };
 
   if (isLoading)
@@ -96,7 +73,12 @@ export default function ScorePageClient() {
         <div className="border-secondary/10 border-b">
           <div className="container-xl px-base flex items-center justify-between gap-4 py-2">
             <div className="flex-center gap-4">
-              <Button variant="outline" size={"icon"} className="size-10">
+              <Button
+                variant="outline"
+                size={"icon"}
+                className="size-10"
+                onClick={() => router.back()}
+              >
                 <ArrowForward className="rotate-180" />
               </Button>
               <Select
@@ -168,45 +150,15 @@ export default function ScorePageClient() {
       </div>
 
       {reportData && <ScoreReportView reportData={reportData} />}
-      <Dialog open={isOpenShare} onOpenChange={setIsOpenShare}>
-        <DialogContent className="max-w-136 space-y-6">
-          <DialogHeader>
-            <DialogTitle>Share your personality</DialogTitle>
-            <DialogDescription>
-              Drop your Firasa results and let people react.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="flex-between border-error-container gap-4 rounded-full border bg-white p-3">
-            <div className="flex-center body-medium-primary text-outline-variant gap-2">
-              <Language className="size-5 shrink-0" />
-              <span className="line-clamp-1">{sharePath}</span>
-            </div>
-            <Button onClick={() => handleCopyLink(sharePath)}>
-              <LinkIcon />
-              Copy link
-            </Button>
-          </div>
-          <TextSeparator />
-
-          <div className="flex-center mb-0 gap-3">
-            <TwitterShareButton url={sharePath}>
-              <Button variant={"icon-muted"}>
-                <X />
-              </Button>
-            </TwitterShareButton>
-            <LinkedinShareButton url={sharePath}>
-              <Button variant={"icon-muted"}>
-                <LinkedinFilled />
-              </Button>
-            </LinkedinShareButton>
-            <FacebookShareButton url={sharePath}>
-              <Button variant={"icon-muted"}>
-                <FacebookFilled />
-              </Button>
-            </FacebookShareButton>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <ScoreShareDialog
+        open={isOpen}
+        onOpenChange={setIsOpen}
+        shareData={
+          shareData ||
+          `Drop your Firasa results and let people react.\n\nShow more at: ${sharePath}`
+        }
+        sharePath={sharePath}
+      />
     </div>
   );
 }
