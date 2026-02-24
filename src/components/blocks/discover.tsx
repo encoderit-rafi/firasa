@@ -15,7 +15,7 @@ import Image from "next/image";
 
 export default function Discover() {
   return (
-    <section className="section bg-error-container/16">
+    <section id="discover" className="section bg-error-container/16">
       <h6 className="section-label">Discover</h6>
       <h2 className="section-title"> What if we scanned the famous?</h2>
       <p className="section-description">

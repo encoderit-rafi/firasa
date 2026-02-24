@@ -49,6 +49,7 @@ export const authOptions: NextAuthOptions = {
         user_email: {},
         user_avatar: {},
         user_role: {},
+        user_method: {},
       },
       async authorize(credentials): Promise<User | null> {
         const accessToken = credentials?.access_token;
@@ -64,6 +65,7 @@ export const authOptions: NextAuthOptions = {
           email: credentials?.user_email || null,
           avatar: credentials?.user_avatar || "",
           role: credentials?.user_role || "",
+          method: credentials?.user_method || "",
           token: {
             access_token: accessToken,
             refresh_token: refreshToken,
@@ -88,6 +90,7 @@ export const authOptions: NextAuthOptions = {
         token.avatar = (user as User).avatar;
         token.name = user.name;
         token.email = user.email;
+        token.method = (user as User).method;
         token.id = user.id;
         token.accessTokenExpires =
           (user as User).accessTokenExpires ||
@@ -118,6 +121,7 @@ export const authOptions: NextAuthOptions = {
           role: token.role,
           id: token.id,
           avatar: token.avatar,
+          method: token.method,
         },
       };
     },

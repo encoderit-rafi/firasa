@@ -55,7 +55,7 @@ export default function Hero() {
 
             <Image
               src="/hero-image.png"
-              alt="Hero image"
+              alt="Firasa AI Face Analysis Illustration"
               width={514}
               height={514}
               className="relative z-10 mx-auto"

@@ -11,10 +11,12 @@ const roboto = Roboto({
   subsets: ["latin"],
 });
 const inter = Inter({
-  variable: "--font-roboto",
+  variable: "--font-inter",
   subsets: ["latin"],
 });
+
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXTAUTH_URL || "http://localhost:3000"),
   title: "FIRASA",
   description: "AI Face Personality Score.",
 };

@@ -1,3 +1,4 @@
+// score-report-view.tsx
 "use client";
 
 import { ReactNode, useEffect, useState } from "react";
@@ -10,13 +11,39 @@ import ScoreSection from "./score-section";
 import SimilarityToFamous from "./similarity-to-famous";
 import SummaryAndExports from "./summary-and-exports";
 import AddOns from "./add-ons";
-import UnlockFullStory from "./unlock-full-story";
+import {
+  TBigFiveTraits,
+  TReportData,
+  TUniqueStoryTraits,
+} from "@/global-types";
+import { handleFormatPredictions } from "@/lib/utils";
+
+const EXCLUDED_FROM_PDF = ["exports", "add-ons"];
 
 interface ScoreReportViewProps {
-  reportData: any;
+  reportData: TReportData;
 }
 
 export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
+  const { id, share_token, full_result } = reportData;
+  const { predictions, metadata, insights } = full_result;
+  const {
+    preprocessing: { face_image_base64 },
+  } = metadata;
+  // const personality_scores = handleFormatPredictions(predictions);
+  const [activeTab, setActiveTab] = useState("score");
+  const big_scores: TBigFiveTraits = {
+    id,
+    share_token,
+    face_image_base64,
+    insights,
+    predictions,
+  };
+  const unique_stories: TUniqueStoryTraits = {
+    id,
+    share_token,
+    insights,
+  };
   const [sectionData, setSectionData] = useState<
     {
       id: string;
@@ -29,27 +56,27 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
 
   useEffect(() => {
     if (reportData) {
-      setSectionData([
+      const data = [
         {
           id: "score",
           label: "Big 5 scores",
           title: "Big 5 personality score",
           is_visible: true,
-          component: <BigScores data={reportData} />,
-        },
-        {
-          id: "unlock-full-story",
-          label: "  ",
-          title: "",
-          is_visible: true,
-          component: <UnlockFullStory />,
+          component: (
+            <BigScores
+              data={big_scores}
+              // dataa={{
+              //   id,
+              // }}
+            />
+          ),
         },
         {
           id: "story",
           label: "Unique story",
           title: "Your unique personality story",
           is_visible: true,
-          component: <UniqueStory data={reportData} />,
+          component: <UniqueStory data={unique_stories} />,
         },
         {
           id: "relationship",
@@ -58,8 +85,15 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: (
             <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.relationship_metrics}
+              title="Relationship"
+              shareToken={share_token}
+              // full_result={reportData.full_result}
+              // metrics={reportData.full_result.relationship_metrics}
+              face_image={
+                reportData?.full_result.metadata?.preprocessing
+                  ?.face_image_base64
+              }
+              data={reportData.full_result.relationship_metrics}
             />
           ),
         },
@@ -70,8 +104,15 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: (
             <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.work_metrics}
+              title="Work & Focus"
+              shareToken={share_token}
+              // full_result={reportData.full_result}
+              // metrics={reportData.full_result.relationship_metrics}
+              face_image={
+                reportData?.full_result.metadata?.preprocessing
+                  ?.face_image_base64
+              }
+              data={reportData.full_result.work_metrics}
             />
           ),
         },
@@ -82,8 +123,15 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: (
             <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.creativity_metrics}
+              title="Creativity & Ideation"
+              shareToken={share_token}
+              // full_result={reportData.full_result}
+              // metrics={reportData.full_result.creativity_metrics}
+              face_image={
+                reportData?.full_result.metadata?.preprocessing
+                  ?.face_image_base64
+              }
+              data={reportData.full_result.creativity_metrics}
             />
           ),
         },
@@ -94,8 +142,15 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: (
             <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.stress_metrics}
+              title="Stress & Pressure"
+              shareToken={share_token}
+              // full_result={reportData.full_result}
+              // metrics={reportData.full_result.stress_metrics}
+              face_image={
+                reportData?.full_result.metadata?.preprocessing
+                  ?.face_image_base64
+              }
+              data={reportData.full_result.stress_metrics}
             />
           ),
         },
@@ -106,8 +161,15 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: (
             <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.openness_metrics}
+              title="Openness"
+              shareToken={share_token}
+              // full_result={reportData.full_result}
+              // metrics={reportData.full_result.openness_metrics}
+              face_image={
+                reportData?.full_result.metadata?.preprocessing
+                  ?.face_image_base64
+              }
+              data={reportData.full_result.openness_metrics}
             />
           ),
         },
@@ -118,8 +180,15 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: (
             <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.learning_metrics}
+              title="Learning"
+              shareToken={share_token}
+              // full_result={reportData.full_result}
+              // metrics={reportData.full_result.learning_metrics}
+              face_image={
+                reportData?.full_result.metadata?.preprocessing
+                  ?.face_image_base64
+              }
+              data={reportData.full_result.learning_metrics}
             />
           ),
         },
@@ -135,7 +204,7 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           label: "Exports",
           title: "Summary & exports",
           is_visible: true,
-          component: <SummaryAndExports />,
+          component: <SummaryAndExports reportData={reportData.full_result} />,
         },
         {
           id: "add-ons",
@@ -144,19 +213,59 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: <AddOns />,
         },
-      ]);
+      ];
+      setSectionData(data);
     }
   }, [reportData]);
 
+  useEffect(() => {
+    if (sectionData.length === 0) return;
+
+    const observerOptions = {
+      root: null,
+      rootMargin: "-20% 0px -70% 0px",
+      threshold: 0,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveTab(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      observerCallback,
+      observerOptions,
+    );
+
+    sectionData.forEach((section) => {
+      const element = document.getElementById(section.id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, [sectionData]);
+
+  const pdfSections = sectionData.filter(
+    (s) => !EXCLUDED_FROM_PDF.includes(s.id),
+  );
+  const nonPdfSections = sectionData.filter((s) =>
+    EXCLUDED_FROM_PDF.includes(s.id),
+  );
+
   return (
     <>
-      <div className="border-bottom bg-background sticky top-14 z-10 overflow-hidden">
+      <div className="border-bottom bg-background sticky top-16 z-10 overflow-hidden">
         <Tabs
-          defaultValue="overview"
+          value={activeTab}
+          onValueChange={setActiveTab}
           className="container-xl no-scrollbar overflow-x-auto px-3 xl:px-6"
         >
           <TabsList variant={"line"} className="">
             {sectionData?.map(({ id, label, is_visible }) => {
+              if (!label.trim()) return null;
               return (
                 <TabsTrigger key={id} value={id} disabled={!is_visible}>
                   <Link href={`#${id}`}>{label}</Link>
@@ -167,15 +276,24 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
         </Tabs>
       </div>
 
+      {/* Sections included in PDF */}
+      <div id="pdf-content" className="space-y-16 px-4 lg:py-16">
+        {pdfSections.map(({ id, title, component }) => (
+          <ScorePageSection id={id} key={id}>
+            {title && <ScorePageSectionTitle>{title}</ScorePageSectionTitle>}
+            {component}
+          </ScorePageSection>
+        ))}
+      </div>
+
+      {/* Sections excluded from PDF */}
       <div className="space-y-16 px-4 lg:py-16">
-        {sectionData?.map(({ id, title, component }) => {
-          return (
-            <ScorePageSection id={id} key={id}>
-              <ScorePageSectionTitle>{title}</ScorePageSectionTitle>
-              {component}
-            </ScorePageSection>
-          );
-        })}
+        {nonPdfSections.map(({ id, title, component }) => (
+          <ScorePageSection id={id} key={id}>
+            {title && <ScorePageSectionTitle>{title}</ScorePageSectionTitle>}
+            {component}
+          </ScorePageSection>
+        ))}
       </div>
     </>
   );

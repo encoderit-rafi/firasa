@@ -23,5 +23,5 @@ export default async function SocialLoginPage({ params, searchParams }: Props) {
 
   const data = await response.json();
 
-  return <SocialLoginClient data={data} />;
+  return <SocialLoginClient data={data} provider={provider}/>;
 }

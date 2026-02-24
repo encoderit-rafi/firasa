@@ -42,7 +42,7 @@ export default function AccountSettings() {
     defaultValues: {
       completeName: data?.data?.name || "",
       emailAddress: data?.data?.email || "",
-      signInMethod: "Crediential",
+      signInMethod: session.data?.user.method || "not found",
       subscribeToNewsletter: data?.data?.is_subscribe_to_newsletter === 1,
     },
   });
@@ -52,7 +52,7 @@ export default function AccountSettings() {
       reset({
         completeName: data.data.name || "",
         emailAddress: data.data.email || "",
-        signInMethod: "Crediential",
+        signInMethod: session.data?.user.method || "not found",
         subscribeToNewsletter: data.data.is_subscribe_to_newsletter === 1,
       });
     }

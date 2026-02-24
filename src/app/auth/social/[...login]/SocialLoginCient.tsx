@@ -39,9 +39,10 @@ type Props = {
       };
     };
   };
+  provider?:string
 };
 
-export default function SocialLoginClient({ data }: Props) {
+export default function SocialLoginClient({ data,provider }: Props) {
   const hasRun = useRef(false);
 
   useEffect(() => {
@@ -66,6 +67,7 @@ export default function SocialLoginClient({ data }: Props) {
           user_id: String(user?.id),
           user_email: user?.email,
           user_avatar: user?.avatar_url,
+          user_method: provider || "Social",
           user_role: user?.is_admin ? "admin" : "user",
           redirect: false,
           callbackUrl: "/",
