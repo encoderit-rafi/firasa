@@ -10,6 +10,125 @@ interface Options {
   mode?: "download" | "window";
 }
 
+// ─── Accordion helpers ───
+
+interface SavedAccordionState {
+  el: HTMLElement;
+  dataState: string;
+  styleCssText: string;
+  ariaExpanded: string | null;
+}
+
+function collapseAccordions(root: HTMLElement): SavedAccordionState[] {
+  const saved: SavedAccordionState[] = [];
+
+  const openElements = root.querySelectorAll('[data-state="open"]');
+
+  openElements.forEach((element) => {
+    const el = element as HTMLElement;
+    saved.push({
+      el,
+      dataState: el.getAttribute("data-state") || "",
+      styleCssText: el.style.cssText,
+      ariaExpanded: el.getAttribute("aria-expanded"),
+    });
+
+    el.setAttribute("data-state", "closed");
+
+    if (el.getAttribute("aria-expanded") === "true") {
+      el.setAttribute("aria-expanded", "false");
+    }
+
+    if (el.getAttribute("role") === "region") {
+      el.style.display = "none";
+      el.style.height = "0px";
+      el.style.overflow = "hidden";
+    }
+  });
+
+  return saved;
+}
+
+function restoreAccordions(saved: SavedAccordionState[]) {
+  for (const { el, dataState, styleCssText, ariaExpanded } of saved) {
+    el.setAttribute("data-state", dataState);
+    el.style.cssText = styleCssText;
+    if (ariaExpanded !== null) {
+      el.setAttribute("aria-expanded", ariaExpanded);
+    }
+  }
+}
+
+// ─── Gradient text helpers ───
+
+interface SavedGradientText {
+  el: HTMLElement;
+  originalCssText: string;
+}
+
+function fixGradientText(root: HTMLElement): SavedGradientText[] {
+  const saved: SavedGradientText[] = [];
+
+  const allElements = [
+    root,
+    ...Array.from(root.querySelectorAll("*")),
+  ] as HTMLElement[];
+
+  for (const el of allElements) {
+    const computed = getComputedStyle(el);
+
+    // Detect background-clip: text with transparent/invisible color
+    const bgClip =
+      computed.getPropertyValue("-webkit-background-clip") ||
+      computed.getPropertyValue("background-clip");
+    const color = computed.color;
+
+    if (bgClip === "text") {
+      saved.push({
+        el,
+        originalCssText: el.style.cssText,
+      });
+
+      // Remove gradient background and clip, make text visible
+      el.style.setProperty("-webkit-background-clip", "border-box", "important");
+      el.style.setProperty("background-clip", "border-box", "important");
+      el.style.setProperty("color", "#0f172a", "important");
+      el.style.setProperty("-webkit-text-fill-color", "#0f172a", "important");
+      el.style.setProperty("background", "transparent", "important");
+    }
+  }
+
+  return saved;
+}
+
+function restoreGradientText(saved: SavedGradientText[]) {
+  for (const { el, originalCssText } of saved) {
+    el.style.cssText = originalCssText;
+  }
+}
+
+// ─── Footer helper ───
+
+function addFooter(
+  pdf: jsPDF,
+  pageNum: number,
+  padding: number,
+  A4_W: number,
+  A4_H: number
+) {
+  pdf.setFontSize(8);
+  pdf.setTextColor(148, 163, 184);
+  pdf.text("Firasa Personality Report", padding, A4_H - 5);
+  pdf.text(
+    `Page ${pageNum}  ·  ${new Date().toLocaleDateString()}`,
+    A4_W - padding,
+    A4_H - 5,
+    { align: "right" }
+  );
+}
+
+// ─── Main export ───
+
 export async function generatePdfFromDom({
   element,
   filename = "firasa-personality-report.pdf",
@@ -21,7 +140,7 @@ export async function generatePdfFromDom({
   const A4_H = 297;
   const contentWidth = A4_W - padding * 2;
   const contentHeight = A4_H - padding * 2;
-  const footerSpace = 10; // reserve space for footer
+  const footerSpace = 10;
   const usableHeight = contentHeight - footerSpace;
 
   const pdf = new jsPDF({
@@ -80,52 +199,56 @@ export async function generatePdfFromDom({
 
   addFooter(pdf, 1, padding, A4_W, A4_H);
 
-  // ─── SECTION-AWARE CONTENT PAGES ───
+  // ─── PREPARE DOM FOR CAPTURE ───
+  const savedAccordionState = collapseAccordions(element);
+  const savedGradientText = fixGradientText(element);
 
-  // Find all direct section children inside #pdf-content
+  // ─── SECTION-AWARE CONTENT PAGES ───
   const sections = Array.from(element.children) as HTMLElement[];
 
-  // Capture each section individually
   const sectionCanvases: HTMLCanvasElement[] = [];
-  for (const section of sections) {
-    const canvas = await html2canvas(section, {
-      scale,
-      useCORS: true,
-      allowTaint: true,
-      backgroundColor: "#ffffff",
-      windowWidth: 1280,
-      logging: false,
-    });
-    sectionCanvases.push(canvas);
+  try {
+    for (const section of sections) {
+      const canvas = await html2canvas(section, {
+        scale,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: "#ffffff",
+        windowWidth: 1280,
+        logging: false,
+      });
+      sectionCanvases.push(canvas);
+    }
+  } finally {
+    // ─── RESTORE DOM IMMEDIATELY AFTER CAPTURE ───
+    restoreAccordions(savedAccordionState);
+    restoreGradientText(savedGradientText);
   }
 
-  let pageNum = 1; // cover is page 1
-  let cursorY = 0; // mm from top of content area, on current page
-  let needsNewPage = true; // first content page hasn't been added yet
+  let pageNum = 1;
+  let cursorY = 0;
+  let needsNewPage = true;
 
   for (const canvas of sectionCanvases) {
-    // Convert canvas pixel height to mm
     const sectionHeightMm =
       (canvas.height * contentWidth) / canvas.width;
 
-    // If section is taller than a full page, we need to slice it
     if (sectionHeightMm > usableHeight) {
-      // Start on a fresh page for oversized sections
       if (!needsNewPage) {
-        // We're already on a page with content; start new
+        addFooter(pdf, pageNum, padding, A4_W, A4_H);
       }
       pdf.addPage();
       pageNum++;
       needsNewPage = false;
       cursorY = 0;
 
-      // Slice the oversized section across multiple pages
       const pxPerMm = canvas.width / contentWidth;
       const usableHeightPx = usableHeight * pxPerMm;
       let slicePos = 0;
 
       while (slicePos < canvas.height) {
         if (slicePos > 0) {
+          addFooter(pdf, pageNum, padding, A4_W, A4_H);
           pdf.addPage();
           pageNum++;
           cursorY = 0;
@@ -169,30 +292,25 @@ export async function generatePdfFromDom({
 
         cursorY = imgHeightMm;
         slicePos += usableHeightPx;
-
-        addFooter(pdf, pageNum, padding, A4_W, A4_H);
       }
 
-      // After an oversized section, force next section to a new page
+      addFooter(pdf, pageNum, padding, A4_W, A4_H);
       needsNewPage = true;
       continue;
     }
 
-    // Normal-sized section: check if it fits on current page
     if (needsNewPage) {
       pdf.addPage();
       pageNum++;
       cursorY = 0;
       needsNewPage = false;
     } else if (cursorY + sectionHeightMm > usableHeight) {
-      // Doesn't fit — start a new page
       addFooter(pdf, pageNum, padding, A4_W, A4_H);
       pdf.addPage();
       pageNum++;
       cursorY = 0;
     }
 
-    // Draw section
     const imgData = canvas.toDataURL("image/jpeg", 0.95);
 
     pdf.addImage(
@@ -205,12 +323,9 @@ export async function generatePdfFromDom({
     );
 
     cursorY += sectionHeightMm;
-
-    // Add small gap between sections (4mm)
     cursorY += 4;
   }
 
-  // Add footer to the last page
   if (!needsNewPage) {
     addFooter(pdf, pageNum, padding, A4_W, A4_H);
   }
@@ -222,22 +337,4 @@ export async function generatePdfFromDom({
   } else {
     pdf.save(filename);
   }
-}
-
-function addFooter(
-  pdf: jsPDF,
-  pageNum: number,
-  padding: number,
-  A4_W: number,
-  A4_H: number
-) {
-  pdf.setFontSize(8);
-  pdf.setTextColor(148, 163, 184);
-  pdf.text("Firasa Personality Report", padding, A4_H - 5);
-  pdf.text(
-    `Page ${pageNum}  ·  ${new Date().toLocaleDateString()}`,
-    A4_W - padding,
-    A4_H - 5,
-    { align: "right" }
-  );
 }

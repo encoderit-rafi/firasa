@@ -1,5 +1,4 @@
 "use client";
-
 import {
   ArrowForward,
   Download,
@@ -30,22 +29,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn, handleCopyLink } from "@/lib/utils";
-import { Copy, Loader2 } from "lucide-react";
+import { Copy, Loader2, Pencil } from "lucide-react";
 import { toast } from "sonner";
-import Link from "next/link";
-import { ReactNode, useState, Suspense } from "react";
+import { ReactNode, useState, Suspense, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import {
   useMutationToggleSharing,
+  useMutationRenameReport,
   useQueryGetVideoReport,
   useQueryGetUserReports,
 } from "./_api";
 import ScoreReportView from "./_components/score-report-view";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 import {
   Dialog,
   DialogContent,
@@ -79,6 +78,11 @@ function ScorePageContent() {
   const searchParams = useSearchParams();
   const analysisId = searchParams.get("analysis_id");
   const [isOpenShare, setIsOpenShare] = useState(false);
+  const [isOpenRename, setIsOpenRename] = useState(false);
+  const [editName, setEditName] = useState("");
+  const [editingAnalysisId, setEditingAnalysisId] = useState<string | null>(
+    null
+  );
   const { data: reportData, isLoading } = useQueryGetVideoReport(analysisId);
   const { data: userReports, isLoading: isLoadingUserReports } =
     useQueryGetUserReports();
@@ -86,6 +90,9 @@ function ScorePageContent() {
 
   const { mutateAsync: toggleSharing, isPending: isTogglingSharing } =
     useMutationToggleSharing(analysisId);
+
+  const { mutateAsync: renameReport, isPending: isRenaming } =
+    useMutationRenameReport(analysisId);
 
   const handleVideoChange = (videoId: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -102,6 +109,31 @@ function ScorePageContent() {
       await toggleSharing();
     }
     setIsOpenShare(true);
+  };
+
+  const handleEditClick = (
+    e: React.PointerEvent | React.MouseEvent,
+    report: any
+  ) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setEditingAnalysisId(String(report.analysis_id));
+    setEditName(report.name || "");
+    setIsOpenRename(true);
+  };
+
+  const handleRenameSubmit = async () => {
+    if (!editingAnalysisId || !editName.trim()) return;
+    try {
+      await renameReport({
+        analysisId: editingAnalysisId,
+        name: editName.trim(),
+      });
+      toast.success("Video renamed successfully");
+      setIsOpenRename(false);
+    } catch {
+      toast.error("Failed to rename video");
+    }
   };
 
   // const handleCopyLink = () => {
@@ -136,7 +168,7 @@ function ScorePageContent() {
                     "w-fit border-none shadow-none",
                     buttonVariants({
                       variant: "ghost",
-                    }),
+                    })
                   )}
                 >
                   <div className="flex items-center">
@@ -150,13 +182,27 @@ function ScorePageContent() {
                   <SelectGroup>
                     <SelectLabel>Video</SelectLabel>
                     {userReports?.map((report: any) => (
-                      <SelectItem
+                      <div
                         key={String(report.analysis_id)}
-                        value={String(report.analysis_id)}
-                        className="line-clamp-1 text-nowrap"
+                        className="relative flex items-center"
                       >
-                        {report.name}
-                      </SelectItem>
+                        <SelectItem
+                          value={String(report.analysis_id)}
+                          className="line-clamp-1 flex-1 text-nowrap pr-10"
+                        >
+                          {report.name}
+                        </SelectItem>
+                        <button
+                          className="bg-secondary-container text-muted-foreground hover:text-foreground absolute right-1 rounded-sm p-2 cursor-pointer transition-colors"
+                          onPointerDown={(e) => handleEditClick(e, report)}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                          }}
+                        >
+                          <Pencil className="size-3.5" />
+                        </button>
+                      </div>
                     ))}
                   </SelectGroup>
                 </SelectContent>
@@ -195,6 +241,8 @@ function ScorePageContent() {
       </div>
 
       <ScoreReportView reportData={reportData} />
+
+      {/* Share Dialog */}
       <Dialog open={isOpenShare} onOpenChange={setIsOpenShare}>
         <DialogContent className="max-w-136 space-y-6">
           <DialogHeader>
@@ -235,6 +283,49 @@ function ScorePageContent() {
               <InstagramFilled />
             </Button> */}
           </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Rename Dialog */}
+      <Dialog open={isOpenRename} onOpenChange={setIsOpenRename}>
+        <DialogContent className="max-w-96">
+          <DialogHeader>
+            <DialogTitle>Rename video</DialogTitle>
+            <DialogDescription>
+              Enter a new name for this video.
+            </DialogDescription>
+          </DialogHeader>
+          <Input
+            value={editName}
+            onChange={(e) => setEditName(e.target.value)}
+            placeholder="Enter video name"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleRenameSubmit();
+            }}
+            autoFocus
+          />
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setIsOpenRename(false)}
+              disabled={isRenaming}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleRenameSubmit}
+              disabled={isRenaming || !editName.trim()}
+            >
+              {isRenaming ? (
+                <>
+                  <Loader2 className="size-4 animate-spin" />
+                  Saving…
+                </>
+              ) : (
+                "Save"
+              )}
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>
