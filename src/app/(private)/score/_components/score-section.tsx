@@ -79,21 +79,28 @@ export default function ScoreSection({
   const { isOpen, setIsOpen, shareData, handleShare, sharePath } =
     useScoreShare(shareToken);
 
-  const handleShareClick = () => {
-    const share_text = `
-      ${title}\n
-      ${coach_recommendation}\n
-      \nShow more at: ${sharePath}`;
-    handleShare(share_text);
+  const handleShareClick = (data: string) => {
+    // const share_text = `
+    //   ${title}\n
+    //   ${coach_recommendation}\n
+    //   \nShow more at: ${sharePath}`;
+    handleShare(data);
   };
 
   const relationship_results = [
     {
       title: "Snapshot Insight",
       component: (
-        <AccordionDescriptionContainer>
-          <AccordionDescription>{snapshot_insight}</AccordionDescription>
-        </AccordionDescriptionContainer>
+        <>
+          <AccordionDescriptionContainer>
+            <AccordionDescription>{snapshot_insight}</AccordionDescription>
+          </AccordionDescriptionContainer>
+          <ShareButton
+            onClick={() =>
+              handleShareClick(`Snapshot Insight\n\n${snapshot_insight}` || "")
+            }
+          />
+        </>
       ),
     },
     {
@@ -129,7 +136,7 @@ export default function ScoreSection({
                           <Button
                             variant={"icon"}
                             className="size-10"
-                            onClick={handleShareClick}
+                            // onClick={handleShareClick}
                           >
                             <Share className="size-5" />
                           </Button>
@@ -153,19 +160,24 @@ export default function ScoreSection({
           <div className="my-8 px-2">
             <CarouselIndicator />
           </div>
-          {/* <div className="flex-center gap-2">
-            <CarouselPrevious />
-            <CarouselNext />
-          </div> */}
         </Carousel>
       ),
     },
     {
       title: "How Others Experience",
       component: (
-        <AccordionDescriptionContainer>
-          <AccordionDescription>{how_others_experience}</AccordionDescription>
-        </AccordionDescriptionContainer>
+        <>
+          <AccordionDescriptionContainer>
+            <AccordionDescription>{how_others_experience}</AccordionDescription>
+          </AccordionDescriptionContainer>
+          <ShareButton
+            onClick={() =>
+              handleShareClick(
+                `How Others Experience\n\n${how_others_experience}` || "",
+              )
+            }
+          />
+        </>
       ),
     },
     {
@@ -197,7 +209,7 @@ export default function ScoreSection({
                         <Button
                           variant={"icon"}
                           className="size-10"
-                          onClick={handleShareClick}
+                          // onClick={handleShareClick}
                         >
                           <Share className="size-5" />
                         </Button>
@@ -226,9 +238,16 @@ export default function ScoreSection({
     {
       title: "Growth Lever",
       component: (
-        <AccordionDescriptionContainer>
-          <AccordionDescription>{growth_lever}</AccordionDescription>
-        </AccordionDescriptionContainer>
+        <>
+          <AccordionDescriptionContainer>
+            <AccordionDescription>{growth_lever}</AccordionDescription>
+          </AccordionDescriptionContainer>
+          <ShareButton
+            onClick={() =>
+              handleShareClick(`Growth Lever\n\n${growth_lever}` || "")
+            }
+          />
+        </>
       ),
     },
     {
@@ -253,6 +272,15 @@ export default function ScoreSection({
               )}
             </AccordionDescriptionItems>
           </AccordionDescriptionContainer>
+          <ShareButton
+            onClick={() =>
+              handleShareClick(
+                `Coach Recommendation\n\n${coach_recommendation}\n\nActionable steps for development:\n\n${actionable_steps.map((step: { emoji: string; text: string }, index: number) => `${step.emoji} ${step.text}`).join("\n")}
+                
+                ` || "",
+              )
+            }
+          />
         </>
       ),
     },
@@ -262,7 +290,26 @@ export default function ScoreSection({
       <ShareButton
         className="max-xl:hidden"
         variant={"absolute"}
-        onClick={handleShareClick}
+        onClick={() =>
+          handleShareClick(
+            `Score breakdown\n${Object.entries(metrics)
+              .map(
+                ([key, value]) => `${key.split("_").join(" ")}: ${value.score}`,
+              )
+              .join("\n")}
+                \n
+              ${actionable_steps.map((step: { emoji: string; text: string }) => `${step.emoji} ${step.text}`).join("\n")}
+              \n
+              Snapshot Insight\n${snapshot_insight}\n
+              How Others Experience\n${how_others_experience}\n
+              Growth Lever\n${growth_lever}
+              Coach Recommendation\n${coach_recommendation}\nActionable steps for development:\n${actionable_steps.map((step: { emoji: string; text: string }, index: number) => `${step.emoji} ${step.text}`).join("\n")}
+                
+                \n
+                Show more: ${sharePath}
+              ` || "",
+          )
+        }
       />
       <ScorePageContainer
         type="left"
@@ -302,7 +349,21 @@ export default function ScoreSection({
           </div>
         </ScorePageNotchCard>
 
-        <ShareButton onClick={handleShareClick} />
+        <ShareButton
+          onClick={() =>
+            handleShareClick(
+              `Score breakdown\n\n${Object.entries(metrics)
+                .map(
+                  ([key, value]) =>
+                    `${key.split("_").join(" ")}: ${value.score}`,
+                )
+                .join("\n")}
+                \n
+              ${actionable_steps.map((step: { emoji: string; text: string }) => `${step.emoji} ${step.text}`).join("\n")}
+              ` || "",
+            )
+          }
+        />
       </ScorePageContainer>
       <ScorePageContainer type="right">
         <Accordion
@@ -320,7 +381,7 @@ export default function ScoreSection({
               </AccordionTrigger>
               <AccordionContent className="space-y-6">
                 {result.component}
-                <ShareButton onClick={handleShareClick} />
+                {/* <ShareButton onClick={handleShareClick} /> */}
               </AccordionContent>
             </AccordionItem>
           ))}
