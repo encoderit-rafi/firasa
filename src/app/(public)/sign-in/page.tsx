@@ -14,10 +14,11 @@ export default function SignInPage() {
           <TextSeparator />
           <FormSignIn />
           <div className="flex-center body-large-primary text-outline mt-16 gap-1 md:gap-3">
-            <Link href="/forgot-password" className="hover:underline">
+            {/* <Link href="/forgot-password" className="hover:underline">
               Forgot Password?
-            </Link>
-            <div className="bg-error-container h-4 w-px"></div>
+            </Link> */}
+            {/* <span className="hover:underline">Forgot Password?</span> */}
+            {/* <div className="bg-error-container h-4 w-px"></div> */}
             <div className="">
               Don’t have account?{" "}
               <Link href="/sign-up" className="hover:underline">

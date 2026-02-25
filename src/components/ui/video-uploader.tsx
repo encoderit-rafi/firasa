@@ -155,14 +155,6 @@ export default function VideoUploader() {
                     style={{ width: `${progress}%` }}
                   />
                 </div>
-                {/* <div className="flex-center bg-on-surface/10 mx-auto w-fit gap-2 rounded-full px-6 py-4">
-              
-                  <LoadingIcon />
-                  <span className="title-medium-primary text-on-surface/50">
-                    {status === "uploading" ? "Uploading..." : "Analyzing..."} (
-                    {progress}%)
-                  </span>
-                </div> */}
                 {status === "completed" ? (
                   <Button
                     // className="w-f"
@@ -214,14 +206,14 @@ export default function VideoUploader() {
                   <VideoCam />
                   Record with camera
                 </Button>
-                <p className="body-small-primary">Record a video</p>
+                <p className="body-small-primary">Record a 25 seconds video</p>
               </div>
             </div>
           )}
         </div>
       </div>
 
-      <p className="text-muted-foreground mt-2 flex items-center justify-center gap-2 text-center text-xs">
+      <p className="text-muted-foreground flex items-center justify-center gap-2 text-center text-xs">
         <Guard className="size-4" />
         Auto-deleted. Your privacy is our priority.
       </p>

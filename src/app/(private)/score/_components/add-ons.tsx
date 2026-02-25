@@ -48,28 +48,28 @@ const level_up_items = [
 ];
 export default function AddOns() {
   return (
-    <ScorePageCard className="flex flex-col lg:flex-row items-center justify-between gap-6 bg-transparent divide-none">
-      {level_up_items.map((item) => (
+    <ScorePageCard className="flex flex-col items-center justify-between gap-6 divide-none bg-transparent lg:flex-row">
+      {level_up_items.map((item, index) => (
         <div
-          key={item.title}
+          key={item.title + index}
           className={cn(
-            "size-full p-8 rounded-xl bg-error-container/16 flex flex-col divide-y divide-error-container relative",
+            "bg-error-container/16 divide-error-container relative flex size-full flex-col divide-y rounded-xl p-8",
             {
               "opacity-25": item.type == "disabled",
-              "border border-error": item.type == "popular",
+              "border-error border": item.type == "popular",
             },
           )}
         >
           {item.type == "popular" && (
-            <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-error text-white rounded-full py-1 px-3 label-small-emphasized">
+            <span className="bg-error label-small-emphasized absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full px-3 py-1 text-white">
               🔥 Popular
             </span>
           )}
-          <div className="flex-1 py-6 flex-center flex-col">
+          <div className="flex-center flex-1 flex-col py-6">
             <h4 className="text-outline">{item.title}</h4>
             <p className="display-large-emphasized mt-4 mb-2">
               ${item.price}
-              <span className="title-small-emphasized font-semibold text-outline">
+              <span className="title-small-emphasized text-outline font-semibold">
                 /{item.time}
               </span>
             </p>
@@ -78,7 +78,7 @@ export default function AddOns() {
               {item.badge.description}
             </Badge>
           </div>
-          <div className="flex-1 py-6 flex-center">
+          <div className="flex-center flex-1 py-6">
             <Button variant={"outline"}>Buy Now</Button>
           </div>
         </div>

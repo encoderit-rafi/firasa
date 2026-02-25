@@ -47,33 +47,23 @@ export default function HowItWorks() {
             type="single"
             collapsible
             defaultValue={steps[0].title}
-            className="mt-4 w-full"
+            className="border-tertiary-container mt-4 w-full border-b"
           >
             {steps.map((step) => (
               <AccordionItem key={step.title} value={step.title}>
                 <AccordionTrigger>
-                  <step.icon />
-                  {step.title}
+                  <div className="headline-small-emphasized flex-center gap-2 py-2">
+                    <step.icon />
+                    {step.title}
+                  </div>
                 </AccordionTrigger>
                 <AccordionContent>
                   <p className="pl-10 text-left">{step.content}</p>
                 </AccordionContent>
               </AccordionItem>
             ))}
-            <AccordionItem value="item-1">
-              <AccordionTrigger></AccordionTrigger>
-              <AccordionContent>
-                <p>
-                  Yes, it is free to use. You can use it as much as you want.
-                </p>
-              </AccordionContent>
-            </AccordionItem>
           </Accordion>
-          {/* <Button variant="error">Try now</Button> */}
-          {/* <Button variant={"error"} size={"error"}>
-            Try now
-          </Button> */}
-          <TryNow />
+          <TryNow className="mt-8" />
         </div>
         <SelfieImg />
       </div>

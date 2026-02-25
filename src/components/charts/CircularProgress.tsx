@@ -1,11 +1,13 @@
 import { cn } from "@/lib/utils";
 import { Badge } from "../ui/badge";
+import { TLevel } from "@/global-types";
 
 type CircularProgressProps = {
   size?: number;
   strokeWidth?: number;
   progress?: number;
-  label: "moderate" | "high" | "low";
+  // level: "moderate" | "high" | "low";
+  level: TLevel;
   gradient?: string;
   className?: string;
 };
@@ -14,14 +16,14 @@ const CircularProgress = ({
   size = 85,
   strokeWidth = 10,
   progress = 50,
-  label,
+  level,
   className,
 }: CircularProgressProps) => {
   const bgColor = "rgba(22, 163, 74, 0.05)";
   const transparent = "rgba(255, 255, 255, 0)";
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (progress / 100) * circumference;
+  const offset = circumference - (Number(progress) / 100) * circumference;
   return (
     <div
       className="relative flex flex-col items-center justify-center"
@@ -65,7 +67,7 @@ const CircularProgress = ({
             cx={size / 2}
             cy={size / 2}
             r={radius}
-            stroke={`url(#progressGradient-${label})`}
+            stroke={`url(#progressGradient-${level?.toLowerCase()})`}
             strokeWidth={strokeWidth}
             fill="none"
             strokeDasharray={circumference}
@@ -82,9 +84,12 @@ const CircularProgress = ({
         </span>
       </div>
 
-      {label && (
-        <Badge variant={label} className="absolute bottom-0">
-          {label}
+      {level && (
+        <Badge
+          variant={level.toLowerCase() as "low" | "moderate" | "high"}
+          className="absolute bottom-0"
+        >
+          {level}
         </Badge>
       )}
     </div>

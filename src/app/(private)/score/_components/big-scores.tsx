@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScorePageCard } from "./score-page-card";
 import ScorePageShareButton from "./score-page-share-button";
 import ScorePageContainer from "./score-page-container";
@@ -27,30 +27,28 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardAvatar,
+  CardContent,
+  CardHeader,
+} from "@/components/ui/card";
+import Separator from "@/components/ui/separator";
 import { CameraPlus, Copy, FacebookFilled, Share, X } from "@/assets/icons";
 import CustomRadarChart from "@/components/charts/RadarChart";
 import { ChevronDownIcon } from "lucide-react";
 import PercentageText from "@/components/ui/percentage-text";
 import ShareButton from "@/components/ui/share-button";
-import { PersonalityType } from "@/global-types";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import {
-  FacebookShareButton,
-  LinkedinShareButton,
-  TwitterShareButton,
-} from "react-share";
-import { LinkedinFilled } from "@/assets/icons/LinkedinFilled";
-// type PersonalityType = {
-//   name: string;
-//   value: number | string;
-//   type: "moderate" | "high" | "low";
-// };
+  PersonalityInsights,
+  PersonalityTraits,
+  PersonalityType,
+  TBigFiveTraits,
+  TLevel,
+} from "@/global-types";
+import { useScoreShare } from "../_hooks/use-score-share";
+import { ScoreShareDialog } from "./score-share-dialog";
+
 const descriptions = [
   {
     title: "What this means:",
@@ -89,14 +87,18 @@ const descriptions = [
 ];
 export function ScorePagePersonalityAccordion({
   data,
+  shareToken,
 }: {
   data: PersonalityType[];
+  shareToken?: string;
 }) {
-  const [dialogData, setDialogData] = useState({
-    open: false,
-    description: "",
-    link: "",
-  });
+  const { isOpen, setIsOpen, shareData, handleShare, sharePath } =
+    useScoreShare(shareToken ?? null);
+
+  const handleShareClick = async (description: string) => {
+    handleShare(`${description}\n\nShow more at: ${sharePath}`);
+  };
+
   return (
     <Accordion type="single" collapsible defaultValue={data[0].name}>
       {data.map((personality, index) => (
@@ -132,106 +134,72 @@ export function ScorePagePersonalityAccordion({
 
             <ShareButton
               onClick={() =>
-                setDialogData({
-                  open: true,
-                  description:
-                    "78% Openness (Moderate)\n\nWhat this means:\n🤝 You enjoy new ideas and perspectives\n🌿 You adapt well to change\n🧠 You value personal growth\n\nHow to increase:\n🌍 Explore new inputs\n🔍 Challenge assumptions\n✏️ Create without outcome",
-                  link: "https://firasa.ai",
-                })
+                handleShareClick(
+                  "78% Openness (Moderate)\n\nWhat this means:\n🤝 You enjoy new ideas and perspectives\n🌿 You adapt well to change\n🧠 You value personal growth\n\nHow to increase:\n🌍 Explore new inputs\n🔍 Challenge assumptions\n✏️ Create without outcome",
+                )
               }
             />
           </AccordionContent>
         </AccordionItem>
       ))}
-      <Dialog
-        open={dialogData.open}
-        onOpenChange={(open) => setDialogData({ ...dialogData, open })}
-      >
-        <DialogContent className="max-w-136 space-y-6">
-          <DialogHeader>
-            <DialogTitle>Make it a post</DialogTitle>
-          </DialogHeader>
-          <div className="border-error-container rounded-lg border bg-white p-6 text-wrap whitespace-pre-line">
-            {dialogData.description}
-          </div>
-
-          <div className="flex-center mb-0 gap-3">
-            <TwitterShareButton url="">
-              <Button variant={"icon-muted"}>
-                <X />
-              </Button>
-            </TwitterShareButton>
-            <LinkedinShareButton url="">
-              <Button variant={"icon-muted"}>
-                <LinkedinFilled />
-              </Button>
-            </LinkedinShareButton>
-            <FacebookShareButton
-              url="firasa.ai"
-              content={dialogData.description}
-            >
-              <Button variant={"icon-muted"}>
-                <FacebookFilled />
-              </Button>
-            </FacebookShareButton>
-            <Button
-              variant={"icon-muted"}
-              onClick={() => handleCopyLink(dialogData.description)}
-            >
-              <Copy />
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <ScoreShareDialog
+        open={isOpen}
+        onOpenChange={setIsOpen}
+        shareData={shareData}
+        sharePath={sharePath}
+      />
     </Accordion>
   );
 }
+
 type Props = {
-  data: any;
+  data: TBigFiveTraits;
 };
 export default function BigScores({ data }: Props) {
-  const { full_result } = data;
-  const { predictions, metadata, insights } = full_result;
-  const { preprocessing } = metadata;
+  const {
+    face_image_base64,
+    predictions,
+    insights: { title, description },
+    share_token,
+  } = data;
   const personality_scores = handleFormatPredictions(predictions);
 
-  const [dialogData, setDialogData] = useState({
-    open: false,
-    description: "",
-    link: "",
-  });
+  const { isOpen, setIsOpen, shareData, handleShare, sharePath } =
+    useScoreShare(share_token);
+
+  const share_data = `
+  ${title}\n
+  ${description}\n
+  ${personality_scores.map((score) => `${score.name}: ${score.value}%`).join("\n")}
+  \nShow more at: ${sharePath}`;
+
+  const handleShareClick = async () => {
+    handleShare(share_data);
+  };
+
   return (
     <>
       <ScorePageCard className="xl:rounded-tr-none">
         <ShareButton
           className="max-xl:hidden"
           variant={"absolute"}
-          onClick={() =>
-            setDialogData({
-              open: true,
-              description:
-                "78% Openness (Moderate)\n\nWhat this means:\n🤝 You enjoy new ideas and perspectives\n🌿 You adapt well to change\n🧠 You value personal growth\n\nHow to increase:\n🌍 Explore new inputs\n🔍 Challenge assumptions\n✏️ Create without outcome",
-              link: "https://firasa.ai",
-            })
-          }
+          onClick={handleShareClick}
         />
         <ScorePageContainer
           type="left"
           className="flex-center flex-col gap-8 md:flex-row"
         >
           <Image
-            src={preprocessing.face_image_base64}
+            src={face_image_base64}
             alt="Score"
             width={288}
             height={288}
             className="size-72 rounded-md object-cover object-center md:size-24"
           />
           <div className="text-on-surface flex flex-col gap-2">
-            <h3 className="headline-small-emphasized text-left">
-              {insights.title}
-            </h3>
+            <h3 className="headline-small-emphasized text-left">{title}</h3>
             <p className="body-medium-primary line-clamp-3 text-left">
-              {insights.description}
+              {description}
             </p>
           </div>
         </ScorePageContainer>
@@ -242,53 +210,65 @@ export default function BigScores({ data }: Props) {
           {personality_scores.map((score, index) => (
             <ScorePageProgress
               key={index}
-              label={score.type}
-              progress={Number(score.value)}
+              level={score.type as TLevel}
+              score={Number(score.value)}
               title={score.name}
             />
           ))}
         </ScorePageContainer>
       </ScorePageCard>
       <ScorePageCard className="xl:rounded-tr-none">
-        <ShareButton className="max-xl:hidden" variant={"absolute"} />
+        <ShareButton
+          className="max-xl:hidden"
+          variant={"absolute"}
+          onClick={handleShareClick}
+        />
         <ScorePageContainer
           type="left"
           className="flex h-110.25 flex-col items-center"
         >
           <CustomRadarChart data={personality_scores} />
-          <ShareButton />
+          <ShareButton onClick={handleShareClick} />
         </ScorePageContainer>
         <ScorePageContainer type="right">
-          <ScorePagePersonalityAccordion data={personality_scores} />
+          <ScorePagePersonalityAccordion
+            data={personality_scores}
+            shareToken={share_token ?? ""}
+          />
         </ScorePageContainer>
       </ScorePageCard>
-      <ScorePageCard className="flex-center flex-col gap-8 divide-none">
-        <Tabs defaultValue="overview" className="mx-auto">
-          <TabsList>
-            <TabsTrigger value="overview">Worth sharing</TabsTrigger>
-            <TabsTrigger value="analytics">Strengths</TabsTrigger>
-            <TabsTrigger value="growth">Areas for growth</TabsTrigger>
-          </TabsList>
+      <ScorePageCard className="flex-center flex-col gap-8 divide-none px-4">
+        <Tabs defaultValue="overview" className="w-full">
+          <div className="w-full overflow-x-auto pb-2">
+            <TabsList className="mx-auto flex w-fit">
+              <TabsTrigger value="overview">Worth sharing</TabsTrigger>
+              <TabsTrigger value="analytics">Strengths</TabsTrigger>
+              <TabsTrigger value="growth">Areas for growth</TabsTrigger>
+            </TabsList>
+          </div>
         </Tabs>
-        <Carousel
-          className="mx-auto max-w-276 pr-8"
-          opts={{
-            align: "start",
-          }}
-        >
-          <div className="flex flex-col space-y-3">
+        <div className="w-full overflow-hidden">
+          {/* <Carousel
+            className="mx-auto max-w-276 px-2"
+            opts={{
+              align: "start",
+            }}
+          >
             <CarouselContent>
               {Array.from({ length: 3 }).map((_, index) => (
-                <CarouselItem className="" key={index}>
+                <CarouselItem
+                  className="basis-full md:basis-1/2 lg:basis-1/3"
+                  key={index}
+                >
                   <Card
                     className={cn(
                       "size-83 overflow-hidden border-none bg-cover bg-no-repeat p-0 shadow-none",
                     )}
                     style={{
-                      backgroundImage: `url(${preprocessing.face_image_base64})`,
+                      backgroundImage: `url(${face_image_base64})`,
                     }}
                   >
-                    <CardContent className="flex size-full flex-col justify-between bg-black/40 p-0 backdrop-blur-[1px]">
+                    <CardContent className="flex size-full flex-col bg-black/40 p-0 backdrop-blur-[2px]">
                       <CardHeader className="flex items-center justify-end gap-2 p-3">
                         <Button variant={"icon"} className="size-10">
                           <CameraPlus className="size-5" />
@@ -296,19 +276,18 @@ export default function BigScores({ data }: Props) {
                         <Button
                           variant={"icon"}
                           className="size-10"
-                          onClick={() =>
-                            setDialogData({
-                              open: true,
-                              description:
-                                "78% Openness (Moderate)\n\nWhat this means:\n🤝 You enjoy new ideas and perspectives\n🌿 You adapt well to change\n🧠 You value personal growth\n\nHow to increase:\n🌍 Explore new inputs\n🔍 Challenge assumptions\n✏️ Create without outcome",
-                              link: "https://firasa.ai",
-                            })
-                          }
+                          onClick={handleShareClick}
                         >
                           <Share className="size-5" />
                         </Button>
                       </CardHeader>
-                      <div className="h-1/2">
+                      <CardAvatar
+                        src={face_image_base64}
+                        name={title}
+                        role="Personality Profile"
+                      />
+                      <Separator className="mt-3 h-1 to-white/30" />
+                      <div className="h-40">
                         <CustomRadarChart
                           data={personality_scores}
                           className="pointer-events-none text-white"
@@ -319,56 +298,72 @@ export default function BigScores({ data }: Props) {
                 </CarouselItem>
               ))}
             </CarouselContent>
-          </div>
-          <div className="my-8 px-2">
-            <CarouselIndicator />
-          </div>
-          <div className="flex-center gap-2">
-            <CarouselPrevious />
-            <CarouselNext />
-          </div>
-        </Carousel>
-      </ScorePageCard>
-      <Dialog
-        open={dialogData.open}
-        onOpenChange={(open) => setDialogData({ ...dialogData, open })}
-      >
-        <DialogContent className="max-w-136 space-y-6">
-          <DialogHeader>
-            <DialogTitle>Make it a post</DialogTitle>
-          </DialogHeader>
-          <div className="border-error-container rounded-lg border bg-white p-6 text-wrap whitespace-pre-line">
-            {dialogData.description}
-          </div>
+            <div className="my-8 px-2">
+              <CarouselIndicator />
+            </div>
+            <div className="flex-center gap-2">
+              <CarouselPrevious />
+              <CarouselNext />
+            </div>
+          </Carousel> */}
+          <Carousel
+            className="mx-auto max-w-276 px-2"
+            opts={{
+              align: "start",
+            }}
+          >
+            <div className="flex flex-col space-y-3">
+              <CarouselContent>
+                {Array.from({ length: 10 }).map((_, index) => (
+                  <CarouselItem className="" key={index}>
+                    <Card
+                      className="size-83 overflow-hidden border-none bg-cover bg-no-repeat p-0 shadow-none"
+                      style={{
+                        backgroundImage: `url(${face_image_base64})`,
+                      }}
+                    >
+                      <CardContent className="flex size-full flex-col justify-between bg-black/40 p-0 backdrop-blur-[2px]">
+                        <CardHeader className="flex items-center justify-end gap-2 p-3">
+                          <Button variant={"icon"} className="size-10">
+                            <CameraPlus className="size-5" />
+                          </Button>
+                          <Button
+                            variant={"icon"}
+                            className="size-10"
+                            onClick={handleShareClick}
+                          >
+                            <Share className="size-5" />
+                          </Button>
+                        </CardHeader>
 
-          <div className="flex-center mb-0 gap-3">
-            <TwitterShareButton url="">
-              <Button variant={"icon-muted"}>
-                <X />
-              </Button>
-            </TwitterShareButton>
-            <LinkedinShareButton url="">
-              <Button variant={"icon-muted"}>
-                <LinkedinFilled />
-              </Button>
-            </LinkedinShareButton>
-            <FacebookShareButton
-              url="firasa.ai"
-              content={dialogData.description}
-            >
-              <Button variant={"icon-muted"}>
-                <FacebookFilled />
-              </Button>
-            </FacebookShareButton>
-            <Button
-              variant={"icon-muted"}
-              onClick={() => handleCopyLink(dialogData.description)}
-            >
-              <Copy />
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+                        <div className="h-40">
+                          <CustomRadarChart
+                            data={personality_scores}
+                            className="pointer-events-none text-white"
+                          />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </div>
+            <div className="my-8 px-2">
+              <CarouselIndicator />
+            </div>
+            <div className="flex-center gap-2">
+              <CarouselPrevious />
+              <CarouselNext />
+            </div>
+          </Carousel>
+        </div>
+      </ScorePageCard>
+      <ScoreShareDialog
+        open={isOpen}
+        onOpenChange={setIsOpen}
+        shareData={shareData}
+        sharePath={sharePath}
+      />
     </>
   );
 }

@@ -11,16 +11,39 @@ import ScoreSection from "./score-section";
 import SimilarityToFamous from "./similarity-to-famous";
 import SummaryAndExports from "./summary-and-exports";
 import AddOns from "./add-ons";
-import UnlockFullStory from "./unlock-full-story";
+import {
+  TBigFiveTraits,
+  TReportData,
+  TUniqueStoryTraits,
+} from "@/global-types";
+import { handleFormatPredictions } from "@/lib/utils";
 
 const EXCLUDED_FROM_PDF = ["exports", "add-ons"];
 
 interface ScoreReportViewProps {
-  reportData: any;
+  reportData: TReportData;
 }
 
 export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
+  const { id, share_token, full_result } = reportData;
+  const { predictions, metadata, insights } = full_result;
+  const {
+    preprocessing: { face_image_base64 },
+  } = metadata;
+  // const personality_scores = handleFormatPredictions(predictions);
   const [activeTab, setActiveTab] = useState("score");
+  const big_scores: TBigFiveTraits = {
+    id,
+    share_token,
+    face_image_base64,
+    insights,
+    predictions,
+  };
+  const unique_stories: TUniqueStoryTraits = {
+    id,
+    share_token,
+    insights,
+  };
   const [sectionData, setSectionData] = useState<
     {
       id: string;
@@ -39,14 +62,21 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           label: "Big 5 scores",
           title: "Big 5 personality score",
           is_visible: true,
-          component: <BigScores data={reportData} />,
+          component: (
+            <BigScores
+              data={big_scores}
+              // dataa={{
+              //   id,
+              // }}
+            />
+          ),
         },
         {
           id: "story",
           label: "Unique story",
           title: "Your unique personality story",
           is_visible: true,
-          component: <UniqueStory data={reportData} />,
+          component: <UniqueStory data={unique_stories} />,
         },
         {
           id: "relationship",
@@ -55,8 +85,15 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: (
             <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.relationship_metrics}
+              title="Relationship"
+              shareToken={share_token}
+              // full_result={reportData.full_result}
+              // metrics={reportData.full_result.relationship_metrics}
+              face_image={
+                reportData?.full_result.metadata?.preprocessing
+                  ?.face_image_base64
+              }
+              data={reportData.full_result.relationship_metrics}
             />
           ),
         },
@@ -67,8 +104,15 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: (
             <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.work_metrics}
+              title="Work & Focus"
+              shareToken={share_token}
+              // full_result={reportData.full_result}
+              // metrics={reportData.full_result.relationship_metrics}
+              face_image={
+                reportData?.full_result.metadata?.preprocessing
+                  ?.face_image_base64
+              }
+              data={reportData.full_result.work_metrics}
             />
           ),
         },
@@ -79,8 +123,15 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: (
             <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.creativity_metrics}
+              title="Creativity & Ideation"
+              shareToken={share_token}
+              // full_result={reportData.full_result}
+              // metrics={reportData.full_result.creativity_metrics}
+              face_image={
+                reportData?.full_result.metadata?.preprocessing
+                  ?.face_image_base64
+              }
+              data={reportData.full_result.creativity_metrics}
             />
           ),
         },
@@ -91,8 +142,15 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: (
             <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.stress_metrics}
+              title="Stress & Pressure"
+              shareToken={share_token}
+              // full_result={reportData.full_result}
+              // metrics={reportData.full_result.stress_metrics}
+              face_image={
+                reportData?.full_result.metadata?.preprocessing
+                  ?.face_image_base64
+              }
+              data={reportData.full_result.stress_metrics}
             />
           ),
         },
@@ -103,8 +161,15 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: (
             <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.openness_metrics}
+              title="Openness"
+              shareToken={share_token}
+              // full_result={reportData.full_result}
+              // metrics={reportData.full_result.openness_metrics}
+              face_image={
+                reportData?.full_result.metadata?.preprocessing
+                  ?.face_image_base64
+              }
+              data={reportData.full_result.openness_metrics}
             />
           ),
         },
@@ -115,8 +180,15 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           is_visible: true,
           component: (
             <ScoreSection
-              full_result={reportData.full_result}
-              metrics={reportData.full_result.learning_metrics}
+              title="Learning"
+              shareToken={share_token}
+              // full_result={reportData.full_result}
+              // metrics={reportData.full_result.learning_metrics}
+              face_image={
+                reportData?.full_result.metadata?.preprocessing
+                  ?.face_image_base64
+              }
+              data={reportData.full_result.learning_metrics}
             />
           ),
         },
@@ -132,9 +204,7 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
           label: "Exports",
           title: "Summary & exports",
           is_visible: true,
-          component: (
-            <SummaryAndExports reportData={reportData.full_result} />
-          ),
+          component: <SummaryAndExports reportData={reportData.full_result} />,
         },
         {
           id: "add-ons",
@@ -179,10 +249,10 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
   }, [sectionData]);
 
   const pdfSections = sectionData.filter(
-    (s) => !EXCLUDED_FROM_PDF.includes(s.id)
+    (s) => !EXCLUDED_FROM_PDF.includes(s.id),
   );
   const nonPdfSections = sectionData.filter((s) =>
-    EXCLUDED_FROM_PDF.includes(s.id)
+    EXCLUDED_FROM_PDF.includes(s.id),
   );
 
   return (

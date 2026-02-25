@@ -62,13 +62,13 @@ export default function Faqs() {
           {steps.map((step) => (
             <AccordionItem key={step.title} value={step.title}>
               <AccordionTrigger className="group py-6 data-[state=open]:pb-2">
-                <div className="headline-small-emphasized flex w-full items-center justify-between gap-4 text-base">
+                <div className="body-large-emphasized flex w-full items-center justify-between gap-4 px-2">
                   {/* <step.icon /> */}
                   {step.title}
                   <ChevronDownIcon className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
                 </div>
               </AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className="px-2">
                 <p className="text-left">{step.content}</p>
               </AccordionContent>
             </AccordionItem>

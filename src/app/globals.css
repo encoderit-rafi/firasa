@@ -225,7 +225,7 @@
   }
 
   h1 {
-    @apply text-on-surface mx-auto text-center text-3xl leading-tight font-medium tracking-normal md:text-6xl;
+    @apply text-on-surface mx-auto text-center text-3xl leading-tight font-medium tracking-normal sm:text-5xl md:text-6xl;
   }
 
   /* h2 {
@@ -479,6 +479,9 @@
   &::-webkit-scrollbar {
     display: none;
   }
+}
+.clip-triangle {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
 @utility clip-triangle {
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
