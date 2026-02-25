@@ -220,57 +220,70 @@ export const useVideoUpload = () => {
 
   const { mutate: analyzeVideos, isPending: isAnalyzing } = useMutation({
     mutationFn: async (vidId: string) => {
-      if (!vidId) return;
-      setStatus("analyzing");
-      setAnalysisLogs([]);
-      setProgress(0);
+      try {
+        if (!vidId) return;
+        setStatus("analyzing");
+        setAnalysisLogs([]);
+        setProgress(0);
+        abortControllerRef.current = new AbortController();
 
-      const formData = new FormData();
-      formData.append("use_tta", "true");
-      formData.append("method", "face+middle");
-      formData.append("generate_report", "true");
+        const formData = new FormData();
+        formData.append("use_tta", "true");
+        formData.append("method", "face+middle");
+        formData.append("generate_report", "true");
 
-      // SSE implementation using Axios with fetch adapter for streaming
-      const response = await api.post(`/videos/${vidId}/analyze`, formData, {
-        responseType: "stream",
-        // @ts-ignore
-        adapter: "fetch",
-      });
+        // SSE implementation using Axios with fetch adapter for streaming
+        const response = await api.post(`/videos/${vidId}/analyze`, formData, {
+          responseType: "stream",
+          // @ts-ignore
+          adapter: "fetch",
+          signal: abortControllerRef.current.signal,
+        });
 
-      if (!response.data) return;
-      const reader = response.data.getReader();
-      const decoder = new TextDecoder();
-      let buffer = "";
+        if (!response.data) return;
+        const reader = response.data.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
 
-      while (true) {
-        const { value, done } = await reader.read();
-        console.log(`👉 ~ useVideoUpload ~ { value, done }:`, { value, done });
-        if (done) break;
+        while (true) {
+          const { value, done } = await reader.read();
+          console.log(`👉 ~ useVideoUpload ~ { value, done }:`, {
+            value,
+            done,
+          });
+          if (done) break;
 
-        buffer += decoder.decode(value, { stream: true });
-        const parts = buffer.split("\n\n");
-        buffer = parts.pop() || "";
+          buffer += decoder.decode(value, { stream: true });
+          const parts = buffer.split("\n\n");
+          buffer = parts.pop() || "";
 
-        for (const part of parts) {
-          if (part.startsWith("data:")) {
-            try {
-              const data = JSON.parse(part.replace("data:", "").trim());
-              setProgress(data.progress || 0);
-              if (data.stage === "complete") {
-                setStatus("completed");
-                setAnalysisId(data.analysis_id);
+          for (const part of parts) {
+            if (part.startsWith("data:")) {
+              try {
+                const data = JSON.parse(part.replace("data:", "").trim());
+                setProgress(data.progress || 0);
+                if (data.stage === "complete") {
+                  setStatus("completed");
+                  setAnalysisId(data.analysis_id);
+                }
+              } catch (e) {
+                console.error("Error parsing SSE data", e);
               }
-            } catch (e) {
-              console.error("Error parsing SSE data", e);
             }
           }
         }
+      } catch (err: any) {
+        if (err.name === "CanceledError" || err.name === "AbortError") {
+          console.log("Analysis canceled");
+          setStatus("idle");
+          return;
+        }
+        console.error("Analysis failed", err);
+        setStatus("error");
+        toast.error("Analysis failed");
+      } finally {
+        abortControllerRef.current = null;
       }
-    },
-    onError: (err) => {
-      console.error("Analysis failed", err);
-      setStatus("error");
-      toast.error("Analysis failed");
     },
   });
 
