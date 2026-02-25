@@ -225,9 +225,11 @@ export default function BigScores({ data }: Props) {
         />
         <ScorePageContainer
           type="left"
-          className="flex h-110.25 flex-col items-center"
+          className="flex h-110.25 w-full flex-col items-center"
         >
-          <CustomRadarChart data={personality_scores} />
+          <div className="aspect-square size-full">
+            <CustomRadarChart data={personality_scores} />
+          </div>
           <ShareButton onClick={handleShareClick} />
         </ScorePageContainer>
         <ScorePageContainer type="right">
