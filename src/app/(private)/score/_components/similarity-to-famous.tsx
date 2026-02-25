@@ -31,7 +31,8 @@ export default function SimilarityToFamous() {
                     </CardHeader>
                     <div className="pb-3">
                       <CircularProgress
-                        label="high"
+                        // label="high"
+                        level="High"
                         progress={52}
                         className="text-white"
                       />
