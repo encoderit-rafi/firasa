@@ -55,6 +55,7 @@ import {
 } from "@/components/ui/dialog";
 import TextSeparator from "@/components/ui/text-separator";
 import { LinkedinFilled } from "@/assets/icons/LinkedinFilled";
+import PdfDownloadBtn from "./_components/pdf/PdfDownloadBtn";
 // import { InstagramFilled } from "@/assets/icons/InstagramFilled";
 
 export default function ScorePage() {
@@ -221,9 +222,7 @@ function ScorePageContent() {
                   disabled={isTogglingSharing}
                 />
               </div>
-              <Button variant="outline" size={"icon"} className="size-10">
-                <Download />
-              </Button>
+              <PdfDownloadBtn />
               <Button
                 variant="outline"
                 size={"icon"}
