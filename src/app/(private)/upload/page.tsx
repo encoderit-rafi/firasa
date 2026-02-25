@@ -88,9 +88,9 @@ export default function UploadPage() {
               {steps.map((step) => (
                 <AccordionItem key={step.title} value={step.title}>
                   <AccordionTrigger className="group py-6 data-[state=open]:pb-2">
-                    <div className="headline-small-emphasized flex w-full items-center justify-between gap-4">
+                    <div className="flex w-full items-center justify-between gap-4">
                       {/* <step.icon /> */}
-                      <div className="flex items-center gap-2">
+                      <div className="body-large-emphasized flex items-center gap-2">
                         <div className="bg-error flex-center size-6 shrink-0 rounded-full">
                           <Check className="text-on-error size-5" />
                         </div>

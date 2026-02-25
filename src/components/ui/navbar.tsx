@@ -2,13 +2,20 @@
 import { useEffect, useState } from "react";
 import { Logo } from "@/assets/Logo";
 import { Button } from "./button";
-import { ArrowOutward, Menu } from "@/assets/icons";
+import { ArrowOutward, Menu, VideoCam } from "@/assets/icons";
 import Translation from "./translation";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { useSession } from "next-auth/react";
 import SignIn from "./sign-in";
 import UploadOrRecordVideo from "./upload-or-record-video";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./dropdown-menu";
+import { LogIn } from "lucide-react";
 
 export type NavItemType = {
   label: string;
@@ -99,8 +106,11 @@ export default function Navbar() {
         {session?.user ? (
           <Link href="/profile">
             <Avatar className="border-blue size-13.5 border-4">
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarImage
+                src={session?.user?.avatar}
+                alt={session?.user?.name || ""}
+              />
+              <AvatarFallback>{session?.user?.name?.charAt(0)}</AvatarFallback>
             </Avatar>
           </Link>
         ) : (
@@ -110,9 +120,30 @@ export default function Navbar() {
               <Translation />
               <UploadOrRecordVideo />
             </div>
-            <Button variant={"ghost"} className="xl:hidden">
+            {/* <Button variant={"ghost"} className="xl:hidden">
               <Menu />
-            </Button>
+            </Button> */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant={"ghost"} className="xl:hidden" size={"icon"}>
+                  <Menu />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="mx-2">
+                <Link href="/sign-in">
+                  <DropdownMenuItem>
+                    <LogIn />
+                    Sign In
+                  </DropdownMenuItem>
+                </Link>
+                <Link href="/upload">
+                  <DropdownMenuItem>
+                    <VideoCam />
+                    Upload or record video
+                  </DropdownMenuItem>
+                </Link>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </>
         )}
       </header>

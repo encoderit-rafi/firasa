@@ -27,7 +27,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardAvatar,
+  CardContent,
+  CardHeader,
+} from "@/components/ui/card";
+import Separator from "@/components/ui/separator";
 import { CameraPlus, Copy, FacebookFilled, Share, X } from "@/assets/icons";
 import CustomRadarChart from "@/components/charts/RadarChart";
 import { ChevronDownIcon } from "lucide-react";
@@ -231,24 +237,29 @@ export default function BigScores({ data }: Props) {
           />
         </ScorePageContainer>
       </ScorePageCard>
-      <ScorePageCard className="flex-center flex-col gap-8 divide-none">
-        <Tabs defaultValue="overview" className="mx-auto">
-          <TabsList>
-            <TabsTrigger value="overview">Worth sharing</TabsTrigger>
-            <TabsTrigger value="analytics">Strengths</TabsTrigger>
-            <TabsTrigger value="growth">Areas for growth</TabsTrigger>
-          </TabsList>
+      <ScorePageCard className="flex-center flex-col gap-8 divide-none px-4">
+        <Tabs defaultValue="overview" className="w-full">
+          <div className="w-full overflow-x-auto pb-2">
+            <TabsList className="mx-auto flex w-fit">
+              <TabsTrigger value="overview">Worth sharing</TabsTrigger>
+              <TabsTrigger value="analytics">Strengths</TabsTrigger>
+              <TabsTrigger value="growth">Areas for growth</TabsTrigger>
+            </TabsList>
+          </div>
         </Tabs>
-        <Carousel
-          className="mx-auto max-w-276 pr-8"
-          opts={{
-            align: "start",
-          }}
-        >
-          <div className="flex flex-col space-y-3">
+        <div className="w-full overflow-hidden">
+          {/* <Carousel
+            className="mx-auto max-w-276 px-2"
+            opts={{
+              align: "start",
+            }}
+          >
             <CarouselContent>
               {Array.from({ length: 3 }).map((_, index) => (
-                <CarouselItem className="" key={index}>
+                <CarouselItem
+                  className="basis-full md:basis-1/2 lg:basis-1/3"
+                  key={index}
+                >
                   <Card
                     className={cn(
                       "size-83 overflow-hidden border-none bg-cover bg-no-repeat p-0 shadow-none",
@@ -257,7 +268,7 @@ export default function BigScores({ data }: Props) {
                       backgroundImage: `url(${face_image_base64})`,
                     }}
                   >
-                    <CardContent className="flex size-full flex-col justify-between bg-black/40 p-0 backdrop-blur-[1px]">
+                    <CardContent className="flex size-full flex-col bg-black/40 p-0 backdrop-blur-[2px]">
                       <CardHeader className="flex items-center justify-end gap-2 p-3">
                         <Button variant={"icon"} className="size-10">
                           <CameraPlus className="size-5" />
@@ -270,7 +281,13 @@ export default function BigScores({ data }: Props) {
                           <Share className="size-5" />
                         </Button>
                       </CardHeader>
-                      <div className="h-1/2">
+                      <CardAvatar
+                        src={face_image_base64}
+                        name={title}
+                        role="Personality Profile"
+                      />
+                      <Separator className="mt-3 h-1 to-white/30" />
+                      <div className="h-40">
                         <CustomRadarChart
                           data={personality_scores}
                           className="pointer-events-none text-white"
@@ -281,15 +298,65 @@ export default function BigScores({ data }: Props) {
                 </CarouselItem>
               ))}
             </CarouselContent>
-          </div>
-          <div className="my-8 px-2">
-            <CarouselIndicator />
-          </div>
-          <div className="flex-center gap-2">
-            <CarouselPrevious />
-            <CarouselNext />
-          </div>
-        </Carousel>
+            <div className="my-8 px-2">
+              <CarouselIndicator />
+            </div>
+            <div className="flex-center gap-2">
+              <CarouselPrevious />
+              <CarouselNext />
+            </div>
+          </Carousel> */}
+          <Carousel
+            className="mx-auto max-w-276 px-2"
+            opts={{
+              align: "start",
+            }}
+          >
+            <div className="flex flex-col space-y-3">
+              <CarouselContent>
+                {Array.from({ length: 10 }).map((_, index) => (
+                  <CarouselItem className="" key={index}>
+                    <Card
+                      className="size-83 overflow-hidden border-none bg-cover bg-no-repeat p-0 shadow-none"
+                      style={{
+                        backgroundImage: `url(${face_image_base64})`,
+                      }}
+                    >
+                      <CardContent className="flex size-full flex-col justify-between bg-black/40 p-0 backdrop-blur-[2px]">
+                        <CardHeader className="flex items-center justify-end gap-2 p-3">
+                          <Button variant={"icon"} className="size-10">
+                            <CameraPlus className="size-5" />
+                          </Button>
+                          <Button
+                            variant={"icon"}
+                            className="size-10"
+                            onClick={handleShareClick}
+                          >
+                            <Share className="size-5" />
+                          </Button>
+                        </CardHeader>
+
+                        <div className="h-40">
+                          <CustomRadarChart
+                            data={personality_scores}
+                            className="pointer-events-none text-white"
+                          />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </div>
+            <div className="my-8 px-2">
+              <CarouselIndicator />
+            </div>
+            <div className="flex-center gap-2">
+              <CarouselPrevious />
+              <CarouselNext />
+            </div>
+          </Carousel>
+        </div>
       </ScorePageCard>
       <ScoreShareDialog
         open={isOpen}

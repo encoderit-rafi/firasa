@@ -28,13 +28,16 @@ const solutions = [
 export default function Poster() {
   return (
     <section className="section bg-error-container/16 px-4">
-      <div className="box-black container-md relative mx-auto flex min-h-79 bg-[url('/union-2.png')] bg-cover bg-center bg-no-repeat px-8 max-lg:pt-16">
+      <div className="box-black container-md relative mx-auto flex min-h-79 overflow-hidden px-8 max-lg:pt-16">
+        {/* bg-[url('/union-2.png')] bg-cover bg-center bg-no-repeat */}
         {/* <Image
           src="/union-2.png"
           alt="Union 2"
-          fill
-          className="absolute inset-0 translate-y-1/3 bg-amber-400"
+          width={890}
+          height={511}
+          className="absolute right-0 bottom-0 h-127.75 w-222.5 shrink-0 translate-x-1/12 translate-y-1/8 bg-amber-300"
         /> */}
+        <div className="absolute right-0 bottom-0 h-127.75 w-222.5 shrink-0 translate-x-1/2 translate-y-1/4 bg-[url('/union-2.png')] bg-contain bg-center bg-no-repeat lg:translate-x-1/10 lg:translate-y-1/8" />
 
         <div className="flex flex-1 flex-col items-center justify-between gap-6 lg:flex-row">
           <div className="space-y-6">
