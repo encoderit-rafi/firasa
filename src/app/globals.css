@@ -225,7 +225,7 @@
   }
 
   h1 {
-    @apply text-on-surface mx-auto text-center text-3xl leading-tight font-medium tracking-normal md:text-6xl;
+    @apply text-on-surface mx-auto text-center text-3xl leading-tight font-medium tracking-normal sm:text-5xl md:text-6xl;
   }
 
   /* h2 {

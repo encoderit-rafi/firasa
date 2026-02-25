@@ -6,7 +6,8 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
-import { EyeOffIcon } from "lucide-react";
+import { EyeOffIcon, EyeIcon } from "lucide-react";
+import { useState } from "react";
 
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,6 +22,7 @@ import { SignInSchema, SignInType } from "../_types";
 import { useMutationSignIn } from "../_api";
 
 export default function FormSignIn() {
+  const [showPassword, setShowPassword] = useState(false);
   const { control, handleSubmit } = useForm<SignInType>({
     defaultValues: {
       email: "",
@@ -65,12 +67,16 @@ export default function FormSignIn() {
                 <InputGroupInput
                   id={field.name}
                   aria-invalid={invalid}
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Enter password"
                   {...field}
                 />
-                <InputGroupAddon align="inline-end">
-                  <EyeOffIcon />
+                <InputGroupAddon
+                  align="inline-end"
+                  className="cursor-pointer"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? <EyeIcon /> : <EyeOffIcon />}
                 </InputGroupAddon>
               </InputGroup>
               <Activity mode={Boolean(error) ? "visible" : "hidden"}>

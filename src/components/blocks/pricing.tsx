@@ -14,7 +14,7 @@ import {
 const IsChecked = (value: boolean) => {
   const bg = value ? "bg-gradient" : "bg-error-container";
   return (
-    <div className={cn(bg, "flex-center mx-auto size-6 rounded-full p-1")}>
+    <div className={cn(bg, "flex-center mx-auto size-6 rounded-full p-0.5")}>
       {value ? (
         <Check className="text-white" />
       ) : (
@@ -115,7 +115,7 @@ const prices = [
     },
   },
   {
-    title: "Shareable social cards (no watermark)",
+    title: "Shareable social cards",
     plan: {
       free: IsChecked(false),
       pro: {
@@ -123,36 +123,6 @@ const prices = [
         annual: IsChecked(true),
       },
     },
-  },
-];
-const invoices = [
-  {
-    totalAmount: IsChecked(true),
-    paymentMethod: "Credit Card",
-  },
-  {
-    totalAmount: IsChecked(false),
-    paymentMethod: "PayPal",
-  },
-  {
-    totalAmount: IsChecked(true),
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    totalAmount: IsChecked(false),
-    paymentMethod: "Credit Card",
-  },
-  {
-    totalAmount: IsChecked(true),
-    paymentMethod: "PayPal",
-  },
-  {
-    totalAmount: IsChecked(false),
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    totalAmount: IsChecked(true),
-    paymentMethod: "Credit Card",
   },
 ];
 
@@ -163,16 +133,21 @@ import { cn } from "@/lib/utils";
 import { Check, Close } from "@/assets/icons";
 function FreeHeading() {
   return (
-    <>
-      <TableHeading>Free</TableHeading>
-      <TableDescription>
-        No sign-up.
-        <br />
-        No credit card.
-      </TableDescription>
-
-      <TablePrice variant="muted">$0</TablePrice>
-    </>
+    // <TableHead className="w-1/3! bg-amber-600 py-4 pt-8! text-center md:w-full!">
+    <div className="flex w-full flex-col items-center justify-between">
+      <div className="space-y-3 text-center">
+        <TableHeading>Free</TableHeading>
+        <TableDescription>
+          No sign-up.
+          <br />
+          No credit card.
+        </TableDescription>
+      </div>
+      <TablePrice variant="muted" className="mt-auto">
+        $0
+      </TablePrice>
+    </div>
+    // </TableHead>
   );
 }
 function ProHeading() {
@@ -195,7 +170,7 @@ function ProHeading() {
 }
 export default function Pricing() {
   return (
-    <section id="pricing" className="section">
+    <section id="pricing" className="section px-4">
       <h6 className="section-label">Pricing</h6>
       <h2 className="section-title">Start free. Go deeper with pro.</h2>
       <p className="section-description">
@@ -203,16 +178,16 @@ export default function Pricing() {
         ready.
       </p>
 
-      <div className="container-sm mx-auto mt-8 space-y-6 px-4 lg:mt-16">
+      <div className="container-sm mx-auto mt-8 space-y-6 lg:mt-16">
         <Tabs defaultValue="annual">
           <Table className="max-md:hidden">
             <TableHeader>
               <TableRow>
-                <TableHead className=""></TableHead>
-                <TableHead className="py-4 pt-8! text-center lg:text-end">
+                <TableHead className="w-1/3!"></TableHead>
+                <TableHead className="w-1/3! py-4 pt-8! text-center md:w-full!">
                   <FreeHeading />
                 </TableHead>
-                <TableHead className="rounded-t-3xl bg-red-50 py-4 pt-8! text-center">
+                <TableHead className="w-1/3! space-y-3 rounded-t-3xl bg-red-50 py-4 pt-8! text-center md:w-full">
                   <ProHeading />
                 </TableHead>
               </TableRow>
@@ -220,9 +195,11 @@ export default function Pricing() {
             <TableBody>
               {prices.map((price, index) => (
                 <TableRow key={index} className="">
-                  <TableCell>{price.title}</TableCell>
-                  <TableCell>{price.plan.free}</TableCell>
-                  <TableCell className="bg-red-50 text-center">
+                  <TableCell className="w-1/3!">{price.title}</TableCell>
+                  <TableCell className="w-1/3! text-center">
+                    {price.plan.free}
+                  </TableCell>
+                  <TableCell className="w-1/3! bg-red-50 text-center">
                     <TabsContent value="monthly">
                       {price.plan.pro.monthly}
                     </TabsContent>
@@ -235,12 +212,12 @@ export default function Pricing() {
             </TableBody>
             <TableFooter className="border-none bg-transparent">
               <TableRow>
-                <TableCell className=""></TableCell>
-                <TableCell className="pb-8 text-center">
+                <TableCell className="w-1/3!"></TableCell>
+                <TableCell className="w-1/3! pb-8 text-center">
                   <Button variant="outline">Get free score</Button>
                 </TableCell>
                 <TableCell
-                  className={"rounded-b-3xl bg-red-50 pb-8 text-center"}
+                  className={"w-1/3! rounded-b-3xl bg-red-50 pb-8 text-center"}
                 >
                   <Button variant="black">Unlock pro report</Button>
                 </TableCell>
@@ -252,7 +229,7 @@ export default function Pricing() {
               <Table className="">
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="py-4 text-center" colSpan={2}>
+                    <TableHead className="text-center" colSpan={2}>
                       <FreeHeading />
                     </TableHead>
                   </TableRow>
@@ -274,7 +251,6 @@ export default function Pricing() {
                 </TableFooter>
               </Table>
             </div>
-
             <Table className="">
               <TableHeader>
                 <TableRow>
