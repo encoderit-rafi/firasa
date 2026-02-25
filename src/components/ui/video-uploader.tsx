@@ -106,6 +106,12 @@ export default function VideoUploader() {
     }
   }, [status, videoId, startAnalysis]);
 
+  useEffect(() => {
+    if (status === "error") {
+      handleCancelUpload();
+    }
+  }, [status]);
+
   return (
     <div className="flex flex-col gap-4">
       <div className="relative">

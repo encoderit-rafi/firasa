@@ -265,6 +265,10 @@ export const useVideoUpload = () => {
                 if (data.stage === "complete") {
                   setStatus("completed");
                   setAnalysisId(data.analysis_id);
+                } else if (data.stage === "error") {
+                  setStatus("error");
+                  toast.error(data.message || "Analysis failed");
+                  return; // Exit the while loop
                 }
               } catch (e) {
                 console.error("Error parsing SSE data", e);
