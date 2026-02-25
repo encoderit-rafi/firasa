@@ -12,31 +12,31 @@ import {
 // #region Sample data
 const data = [
   {
-    subject: "Math",
+    subject: "openness",
     A: 120,
     B: 110,
     fullMark: 150,
   },
   {
-    subject: "Chinese",
+    subject: "conscientiousness",
     A: 98,
     B: 130,
     fullMark: 150,
   },
   {
-    subject: "English",
+    subject: "agreeableness",
     A: 86,
     B: 130,
     fullMark: 150,
   },
   {
-    subject: "Geography",
+    subject: "extraversion",
     A: 99,
     B: 100,
     fullMark: 150,
   },
   {
-    subject: "Physics",
+    subject: "neuroticism",
     A: 85,
     B: 90,
     fullMark: 150,
@@ -66,7 +66,7 @@ export default function SimpleRadarChart({
             <stop offset="100%" stopColor="#FA6C12" stopOpacity={1} />
           </linearGradient>
         </defs>
-        <PolarGrid gridType="circle" strokeOpacity={0.3} stroke="#FF77D7"/>
+        <PolarGrid gridType="circle" strokeOpacity={0.3} stroke="#FF77D7" />
         <PolarAngleAxis
           dataKey="subject"
           tick={{ fill: "currentColor", fontSize: 10 }}
