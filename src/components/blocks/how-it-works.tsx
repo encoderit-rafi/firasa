@@ -10,6 +10,7 @@ import { SVGProps } from "react";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import TryNow from "../ui/try-now";
+import SelfieImg from "./SelfieImg";
 const steps: {
   icon: React.FC<SVGProps<SVGSVGElement>>;
   title: string;
@@ -64,9 +65,7 @@ export default function HowItWorks() {
           </Accordion>
           <TryNow className="mt-8" />
         </div>
-        <div className="flex-center w-full flex-1 shrink-0 lg:w-1/2">
-          <Image src="/selfie.png" alt="selfie" width={544} height={596} />
-        </div>
+        <SelfieImg />
       </div>
     </section>
   );

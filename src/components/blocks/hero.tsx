@@ -1,9 +1,9 @@
 import { Guard, Model, Video } from "@/assets/icons";
-import CardFeature, { PropsCardFeature } from "../cards/feature/CardFeature";
-import Image from "next/image";
+import { PropsCardFeature } from "../cards/feature/CardFeature";
 
 import UploadOrRecordVideo from "../ui/upload-or-record-video";
 import DiscoverSampleResult from "../ui/discover-sample-result";
+import HeroImgs from "./HeroImgs";
 const features: PropsCardFeature[] = [
   {
     title: "Big 5 model",
@@ -38,30 +38,7 @@ export default function Hero() {
           <UploadOrRecordVideo className="w-61.25" />
           <DiscoverSampleResult className="w-61.25" />
         </div>
-        <div className="overflow-x-hidden bg-[url('/union.png')] bg-center bg-no-repeat">
-          <div className="relative mx-auto w-fit">
-            <CardFeature
-              data={features[0]}
-              className={"absolute top-50 -left-20"}
-            />
-            <CardFeature
-              data={features[1]}
-              className={"absolute bottom-10 -left-20"}
-            />
-            <CardFeature
-              data={features[2]}
-              className={"absolute top-1/2 -right-20"}
-            />
-
-            <Image
-              src="/hero-image.png"
-              alt="Firasa AI Face Analysis Illustration"
-              width={514}
-              height={514}
-              className="relative z-10 mx-auto"
-            />
-          </div>
-        </div>
+        <HeroImgs features={features}/>
       </div>
     </section>
   );
