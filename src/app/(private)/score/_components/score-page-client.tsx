@@ -73,8 +73,8 @@ export default function ScorePageClient() {
     <div className="">
       <div className="bg-background sticky top-0 z-10">
         <div className="border-secondary/10 border-b">
-          <div className="container-xl px-base flex items-center justify-between gap-4 py-2">
-            <div className="flex-center gap-4">
+          <div className="container-xl px-base flex flex-col justify-between gap-4 py-2 sm:flex-row">
+            <div className="flex items-center gap-4">
               <Button
                 variant="outline"
                 size={"icon"}
@@ -119,7 +119,7 @@ export default function ScorePageClient() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="flex-center gap-2">
+            <div className="flex items-center gap-2">
               <div className="flex items-center space-x-2">
                 <Label htmlFor="airplane-mode" className="body-medium-primary">
                   Public
