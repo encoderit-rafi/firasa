@@ -35,6 +35,7 @@ import ScoreReportView from "./score-report-view";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import TextSeparator from "@/components/ui/text-separator";
+import PdfDownloadBtn from "./pdf/PdfDownloadBtn";
 
 export default function ScorePageClient() {
   const router = useRouter();
@@ -130,9 +131,7 @@ export default function ScorePageClient() {
                   disabled={isTogglingSharing}
                 />
               </div>
-              <Button variant="outline" size={"icon"} className="size-10">
-                <Download />
-              </Button>
+              <PdfDownloadBtn />
               <Button
                 variant="outline"
                 size={"icon"}
