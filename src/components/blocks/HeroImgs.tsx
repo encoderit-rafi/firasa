@@ -67,7 +67,7 @@ export default function HeroImgs({ features }: { features: PropsCardFeature[] })
               className="absolute top-0 left-0 w-full h-full z-100 pointer-events-none"
               style={{
                 background:
-                  "linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%)",
+                  "linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%)",
               }}
               animate={{ y: ["100%", "-100%", "-100%"] }}
               transition={{
