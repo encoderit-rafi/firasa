@@ -78,7 +78,7 @@ export default function UniqueStory({ data }: Props) {
           <h2 className="headline-small-emphasized text-left">{quote}</h2>
         </div>
         <p className="body-medium-primary text-left">{story}</p>
-        <ShareButton onClick={handleShareClick} />
+        <ShareButton className="mx-auto w-fit" onClick={handleShareClick} />
       </ScorePageContainer>
       <ScorePageContainer type="right" className="flex flex-col gap-8">
         {personality_stories.map((story, index) => (
