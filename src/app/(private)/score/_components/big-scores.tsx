@@ -248,64 +248,6 @@ export default function BigScores({ data }: Props) {
           </div>
         </Tabs>
         <div className="w-full overflow-hidden">
-          {/* <Carousel
-            className="mx-auto max-w-276 px-2"
-            opts={{
-              align: "start",
-            }}
-          >
-            <CarouselContent>
-              {Array.from({ length: 3 }).map((_, index) => (
-                <CarouselItem
-                  className="basis-full md:basis-1/2 lg:basis-1/3"
-                  key={index}
-                >
-                  <Card
-                    className={cn(
-                      "size-83 overflow-hidden border-none bg-cover bg-no-repeat p-0 shadow-none",
-                    )}
-                    style={{
-                      backgroundImage: `url(${face_image_base64})`,
-                    }}
-                  >
-                    <CardContent className="flex size-full flex-col bg-black/40 p-0 backdrop-blur-[2px]">
-                      <CardHeader className="flex items-center justify-end gap-2 p-3">
-                        <Button variant={"icon"} className="size-10">
-                          <CameraPlus className="size-5" />
-                        </Button>
-                        <Button
-                          variant={"icon"}
-                          className="size-10"
-                          onClick={handleShareClick}
-                        >
-                          <Share className="size-5" />
-                        </Button>
-                      </CardHeader>
-                      <CardAvatar
-                        src={face_image_base64}
-                        name={title}
-                        role="Personality Profile"
-                      />
-                      <Separator className="mt-3 h-1 to-white/30" />
-                      <div className="h-40">
-                        <CustomRadarChart
-                          data={personality_scores}
-                          className="pointer-events-none text-white"
-                        />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <div className="my-8 px-2">
-              <CarouselIndicator />
-            </div>
-            <div className="flex-center gap-2">
-              <CarouselPrevious />
-              <CarouselNext />
-            </div>
-          </Carousel> */}
           <Carousel
             className="mx-auto max-w-276 px-2"
             opts={{

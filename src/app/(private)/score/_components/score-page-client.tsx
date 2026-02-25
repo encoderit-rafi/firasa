@@ -5,6 +5,7 @@ import {
   FacebookFilled,
   Language,
   LinkIcon,
+  LoadingIcon,
   Share,
   ThreedotMenu,
   X,
@@ -63,7 +64,7 @@ export default function ScorePageClient() {
   if (isLoading)
     return (
       <div className="flex-center h-screen w-full">
-        <Loader2 className="animate-spin" />
+        <LoadingIcon className="size-8 lg:size-12" />
       </div>
     );
 

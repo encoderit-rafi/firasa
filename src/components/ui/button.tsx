@@ -14,7 +14,7 @@ const buttonVariants = cva(
         // default: "bg-primary text-primary-foreground hover:bg-primary/90",
         default: "bg-gradient",
         "icon-muted":
-          "bg-muted-gray hover:bg-linear-to-l from-[#FF77D7] to-[#FA6C12] size-10 text-on-surface rounded-full",
+          "bg-muted-gray! hover:bg-linear-to-l from-[#FF77D7] to-[#FA6C12] size-10 text-on-surface rounded-full",
         "gradient-blue": "bg-gradient-blue text-white font-bold font-inter",
         destructive:
           "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",

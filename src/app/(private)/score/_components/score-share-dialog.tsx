@@ -10,10 +10,10 @@ import {
   LinkedinShareButton,
   TwitterShareButton,
 } from "react-share";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Copy, FacebookFilled, X } from "@/assets/icons";
 import { LinkedinFilled } from "@/assets/icons/LinkedinFilled";
-import { handleCopyLink } from "@/lib/utils";
+import { cn, handleCopyLink } from "@/lib/utils";
 
 interface ScoreShareDialogProps {
   open: boolean;
@@ -39,20 +39,31 @@ export const ScoreShareDialog = ({
         </div>
 
         <div className="flex-center mb-0 gap-3">
-          <TwitterShareButton url={sharePath} title={shareData}>
-            <Button variant={"icon-muted"}>
-              <X />
-            </Button>
+          <TwitterShareButton
+            url={sharePath}
+            title={shareData}
+            className={cn(buttonVariants({ variant: "icon-muted" }))}
+          >
+            {/* <Button variant={"icon-muted"}> */}
+            <X />
+            {/* </Button> */}
           </TwitterShareButton>
-          <LinkedinShareButton url={sharePath} title={shareData}>
-            <Button variant={"icon-muted"}>
-              <LinkedinFilled />
-            </Button>
+          <LinkedinShareButton
+            url={sharePath}
+            title={shareData}
+            className={cn(buttonVariants({ variant: "icon-muted" }))}
+          >
+            {/* <Button variant={"icon-muted"}> */}
+            <LinkedinFilled />
+            {/* </Button> */}
           </LinkedinShareButton>
-          <FacebookShareButton url={sharePath}>
-            <Button variant={"icon-muted"}>
-              <FacebookFilled />
-            </Button>
+          <FacebookShareButton
+            url={sharePath}
+            className={cn(buttonVariants({ variant: "icon-muted" }))}
+          >
+            {/* <Button variant={"icon-muted"}> */}
+            <FacebookFilled />
+            {/* </Button> */}
           </FacebookShareButton>
           <Button
             variant={"icon-muted"}
