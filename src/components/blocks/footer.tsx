@@ -1,3 +1,4 @@
+"use client";
 import { Facebook, Instagram, Linkedin, X, Youtube } from "@/assets/icons";
 import {
   Accordion,
@@ -7,85 +8,52 @@ import {
 } from "../ui/accordion";
 
 import { ChevronDown } from "lucide-react";
-
-const footers = [
-  {
-    title: "Product",
-    links: [
-      {
-        label: "How it works",
-      },
-      {
-        label: "Discover sample result",
-      },
-      {
-        label: "Science",
-      },
-      {
-        label: "Pricing",
-      },
-    ],
-  },
-  {
-    title: "Science & Technology",
-    links: [
-      {
-        label: "Big five personality model",
-      },
-      {
-        label: "Facial action coding system (FACS)",
-      },
-      {
-        label: "AI facial motion analysis",
-      },
-      {
-        label: "Research & methodology",
-      },
-    ],
-  },
-  {
-    title: "Privacy & Safety",
-    links: [
-      {
-        label: "Privacy policy",
-      },
-      {
-        label: "Data processing & deletion",
-      },
-      {
-        label: "Facial data usage",
-      },
-      {
-        label: "Security measures",
-      },
-      {
-        label: "AI ethics",
-      },
-    ],
-  },
-  {
-    title: "Support",
-    links: [
-      {
-        label: "Help center",
-      },
-      {
-        label: "Video requirements",
-      },
-      {
-        label: "Troubleshooting uploads",
-      },
-      {
-        label: "Contact support",
-      },
-      {
-        label: "FAQs",
-      },
-    ],
-  },
-];
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
+  const { t } = useTranslation();
+
+  const footers = [
+    {
+      title: t("footer_product"),
+      links: [
+        { label: t("nav_how_it_works") },
+        { label: t("nav_discover") },
+        { label: t("solutions_label") },
+        { label: t("nav_pricing") },
+      ],
+    },
+    {
+      title: t("footer_science_tech"),
+      links: [
+        { label: "Big five personality model" },
+        { label: "Facial action coding system (FACS)" },
+        { label: "AI facial motion analysis" },
+        { label: "Research & methodology" },
+      ],
+    },
+    {
+      title: t("footer_privacy_safety"),
+      links: [
+        { label: t("privacy_policy") },
+        { label: "Data processing & deletion" },
+        { label: "Facial data usage" },
+        { label: "Security measures" },
+        { label: "AI ethics" },
+      ],
+    },
+    {
+      title: t("footer_support"),
+      links: [
+        { label: "Help center" },
+        { label: "Video requirements" },
+        { label: "Troubleshooting uploads" },
+        { label: "Contact support" },
+        { label: t("faqs_title") },
+      ],
+    },
+  ];
+
   return (
     <section className="section bg-on-surface px-4">
       <div className="container-md mx-auto p-0 px-3 pb-7">
@@ -136,11 +104,11 @@ export default function Footer() {
         </div>
         <div className="text-custom-neutral-70 body-medium-primary mt-10 flex flex-col justify-between gap-8 py-2 lg:flex-row lg:items-center">
           <ul className="flex flex-col gap-6 lg:flex-row lg:items-center">
-            <li>Terms of service</li>
-            <li>Consent & Disclaimer</li>
-            <li>Cookie policy</li>
-            <li>User rights</li>
-            <li>Privacy policy</li>
+            <li>{t("terms_of_service")}</li>
+            <li>{t("consent_disclaimer")}</li>
+            <li>{t("cookie_policy")}</li>
+            <li>{t("user_rights")}</li>
+            <li>{t("privacy_policy")}</li>
           </ul>
           <ul className="flex max-w-md items-center justify-between gap-3">
             <li>

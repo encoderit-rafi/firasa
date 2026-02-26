@@ -1,3 +1,4 @@
+"use client";
 import { One, Three, Two } from "@/assets/icons";
 import {
   Accordion,
@@ -7,41 +8,41 @@ import {
 } from "../ui/accordion";
 import Separator from "@/components/ui/separator";
 import { SVGProps } from "react";
-import Image from "next/image";
-import { Button } from "../ui/button";
 import TryNow from "../ui/try-now";
 import SelfieImg from "./SelfieImg";
-const steps: {
-  icon: React.FC<SVGProps<SVGSVGElement>>;
-  title: string;
-  content: string;
-}[] = [
-  {
-    icon: One,
-    title: "Record or upload a 5-second video",
-    content:
-      "Just look at the camera. Small movements matter. Photos don’t capture personality. Motion does.",
-  },
-  {
-    icon: Two,
-    title: "AI analyzes facial dynamics",
-    content:
-      "AI analyzes your facial movements to identify patterns and insights. We use advanced machine learning algorithms to analyze your facial movements and provide insights into your personality traits.",
-  },
-  {
-    icon: Three,
-    title: "Get your big 5 score",
-    content:
-      "Get your big 5 score and insights into your personality traits. We use advanced machine learning algorithms to analyze your facial movements and provide insights into your personality traits.",
-  },
-];
+import { useTranslation } from "react-i18next";
+
 export default function HowItWorks() {
+  const { t } = useTranslation();
+
+  const steps: {
+    icon: React.FC<SVGProps<SVGSVGElement>>;
+    title: string;
+    content: string;
+  }[] = [
+    {
+      icon: One,
+      title: t("step1_title"),
+      content: t("step1_content"),
+    },
+    {
+      icon: Two,
+      title: t("step2_title"),
+      content: t("step2_content"),
+    },
+    {
+      icon: Three,
+      title: t("step3_title"),
+      content: t("step3_content"),
+    },
+  ];
+
   return (
     <section id="how-it-works" className="section">
       <div className="container-md flex flex-col items-start gap-10 px-4 lg:flex-row">
         <div className="w-full flex-1 shrink-0 lg:w-1/2">
-          <h6 className="section-label text-left">How it works</h6>
-          <h2 className="section-title text-left">3 steps, ultra simple.</h2>
+          <h6 className="section-label text-left">{t("how_it_works_label")}</h6>
+          <h2 className="section-title text-left">{t("how_it_works_title")}</h2>
           <Separator />
           <Accordion
             type="single"

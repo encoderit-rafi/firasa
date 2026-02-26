@@ -16,18 +16,12 @@ import {
   DropdownMenuTrigger,
 } from "./dropdown-menu";
 import { LogIn } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export type NavItemType = {
   label: string;
   href: string;
 };
-
-const nav_items: NavItemType[] = [
-  { label: "Discover", href: "/#discover" },
-  { label: "How it works", href: "/#how-it-works" },
-  { label: "Solution", href: "/#solution" },
-  { label: "Pricing", href: "/#pricing" },
-];
 
 function NavListItem({
   item,
@@ -46,25 +40,17 @@ function NavListItem({
   );
 }
 
-function NavList({ activeSection }: { activeSection: string }) {
-  return (
-    <nav className="hidden md:block">
-      <ul className="flex-center gap-lg">
-        {nav_items.map((item) => (
-          <NavListItem
-            key={item.href}
-            item={item}
-            isActive={activeSection === item.href.replace("/#", "")}
-          />
-        ))}
-      </ul>
-    </nav>
-  );
-}
-
 export default function Navbar() {
   const { data: session } = useSession();
   const [activeSection, setActiveSection] = useState("");
+  const { t } = useTranslation();
+
+  const nav_items: NavItemType[] = [
+    { label: t("nav_discover"), href: "/#discover" },
+    { label: t("nav_how_it_works"), href: "/#how-it-works" },
+    { label: t("nav_solution"), href: "/#solution" },
+    { label: t("nav_pricing"), href: "/#pricing" },
+  ];
 
   useEffect(() => {
     const observerOptions = {
@@ -100,7 +86,17 @@ export default function Navbar() {
       <header className="container-xl px-base flex-between py-3">
         <div className="flex-center gap-lg">
           <Logo />
-          <NavList activeSection={activeSection} />
+          <nav className="hidden md:block">
+            <ul className="flex-center gap-lg">
+              {nav_items.map((item) => (
+                <NavListItem
+                  key={item.href}
+                  item={item}
+                  isActive={activeSection === item.href.replace("/#", "")}
+                />
+              ))}
+            </ul>
+          </nav>
         </div>
 
         {session?.user ? (
@@ -125,9 +121,6 @@ export default function Navbar() {
               <Translation />
               <UploadOrRecordVideo />
             </div>
-            {/* <Button variant={"ghost"} className="xl:hidden">
-              <Menu />
-            </Button> */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant={"ghost"} className="xl:hidden" size={"icon"}>
@@ -138,13 +131,13 @@ export default function Navbar() {
                 <Link href="/sign-in">
                   <DropdownMenuItem>
                     <LogIn />
-                    Sign In
+                    {t("sign_in")}
                   </DropdownMenuItem>
                 </Link>
                 <Link href="/upload">
                   <DropdownMenuItem>
                     <VideoCam />
-                    Upload or record video
+                    {t("upload_or_record")}
                   </DropdownMenuItem>
                 </Link>
               </DropdownMenuContent>
