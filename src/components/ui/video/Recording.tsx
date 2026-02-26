@@ -182,7 +182,7 @@ export function Recording({
       </button>
       {isRecording ? (
         <div className="mt-2.5 flex flex-col items-center">
-          <div className="relative h-[328px] w-[328px]">
+          <div className="relative h-82 w-82">
             <video
               ref={videoPreviewRef}
               autoPlay
@@ -226,7 +226,7 @@ export function Recording({
 
             {/* Question tab — only after countdown is fully done */}
             {countdownFinished && (
-              <div className="bg-gradient absolute top-4 left-1/2 w-[270px] -translate-x-1/2 rounded-2xl px-5 pt-[25px] pb-[15px]">
+              <div className="bg-gradient absolute top-4 left-1/2 w-67.5 -translate-x-1/2 rounded-2xl px-5 pt-6.25 pb-3.75">
                 <div className="bg-error absolute top-0 left-1/2 h-5 -translate-x-1/2 rounded-b-2xl px-3 py-px">
                   <p className="label-small-primary text-white">
                     {currentQuestionIndex + 1}/{questions.length}

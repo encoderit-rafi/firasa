@@ -19,11 +19,18 @@ export default function LanguageProvider({
 
     i18n.on("languageChanged", handleLanguageChange);
 
-    // Initial sync
-    handleLanguageChange(i18n.language);
+    // Initial sync with detected/stored language
+    if (i18n.isInitialized) {
+      handleLanguageChange(i18n.language);
+    } else {
+      i18n.on("initialized", () => {
+        handleLanguageChange(i18n.language);
+      });
+    }
 
     return () => {
       i18n.off("languageChanged", handleLanguageChange);
+      i18n.off("initialized", () => {});
     };
   }, [i18n]);
 
