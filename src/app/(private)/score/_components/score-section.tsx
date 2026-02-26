@@ -1,3 +1,4 @@
+"use client";
 import { ScorePageCard, ScorePageNotchCard } from "./score-page-card";
 import ScorePageContainer from "./score-page-container";
 import ScorePageProgress from "./score-page-circular-progress";
@@ -55,6 +56,8 @@ type Props = {
 //   metrics: any;
 //   data: RelationshipMetrics;
 // };
+import { useTranslation } from "react-i18next";
+
 export default function ScoreSection({
   title,
   shareToken,
@@ -63,6 +66,7 @@ export default function ScoreSection({
   // metrics,
   data,
 }: Props) {
+  const { t } = useTranslation();
   // const { metadata, predictions } = full_result;
   // const { preprocessing } = metadata;
   const {
@@ -89,7 +93,7 @@ export default function ScoreSection({
 
   const relationship_results = [
     {
-      title: "Snapshot Insight",
+      title: t("score_section_snapshot"),
       component: (
         <>
           <AccordionDescriptionContainer>
@@ -97,14 +101,16 @@ export default function ScoreSection({
           </AccordionDescriptionContainer>
           <ShareButton
             onClick={() =>
-              handleShareClick(`Snapshot Insight\n\n${snapshot_insight}` || "")
+              handleShareClick(
+                `${t("score_section_snapshot")}\n\n${snapshot_insight}` || "",
+              )
             }
           />
         </>
       ),
     },
     {
-      title: "Behavioral Patterns",
+      title: t("score_section_behavioral"),
       component: (
         <Carousel
           className="mx-auto max-w-276 pr-8"
@@ -164,7 +170,7 @@ export default function ScoreSection({
       ),
     },
     {
-      title: "How Others Experience",
+      title: t("score_section_others"),
       component: (
         <>
           <AccordionDescriptionContainer>
@@ -173,7 +179,8 @@ export default function ScoreSection({
           <ShareButton
             onClick={() =>
               handleShareClick(
-                `How Others Experience\n\n${how_others_experience}` || "",
+                `${t("score_section_others")}\n\n${how_others_experience}` ||
+                  "",
               )
             }
           />
@@ -181,7 +188,7 @@ export default function ScoreSection({
       ),
     },
     {
-      title: "Strength",
+      title: t("score_section_strength"),
       component: (
         <Carousel
           className="mx-auto max-w-276 pr-8"
@@ -236,7 +243,7 @@ export default function ScoreSection({
       ),
     },
     {
-      title: "Growth Lever",
+      title: t("score_section_growth_lever"),
       component: (
         <>
           <AccordionDescriptionContainer>
@@ -244,14 +251,16 @@ export default function ScoreSection({
           </AccordionDescriptionContainer>
           <ShareButton
             onClick={() =>
-              handleShareClick(`Growth Lever\n\n${growth_lever}` || "")
+              handleShareClick(
+                `${t("score_section_growth_lever")}\n\n${growth_lever}` || "",
+              )
             }
           />
         </>
       ),
     },
     {
-      title: "Coach Recommendation",
+      title: t("score_section_coach"),
       component: (
         <>
           <AccordionDescriptionContainer>
@@ -259,7 +268,7 @@ export default function ScoreSection({
           </AccordionDescriptionContainer>
           <AccordionDescriptionContainer>
             <AccordionDescription>
-              Actionable steps for development:
+              {t("score_actionable_steps_title")}
             </AccordionDescription>
             <AccordionDescriptionItems>
               {actionable_steps.map(
@@ -275,7 +284,7 @@ export default function ScoreSection({
           <ShareButton
             onClick={() =>
               handleShareClick(
-                `Coach Recommendation\n\n${coach_recommendation}\n\nActionable steps for development:\n\n${actionable_steps.map((step: { emoji: string; text: string }, index: number) => `${step.emoji} ${step.text}`).join("\n")}
+                `${t("score_section_coach")}\n\n${coach_recommendation}\n\n${t("score_actionable_steps_title")}\n\n${actionable_steps.map((step: { emoji: string; text: string }, index: number) => `${step.emoji} ${step.text}`).join("\n")}
                 
                 ` || "",
               )
@@ -292,7 +301,7 @@ export default function ScoreSection({
         variant={"absolute"}
         onClick={() =>
           handleShareClick(
-            `Score breakdown\n${Object.entries(metrics)
+            `${t("score_breakdown_title")}\n${Object.entries(metrics)
               .map(
                 ([key, value]) => `${key.split("_").join(" ")}: ${value.score}`,
               )
@@ -300,10 +309,10 @@ export default function ScoreSection({
                 \n
               ${actionable_steps.map((step: { emoji: string; text: string }) => `${step.emoji} ${step.text}`).join("\n")}
               \n
-              Snapshot Insight\n${snapshot_insight}\n
-              How Others Experience\n${how_others_experience}\n
-              Growth Lever\n${growth_lever}
-              Coach Recommendation\n${coach_recommendation}\nActionable steps for development:\n${actionable_steps.map((step: { emoji: string; text: string }, index: number) => `${step.emoji} ${step.text}`).join("\n")}
+              ${t("score_section_snapshot")}\n${snapshot_insight}\n
+              ${t("score_section_others")}\n${how_others_experience}\n
+              ${t("score_section_growth_lever")}\n${growth_lever}
+              ${t("score_section_coach")}\n${coach_recommendation}\n${t("score_actionable_steps_title")}\n${actionable_steps.map((step: { emoji: string; text: string }, index: number) => `${step.emoji} ${step.text}`).join("\n")}
                 
                 \n
                 Show more: ${sharePath}
@@ -321,10 +330,10 @@ export default function ScoreSection({
             72%
           </h2>
           <p className="body-large-emphasized mx-auto max-w-52 text-center">
-            Ahead of your age group in empathy index
+            {t("score_ahead_group")}
           </p>
         </div>
-        <ScorePageNotchCard title="Score breakdown">
+        <ScorePageNotchCard title={t("score_breakdown_title")}>
           <div className="flex flex-col flex-wrap items-center gap-6 lg:flex-row lg:justify-center">
             {Object.entries(metrics).map(([key, value]) => (
               <ScorePageProgress
@@ -336,7 +345,7 @@ export default function ScoreSection({
             ))}
           </div>
         </ScorePageNotchCard>
-        <ScorePageNotchCard title="Score breakdown">
+        <ScorePageNotchCard title={t("score_breakdown_title")}>
           <div className="flex-center flex-wrap gap-1">
             {actionable_steps.map(
               (step: { emoji: string; text: string }, index: number) => (
@@ -352,7 +361,7 @@ export default function ScoreSection({
         <ShareButton
           onClick={() =>
             handleShareClick(
-              `Score breakdown\n\n${Object.entries(metrics)
+              `${t("score_breakdown_title")}\n\n${Object.entries(metrics)
                 .map(
                   ([key, value]) =>
                     `${key.split("_").join(" ")}: ${value.score}`,

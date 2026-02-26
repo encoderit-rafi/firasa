@@ -1,7 +1,7 @@
+"use client";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableDescription,
   TableFooter,
@@ -11,6 +11,12 @@ import {
   TablePrice,
   TableRow,
 } from "@/components/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
+import { Check, Close } from "@/assets/icons";
+import { useTranslation, Trans } from "react-i18next";
+
 const IsChecked = (value: boolean) => {
   const bg = value ? "bg-gradient" : "bg-error-container";
   return (
@@ -23,160 +29,161 @@ const IsChecked = (value: boolean) => {
     </div>
   );
 };
-const prices = [
-  {
-    title: "5-second video analysis",
-    plan: {
-      free: IsChecked(true),
-      pro: {
-        monthly: IsChecked(true),
-        annual: IsChecked(true),
-      },
-    },
-  },
-  {
-    title: "Big 5 personality scores",
-    plan: {
-      free: IsChecked(true),
-      pro: {
-        monthly: IsChecked(true),
-        annual: IsChecked(true),
-      },
-    },
-  },
-  {
-    title: "Automatic video deletion",
-    plan: {
-      free: IsChecked(true),
-      pro: {
-        monthly: IsChecked(true),
-        annual: IsChecked(true),
-      },
-    },
-  },
-  {
-    title: "Deep trait insights",
-    plan: {
-      free: IsChecked(false),
-      pro: {
-        monthly: IsChecked(true),
-        annual: IsChecked(true),
-      },
-    },
-  },
-  {
-    title: "Scientific reasoning",
-    plan: {
-      free: IsChecked(false),
-      pro: {
-        monthly: IsChecked(true),
-        annual: IsChecked(true),
-      },
-    },
-  },
-  {
-    title: "Your personality story",
-    plan: {
-      free: IsChecked(false),
-      pro: {
-        monthly: IsChecked(true),
-        annual: IsChecked(true),
-      },
-    },
-  },
-  {
-    title: "Growth & improvement plan",
-    plan: {
-      free: IsChecked(false),
-      pro: {
-        monthly: IsChecked(true),
-        annual: IsChecked(true),
-      },
-    },
-  },
-  {
-    title: "Compatibility profile",
-    plan: {
-      free: IsChecked(false),
-      pro: {
-        monthly: IsChecked(true),
-        annual: IsChecked(true),
-      },
-    },
-  },
-  {
-    title: "Famous personalities like you",
-    plan: {
-      free: IsChecked(false),
-      pro: {
-        monthly: IsChecked(false),
-        annual: IsChecked(true),
-      },
-    },
-  },
-  {
-    title: "Shareable social cards",
-    plan: {
-      free: IsChecked(false),
-      pro: {
-        monthly: IsChecked(false),
-        annual: IsChecked(true),
-      },
-    },
-  },
-];
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { Button } from "../ui/button";
-import { cn } from "@/lib/utils";
-// import { Check } from "lucide-react";
-import { Check, Close } from "@/assets/icons";
 function FreeHeading() {
+  const { t } = useTranslation();
   return (
-    // <TableHead className="w-1/3! bg-amber-600 py-4 pt-8! text-center md:w-full!">
     <div className="flex w-full flex-col items-center justify-between">
       <div className="space-y-3 text-center">
-        <TableHeading>Free</TableHeading>
+        <TableHeading>{t("pricing_free_title")}</TableHeading>
         <TableDescription>
-          No sign-up.
-          <br />
-          No credit card.
+          <Trans i18nKey="pricing_free_desc">
+            No sign-up.
+            <br />
+            No credit card.
+          </Trans>
         </TableDescription>
       </div>
       <TablePrice variant="muted" className="mt-auto">
         $0
       </TablePrice>
     </div>
-    // </TableHead>
   );
 }
+
 function ProHeading() {
+  const { t } = useTranslation();
   return (
     <>
-      <TableHeading>Pro</TableHeading>
+      <TableHeading>{t("pricing_pro_title")}</TableHeading>
       <TableDescription>
-        Made for sharing.
-        <br />
-        Built for self-growth.
+        <Trans i18nKey="pricing_pro_desc">
+          Made for sharing.
+          <br />
+          Built for self-growth.
+        </Trans>
       </TableDescription>
 
       <TablePrice variant="default">$79</TablePrice>
       <TabsList>
-        <TabsTrigger value="monthly">Monthly</TabsTrigger>
-        <TabsTrigger value="annual">Annual (Save 10%)</TabsTrigger>
+        <TabsTrigger value="monthly">{t("pricing_monthly")}</TabsTrigger>
+        <TabsTrigger value="annual">{t("pricing_annual")}</TabsTrigger>
       </TabsList>
     </>
   );
 }
+
 export default function Pricing() {
+  const { t } = useTranslation();
+
+  const prices = [
+    {
+      title: t("pricing_feature_video_analysis"),
+      plan: {
+        free: IsChecked(true),
+        pro: {
+          monthly: IsChecked(true),
+          annual: IsChecked(true),
+        },
+      },
+    },
+    {
+      title: t("pricing_feature_big5_scores"),
+      plan: {
+        free: IsChecked(true),
+        pro: {
+          monthly: IsChecked(true),
+          annual: IsChecked(true),
+        },
+      },
+    },
+    {
+      title: t("pricing_feature_auto_deletion"),
+      plan: {
+        free: IsChecked(true),
+        pro: {
+          monthly: IsChecked(true),
+          annual: IsChecked(true),
+        },
+      },
+    },
+    {
+      title: t("pricing_feature_trait_insights"),
+      plan: {
+        free: IsChecked(false),
+        pro: {
+          monthly: IsChecked(true),
+          annual: IsChecked(true),
+        },
+      },
+    },
+    {
+      title: t("pricing_feature_scientific_reasoning"),
+      plan: {
+        free: IsChecked(false),
+        pro: {
+          monthly: IsChecked(true),
+          annual: IsChecked(true),
+        },
+      },
+    },
+    {
+      title: t("pricing_feature_personality_story"),
+      plan: {
+        free: IsChecked(false),
+        pro: {
+          monthly: IsChecked(true),
+          annual: IsChecked(true),
+        },
+      },
+    },
+    {
+      title: t("pricing_feature_growth_plan"),
+      plan: {
+        free: IsChecked(false),
+        pro: {
+          monthly: IsChecked(true),
+          annual: IsChecked(true),
+        },
+      },
+    },
+    {
+      title: t("pricing_feature_compatibility"),
+      plan: {
+        free: IsChecked(false),
+        pro: {
+          monthly: IsChecked(true),
+          annual: IsChecked(true),
+        },
+      },
+    },
+    {
+      title: t("pricing_feature_famous_personalities"),
+      plan: {
+        free: IsChecked(false),
+        pro: {
+          monthly: IsChecked(false),
+          annual: IsChecked(true),
+        },
+      },
+    },
+    {
+      title: t("pricing_feature_social_cards"),
+      plan: {
+        free: IsChecked(false),
+        pro: {
+          monthly: IsChecked(false),
+          annual: IsChecked(true),
+        },
+      },
+    },
+  ];
+
   return (
     <section id="pricing" className="section px-4">
-      <h6 className="section-label">Pricing</h6>
-      <h2 className="section-title">Start free. Go deeper with pro.</h2>
-      <p className="section-description">
-        Get your Big 5 score for free — unlock deeper insights when you’re
-        ready.
-      </p>
+      <h6 className="section-label">{t("pricing_label")}</h6>
+      <h2 className="section-title">{t("pricing_title")}</h2>
+      <p className="section-description">{t("pricing_desc")}</p>
 
       <div className="container-sm mx-auto mt-8 space-y-6 lg:mt-16">
         <Tabs defaultValue="annual">
@@ -214,12 +221,14 @@ export default function Pricing() {
               <TableRow>
                 <TableCell className="w-1/3!"></TableCell>
                 <TableCell className="w-1/3! pb-8 text-center">
-                  <Button variant="outline">Get free score</Button>
+                  <Button variant="outline">
+                    {t("pricing_get_free_score")}
+                  </Button>
                 </TableCell>
                 <TableCell
                   className={"w-1/3! rounded-b-3xl bg-red-50 pb-8 text-center"}
                 >
-                  <Button variant="black">Unlock pro report</Button>
+                  <Button variant="black">{t("pricing_unlock_pro")}</Button>
                 </TableCell>
               </TableRow>
             </TableFooter>
@@ -245,7 +254,9 @@ export default function Pricing() {
                 <TableFooter className="border-none bg-transparent">
                   <TableRow>
                     <TableCell className="text-center" colSpan={2}>
-                      <Button variant="outline">Get free score</Button>
+                      <Button variant="outline">
+                        {t("pricing_get_free_score")}
+                      </Button>
                     </TableCell>
                   </TableRow>
                 </TableFooter>
@@ -283,7 +294,7 @@ export default function Pricing() {
                     className={"rounded-b-3xl bg-red-50 pb-8 text-center"}
                     colSpan={2}
                   >
-                    <Button variant="black">Unlock pro report</Button>
+                    <Button variant="black">{t("pricing_unlock_pro")}</Button>
                   </TableCell>
                 </TableRow>
               </TableFooter>

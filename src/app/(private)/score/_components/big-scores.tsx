@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import { ScorePageCard } from "./score-page-card";
 import ScorePageShareButton from "./score-page-share-button";
@@ -49,42 +50,8 @@ import {
 import { useScoreShare } from "../_hooks/use-score-share";
 import { ScoreShareDialog } from "./score-share-dialog";
 
-const descriptions = [
-  {
-    title: "What this means:",
-    items: [
-      {
-        icon: "🤝",
-        description: "You enjoy new ideas and perspectives",
-      },
-      {
-        icon: "🌿",
-        description: "You adapt well to change",
-      },
-      {
-        icon: "🧠",
-        description: "You value personal growth",
-      },
-    ],
-  },
-  {
-    title: "How to increase:",
-    items: [
-      {
-        icon: "🌍",
-        description: "Explore new inputs",
-      },
-      {
-        icon: "🔍",
-        description: "Challenge assumptions",
-      },
-      {
-        icon: "✏️",
-        description: "Create without outcome",
-      },
-    ],
-  },
-];
+import { useTranslation } from "react-i18next";
+
 export function ScorePagePersonalityAccordion({
   data,
   shareToken,
@@ -92,8 +59,46 @@ export function ScorePagePersonalityAccordion({
   data: PersonalityType[];
   shareToken?: string;
 }) {
+  const { t } = useTranslation();
   const { isOpen, setIsOpen, shareData, handleShare, sharePath } =
     useScoreShare(shareToken ?? null);
+
+  const descriptions = [
+    {
+      title: t("big_scores_what_means"),
+      items: [
+        {
+          icon: "🤝",
+          description: "You enjoy new ideas and perspectives",
+        },
+        {
+          icon: "🌿",
+          description: "You adapt well to change",
+        },
+        {
+          icon: "🧠",
+          description: "You value personal growth",
+        },
+      ],
+    },
+    {
+      title: t("big_scores_how_increase"),
+      items: [
+        {
+          icon: "🌍",
+          description: "Explore new inputs",
+        },
+        {
+          icon: "🔍",
+          description: "Challenge assumptions",
+        },
+        {
+          icon: "✏️",
+          description: "Create without outcome",
+        },
+      ],
+    },
+  ];
 
   const handleShareClick = async (description: string) => {
     handleShare(`${description}\n\nShow more at: ${sharePath}`);
@@ -156,6 +161,7 @@ type Props = {
   data: TBigFiveTraits;
 };
 export default function BigScores({ data }: Props) {
+  const { t } = useTranslation();
   const {
     face_image_base64,
     predictions,
@@ -243,9 +249,15 @@ export default function BigScores({ data }: Props) {
         <Tabs defaultValue="overview" className="w-full">
           <div className="w-full overflow-x-auto pb-2">
             <TabsList className="mx-auto flex w-fit">
-              <TabsTrigger value="overview">Worth sharing</TabsTrigger>
-              <TabsTrigger value="analytics">Strengths</TabsTrigger>
-              <TabsTrigger value="growth">Areas for growth</TabsTrigger>
+              <TabsTrigger value="overview">
+                {t("big_scores_tab_sharing")}
+              </TabsTrigger>
+              <TabsTrigger value="analytics">
+                {t("big_scores_tab_strengths")}
+              </TabsTrigger>
+              <TabsTrigger value="growth">
+                {t("big_scores_tab_growth")}
+              </TabsTrigger>
             </TabsList>
           </div>
         </Tabs>

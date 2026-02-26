@@ -1,9 +1,12 @@
+"use client";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function FeaturedIn() {
+  const { t } = useTranslation();
   return (
     <section className="section space-y-8 overflow-x-hidden lg:space-y-24">
-      <h6 className="text-outline text-center">Firasa is featured in</h6>
+      <h6 className="text-outline text-center">{t("featured_in_title")}</h6>
       <div className="flex-center gap-24">
         <img
           src="/blink.png"

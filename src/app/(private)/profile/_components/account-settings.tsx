@@ -9,6 +9,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/axios";
 import { useEffect } from "react";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 
 type AccountFormData = {
   completeName: string;
@@ -18,6 +19,7 @@ type AccountFormData = {
 };
 
 export default function AccountSettings() {
+  const { t } = useTranslation();
   const session = useSession();
   const queryClient = useQueryClient();
   const userId = session.data?.user?.id;
@@ -68,7 +70,7 @@ export default function AccountSettings() {
       return response.data;
     },
     onSuccess: (res) => {
-      toast.success(res?.message || "Profile updated successfully!");
+      toast.success(res?.message || t("profile_update_success"));
     },
     onError: (error: unknown) => {
       if (error && typeof error === "object" && "response" in error) {
@@ -79,10 +81,10 @@ export default function AccountSettings() {
         toast.error(
           axiosError.response?.data?.message ||
             axiosError.message ||
-            "Failed to update profile",
+            t("profile_update_error"),
         );
       } else {
-        toast.error("Failed to update profile");
+        toast.error(t("profile_update_error"));
       }
     },
     onSettled: () => {
@@ -107,10 +109,10 @@ export default function AccountSettings() {
         toast.error(
           axiosError.response?.data?.message ||
             axiosError.message ||
-            "Failed to delete account",
+            t("profile_delete_error"),
         );
       } else {
-        toast.error("Failed to delete account");
+        toast.error(t("profile_delete_error"));
       }
     },
     onSettled: () => {
@@ -128,7 +130,9 @@ export default function AccountSettings() {
   return (
     <div className="space-y-8 py-16">
       <div className="flex-between font-inter font-bold">
-        <h6 className="font-inter text-xl font-bold">My account</h6>
+        <h6 className="font-inter text-xl font-bold">
+          {t("profile_my_account")}
+        </h6>
         <Button
           type="button"
           variant={"ghost"}
@@ -136,13 +140,13 @@ export default function AccountSettings() {
           onClick={() => deleteAccount()}
           className="text-danger font-inter font-bold"
         >
-          {isDeleting ? "Deleting..." : "Delete account"}
+          {isDeleting ? t("profile_deleting") : t("profile_delete_account")}
         </Button>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
         <div className="rounded-lg border border-[#F2F2F2] px-3 py-2">
           <label className="font-inter text-start text-[10px] font-normal">
-            Complete name
+            {t("profile_complete_name")}
           </label>
           <Input
             {...register("completeName")}
@@ -151,7 +155,7 @@ export default function AccountSettings() {
         </div>
         <div className="rounded-lg border border-[#F2F2F2] px-3 py-2">
           <label className="font-inter text-start text-[10px] font-normal">
-            Email address
+            {t("profile_email_address")}
           </label>
           <Input
             {...register("emailAddress")}
@@ -161,7 +165,7 @@ export default function AccountSettings() {
         </div>
         <div className="rounded-lg border border-[#F2F2F2] bg-[#F9F9F9] px-3 py-2">
           <label className="font-inter text-start text-[10px] font-normal">
-            Sign in method
+            {t("profile_sign_in_method")}
           </label>
           <Input
             {...register("signInMethod")}
@@ -172,10 +176,10 @@ export default function AccountSettings() {
         <div className="flex items-center justify-between rounded-lg border border-[#F2F2F2] px-3 py-2">
           <div>
             <p className="font-inter text-start text-[10px] font-normal">
-              Subscribe to newsletter?
+              {t("profile_subscribe_newsletter")}
             </p>
             <p className="font-blod font-inter text-start text-base">
-              {subscribeToNewsletter ? "Yes" : "No"}
+              {subscribeToNewsletter ? t("profile_yes") : t("profile_no")}
             </p>
           </div>
           <Switch
@@ -192,7 +196,7 @@ export default function AccountSettings() {
           disabled={!isDirty || isPending}
           className="bg-blue font-inter w-fit font-bold text-white"
         >
-          {isPending ? "Saving..." : "Save Changes"}
+          {isPending ? t("profile_saving") : t("profile_save_changes")}
         </Button>
       </form>
     </div>

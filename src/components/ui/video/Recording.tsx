@@ -6,6 +6,7 @@ import { VideoCam } from "@/assets/icons";
 import { X } from "lucide-react";
 import Icon from "../icon";
 import { CircularProgress } from "@/components/progress-08";
+import { useTranslation } from "react-i18next";
 
 const RECORD_DURATION = 2;
 
@@ -26,6 +27,7 @@ export function Recording({
   recordingStatusIdle,
   handleStartUpload,
 }: RecordingProps) {
+  const { t } = useTranslation();
   const [isRecording, setIsRecording] = useState(false);
   const [countdown, setCountdown] = useState<number | null>(null);
   const [countdownFinished, setCountdownFinished] = useState(false);
@@ -37,11 +39,11 @@ export function Recording({
   const startTimeRef = useRef<number>(0);
 
   const questions = [
-    { id: 1, text: "What is your name?" },
-    { id: 2, text: "What is your age?" },
-    { id: 3, text: "What do you like?" },
-    { id: 4, text: "What is your favourite food?" },
-    { id: 5, text: "What is your favourite color?" },
+    { id: 1, text: t("recording_q1") },
+    { id: 2, text: t("recording_q2") },
+    { id: 3, text: t("recording_q3") },
+    { id: 4, text: t("recording_q4") },
+    { id: 5, text: t("recording_q5") },
   ];
 
   const startQuestionTimer = useCallback(() => {
@@ -156,17 +158,17 @@ export function Recording({
     {
       id: 1,
       icon: "⏳",
-      text: "It's ok to think before answer. 25 seconds for each question",
+      text: t("recording_tip1"),
     },
     {
       id: 2,
       icon: "⏱️",
-      text: "It's ok if you didn't get enough time for every answer",
+      text: t("recording_tip2"),
     },
     {
       id: 3,
       icon: "😊",
-      text: "Natural reactions help us more than perfect responses",
+      text: t("recording_tip3"),
     },
   ];
 
@@ -253,11 +255,8 @@ export function Recording({
         </div>
       ) : (
         <div className="flex h-full w-full flex-col items-center justify-center">
-          <p className="headline-small-emphasized">Record a video?</p>
-          <p className="body-medium">
-            We'll ask a few short questions and record a brief video to
-            understand your natural reactions.
-          </p>
+          <p className="headline-small-emphasized">{t("recording_title")}</p>
+          <p className="body-medium">{t("recording_desc")}</p>
           <div className="divide-tertiary-container my-6 grid grid-cols-3 gap-4 divide-x">
             {iconData.map((item) => (
               <div
@@ -274,7 +273,7 @@ export function Recording({
           <div className="flex items-center justify-center">
             <Button variant="default" className="w-56.25" onClick={handleStart}>
               <VideoCam />
-              Start record video
+              {t("recording_btn")}
             </Button>
           </div>
         </div>

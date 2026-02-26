@@ -20,8 +20,10 @@ import {
 import { Activity } from "react";
 import { SignInSchema, SignInType } from "../_types";
 import { useMutationSignIn } from "../_api";
+import { useTranslation } from "react-i18next";
 
 export default function FormSignIn() {
+  const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
   const { control, handleSubmit } = useForm<SignInType>({
     defaultValues: {
@@ -43,11 +45,13 @@ export default function FormSignIn() {
           name="email"
           render={({ field, fieldState: { invalid, error } }) => (
             <Field data-invalid={invalid}>
-              <FieldLabel htmlFor={field.name}>Email *</FieldLabel>
+              <FieldLabel htmlFor={field.name}>
+                {t("auth_email_label")}
+              </FieldLabel>
               <Input
                 id={field.name}
                 aria-invalid={invalid}
-                placeholder="mail@domain.com"
+                placeholder={t("auth_email_placeholder")}
                 type="email"
                 {...field}
               />
@@ -62,13 +66,15 @@ export default function FormSignIn() {
           name="password"
           render={({ field, fieldState: { invalid, error } }) => (
             <Field data-invalid={invalid}>
-              <FieldLabel htmlFor={field.name}>Password *</FieldLabel>
+              <FieldLabel htmlFor={field.name}>
+                {t("auth_password_label")}
+              </FieldLabel>
               <InputGroup>
                 <InputGroupInput
                   id={field.name}
                   aria-invalid={invalid}
                   type={showPassword ? "text" : "password"}
-                  placeholder="Enter password"
+                  placeholder={t("auth_password_placeholder")}
                   {...field}
                 />
                 <InputGroupAddon
@@ -86,7 +92,7 @@ export default function FormSignIn() {
           )}
         />
         <Button type="submit" className="w-full" loading={isPending}>
-          Sign In
+          {t("auth_sign_in_btn")}
         </Button>
       </FieldGroup>
     </form>

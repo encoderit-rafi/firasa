@@ -22,6 +22,7 @@ import {
 import { Activity } from "react";
 import { SignUpSchema, SignUpType } from "../_types/signUpTypes";
 import { useMutationSignUp } from "../_api";
+import { useTranslation } from "react-i18next";
 
 export default function SignupForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -38,6 +39,7 @@ export default function SignupForm() {
   });
 
   const { mutate: signUp, isPending } = useMutationSignUp();
+  const { t } = useTranslation();
 
   const onSubmit = (data: SignUpType) => {
     signUp(data);
@@ -52,12 +54,14 @@ export default function SignupForm() {
           name="name"
           render={({ field, fieldState: { invalid, error } }) => (
             <Field data-invalid={invalid}>
-              <FieldLabel htmlFor={field.name}>Full name *</FieldLabel>
+              <FieldLabel htmlFor={field.name}>
+                {t("auth_full_name_label")}
+              </FieldLabel>
               <Input
                 id={field.name}
                 aria-invalid={invalid}
                 className="placeholder:body-large-primary placeholder:text-on-surface-variant p-4"
-                placeholder="Your name"
+                placeholder={t("auth_name_placeholder")}
                 {...field}
               />
               <Activity mode={Boolean(error) ? "visible" : "hidden"}>
@@ -73,12 +77,14 @@ export default function SignupForm() {
           name="email"
           render={({ field, fieldState: { invalid, error } }) => (
             <Field data-invalid={invalid}>
-              <FieldLabel htmlFor={field.name}>Email *</FieldLabel>
+              <FieldLabel htmlFor={field.name}>
+                {t("auth_email_label")}
+              </FieldLabel>
               <Input
                 id={field.name}
                 aria-invalid={invalid}
                 className="placeholder:body-large-primary placeholder:text-on-surface-variant p-4"
-                placeholder="mail@domain.com"
+                placeholder={t("auth_email_placeholder")}
                 type="email"
                 {...field}
               />
@@ -95,14 +101,16 @@ export default function SignupForm() {
           name="password"
           render={({ field, fieldState: { invalid, error } }) => (
             <Field data-invalid={invalid}>
-              <FieldLabel htmlFor={field.name}>Password *</FieldLabel>
+              <FieldLabel htmlFor={field.name}>
+                {t("auth_password_label")}
+              </FieldLabel>
               <InputGroup>
                 <InputGroupInput
                   id={field.name}
                   aria-invalid={invalid}
                   className="placeholder:body-large-primary placeholder:text-on-surface-variant p-4"
                   type={showPassword ? "text" : "password"}
-                  placeholder="Enter password"
+                  placeholder={t("auth_password_placeholder")}
                   {...field}
                 />
                 <InputGroupAddon
@@ -126,14 +134,16 @@ export default function SignupForm() {
           name="password_confirmation"
           render={({ field, fieldState: { invalid, error } }) => (
             <Field data-invalid={invalid}>
-              <FieldLabel htmlFor={field.name}>Confirm Password *</FieldLabel>
+              <FieldLabel htmlFor={field.name}>
+                {t("auth_confirm_password_label")}
+              </FieldLabel>
               <InputGroup>
                 <InputGroupInput
                   id={field.name}
                   aria-invalid={invalid}
                   className="placeholder:body-large-primary placeholder:text-on-surface-variant p-4"
                   type={showConfirmPassword ? "text" : "password"}
-                  placeholder="Confirm password"
+                  placeholder={t("auth_confirm_password_placeholder")}
                   {...field}
                 />
                 <InputGroupAddon
@@ -152,7 +162,7 @@ export default function SignupForm() {
         />
 
         <Button type="submit" className="w-full" loading={isPending}>
-          Sign Up
+          {t("auth_sign_up_btn")}
         </Button>
       </FieldGroup>
     </form>

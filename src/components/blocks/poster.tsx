@@ -1,42 +1,16 @@
+"use client";
 import { VideoCam } from "@/assets/icons";
 import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import UploadOrRecordVideo from "../ui/upload-or-record-video";
-const solutions = [
-  {
-    title: "Facial action coding system (FACS)",
-    description:
-      "A globally used system that breaks facial movement into measurable action units.",
-  },
-  {
-    title: "Big 5 personality mapping",
-    description:
-      "The most trusted personality framework in psychology and behavioral science.",
-  },
-  {
-    title: "AI-powered facial motion analysis",
-    description:
-      "Our AI reads timing, intensity, and patterns in natural facial movement from video.",
-  },
-  {
-    title: "Firasa (Arabic heritage)",
-    description:
-      "An ancient discipline that studied personality through facial expressions and behavior.",
-  },
-];
+import { useTranslation } from "react-i18next";
+
 export default function Poster() {
+  const { t } = useTranslation();
   return (
     <section className="section bg-error-container/16 px-4">
       <div className="box-black container-md relative mx-auto flex min-h-79 overflow-hidden px-8 max-lg:pt-16">
-        {/* bg-[url('/union-2.png')] bg-cover bg-center bg-no-repeat */}
-        {/* <Image
-          src="/union-2.png"
-          alt="Union 2"
-          width={890}
-          height={511}
-          className="absolute right-0 bottom-0 h-127.75 w-222.5 shrink-0 translate-x-1/12 translate-y-1/8 bg-amber-300"
-        /> */}
         <div className="absolute right-0 bottom-0 h-127.75 w-222.5 shrink-0 translate-x-1/2 translate-y-1/4 bg-[url('/union-2.png')] bg-contain bg-center bg-no-repeat lg:translate-x-1/10 lg:translate-y-1/8" />
 
         <div className="flex flex-1 flex-col items-center justify-between gap-6 lg:flex-row">
@@ -64,15 +38,15 @@ export default function Poster() {
                 <AvatarFallback>ER</AvatarFallback>
               </Avatar>
               <span className="label-large-emphasized ml-3 text-white">
-                Trusted by 12,000+ users
+                {t("poster_trusted")}
               </span>
             </AvatarGroup>
             <div className="space-y-3">
               <h5 className="display-small-emphasized text-left text-white">
-                Ready to discover your personality?
+                {t("poster_ready")}
               </h5>
               <p className="text-outline-variant text-left">
-                Free Big 5 score • No credit card
+                {t("poster_desc")}
               </p>
             </div>
             <UploadOrRecordVideo />

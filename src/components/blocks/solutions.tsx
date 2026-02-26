@@ -9,24 +9,20 @@ export default function Solutions() {
 
   const solutions = [
     {
-      title: "Facial action coding system (FACS)",
-      description:
-        "A globally used system that breaks facial movement into measurable action units",
+      title: t("solution_facs_title"),
+      description: t("solution_facs_desc"),
     },
     {
-      title: "Big 5 personality mapping",
-      description:
-        "The most trusted personality framework in psychology and behavioral science",
+      title: t("solution_big5_title"),
+      description: t("solution_big5_desc"),
     },
     {
-      title: "AI-powered facial motion analysis",
-      description:
-        "Our AI reads timing, intensity, and patterns in natural facial movement from video",
+      title: t("solution_ai_title"),
+      description: t("solution_ai_desc"),
     },
     {
-      title: "Firasa (Arabic heritage)",
-      description:
-        "An ancient discipline that studied personality through facial expressions and behavior",
+      title: t("solution_firasa_title"),
+      description: t("solution_firasa_desc"),
     },
   ];
 

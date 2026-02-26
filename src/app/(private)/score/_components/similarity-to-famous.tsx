@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { ScorePageCard } from "./score-page-card";
 import {
@@ -9,9 +10,13 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+// import ScorePageProgress, { TLevel } from "./score-page-progress";
+import { useTranslation } from "react-i18next";
 import CircularProgress from "@/components/charts/CircularProgress";
+import { TLevel } from "@/global-types";
 
 export default function SimilarityToFamous() {
+  const { t } = useTranslation();
   return (
     <ScorePageCard className="overflow-hidden">
       <Carousel
@@ -32,7 +37,7 @@ export default function SimilarityToFamous() {
                     <div className="pb-3">
                       <CircularProgress
                         // label="high"
-                        level="High"
+                        level={t("similarity_high") as TLevel}
                         progress={52}
                         className="text-white"
                       />

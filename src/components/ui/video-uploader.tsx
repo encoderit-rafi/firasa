@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AlertCircleIcon, XIcon, Loader2, CheckCircle2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "./button";
 import { Check, Guard, LoadingIcon, Upload, VideoCam, X } from "@/assets/icons";
@@ -12,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { Recording } from "./video/Recording";
 
 export default function VideoUploader() {
+  const { t } = useTranslation();
   const {
     status,
     progress,
@@ -169,13 +171,15 @@ export default function VideoUploader() {
                     }
                   >
                     <Check />
-                    Finish, show score
+                    {t("uploader_finish_btn")}
                   </Button>
                 ) : (
                   <div className="flex-center bg-on-surface/10 mx-auto w-fit gap-2 rounded-full px-6 py-4">
                     <LoadingIcon />
                     <span className="title-medium-primary text-on-surface/50">
-                      {status === "uploading" ? "Uploading..." : "Analyzing..."}{" "}
+                      {status === "uploading"
+                        ? t("uploader_uploading")
+                        : t("uploader_analyzing")}{" "}
                       ({progress}%)
                     </span>
                   </div>
@@ -197,9 +201,9 @@ export default function VideoUploader() {
                   className="w-56.25"
                 >
                   <Upload />
-                  Choose video file
+                  {t("uploader_choose_file")}
                 </Button>
-                <p className="body-small-primary">Max file size 128 MB</p>
+                <p className="body-small-primary">{t("uploader_max_size")}</p>
               </div>
 
               <TextSeparator />
@@ -210,9 +214,11 @@ export default function VideoUploader() {
                   onClick={() => recordingStatusUpdate()}
                 >
                   <VideoCam />
-                  Record with camera
+                  {t("uploader_record_btn")}
                 </Button>
-                <p className="body-small-primary">Record a 25 seconds video</p>
+                <p className="body-small-primary">
+                  {t("uploader_record_desc")}
+                </p>
               </div>
             </div>
           )}
@@ -221,7 +227,7 @@ export default function VideoUploader() {
 
       <p className="text-muted-foreground flex items-center justify-center gap-2 text-center text-xs">
         <Guard className="size-4" />
-        Auto-deleted. Your privacy is our priority.
+        {t("uploader_privacy_disclaimer")}
       </p>
     </div>
   );

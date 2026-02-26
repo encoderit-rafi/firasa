@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState } from "react";
@@ -7,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { DOCX, JSON, PDF } from "@/assets/icons";
 import { generatePdfFromDom } from "./pdf/generate-pdf-from-dom";
 
+import { useTranslation } from "react-i18next";
+
 interface SummaryAndExportsProps {
   reportData?: any;
 }
@@ -14,6 +15,7 @@ interface SummaryAndExportsProps {
 export default function SummaryAndExports({
   reportData,
 }: SummaryAndExportsProps) {
+  const { t } = useTranslation();
   const [pdfLoading, setPdfLoading] = useState(false);
 
   const handlePdfExport = async () => {
@@ -23,7 +25,7 @@ export default function SummaryAndExports({
     try {
       await generatePdfFromDom({
         element,
-        filename: "firasa-personality-report.pdf",
+        filename: t("export_pdf_filename"),
         mode: "window",
       });
     } catch (e) {
@@ -46,7 +48,7 @@ export default function SummaryAndExports({
             disabled={pdfLoading}
             onClick={handlePdfExport}
           >
-            {pdfLoading ? "Generating PDF…" : "Download full PDF report"}
+            {pdfLoading ? t("export_pdf_generating") : t("export_pdf_btn")}
           </Button>
         </div>
       </div>
@@ -57,7 +59,7 @@ export default function SummaryAndExports({
           <JSON />
         </div>
         <div className="flex-center flex-1 py-6">
-          <Button variant={"outline"}>Export JSON Data</Button>
+          <Button variant={"outline"}>{t("export_json_btn")}</Button>
         </div>
       </div>
 
@@ -67,7 +69,7 @@ export default function SummaryAndExports({
           <DOCX />
         </div>
         <div className="flex-center flex-1 py-6">
-          <Button variant={"outline"}>Export to Docx</Button>
+          <Button variant={"outline"}>{t("export_docx_btn")}</Button>
         </div>
       </div>
     </ScorePageCard>

@@ -1,3 +1,4 @@
+"use client";
 import {
   Apple,
   Check,
@@ -26,58 +27,49 @@ import {
   ChevronRightIcon,
   EyeOffIcon,
 } from "lucide-react";
-const steps: {
-  // icon: React.FC<SVGProps<SVGSVGElement>>;
-  title: string;
-  content: string;
-}[] = [
-  {
-    // icon: One,
-    title: "What does Firasa actually do?",
-    content:
-      "Just look at the camera. Small movements matter. Photos don’t capture personality. Motion does.",
-  },
-  {
-    // icon: Two,
-    title: "How long does the analysis take?",
-    content:
-      "AI analyzes your facial movements to identify patterns and insights. We use advanced machine learning algorithms to analyze your facial movements and provide insights into your personality traits.",
-  },
-  {
-    // icon: Three,
-    title: "Do I have to smile or pose in a special way?",
-    content:
-      "Get your big 5 score and insights into your personality traits. We use advanced machine learning algorithms to analyze your facial movements and provide insights into your personality traits.",
-  },
-  {
-    // icon: Three,
-    title: "What happens to my video after analysis?",
-    content:
-      "Get your big 5 score and insights into your personality traits. We use advanced machine learning algorithms to analyze your facial movements and provide insights into your personality traits.",
-  },
-  {
-    // icon: Three,
-    title: "Can I re-analyze myself later?",
-    content:
-      "Get your big 5 score and insights into your personality traits. We use advanced machine learning algorithms to analyze your facial movements and provide insights into your personality traits.",
-  },
-  {
-    // icon: Three,
-    title: "I’m skeptical; can I get a refund?",
-    content:
-      "Get your big 5 score and insights into your personality traits. We use advanced machine learning algorithms to analyze your facial movements and provide insights into your personality traits.",
-  },
-];
+import { useTranslation } from "react-i18next";
 export default function UploadPage() {
+  const { t } = useTranslation();
+
+  const steps: {
+    title: string;
+    content: string;
+  }[] = [
+    {
+      title: t("faq1_title"),
+      content: t("faq1_content"),
+    },
+    {
+      title: t("faq2_title"),
+      content: t("faq2_content"),
+    },
+    {
+      title: t("faq3_title"),
+      content: t("faq3_content"),
+    },
+    {
+      title: t("faq4_title"),
+      content: t("faq4_content"),
+    },
+    {
+      title: t("faq5_title"),
+      content: t("faq5_content"),
+    },
+    {
+      title: t("faq6_title"),
+      content: t("faq6_content"),
+    },
+  ];
+
   return (
     <section className="section space-y-8 px-4 md:space-y-16">
-      <h1>Upload or record video</h1>
+      <h1>{t("upload_title")}</h1>
       <div className="mx-auto flex max-w-136 flex-col gap-4 space-y-8 md:space-y-16">
         <VideoUploader />
         <div className="space-y-8">
           <div className="">
             <h6 className="section-label pb-5 text-left">
-              Do's: Video requirements
+              {t("upload_dos_label")}
             </h6>
             <Accordion
               type="single"
@@ -108,7 +100,7 @@ export default function UploadPage() {
           </div>
           <div className="">
             <h6 className="section-label border-b-error-container border-b pb-5 text-left">
-              Don'ts: Video restrictions
+              {t("upload_donts_label")}
             </h6>
             <Accordion
               type="single"

@@ -17,6 +17,7 @@ import {
   TUniqueStoryTraits,
 } from "@/global-types";
 import { handleFormatPredictions } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 const EXCLUDED_FROM_PDF = ["exports", "add-ons"];
 
@@ -25,6 +26,7 @@ interface ScoreReportViewProps {
 }
 
 export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
+  const { t } = useTranslation();
   const { id, share_token, full_result } = reportData;
   const { predictions, metadata, insights } = full_result;
   const {
@@ -59,36 +61,27 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
       const data = [
         {
           id: "score",
-          label: "Big 5 scores",
-          title: "Big 5 personality score",
+          label: t("score_tab_big5"),
+          title: t("score_title_big5"),
           is_visible: true,
-          component: (
-            <BigScores
-              data={big_scores}
-              // dataa={{
-              //   id,
-              // }}
-            />
-          ),
+          component: <BigScores data={big_scores} />,
         },
         {
           id: "story",
-          label: "Unique story",
-          title: "Your unique personality story",
+          label: t("score_tab_story"),
+          title: t("score_title_story"),
           is_visible: true,
           component: <UniqueStory data={unique_stories} />,
         },
         {
           id: "relationship",
-          label: "Relationship & empathy",
-          title: "Relationship & empathy",
+          label: t("score_tab_relationship"),
+          title: t("score_title_relationship"),
           is_visible: true,
           component: (
             <ScoreSection
-              title="Relationship"
+              title={t("score_tab_relationship")}
               shareToken={share_token}
-              // full_result={reportData.full_result}
-              // metrics={reportData.full_result.relationship_metrics}
               face_image={
                 reportData?.full_result.metadata?.preprocessing
                   ?.face_image_base64
@@ -99,15 +92,13 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
         },
         {
           id: "focus",
-          label: "Focus & execution style",
-          title: "Focus & execution style",
+          label: t("score_tab_focus"),
+          title: t("score_title_focus"),
           is_visible: true,
           component: (
             <ScoreSection
-              title="Work & Focus"
+              title={t("score_tab_focus")}
               shareToken={share_token}
-              // full_result={reportData.full_result}
-              // metrics={reportData.full_result.relationship_metrics}
               face_image={
                 reportData?.full_result.metadata?.preprocessing
                   ?.face_image_base64
@@ -118,15 +109,13 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
         },
         {
           id: "ideation",
-          label: "Ideation & creative energy",
-          title: "Ideation & creative energy",
+          label: t("score_tab_ideation"),
+          title: t("score_title_ideation"),
           is_visible: true,
           component: (
             <ScoreSection
-              title="Creativity & Ideation"
+              title={t("score_tab_ideation")}
               shareToken={share_token}
-              // full_result={reportData.full_result}
-              // metrics={reportData.full_result.creativity_metrics}
               face_image={
                 reportData?.full_result.metadata?.preprocessing
                   ?.face_image_base64
@@ -137,15 +126,13 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
         },
         {
           id: "pressure",
-          label: "Pressure response & recovery",
-          title: "Pressure response & recovery",
+          label: t("score_tab_pressure"),
+          title: t("score_title_pressure"),
           is_visible: true,
           component: (
             <ScoreSection
-              title="Stress & Pressure"
+              title={t("score_tab_pressure")}
               shareToken={share_token}
-              // full_result={reportData.full_result}
-              // metrics={reportData.full_result.stress_metrics}
               face_image={
                 reportData?.full_result.metadata?.preprocessing
                   ?.face_image_base64
@@ -156,15 +143,13 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
         },
         {
           id: "openness",
-          label: "Openness to experience",
-          title: "Openness to experience",
+          label: t("score_tab_openness"),
+          title: t("score_title_openness"),
           is_visible: true,
           component: (
             <ScoreSection
-              title="Openness"
+              title={t("score_tab_openness")}
               shareToken={share_token}
-              // full_result={reportData.full_result}
-              // metrics={reportData.full_result.openness_metrics}
               face_image={
                 reportData?.full_result.metadata?.preprocessing
                   ?.face_image_base64
@@ -175,15 +160,13 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
         },
         {
           id: "learning",
-          label: "Learning & growth",
-          title: "Learning & growth",
+          label: t("score_tab_learning"),
+          title: t("score_title_learning"),
           is_visible: true,
           component: (
             <ScoreSection
-              title="Learning"
+              title={t("score_tab_learning")}
               shareToken={share_token}
-              // full_result={reportData.full_result}
-              // metrics={reportData.full_result.learning_metrics}
               face_image={
                 reportData?.full_result.metadata?.preprocessing
                   ?.face_image_base64
@@ -194,29 +177,29 @@ export default function ScoreReportView({ reportData }: ScoreReportViewProps) {
         },
         {
           id: "similarity",
-          label: "Similarity to famous",
-          title: "Personalities you might relate to",
+          label: t("score_tab_similarity"),
+          title: t("score_title_similarity"),
           is_visible: true,
           component: <SimilarityToFamous />,
         },
         {
           id: "exports",
-          label: "Exports",
-          title: "Summary & exports",
+          label: t("score_tab_exports"),
+          title: t("score_title_exports"),
           is_visible: true,
           component: <SummaryAndExports reportData={reportData.full_result} />,
         },
         {
           id: "add-ons",
-          label: "Add-ons",
-          title: "Level-up add-ons",
+          label: t("score_tab_addons"),
+          title: t("score_title_addons"),
           is_visible: true,
           component: <AddOns />,
         },
       ];
       setSectionData(data);
     }
-  }, [reportData]);
+  }, [reportData, t, share_token, big_scores, unique_stories]);
 
   useEffect(() => {
     if (sectionData.length === 0) return;

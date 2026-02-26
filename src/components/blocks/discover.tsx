@@ -1,3 +1,4 @@
+"use client";
 import { ArrowForward, CameraPlus, Share } from "@/assets/icons";
 import { Button } from "../ui/button";
 import { Card, CardAvatar, CardContent, CardHeader } from "../ui/card";
@@ -11,16 +12,15 @@ import {
 } from "../ui/carousel";
 import Separator from "../ui/separator";
 import SimpleRadarChart from "../charts/SimpleRadarChart";
-import Image from "next/image";
+import { useTranslation } from "react-i18next";
 
 export default function Discover() {
+  const { t } = useTranslation();
   return (
     <section id="discover" className="section bg-error-container/16">
-      <h6 className="section-label">Discover</h6>
-      <h2 className="section-title"> What if we scanned the famous?</h2>
-      <p className="section-description">
-        Here are some example of shared AI face personality score.
-      </p>
+      <h6 className="section-label">{t("discover_label")}</h6>
+      <h2 className="section-title">{t("discover_title")}</h2>
+      <p className="section-description">{t("discover_desc")}</p>
 
       <Carousel
         className="mx-auto max-w-276 px-2"
@@ -45,7 +45,7 @@ export default function Discover() {
                     <CardAvatar
                       src="https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       name="Steve Jobs"
-                      role="Visionary pathfinder"
+                      role={t("discover_steve_jobs_role")}
                     />
                     <Separator className="mt-3 h-1 to-white/30" />
 
@@ -66,7 +66,7 @@ export default function Discover() {
         <div className="flex-center mt-8 lg:mt-16">
           <Button variant={"outline"} className="w-full max-w-61.75">
             <ArrowForward />
-            Discover sample result
+            {t("discover_sample_result")}
           </Button>
         </div>
       </Carousel>

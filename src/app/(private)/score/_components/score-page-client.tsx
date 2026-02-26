@@ -37,8 +37,10 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import TextSeparator from "@/components/ui/text-separator";
 import PdfDownloadBtn from "./pdf/PdfDownloadBtn";
+import { useTranslation } from "react-i18next";
 
 export default function ScorePageClient() {
+  const { t } = useTranslation();
   const router = useRouter();
   const searchParams = useSearchParams();
   const analysisId = searchParams.get("analysis_id");
@@ -97,7 +99,7 @@ export default function ScorePageClient() {
                   )}
                 >
                   <div className="flex items-center">
-                    <SelectValue placeholder="Select a video" />
+                    <SelectValue placeholder={t("score_select_video")} />
                   </div>
                 </SelectTrigger>
                 <SelectContent
@@ -105,7 +107,7 @@ export default function ScorePageClient() {
                   position="popper"
                 >
                   <SelectGroup>
-                    <SelectLabel>Video</SelectLabel>
+                    <SelectLabel>{t("score_video_label")}</SelectLabel>
                     {userReports?.map((report: any) => (
                       <SelectItem
                         key={String(report.analysis_id)}
@@ -122,7 +124,7 @@ export default function ScorePageClient() {
             <div className="flex items-center gap-2">
               <div className="flex items-center space-x-2">
                 <Label htmlFor="airplane-mode" className="body-medium-primary">
-                  Public
+                  {t("score_public_label")}
                 </Label>
                 <Switch
                   id="airplane-mode"
@@ -153,10 +155,7 @@ export default function ScorePageClient() {
       <ScoreShareDialog
         open={isOpen}
         onOpenChange={setIsOpen}
-        shareData={
-          shareData ||
-          `Drop your Firasa results and let people react.\n\nShow more at: ${sharePath}`
-        }
+        shareData={shareData || t("score_share_default_msg", { sharePath })}
         sharePath={sharePath}
       />
     </div>

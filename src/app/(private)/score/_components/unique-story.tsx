@@ -24,7 +24,10 @@ type PersonalityStory = {
   items: StoryTrait[];
 };
 
+import { useTranslation } from "react-i18next";
+
 export default function UniqueStory({ data }: Props) {
+  const { t } = useTranslation();
   const { share_token, insights } = data;
   const { quote, story, story_traits } = insights;
 
@@ -33,23 +36,23 @@ export default function UniqueStory({ data }: Props) {
 
   const personality_stories: PersonalityStory[] = [
     {
-      title: "You are:",
+      title: t("story_you_are"),
       items: story_traits,
     },
     {
-      title: "Room for improvement:",
+      title: t("story_room_improvement"),
       items: [
         {
           emoji: <ArrowOutward />,
-          label: "Explore new inputs",
+          label: t("story_explore_inputs"),
         },
         {
           emoji: <ArrowOutward />,
-          label: "Challenge assumptions",
+          label: t("story_challenge_assumptions"),
         },
         {
           emoji: <ArrowOutward />,
-          label: "Create without outcome",
+          label: t("story_create_no_outcome"),
         },
       ],
     },
@@ -58,7 +61,7 @@ export default function UniqueStory({ data }: Props) {
   const share_data = `
   ${quote}\n
   ${story}\n
- ${story_traits.map((trait) => `${trait.emoji} ${trait.label}`).join("\n")}
+  ${story_traits.map((trait) => `${trait.emoji} ${trait.label}`).join("\n")}
   \nShow more at: ${sharePath}`;
 
   const handleShareClick = async () => {
