@@ -1,9 +1,11 @@
+"use client";
 import { Guard, Model, Video } from "@/assets/icons";
 import { PropsCardFeature } from "../cards/feature/CardFeature";
 
 import UploadOrRecordVideo from "../ui/upload-or-record-video";
 import DiscoverSampleResult from "../ui/discover-sample-result";
 import HeroImgs from "./HeroImgs";
+import { useTranslation } from "react-i18next";
 const features: PropsCardFeature[] = [
   {
     title: "Big 5 model",
@@ -23,13 +25,15 @@ const features: PropsCardFeature[] = [
   },
 ];
 export default function Hero() {
+  const { t } = useTranslation();
   return (
     <section className="pt-16">
       <div className="space-y-6 px-2">
-        <h1>
+        {/* <h1>
           Scan your face.
           <br /> Reveal your personality.
-        </h1>
+        </h1> */}
+        <h1>{t("welcome")}</h1>
         <p>
           Upload or record a 5-second video and let AI analyze your personality
           in seconds.
@@ -38,7 +42,7 @@ export default function Hero() {
           <UploadOrRecordVideo className="w-61.25" />
           <DiscoverSampleResult className="w-61.25" />
         </div>
-        <HeroImgs features={features}/>
+        <HeroImgs features={features} />
       </div>
     </section>
   );

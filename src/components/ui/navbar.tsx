@@ -104,15 +104,20 @@ export default function Navbar() {
         </div>
 
         {session?.user ? (
-          <Link href="/profile">
-            <Avatar className="border-blue size-13.5 border-4">
-              <AvatarImage
-                src={session?.user?.avatar}
-                alt={session?.user?.name || ""}
-              />
-              <AvatarFallback>{session?.user?.name?.charAt(0)}</AvatarFallback>
-            </Avatar>
-          </Link>
+          <div className="flex-center gap-2">
+            <Translation />
+            <Link href="/profile">
+              <Avatar className="border-blue size-13.5 border-4">
+                <AvatarImage
+                  src={session?.user?.avatar}
+                  alt={session?.user?.name || ""}
+                />
+                <AvatarFallback>
+                  {session?.user?.name?.charAt(0)}
+                </AvatarFallback>
+              </Avatar>
+            </Link>
+          </div>
         ) : (
           <>
             <div className="flex-center hidden gap-2 xl:flex">

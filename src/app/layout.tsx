@@ -5,10 +5,13 @@ import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/blocks/footer";
 import { Toaster } from "@/components/ui/sonner";
 import QueryProvider from "@/providers/query-provider";
+import "@/utlis/i18n";
+import LanguageProvider from "@/providers/language-provider";
 
 const roboto = Roboto({
   variable: "--font-roboto",
   subsets: ["latin"],
+  weight: ["400", "500", "700"],
 });
 const inter = Inter({
   variable: "--font-inter",
@@ -27,13 +30,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" dir="ltr">
       <body className={`${roboto.variable} ${inter.variable} relative`}>
         <QueryProvider>
-          <Navbar />
-          {children}
-          <Footer />
-          <Toaster richColors position="top-right" />
+          <LanguageProvider>
+            <Navbar />
+            {children}
+            <Footer />
+            <Toaster richColors position="top-right" />
+          </LanguageProvider>
         </QueryProvider>
       </body>
     </html>

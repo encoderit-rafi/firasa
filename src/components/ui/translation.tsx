@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslation } from "react-i18next";
 import { Language } from "@/assets/icons";
 import {
   Select,
@@ -12,19 +15,25 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "./button";
 
 export default function Translation() {
+  const { i18n } = useTranslation();
+
+  const handleLanguageChange = (value: string) => {
+    i18n.changeLanguage(value);
+  };
+
   return (
-    <Select defaultValue="english" value="english">
+    <Select value={i18n.language} onValueChange={handleLanguageChange}>
       <SelectTrigger
         className={cn(
-          "w-fit max-w-31",
+          "w-fit max-w-40",
           buttonVariants({
             variant: "outline",
           }),
         )}
       >
-        <div className="flex items-center">
-          <Language className="mr-2 size-4 text-black" />
-          <SelectValue placeholder="Select a fruit" />
+        <div className="flex items-center gap-2">
+          <Language className="size-4 text-black" />
+          <SelectValue />
         </div>
       </SelectTrigger>
       <SelectContent
@@ -33,11 +42,8 @@ export default function Translation() {
       >
         <SelectGroup>
           <SelectLabel>Language</SelectLabel>
-          <SelectItem value="english">English</SelectItem>
-          <SelectItem value="spanish">Spanish</SelectItem>
-          <SelectItem value="german">German</SelectItem>
-          <SelectItem value="french">French</SelectItem>
-          <SelectItem value="italian">Italian</SelectItem>
+          <SelectItem value="en">English</SelectItem>
+          <SelectItem value="ar">Arabic (العربية)</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>
