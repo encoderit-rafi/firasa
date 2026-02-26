@@ -30,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" dir="ltr">
+    <html>
       <body className={`${roboto.variable} ${inter.variable} relative`}>
         <QueryProvider>
           <LanguageProvider>

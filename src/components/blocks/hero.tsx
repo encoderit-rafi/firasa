@@ -33,10 +33,13 @@ export default function Hero() {
     <section className="pt-16">
       <div className="space-y-6 px-2">
         <h1>
-          <Trans i18nKey="hero_h1">
+          {/* <Trans i18nKey="hero_h1">
             Scan your face.
             <br /> Reveal your personality.
-          </Trans>
+          </Trans> */}
+          {t("hero_h1")}
+          <br />
+          {t("hero_h2")}
         </h1>
         <p>{t("hero_p")}</p>
         <div className="flex flex-col items-center justify-center gap-2 md:flex-row md:gap-6">

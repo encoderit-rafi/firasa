@@ -14,18 +14,20 @@ export default function LanguageProvider({
   useEffect(() => {
     const handleLanguageChange = (lng: string) => {
       document.documentElement.lang = lng;
-      document.documentElement.dir = "ltr";
+      document.documentElement.dir = "ltr"; // Default to LTR for overall layout as requested
     };
 
     i18n.on("languageChanged", handleLanguageChange);
 
     // Initial sync with detected/stored language
-    if (i18n.isInitialized) {
+    const sync = () => {
       handleLanguageChange(i18n.language);
+    };
+
+    if (i18n.isInitialized) {
+      sync();
     } else {
-      i18n.on("initialized", () => {
-        handleLanguageChange(i18n.language);
-      });
+      i18n.on("initialized", sync);
     }
 
     return () => {

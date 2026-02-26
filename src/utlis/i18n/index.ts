@@ -18,16 +18,18 @@ const resources = {
 
 i18n
   .use(LanguageDetector)
-  .use(initReactI18next) // passes i18n down to react-i18next
+  .use(initReactI18next)
   .init({
     resources,
     fallbackLng: "en",
+    supportedLngs: ["en", "ar"],
     detection: {
-      order: ["localStorage", "cookie", "htmlTag", "path", "subdomain"],
+      order: ["localStorage", "cookie", "navigator"],
       caches: ["localStorage", "cookie"],
+      lookupLocalStorage: "i18nextLng",
     },
     interpolation: {
-      escapeValue: false, // react already safes from xss
+      escapeValue: false,
     },
   });
 
