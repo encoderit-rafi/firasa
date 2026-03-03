@@ -4,9 +4,11 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { MoreHorizontal, Plus } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 
 export default function Dashboard({ reports }: { reports: any }) {
+  const router = useRouter();
   const { t } = useTranslation();
 
   return (
@@ -26,23 +28,28 @@ export default function Dashboard({ reports }: { reports: any }) {
         {reports.map((report: any, index: number) => (
           <div
             key={index}
-            className="border-secondary/10 h-fit space-y-1.5 rounded-2xl border p-6"
+            onClick={() =>
+              router.push(`/score?analysis_id=${report.analysis_id}`)
+            }
+            className="cursor-pointer border-secondary/10 h-fit space-y-1.5 rounded-2xl border p-6"
           >
             <div className="flex-between">
               <div className="flex-center font-inter gap-2">
                 <PinIcon />
                 <span>Jan 4, 2025</span>
               </div>
-              <Link
-                href={`/score?analysis_id=${report.analysis_id}`}
-                // variant={"black"}
-                // size={"icon"}
-                className={cn(
-                  buttonVariants({ variant: "black", size: "icon" }),
-                )}
+              <Button
+                onClick={() =>
+                  router.push(`/score?analysis_id=${report.analysis_id}`)
+                }
+                variant={"black"}
+                size={"icon"}
+                // className={cn(
+                //   buttonVariants({ variant: "black", size: "icon" }),
+                // )}
               >
                 <MoreHorizontal />
-              </Link>
+              </Button>
             </div>
             <h6 className="font-inter text-left text-sm font-normal">
               {report.name}
@@ -55,11 +62,14 @@ export default function Dashboard({ reports }: { reports: any }) {
             </h5>
           </div>
         ))}
-        <div className="flex h-full items-center justify-center space-y-1.5 rounded-2xl border border-dashed border-[#cccccc] bg-[#F2F2F2] p-6">
+        <Link
+          href={"/upload"}
+          className="flex h-full items-center justify-center space-y-1.5 rounded-2xl border border-dashed border-[#cccccc] bg-[#F2F2F2] p-6"
+        >
           <div className="flex-center h-13.5 w-13.5 rounded-full bg-[#A1A7B1]">
             <Plus color="white" size={24} />
           </div>
-        </div>
+        </Link>
       </div>
     </div>
   );
