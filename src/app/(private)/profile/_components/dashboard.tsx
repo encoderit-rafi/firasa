@@ -1,8 +1,9 @@
 "use client";
 import { PinIcon } from "@/assets/icons/PinIcon";
-import { Button } from "@/components/ui/button";
-import { Dot, MoreHorizontal, Plus } from "lucide-react";
-import React from "react";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { MoreHorizontal, Plus } from "lucide-react";
+import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 export default function Dashboard({ reports }: { reports: any }) {
@@ -32,9 +33,16 @@ export default function Dashboard({ reports }: { reports: any }) {
                 <PinIcon />
                 <span>Jan 4, 2025</span>
               </div>
-              <Button variant={"black"} size={"icon"} className="rout">
+              <Link
+                href={`/score?analysis_id=${report.analysis_id}`}
+                // variant={"black"}
+                // size={"icon"}
+                className={cn(
+                  buttonVariants({ variant: "black", size: "icon" }),
+                )}
+              >
                 <MoreHorizontal />
-              </Button>
+              </Link>
             </div>
             <h6 className="font-inter text-left text-sm font-normal">
               {report.name}

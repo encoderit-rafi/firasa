@@ -7,12 +7,14 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { API_BASE_URL } from "@/consts";
 import { useTranslation } from "react-i18next";
+import { Loader2 } from "lucide-react";
+import { LoadingIcon } from "@/assets/icons";
 
 export default function ProfilePage() {
   const { data: session } = useSession();
   const { t } = useTranslation();
   const [reports, setReports] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     async function fetchReports() {
       if (!session?.token?.access_token) return;
@@ -31,6 +33,8 @@ export default function ProfilePage() {
         }
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     }
     fetchReports();
@@ -57,14 +61,20 @@ export default function ProfilePage() {
         </TabsList>
       </div>
       <div className="flex-center flex-1">
-        <div className="container-lg w-full">
-          <TabsContent value="dashboard">
-            <Dashboard reports={reports} />
-          </TabsContent>
-          <TabsContent value="account-settings">
-            <AccountSettings />
-          </TabsContent>
-        </div>
+        {loading ? (
+          <div className="flex-center min-h-screen w-full">
+            <LoadingIcon className="size-8 lg:size-12" />
+          </div>
+        ) : (
+          <div className="container-lg w-full">
+            <TabsContent value="dashboard">
+              <Dashboard reports={reports} />
+            </TabsContent>
+            <TabsContent value="account-settings">
+              <AccountSettings />
+            </TabsContent>
+          </div>
+        )}
       </div>
     </Tabs>
   );
