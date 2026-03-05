@@ -470,7 +470,27 @@
 /* .clip-triangle {
   clippath: polygon(50% 0%, 0% 100%, 100% 100%);
 } */
-
+@utility page-title {
+  @apply font-extrabold text-3xl font-inter text-left text-on-surface mb-8;
+}
+@utility page-subtitle {
+  @apply font-bold text-lg font-inter text-left text-on-surface;
+}
+@utility page-description {
+  @apply text-base leading-6 font-normal tracking-wide font-inter text-left text-on-surface;
+}
+@utility page-list {
+  @apply list-inside list-disc space-y-1 pl-4;
+}
+@utility page-space-sm {
+  @apply space-y-2;
+}
+@utility page-space-md {
+  @apply space-y-4;
+}
+@utility page-space-lg {
+  @apply space-y-6;
+}
 @utility no-scrollbar {
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;

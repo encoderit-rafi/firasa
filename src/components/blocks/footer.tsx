@@ -9,6 +9,7 @@ import {
 
 import { ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import Link from "next/link";
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -104,11 +105,24 @@ export default function Footer() {
         </div>
         <div className="text-custom-neutral-70 body-medium-primary mt-10 flex flex-col justify-between gap-8 py-2 lg:flex-row lg:items-center">
           <ul className="flex flex-col gap-6 lg:flex-row lg:items-center">
-            <li>{t("terms_of_service")}</li>
-            <li>{t("consent_disclaimer")}</li>
-            <li>{t("cookie_policy")}</li>
-            <li>{t("user_rights")}</li>
-            <li>{t("privacy_policy")}</li>
+            <li>
+              <Link href="/terms-of-service">{t("terms_of_service")}</Link>
+            </li>
+            <li>
+              <Link href="/privacy-policy">{t("privacy_policy")}</Link>
+            </li>
+            <li>
+              <Link href="/refund-policy">{t("refund_policy")}</Link>
+            </li>
+            <li>
+              <Link href="/consent-disclaimer">{t("consent_disclaimer")}</Link>
+            </li>
+            <li>
+              <Link href="/cookie-policy">{t("cookie_policy")}</Link>
+            </li>
+            <li>
+              <Link href="/user-rights">{t("user_rights")}</Link>
+            </li>
           </ul>
           <ul className="flex max-w-md items-center justify-between gap-3">
             <li>

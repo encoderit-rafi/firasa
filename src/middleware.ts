@@ -24,7 +24,16 @@ export default async function middleware(req: NextRequest) {
     pathname === "/verify-otp" ||
     pathname.startsWith("/auth/social");
 
-  const isPublicPage = pathname === "/" || isAuthPage || pathname === "/share";
+  const isPublicPage =
+    pathname === "/" ||
+    isAuthPage ||
+    pathname === "/share" ||
+    pathname === "/terms-of-service" ||
+    pathname === "/privacy-policy" ||
+    pathname === "/refund-policy" ||
+    pathname === "/consent-disclaimer" ||
+    pathname === "/cookie-policy" ||
+    pathname === "/user-rights";
 
   // If user is authenticated and trying to access auth pages, redirect away
   if (token && isAuthPage) {
